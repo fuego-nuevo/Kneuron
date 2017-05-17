@@ -19,6 +19,13 @@
   "dependencies": {
     "express": "^4.15.2",
     "express-graphql": "^0.6.5",
-    "react": "^15.5.4"
+    "gulp": "^3.9.1",
+    "gulp-env": "^0.4.0",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-util": "^3.0.8",
+    "ioredis": "^2.5.0",
+    "react": "^15.5.4",
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5"
   }
 }
