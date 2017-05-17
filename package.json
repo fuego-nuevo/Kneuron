@@ -18,6 +18,7 @@
   "homepage": "https://github.com/fuego-nuevo/Kneuron#readme",
   "dependencies": {
     "express": "^4.15.2",
+    "express-graphql": "^0.6.5",
     "react": "^15.5.4"
   }
 }
