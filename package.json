@@ -1,0 +1,23 @@
+{
+  "name": "kneuron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fuego-nuevo/Kneuron.git"
+  },
+  "author": "Alex1100 <alex100.software@gmail.com>, J6K <jmkang06@gmail.com>, MarianoTheMaker <mokpalefe1@gmail.com>, JTK3068 <jasonkim3068@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/fuego-nuevo/Kneuron/issues"
+  },
+  "homepage": "https://github.com/fuego-nuevo/Kneuron#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "react": "^15.5.4"
+  }
+}
