@@ -6,6 +6,7 @@ import {
   GraphQLList,
   GraphQLInt,
   GraphQLBoolean
+  GraphQLInterfaceType
 } from 'graphql/type';
 
 /**
@@ -27,48 +28,65 @@ var School = new GraphQLObjectType({
   name: 'School',
   description: 'School',
   fields: () => ({
-    SchoolId: {
+    id: {
       type: (GraphQLInt),
-      description: 'The id of the School.',
+      description: 'The ID Of The School.',
     },
     name: {
       type: GraphQLString,
-      description: 'The name of the School.',
+      description: 'The Name Of The School.',
     }
   })
 });
+
 
 //Teachers
 var Teacher = new GraphQLObjectType({
   name: 'Teacher',
   description: 'Teacher',
   fields: () => ({
-    TeacherId: {
+    id: {
       type: (GraphQLInt),
-      description: 'The id of the Teacher.',
+      description: 'The ID Of The Teacher.',
     },
-    name: {
+    firstName: {
       type: GraphQLString,
-      description: 'The name of the Teacher.',
+      description: 'The First Name Of The Teacher.',
+    },
+    lastName: {
+      type: GraphQLString,
+      description: 'The Last Name Of The Teacher.'
     }
+    School: SchoolType,
+    Student: StudentType,
+
   })
 });
+
 
 //Students
 var Student = new GraphQLObjectType({
   name: 'Student',
   description: 'Student',
   fields: () => ({
-    StudentId: {
+    id: {
       type: (GraphQLInt),
-      description: 'The id of the Student.',
+      description: 'The ID Of The Student.',
     },
-    name: {
+    firstName: {
       type: GraphQLString,
-      description: 'The name of the Student.',
+      description: 'The First Name Of The Student.',
+    },
+    lastName: {
+      type: GraphQLString,
+      description: 'The Last Name Of The Student.'
     }
+    School: SchoolType,
+    Teacher: TeacherType,
+    Class: ClassType
   })
 });
+
 
 //Classes Might need to change klass to Class with C being capitalized
 //might need to capitalize rest of GQL object types too
@@ -76,62 +94,70 @@ var Class = new GraphQLObjectType({
   name: 'Class',
   description: 'Class',
   fields: () => ({
-    ClassId: {
+    id: {
       type: (GraphQLInt),
-      description: 'The id of the Class.',
+      description: 'The ID Of The Class.',
     },
-    name: {
+    subject: {
       type: GraphQLString,
-      description: 'The name of the Class.',
-    }
+      description: 'The Subject Of The Class.',
+    },
+    Student: StudentType,
+    Teacher: TeacherType
   })
 });
 
-//Topics
-var Topic = new GraphQLObjectType({
-  name: 'Topic',
-  description: 'Topic',
-  fields: () => ({
-    TopicId: {
-      type: (GraphQLInt),
-      description: 'The id of the Topic.',
-    },
-    name: {
-      type: GraphQLString,
-      description: 'The name of the Topic.',
-    }
-  })
-});
 
 //Lectures
 var Lecture = new GraphQLObjectType({
   name: 'Lecture',
   description: 'Lecture',
   fields: () => ({
-    LectureId: {
+    id: {
       type: (GraphQLInt),
-      description: 'The id of the Lecture.',
+      description: 'The ID Of The Lecture.',
     },
     name: {
       type: GraphQLString,
-      description: 'The name of the Lecture.',
-    }
+      description: 'The Name Of The Lecture.',
+    },
+    Class: ClassType
   })
 });
+
+
+//Topics
+var Topic = new GraphQLObjectType({
+  name: 'Topic',
+  description: 'Topic',
+  fields: () => ({
+    id: {
+      type: (GraphQLInt),
+      description: 'The ID Of The Topic.',
+    },
+    name: {
+      type: GraphQLString,
+      description: 'The Name Of The Topic.',
+    },
+    Lecture: LectureType
+  })
+});
+
 
 //Quizzes
 var Quiz = new GraphQLObjectType({
   name: 'Quiz',
   description: 'Quiz',
   fields: () => ({
-    QuizId: {
+    id: {
       type: (GraphQLInt),
-      description: 'The id of the Quiz.',
+      description: 'The ID Of The Quiz.',
     },
     name: {
       type: GraphQLString,
-      description: 'The name of the Quiz.',
-    }
+      description: 'The Name Of The Quiz.',
+    },
+    Quiz: TopicType
   })
 });
 
@@ -141,14 +167,15 @@ var Question = new GraphQLObjectType({
   name: 'Question',
   description: 'Question',
   fields: () => ({
-    QuestionId: {
+    id: {
       type: (GraphQLInt),
-      description: 'The id of the Question.',
+      description: 'The ID Of The Question.',
     },
-    name: {
+    content: {
       type: GraphQLString,
-      description: 'The name of the Question.',
-    }
+      description: 'The content of the Question.',
+    },
+    Quiz: QuizType
   })
 });
 
@@ -157,14 +184,24 @@ var Answer = new GraphQLObjectType({
   name: 'Answer',
   description: 'Answer',
   fields: () => ({
-    AnswerId: {
+    id: {
       type: (GraphQLInt),
-      description: 'The id of the Answer.',
+      description: 'The ID Of The Answer.',
     },
-    name: {
-      type: GraphQLString,
-      description: 'The name of the Answer.',
+    correct: {
+      type: GraphQLBoolean,
+      description: 'Answer Correct True or False.',
+    },
+    choices: {
+      type: new GraphQLList(choicesType),
+      description: 'Array of Answers'
+    },
+    select: {
+      type: GraphQLBoolean,
+      description: 'Selected Answer From A Given User.'
     }
+    Question: QuestionType,
+    Student: StudentType
   })
 });
 
@@ -176,15 +213,15 @@ var schema = new GraphQLSchema({
       School: {
         type: new GraphQLList(School),
         args: {
-          itemId: {
+          id: {
             name: 'SchoolId',
             type: new GraphQLNonNull(GraphQLInt)
           }
         },
-        resolve: (root, {itemId}, source, fieldASTs) => {
+        resolve: (root, {id}, source, fieldASTs) => {
           var projections = getProjection(fieldASTs);
           var allSchools = new Promise((resolve, reject) => {
-              School.find({itemId}, projections,(err, Schools) => {
+              School.find({id}, projections,(err, Schools) => {
                   err ? reject(err) : resolve(Schools)
               })
           })
@@ -194,15 +231,15 @@ var schema = new GraphQLSchema({
       Teacher: {
         type: new GraphQLList(Teacher),
         args: {
-          itemId: {
+          id: {
             name: 'SchoolId',
             type: new GraphQLNonNull(GraphQLInt)
           }
         },
-        resolve: (root, {itemId}, source, fieldASTs) => {
+        resolve: (root, {id}, source, fieldASTs) => {
           var projections = getProjection(fieldASTs);
           var allTeachers = new Promise((resolve, reject) => {
-              Teacher.find({itemId}, projections,(err, Teachers) => {
+              Teacher.find({id}, projections,(err, Teachers) => {
                   err ? reject(err) : resolve(Teachers)
               })
           })
@@ -212,15 +249,15 @@ var schema = new GraphQLSchema({
       Student: {
         type: new GraphQLList(Student),
         args: {
-          itemId: {
+          id: {
             name: 'StudentId',
             type: new GraphQLNonNull(GraphQLInt)
           }
         },
-        resolve: (root, {itemId}, source, fieldASTs) => {
+        resolve: (root, {id}, source, fieldASTs) => {
           var projections = getProjection(fieldASTs);
           var allStudents = new Promise((resolve, reject) => {
-              Student.find({itemId}, projections,(err, Students) => {
+              Student.find({id}, projections,(err, Students) => {
                   err ? reject(err) : resolve(Students)
               })
           })
@@ -230,15 +267,15 @@ var schema = new GraphQLSchema({
       Class: {
         type: new GraphQLList(Class),
         args: {
-          itemId: {
+          id: {
             name: 'ClassId',
             type: new GraphQLNonNull(GraphQLInt)
           }
         },
-        resolve: (root, {itemId}, source, fieldASTs) => {
+        resolve: (root, {id}, source, fieldASTs) => {
           var projections = getProjection(fieldASTs);
           var allClasses = new Promise((resolve, reject) => {
-              Class.find({itemId}, projections,(err, Classes) => {
+              Class.find({id}, projections,(err, Classes) => {
                   err ? reject(err) : resolve(Classes)
               })
           })
@@ -248,15 +285,15 @@ var schema = new GraphQLSchema({
       Lecture: {
         type: new GraphQLList(Lecture),
         args: {
-          itemId: {
+          id: {
             name: 'LectureId',
             type: new GraphQLNonNull(GraphQLInt)
           }
         },
-        resolve: (root, {itemId}, source, fieldASTs) => {
+        resolve: (root, {id}, source, fieldASTs) => {
           var projections = getProjection(fieldASTs);
           var allLectures = new Promise((resolve, reject) => {
-              Lecture.find({itemId}, projections,(err, Lectures) => {
+              Lecture.find({id}, projections,(err, Lectures) => {
                   err ? reject(err) : resolve(Lectures)
               })
           })
@@ -266,15 +303,15 @@ var schema = new GraphQLSchema({
       Topic: {
         type: new GraphQLList(Topic),
         args: {
-          itemId: {
+          id: {
             name: 'TopicId',
             type: new GraphQLNonNull(GraphQLInt)
           }
         },
-        resolve: (root, {itemId}, source, fieldASTs) => {
+        resolve: (root, {id}, source, fieldASTs) => {
           var projections = getProjection(fieldASTs);
           var allTopics = new Promise((resolve, reject) => {
-              Topic.find({itemId}, projections,(err, Topics) => {
+              Topic.find({id}, projections,(err, Topics) => {
                   err ? reject(err) : resolve(Topics)
               })
           })
@@ -284,15 +321,15 @@ var schema = new GraphQLSchema({
       Quiz: {
         type: new GraphQLList(Quiz),
         args: {
-          itemId: {
+          id: {
             name: 'QuizId',
             type: new GraphQLNonNull(GraphQLInt)
           }
         },
-        resolve: (root, {itemId}, source, fieldASTs) => {
+        resolve: (root, {id}, source, fieldASTs) => {
           var projections = getProjection(fieldASTs);
           var allQuizzes = new Promise((resolve, reject) => {
-              Quiz.find({itemId}, projections,(err, Quizzes) => {
+              Quiz.find({id}, projections,(err, Quizzes) => {
                   err ? reject(err) : resolve(Quizzes)
               })
           })
@@ -302,15 +339,15 @@ var schema = new GraphQLSchema({
       Question: {
         type: new GraphQLList(Question),
         args: {
-          itemId: {
+          id: {
             name: 'QuestionId',
             type: new GraphQLNonNull(GraphQLInt)
           }
         },
-        resolve: (root, {itemId}, source, fieldASTs) => {
+        resolve: (root, {id}, source, fieldASTs) => {
           var projections = getProjection(fieldASTs);
           var allQuestions = new Promise((resolve, reject) => {
-              Question.find({itemId}, projections,(err, Questions) => {
+              Question.find({id}, projections,(err, Questions) => {
                   err ? reject(err) : resolve(Questions)
               })
           })
@@ -320,15 +357,15 @@ var schema = new GraphQLSchema({
       Answer: {
         type: new GraphQLList(Answer),
         args: {
-          itemId: {
+          id: {
             name: 'AnswerId',
             type: new GraphQLNonNull(GraphQLInt)
           }
         },
-        resolve: (root, {itemId}, source, fieldASTs) => {
+        resolve: (root, {id}, source, fieldASTs) => {
           var projections = getProjection(fieldASTs);
           var allAnswers = new Promise((resolve, reject) => {
-              Answer.find({itemId}, projections,(err, Answers) => {
+              Answer.find({id}, projections,(err, Answers) => {
                   err ? reject(err) : resolve(Answers)
               })
           })
