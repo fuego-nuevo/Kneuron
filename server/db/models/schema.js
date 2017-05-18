@@ -87,23 +87,27 @@ School.hasMany(Student);
 Teacher.belongsTo(School);
 Student.belongsTo(School);
 
-Teacher.hasMany(Student, { through: 'TeacherStudent' });
+
 Teacher.hasMany(Class);
 Class.belongsTo(Teacher);
 
-Student.hasMany(Teacher, { through: 'TeacherStudent' });
-Student.hasMany(Class);
+
+
+Student.hasMany(Class, { through: 'Student_Class'});
 Student.hasMany(Answer);
 Student.hasMany(StudentQuestion);
+Student.hasMany(Lecture, { through: 'Student_Attendance'});
 Answer.belongsTo(Student);
 StudentQuestion.belongsTo(Student);
 
 StudentQuestion.hasOne(Topic);
 
+Class.hasMany(Student, { through: 'Student_Class'});
 Class.hasMany(Lecture);
 Lecture.belongsTo(Class);
 
 Lecture.hasMany(Topic);
+Lecture.hasMany(Student, { through: 'Student_Attendance'});
 Topic.belongsTo(Lecture);
 
 Topic.hasMany(Quiz);
@@ -115,4 +119,17 @@ Question.belongsTo(Quiz);
 
 Question.hasMany(Answer);
 Answer.belongsTo(Question);
+
+module.exports = {
+  School,
+  Teacher, 
+  Student,
+  StudentQuestion,
+  Class,
+  Lecture,
+  Topic,
+  Quiz,
+  Question,
+  Answer
+};
 
