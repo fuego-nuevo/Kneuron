@@ -35,7 +35,10 @@ var School = new GraphQLObjectType({
     name: {
       type: GraphQLString,
       description: 'The Name Of The School.',
-    }
+    },
+    Teacher: new GraphQLList(TeacherType),
+    Student: new GraphQLList(StudentType),
+    Class: new GraphQLList(ClassType)
   })
 });
 
