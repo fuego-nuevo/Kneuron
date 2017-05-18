@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fuego-nuevo/Kneuron.git"
+    "url": "git+https://github.com/fuego-nuevo/Kneuron.git",
+    "type": "git"
   },
   "author": "Alex1100 <alex100.software@gmail.com>, J6K <jmkang06@gmail.com>, MarianoTheMaker <mokpalefe1@gmail.com>, JTK3068 <jasonkim3068@gmail.com>",
   "license": "GPL-3.0",
