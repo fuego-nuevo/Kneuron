@@ -1,66 +1,75 @@
-// [
-//   {
-//     "model": "Teacher",
-//     "data": {
-//       "id": 1,
-//       "fName": "Jimmy",
-//       "lName": "Johnson"
-//     }
-//   },
-//   {
-//     "model": "Teacher",
-//     "data": {
-//       "id": 2,
-//       "fName": "Buck",
-//       "lName": "William"
-//     }
-//   },
-//   {
-//     "model": "Teacher",
-//     "data": {
-//       "id": 3,
-//       "fName": "Steve",
-//       "lName": "Rogers"
-//     }
-//   },
-//   {
-//     "model": "Teacher",
-//     "data": {
-//       "id": 4,
-//       "fName": "Peter",
-//       "lName": "Parker"
-//     }
-//   },
-//   {
-//     "model": "Student",
-//     "data": {
-//       "id": 1,
-//       "fName": "Matt",
-//       "lName": "Barnes"
-//     }
-//   },
-//   {
-//     "model": "Student",
-//     "data": {
-//       "id": 2,
-//       "fName": "Po",
-//       "lName": "Crunk"
-//     }
-//   },
-//   {
-//     "model": "Student",
-//     "data": {
-//       "id": 3,
-//       "fName": "Reggie",
-//       "lName": "Logan"
-//     }
-//   },
-//   {
-//     "model": "Student",
-//     "data": {
-//       "id": 4,
-//       "fName": "Pied",
-//       "lName": "Piper"
-//     }
-//   }
-// ]
+[
+  {
+    "model": "User",
+    "data": {
+      "id": 1,
+      "fName": "Jimmy",
+      "lName": "Johnson",
+      "userType": 0
+
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 2,
+      "fName": "Buck",
+      "lName": "William",
+      "userType": 0
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 3,
+      "fName": "Steve",
+      "lName": "Rogers",
+      "userType": 0
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 4,
+      "fName": "Peter",
+      "lName": "Parker",
+      "userType": 0
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 1,
+      "fName": "Matt",
+      "lName": "Barnes",
+      "userType": 0
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 2,
+      "fName": "Po",
+      "lName": "Crunk",
+      "userType": 0
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 3,
+      "fName": "Reggie",
+      "lName": "Logan",
+      "userType": 0
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 4,
+      "fName": "Pied",
+      "lName": "Piper",
+      "userType": 0
+    }
+  }
+]
