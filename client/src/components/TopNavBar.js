@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -13,7 +13,7 @@ import { bindActionCreators } from 'redux';
 import * as authActions from '../actions/Auth0Actions'
 import * as authSelectors from '../auth/Auth0Selectors'
 
-class NavBar extends React.Component {
+class NavBar extends Component {
   constructor(props) {
     super(props);
   }
@@ -23,7 +23,7 @@ class NavBar extends React.Component {
         <Navbar style={{backgroundColor: "black", border: '1px solid gray'}} inverse collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
-            <Link to='/home'>BARTR</Link>
+            <Link to='/home'>Kneuron</Link>
             </Navbar.Brand>
           </Navbar.Header>
           <Navbar.Collapse>
@@ -35,11 +35,8 @@ class NavBar extends React.Component {
               ) : (
                 <NavDropdown eventKey={3} title={<span><Icon size='large' name='list layout'/></span>} id="basic-nav-dropdown">
                   <MenuItem eventKey={3.1} onClick={() => hashHistory.push('profile')}><Icon name='user'/>Profile</MenuItem>
-                  <MenuItem eventKey={3.2} onClick={() => hashHistory.push('pastengagements')}><Icon name='calendar'/>Past Engagements</MenuItem>
-                  <MenuItem eventKey={3.3} onClick={() => hashHistory.push('currentengagements')}><Icon name='comments'/>Current Engagements</MenuItem>
-                  <MenuItem eventKey={3.4} onClick={() => hashHistory.push('map')}><Icon name='map'/>Map</MenuItem>
                   <MenuItem divider />
-                  <MenuItem eventKey={3.5} onClick={this.props.actions.logout}><Icon name='log out'/>Logout</MenuItem>
+                  <MenuItem eventKey={3.2} onClick={this.props.actions.logout}><Icon name='log out'/>Logout</MenuItem>
                 </NavDropdown>
               )}
             </Nav>

@@ -1,12 +1,22 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 const db = require('../config/database');
+
+// var sequelize = new Sequelize('myconnectionstring',
+//   {
+//     sync: {
+//       force: true
+//     }
+//   });
+
+// sequelize.sync({ force: true });
 
 const School = db.define('school', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
   }
-});
+}, {underscored: true});
+
 const Teacher = db.define('teacher', {
   fName: {
     type: Sequelize.STRING,
@@ -16,7 +26,8 @@ const Teacher = db.define('teacher', {
     type: Sequelize.STRING,
     allowNull: false,
   }
-});
+}, {underscored: true});
+
 const Student = db.define('student', {
   fName: {
     type: Sequelize.STRING,
@@ -26,19 +37,22 @@ const Student = db.define('student', {
     type: Sequelize.STRING,
     allowNull: false,
   }
-});
+}, {underscored: true});
+
 const StudentQuestion = db.define('studentquestion', {
   question: {
     type: Sequelize.STRING,
     allowNull: false,
   }
-});
+}, {underscored: true});
+
 const Class = db.define('class', {
   subject: {
     type: Sequelize.STRING,
     allowNull: false,
   }
-});
+}, {underscored: true});
+
 const Lecture = db.define('lecture', {
   name: {
     type: Sequelize.STRING,
@@ -48,19 +62,22 @@ const Lecture = db.define('lecture', {
     type: Sequelize.ARRAY(Sequelize.JSON),
     allowNull: false,
   }
-});
+}, {underscored: true});
+
 const Topic = db.define('topic', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
   }
-});
+}, {underscored: true});
+
 const Quiz = db.define('quiz', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
   }
-});
+}, {underscored: true});
+
 const Question = db.define('question', {
   name: {
     type: Sequelize.STRING,
@@ -70,48 +87,69 @@ const Question = db.define('question', {
     type: Sequelize.INTEGER,
     allowNull: false,
   }
-});
+}, {underscored: true});
+
 const Answer = db.define('answer', {
   choices: {
     type: Sequelize.ARRAY(Sequelize.INTEGER),
     allowNull: false,
   },
   selected: {
-    type: Sequelize.INTEGER,  
+    type: Sequelize.INTEGER,
     allowNull: false,
   }
-});
+}, {underscored: true});
+
+
+//joins
+const ClassStudent = db.define('classstudent', {
+  imInTheDb: {
+    type: Sequelize.STRING,
+    allowNull: true
+  }
+}, {underscored: true});
+
+const StudentLecture = db.define('studentlecture', {
+  present: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false
+  }
+}, {underscored: true});
+
 
 School.hasMany(Teacher);
 School.hasMany(Student);
 Teacher.belongsTo(School);
 Student.belongsTo(School);
 
-
-Teacher.hasMany(Class);
 Class.belongsTo(Teacher);
+Teacher.hasMany(Class);
 
+Student.belongsToMany(Class, { as: 'Students_Class', through: 'Class_Student', foreignKey: 'Class_rowId'});
+Class.belongsToMany(Student, { as: 'Classes_Students', through: 'Class_Student', foreignKey: 'Student_rowId'});
+ClassStudent.belongsTo(Student);
+ClassStudent.belongsTo(Class);
 
-
-Student.hasMany(Class, { through: 'Student_Class'});
 Student.hasMany(Answer);
-Student.hasMany(StudentQuestion);
-Student.hasMany(Lecture, { through: 'Student_Attendance'});
 Answer.belongsTo(Student);
+Student.hasMany(StudentQuestion);
 StudentQuestion.belongsTo(Student);
 
-StudentQuestion.hasOne(Topic);
+Student.belongsToMany(Lecture, { as: 'Students_Lecture', through: 'StudentLecture', foreignKey: 'Lecture_rowId'});
+Lecture.belongsToMany(Student, { as: 'Lectures_Student', through: 'StudentLecture', foreignKey: 'Student_rowId'});
+StudentLecture.belongsTo(Lecture);
+StudentLecture.belongsTo(Student);
 
-Class.hasMany(Student, { through: 'Student_Class'});
 Class.hasMany(Lecture);
 Lecture.belongsTo(Class);
 
 Lecture.hasMany(Topic);
-Lecture.hasMany(Student, { through: 'Student_Attendance'});
 Topic.belongsTo(Lecture);
 
-Topic.hasMany(Quiz);
 Topic.hasMany(StudentQuestion);
+StudentQuestion.hasOne(Topic);
+
+Topic.hasMany(Quiz);
 Quiz.belongsTo(Topic);
 
 Quiz.hasMany(Question);
@@ -122,7 +160,7 @@ Answer.belongsTo(Question);
 
 module.exports = {
   School,
-  Teacher, 
+  Teacher,
   Student,
   StudentQuestion,
   Class,
@@ -130,6 +168,7 @@ module.exports = {
   Topic,
   Quiz,
   Question,
-  Answer
+  Answer,
+  ClassStudent
 };
 
