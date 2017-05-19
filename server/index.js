@@ -1,4 +1,7 @@
 const express = require('express');
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 const router = require('./api/index');
 const path = require('path');
 const http = require('http');
