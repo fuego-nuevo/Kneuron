@@ -29,6 +29,7 @@ const models = {
   'ClassStudent' : db.ClassStudent
 }
 
+
 // .then(() => {
 //       Promise.all([db.Teacher.sync({ force: true }), db.Student.sync({ force: true }),
 //       db.StudentQuestion.sync({ force: true }), db.Class.sync({ force: true }),
@@ -39,17 +40,17 @@ const models = {
 
 gulp.task('seed:wipe', (cb) => {
   db.School.sync({ force: true })
-    .then(() => Promise.all([db.Teacher.sync({ force: true })]))
-    .then(() => Promise.all([db.Student.sync({ force: true })]))
-    .then(() => Promise.all([db.StudentQuestion.sync({ force: true })]))
-    .then(() => Promise.all([db.Topic.sync({ force: true })]))
-    .then(() => Promise.all([db.Class.sync({ force: true })]))
-    .then(() => Promise.all([db.ClassStudent.sync({ force: true})]))
-    .then(() => Promise.all([db.Lecture.sync({ force: true })]))
-    .then(() => Promise.all([db.Quiz.sync({ force: true })]))
-    .then(() => Promise.all([db.Question.sync({ force: true })]))
-    .then(() => Promise.all([db.Answer.sync({ force: true })]))
-    .then(() => { cb() })
+    .then(() => Promise.all([db.Teacher.sync({ force: true }), db.Student.sync({ force: true }), db.Class.sync({ force: true }), db.Topic.sync({ force: true }), db.StudentQuestion.sync({ force: true }), db.ClassStudent.sync({ force: true}), db.Lecture.sync({ force: true }), db.Quiz.sync({ force: true }), db.Question.sync({ force: true }), db.Answer.sync({ force: true }), () => { cb() }]))
+    // .then(() => Promise.all([db.Student.sync({ force: true })]))
+    // .then(() => Promise.all([db.Topic.sync({ force: true })]))
+    // .then(() => Promise.all([db.StudentQuestion.sync({ force: true })]))
+    // .then(() => Promise.all([db.Class.sync({ force: true })]))
+    // .then(() => Promise.all([db.ClassStudent.sync({ force: true})]))
+    // .then(() => Promise.all([db.Lecture.sync({ force: true })]))
+    // .then(() => Promise.all([db.Quiz.sync({ force: true })]))
+    // .then(() => Promise.all([db.Question.sync({ force: true })]))
+    // .then(() => Promise.all([db.Answer.sync({ force: true })]))
+    // .then(() => { cb() })
     .catch((err) => { cb(err) })
 })
 
