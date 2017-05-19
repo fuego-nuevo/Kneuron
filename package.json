@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/index.js",
-    "compile": "webpack -d -w"
+    "start": "nodemon server/index.js & webpack -w"
   },
   "repository": {
     "url": "git+https://github.com/fuego-nuevo/Kneuron.git",
@@ -31,17 +30,17 @@
   },
   "dependencies": {
     "auth0-js": "^8.6.1",
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "cors": "^2.8.3",
     "debug": "^2.6.7",
     "dotenv": "^4.0.0",
-    "bluebird": "^3.5.0",
     "express": "^4.15.2",
-    "express-session": "^1.15.2",
     "ioredis": "^2.5.0",
     "path": "^0.12.7",
     "pg": "^6.2.2",
     "react": "^15.5.4",
+    "react-dom": "^15.5.4",
     "sequelize": "^3.30.4",
     "webpack": "^2.5.1",
     "webpack-dev-server": "^2.4.5"
