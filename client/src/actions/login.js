@@ -89,7 +89,7 @@ exports.signupUser = (creds) => {
 
   const config = {
     headers: {'Content-type': 'application/x-www-form-urlencoded'},
-    body: `email=${creds.email}&password=${creds.password}&userType=${userType}&fName=${creds.fName}&lName=${creds.lName}`
+    body: `email=${creds.email}&password=${creds.password}&userType=${userType}&fName=${creds.fName}&lName=${creds.lName}&username=${creds.username}`
   }
 
   return dispatch => {

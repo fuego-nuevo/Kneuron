@@ -7,10 +7,10 @@ const SRC_DIR = path.resolve(__dirname, './client/src');
 const BUILD_DIR = path.resolve(__dirname, './client/src');
 
 module.exports = {
-  
+
   entry: {
     'app': [
-      'react-hot-loader/patch',
+
       './client/src/index'
     ]
   },
