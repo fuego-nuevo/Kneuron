@@ -45,3 +45,5 @@ router.get('/:credentials', (req, res, next) => {
     }
   });
 });
+
+module.exports = router
