@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 // router.use('/schools', require('./school'))
-// router.use('/teachers', require('./teacher'))
+router.use('/teachers', require('./teacher'))
 // router.use('/students', require('./student'))
 // router.use('/studentQuestions', require('./studentQuestion'))
 // router.use('/studentAttendance', require('./studentAttendance'))
