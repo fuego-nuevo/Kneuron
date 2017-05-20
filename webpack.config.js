@@ -10,6 +10,7 @@ module.exports = {
   
   entry: {
     'app': [
+      'react-hot-loader/patch',
       './client/src/index'
     ]
   },
@@ -18,21 +19,36 @@ module.exports = {
     path: BUILD_DIR
   },
   module: {
+    loaders: [
+      {
+        test: /\.js[x]?$/,
+        loader: 'babel-loader?cacheDirectory',
+        include: SRC_DIR,
+        exclude: /node_modules/,
+        query: {
+          cacheDirectory: true,
+          presets: ['es2015', 'react'],
+          plugins: [
+            'react-hot-loader/babel',
+          ],
+        },
+      },
+    ],
     rules: [
-    {
-      test: /\.js$/,
-      loader: 'babel-loader?cacheDirectory',
-      exclude: /node_modules/,
-      query: {
-        cacheDirectory: true,
-        presets: ['es2015', 'react']
+      {
+        test: /\.js$/,
+        loader: 'babel-loader?cacheDirectory',
+        exclude: /node_modules/,
+        query: {
+          cacheDirectory: true,
+          presets: ['es2015', 'react']
+        }
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
-    },
-    {
-      test: /\.css$/,
-      use: ['style-loader', 'css-loader']
-    }
     ]
-  },
+    },
   devtool: 'inline-sourcemap'
 };

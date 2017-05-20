@@ -6,6 +6,7 @@ const Promise = require('bluebird');
 const SequelizeFixtures = require('sequelize-fixtures');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
+const WebpackDevServer = require('webpack-dev-server');
 
 env({
   file: './.env',
@@ -26,7 +27,7 @@ const models = {
   'Answer' : db.Answer,
 }
 
-let relationship = new Promise((resolve, reject) => {
+const relationship = new Promise((resolve, reject) => {
   resolve(db.defineRelationship())
 })
 
@@ -62,6 +63,7 @@ gulp.task('seed:wipe', (cb) => {
     // .then(Promise.all(db.Question.sync({ force: true })))
     // .then(Promise.all(db.Answer.sync({ force: true })))
     // .then(() => { db.defineRelationship() })
+    .then(() => { cb() } )
     .catch((err) => { cb(err) })
 })
 
@@ -84,5 +86,9 @@ gulp.task('nodemon', () => {
     ignore: ['client/**']
   });
 });
+
+// gulp.task('webpackhot', (cb) => {
+
+// })
 
 gulp.task('default', ['nodemon'])
