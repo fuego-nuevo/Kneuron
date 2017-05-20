@@ -47,16 +47,16 @@ const receiveLogout = () => {
 exports.loginUser = (creds) => {
   // const config = {
   //   headers: {'Content-type': 'application/x-www-form-urlencoded'},
-  //   body: `username=${creds.username}&password=${creds.password}`
+  //   body: `email=${creds.email}&password=${creds.password}`
   // }
-  const userInfo = JSON.stringify({username:creds.username, password: creds.password});
+  // const userInfo = JSON.stringify({email: creds.email, password: creds.password});
 
 
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))
 
-    return axios.get(`http://localhost:8080/api/teachers/${userInfo}`)
+    return axios.get(`http://localhost:8080/api/teachers/${creds.email}/${creds.password}`)
       .then(response =>
         response.json()
         .then(user => ({ user, response }))
@@ -80,9 +80,16 @@ exports.loginUser = (creds) => {
 }
 
 exports.signupUser = (creds) => {
+  let userType;
+  if(creds.userType === 'teacher'){
+    userType = 1;
+  } else if(creds.userType === 'student'){
+    userType = 2;
+  }
+
   const config = {
     headers: {'Content-type': 'application/x-www-form-urlencoded'},
-    body: `username=${creds.username}&password=${creds.password}`
+    body: `email=${creds.email}&password=${creds.password}&userType=${userType}&fName=${creds.fName}&lName=${creds.lName}`
   }
 
   return dispatch => {

@@ -11,9 +11,17 @@ const School = db.define('school', {
 const User = db.define('user', {
   fName: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   lName: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  password: {
     type: Sequelize.STRING,
     allowNull: false,
   },
@@ -101,7 +109,7 @@ const Answer = db.define('answer', {
     allowNull: false,
   },
   selected: {
-    type: Sequelize.INTEGER,  
+    type: Sequelize.INTEGER,
     allowNull: false,
   }
 });
@@ -109,7 +117,7 @@ const Answer = db.define('answer', {
 
 // const StudentAnswer = db.define('studentanswer', {
 //   selected: {
-//     type: Sequelize.INTEGER,  
+//     type: Sequelize.INTEGER,
 //     allowNull: false,
 //   }
 // });
@@ -190,7 +198,7 @@ const defineRelationship = () => {
   Answer.belongsTo(Question);
 
 
-  
+
 }
 
 
@@ -373,7 +381,7 @@ const defineRelationship = () => {
 module.exports = {
   School,
   User,
-  // Teacher, 
+  // Teacher,
   // Student,
   StudentQuestion,
   Class,
