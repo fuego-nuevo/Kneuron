@@ -44,27 +44,8 @@ gulp.task('seed:wipe', (cb) => {
   .then(() => db.Quiz.sync({ force: true }))
   .then(() => db.Question.sync({ force: true }))
   .then(() => db.Answer.sync({ force: true }))
-    // .then(() => {
-    //   Promise.all([db.Teacher.sync({ force: true }), db.Student.sync({ force: true }),
-    //   db.StudentQuestion.sync({ force: true }), db.Class.sync({ force: true }),
-    //   db.Lecture.sync({ force: true }), db.Topic.sync({ force: true }),
-    //   db.Quiz.sync({ force: true }), db.Question.sync({ force: true }),
-    //   db.Answer.sync({ force: true })])
-    // })
-    // .then(() => Promise.all(db.User.sync({ force: true })))
-    // .then(Promise.all(db.Class.sync({ force: true })))
-    // // .then(Promise.all(db.Teacher.sync({ force: true })))
-    // // .then(Promise.all(db.Student.sync({ force: true })))
-    // .then(Promise.all(db.Lecture.sync({ force: true })))
-    // .then(() => Promise.all(db.Attendance.sync({ force: true })))
-    // .then(Promise.all(db.Topic.sync({ force: true })))
-    // .then(Promise.all(db.StudentQuestion.sync({ force: true })))
-    // .then(Promise.all(db.Quiz.sync({ force: true })))
-    // .then(Promise.all(db.Question.sync({ force: true })))
-    // .then(Promise.all(db.Answer.sync({ force: true })))
-    // .then(() => { db.defineRelationship() })
-    .then(() => { cb() } )
-    .catch((err) => { cb(err) })
+  .then(() => { cb() } )
+  .catch((err) => { cb(err) })
 })
 
 gulp.task('seed:seed', ['seed:wipe'], (cb) => {
@@ -87,8 +68,28 @@ gulp.task('nodemon', () => {
   });
 });
 
-// gulp.task('webpackhot', (cb) => {
+gulp.task('webpack-dev-server', (cb) => {
+  const compiler = webpack(webpackConfig);
+  
+  new WebpackDevServer(compiler, {
+    contentBase: './static',
+    publicPath: '/webstatic',
+    hot: true,
+    inline: true,
+    stats: true,
+    clientLogLevel: 'info',
+    proxy: [
+      {
+        context:[],
+        target: 'http://localhost:5000',
+      },
+    ]
+  }).listen(8080, 'localhost', (err) => {
+    if (err) {
+      throw new gutil.PluginError('webpack-dev-server ', err);
+    }
+      gutil.log('[webpack-dev-server]', 'WPDS - Listening in on http://localhost:8080')
+  });
+});
 
-// })
-
-gulp.task('default', ['nodemon'])
+gulp.task('default', ['nodemon', 'webpack-dev-server'])
