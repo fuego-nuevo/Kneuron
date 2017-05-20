@@ -12,7 +12,7 @@ class Login extends Component {
     const userType = this.refs.userType
     const fName = this.refs.fName
     const lName = this.refs.lName
-    const creds = { email: email.value.trim(), password: password.value.trim(), userType: userType.value.trim(), fName: fName.value.trim(), lName: lName.value.trim() }
+    const creds = { email: email.value.trim(), password: password.value.trim() }
     this.props.onLoginClick(creds)
   }
 
@@ -30,7 +30,7 @@ class Login extends Component {
         className="form-control"
         placeholder='Password'
         />
-        <button onClick={(event) => this.handleClick(event)} className="btn btn-primary">
+        <button onClick={(event) =>  this.handleClick(event)} className="btn btn-primary">
           Login
         </button>
     </div>

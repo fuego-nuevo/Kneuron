@@ -17,7 +17,8 @@ router.post('/', (req, res, next) => {
               password: hash,
               userType: req.body.userType,
               fName: req.body.fName,
-              lName: req.body.lName
+              lName: req.body.lName,
+              username: req.body.username
             })
             .then((newUser) => {
               console.log("Signed Up New User: ", newUser);

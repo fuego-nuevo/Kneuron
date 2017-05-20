@@ -46,8 +46,7 @@ const receiveLogout = () => {
 
 exports.loginUser = (creds) => {
   // const config = {
-  //   headers: {'Content-type': 'application/x-www-form-urlencoded'},
-  //   body: `email=${creds.email}&password=${creds.password}`
+  //   headers: {'Content-type': 'application/x-www-form-urlencoded', 'Accept': 'application/json'}
   // }
   // const userInfo = JSON.stringify({email: creds.email, password: creds.password});
 
@@ -83,7 +82,7 @@ exports.signupUser = (creds) => {
   let userType = 0;
   const config = {
     headers: {'Content-type': 'application/x-www-form-urlencoded'},
-    body: `email=${creds.email}&password=${creds.password}&userType=${userType}&fName=${creds.fName}&lName=${creds.lName}`
+    body: `email=${creds.email}&password=${creds.password}&userType=${userType}&fName=${creds.fName}&lName=${creds.lName}&username=${creds.username}`
   }
 
   return dispatch => {
