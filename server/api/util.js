@@ -10,4 +10,13 @@ var findAuth0User = function(req){
   })
 };
 
-module.exports.findAuth0User = findAuth0User;
+const hasher = (message) => {
+  var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  var b = "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM"
+  return message.replace(/[a-z]/gi, c => b[a.indexOf(c)])
+}
+
+module.exports = {
+  findAuth0User,
+  hasher
+}
