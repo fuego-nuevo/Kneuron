@@ -20,7 +20,7 @@ const app = express();
 app.use(cors());
 app.use(bodyparser.json({ limit: '50mb'}));
 app.use(bodyparser.urlencoded({ limit: '50mb', extended: true}));
-// app.use('/', router);
+// app.use('/api', router);
 
 app.use(express.static(path.join(__dirname, '../client/src')));
 // app.set('views', path.join(__dirname, 'client/src' ))

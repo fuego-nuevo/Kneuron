@@ -45,16 +45,18 @@ const receiveLogout = () => {
 }
 
 exports.loginUser = (creds) => {
-  const config = {
-    headers: {'Content-type': 'application/x-www-form-urlencoded'},
-    body: `username=${creds.username}&password=${creds.password}`
-  }
+  // const config = {
+  //   headers: {'Content-type': 'application/x-www-form-urlencoded'},
+  //   body: `username=${creds.username}&password=${creds.password}`
+  // }
+  const userInfo = JSON.stringify({username:creds.username, password: creds.password});
+
 
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))
 
-    return axios.post('http://localhost:8080/api/teachers/', config)
+    return axios.get(`http://localhost:8080/api/teachers/${userInfo}`)
       .then(response =>
         response.json()
         .then(user => ({ user, response }))
@@ -76,6 +78,40 @@ exports.loginUser = (creds) => {
         .catch(err => console.log("Error: ", err))
   }
 }
+
+exports.signupUser = (creds) => {
+  const config = {
+    headers: {'Content-type': 'application/x-www-form-urlencoded'},
+    body: `username=${creds.username}&password=${creds.password}`
+  }
+
+  return dispatch => {
+    // We dispatch requestLogin to kickoff the call to the API
+    dispatch(requestLogin(creds))
+
+    return axios.get('http://localhost:8080/api/teachers/', config)
+      .then(response =>
+        response.json()
+        .then(user => ({ user, response }))
+            )
+            .then(({ user, response }) =>  {
+              if (!response.ok) {
+          // If there was a problem, we want to
+          // dispatch the error condition
+                dispatch(loginError(user.message))
+                return Promise.reject(user)
+              } else {
+                // If login was successful, set the token in local storage
+                localStorage.setItem('id_token', user.id_token)
+                localStorage.setItem('id_token', user.access_token)
+                // Dispatch the success action
+                dispatch(receiveLogin(user))
+              }
+        })
+        .catch(err => console.log("Error: ", err))
+  }
+}
+
 
 exports.logoutUser = () => {
   console.log('yooo logout ran')
