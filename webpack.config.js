@@ -10,7 +10,6 @@ module.exports = {
   
   entry: {
     'app': [
-      'react-hot-loader/patch',
       './client/src/index'
     ]
   },
@@ -28,9 +27,6 @@ module.exports = {
         query: {
           cacheDirectory: true,
           presets: ['es2015', 'react'],
-          plugins: [
-            'react-hot-loader/babel',
-          ],
         },
       },
     ],
