@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-import ReactDOM from "react-dom";
-import { renderApp } from '../src/components/app';
-
-const reactRoot = window.document.getElementById("root");
-renderApp().then(appComponent => {
-  ReactDOM.render(appComponent, reactRoot);
-});
-=======
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
@@ -27,4 +17,4 @@ ReactDOM.render(
     </Provider>, 
       document.getElementById('app')
       );
->>>>>>> e805e2a27b5f24ee49c1e868cefdef7d02973be3
+      
