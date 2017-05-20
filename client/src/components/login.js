@@ -23,6 +23,7 @@ class Login extends Component {
         <input type='text'
         ref='email'
         className="form-control"
+        placeholder="email"
         />
         <input type='password'
         ref='password'
