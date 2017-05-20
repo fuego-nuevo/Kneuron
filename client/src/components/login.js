@@ -7,6 +7,7 @@ class Login extends Component {
   }
 
   handleClick(event) {
+    event.preventDefault()
     const email = this.refs.email
     const password = this.refs.password
     const userType = this.refs.userType
@@ -14,6 +15,10 @@ class Login extends Component {
     const lName = this.refs.lName
     const creds = { email: email.value.trim(), password: password.value.trim() }
     this.props.onLoginClick(creds)
+  }
+
+  componentWillUnmount() {
+    console.log('UNMOUNTINGGG ')
   }
 
   render() {
