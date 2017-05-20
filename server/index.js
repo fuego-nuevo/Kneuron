@@ -25,6 +25,8 @@ app.use(debugReq);
 app.use('/api', router);
 app.use(express.static(path.join(__dirname, '../client/src')));
 
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/src/index.html')));
+
 app.listen(PORT, (err) => {
   if(err){
     console.log('there was an error connecting to Server', err)

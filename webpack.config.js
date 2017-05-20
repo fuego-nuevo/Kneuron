@@ -10,8 +10,7 @@ module.exports = {
 
   entry: {
     'app': [
-
-      './client/src/index'
+      './client/src/index',
     ]
   },
   output: {

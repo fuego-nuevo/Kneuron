@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
+import Login from '../components/login';
+import { loginUser } from '../actions/login';
 
 class FrontPage extends Component {
   render() {
+    const { dispatch, isAuthenticated, errorMessage } = this.props;
     return(
       <div>
         <form>
-          <input type="text" placeholder="First Name"></input>
-          <input type="text" placeholder="Last Name"></input>
-          <input type="text" placeholder="UserName"></input>
-          <input type="text" placeholder="Password"></input>
-          <input type="submit">submit</input>
+          <Login
+           errorMessage={errorMessage}
+           onLoginClick={ creds => dispatch(loginUser(creds)) } />
         </form>
       </div>
     );

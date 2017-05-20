@@ -46,12 +46,8 @@ const receiveLogout = () => {
 
 exports.loginUser = (creds) => {
   // const config = {
-  //   headers: {'Content-type': 'application/x-www-form-urlencoded'},
-  //   body: `email=${creds.email}&password=${creds.password}`
+  //   headers: {'Content-type': 'application/x-www-form-urlencoded', 'Accept': 'application/json'}
   // }
-  // const userInfo = JSON.stringify({email: creds.email, password: creds.password});
-
-
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))
@@ -80,13 +76,7 @@ exports.loginUser = (creds) => {
 }
 
 exports.signupUser = (creds) => {
-  let userType;
-  if(creds.userType === 'teacher'){
-    userType = 0;
-  } else if(creds.userType === 'student'){
-    userType = 1;
-  }
-
+  let userType = 0;
   const config = {
     headers: {'Content-type': 'application/x-www-form-urlencoded'},
     body: `email=${creds.email}&password=${creds.password}&userType=${userType}&fName=${creds.fName}&lName=${creds.lName}&username=${creds.username}`
