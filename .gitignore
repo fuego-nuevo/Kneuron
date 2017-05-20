@@ -2,3 +2,6 @@ node_modules
 yarn.lock
 .env
 bundle.js
+client/src/bundle.js
+client/build/bundle.js
+yarn-error.log
