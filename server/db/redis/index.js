@@ -8,7 +8,3 @@ redis.monitor(( err, monitor ) => {
 })
 
 module.exports = redis;
-
-
-
-
