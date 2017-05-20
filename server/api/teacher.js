@@ -41,8 +41,8 @@ router.get('/:email/:creds', (req, res, next) => {
     if(user){
       bcrypt.compare(req.params.creds, user.password, function(err, data){
         if(data){
-          console.log("User Logged In: ", {user: user, id_token: hasher('MarianoAlexJustinJason')});
-          res.status(200).send({user: user, id_token: hasher(req.params.email + req.params.password.slice(0, Math.floor(req.params.password.length / 2)))});
+          console.log("User Logged In: ", {user: user, id_token: hasher(`${req.params.email}`)});
+          res.status(200).send({user: user, id_token: hasher(req.params.email)});
         } else {
           console.log('Invalid Login Credentials');
           res.send('Invalid Login Credentials');

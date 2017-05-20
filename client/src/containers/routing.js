@@ -9,7 +9,8 @@ import UserProfile from '../components/userProfile';
 class Router extends Component {
   render() {
     const { dispatch, errorMessage, isAuthenticated } = this.props;
-    return( 
+    console.log(this.props, 'this is auth nonsense going on');
+    return(
       <BrowserRouter>
         <div>
           <Switch>

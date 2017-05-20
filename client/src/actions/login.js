@@ -45,33 +45,30 @@ const receiveLogout = () => {
 }
 
 exports.loginUser = (creds) => {
-  // const config = {
-  //   headers: {'Content-type': 'application/x-www-form-urlencoded', 'Accept': 'application/json'}
-  // }
   return dispatch => {
-    // We dispatch requestLogin to kickoff the call to the API
+
     dispatch(requestLogin(creds))
+
+    console.log("Yoo");
 
     return axios.get(`http://localhost:8080/api/teachers/${creds.email}/${creds.password}`)
       .then(response =>
         response.json()
         .then(user => ({ user, response }))
-            )
-            .then(({ user, response }) =>  {
-              if (!response.ok) {
-          // If there was a problem, we want to
-          // dispatch the error condition
-                dispatch(loginError(user.message))
-                return Promise.reject(user)
-              } else {
-                // If login was successful, set the token in local storage
-                localStorage.setItem('id_token', user.id_token)
-                localStorage.setItem('id_token', user.access_token)
-                // Dispatch the success action
-                dispatch(receiveLogin(user))
-              }
-        })
-        .catch(err => console.log("Error: ", err))
+      )
+      .then(({ user, response }) =>  {
+        if (!response.ok) {
+          dispatch(loginError(user.message))
+
+          return Promise.reject(user)
+        } else {
+          localStorage.setItem('id_token', user.id_token)
+          localStorage.setItem('id_token', user.access_token)
+
+          dispatch(receiveLogin(user))
+        }
+      })
+      .catch(err => console.log("Error: ", err))
   }
 }
 
