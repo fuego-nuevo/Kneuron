@@ -29,8 +29,23 @@ const models = {
   'Answer' : db.Answer,
 }
 
+let relationship = new Promise((resolve, reject) => {
+  resolve(db.defineRelationship())
+})
+
 gulp.task('seed:wipe', (cb) => {
+  relationship.then(() =>
   db.School.sync({ force: true })
+  )
+  .then(() => db.User.sync({ force: true }))
+  .then(() => db.Attendance.sync({ force: true }))
+  .then(() => db.Class.sync({ force: true }))
+  .then(() => db.Lecture.sync({ force: true }))
+  .then(() => db.Topic.sync({ force: true }))
+  .then(() => db.StudentQuestion.sync({ force: true }))
+  .then(() => db.Quiz.sync({ force: true }))
+  .then(() => db.Question.sync({ force: true }))
+  .then(() => db.Answer.sync({ force: true }))
     // .then(() => {
     //   Promise.all([db.Teacher.sync({ force: true }), db.Student.sync({ force: true }), 
     //   db.StudentQuestion.sync({ force: true }), db.Class.sync({ force: true }), 
@@ -38,18 +53,18 @@ gulp.task('seed:wipe', (cb) => {
     //   db.Quiz.sync({ force: true }), db.Question.sync({ force: true }),
     //   db.Answer.sync({ force: true })])
     // })
-    .then(Promise.all(db.User.sync({ force: true })))
-    .then(Promise.all(db.Class.sync({ force: true })))
-    // .then(Promise.all(db.Teacher.sync({ force: true })))
-    // .then(Promise.all(db.Student.sync({ force: true })))
-    .then(Promise.all(db.Lecture.sync({ force: true })))
-    // .then(Promise.all(db.Attendance.sync({ force: true })))
-    .then(Promise.all(db.Topic.sync({ force: true })))
-    .then(Promise.all(db.StudentQuestion.sync({ force: true })))
-    .then(Promise.all(db.Quiz.sync({ force: true })))
-    .then(Promise.all(db.Question.sync({ force: true })))
-    .then(Promise.all(db.Answer.sync({ force: true })))
-    .then(() => { cb() })
+    // .then(() => Promise.all(db.User.sync({ force: true })))
+    // .then(Promise.all(db.Class.sync({ force: true })))
+    // // .then(Promise.all(db.Teacher.sync({ force: true })))
+    // // .then(Promise.all(db.Student.sync({ force: true })))
+    // .then(Promise.all(db.Lecture.sync({ force: true })))
+    // .then(() => Promise.all(db.Attendance.sync({ force: true })))
+    // .then(Promise.all(db.Topic.sync({ force: true })))
+    // .then(Promise.all(db.StudentQuestion.sync({ force: true })))
+    // .then(Promise.all(db.Quiz.sync({ force: true })))
+    // .then(Promise.all(db.Question.sync({ force: true })))
+    // .then(Promise.all(db.Answer.sync({ force: true })))
+    // .then(() => { db.defineRelationship() })
     .catch((err) => { cb(err) })
 })
 
@@ -63,7 +78,7 @@ gulp.task('seed:seed', ['seed:wipe'], (cb) => {
     });
 })
 
-gulp.task('seed', ['seed:wipe', 'seed:seed']);
+gulp.task('seed', ['seed:wipe']);
 
 gulp.task('nodemon', () => {
   const stream = nodemon({
