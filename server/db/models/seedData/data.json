@@ -1,75 +1,110 @@
-// [
-//   {
-//     "model": "User",
-//     "data": {
-//       "id": 1,
-//       "fName": "Jimmy",
-//       "lName": "Johnson",
-//       "userType": 0
-
-//     }
-//   },
-//   {
-//     "model": "User",
-//     "data": {
-//       "id": 2,
-//       "fName": "Buck",
-//       "lName": "William",
-//       "userType": 0
-//     }
-//   },
-//   {
-//     "model": "User",
-//     "data": {
-//       "id": 3,
-//       "fName": "Steve",
-//       "lName": "Rogers",
-//       "userType": 0
-//     }
-//   },
-//   {
-//     "model": "User",
-//     "data": {
-//       "id": 4,
-//       "fName": "Peter",
-//       "lName": "Parker",
-//       "userType": 0
-//     }
-//   },
-//   {
-//     "model": "User",
-//     "data": {
-//       "id": 1,
-//       "fName": "Matt",
-//       "lName": "Barnes",
-//       "userType": 0
-//     }
-//   },
-//   {
-//     "model": "User",
-//     "data": {
-//       "id": 2,
-//       "fName": "Po",
-//       "lName": "Crunk",
-//       "userType": 0
-//     }
-//   },
-//   {
-//     "model": "User",
-//     "data": {
-//       "id": 3,
-//       "fName": "Reggie",
-//       "lName": "Logan",
-//       "userType": 0
-//     }
-//   },
-//   {
-//     "model": "User",
-//     "data": {
-//       "id": 4,
-//       "fName": "Pied",
-//       "lName": "Piper",
-//       "userType": 0
-//     }
-//   }
-// ]
+[
+  {
+    "model": "User",
+    "data": {
+      "id": 1,
+      "username": "test1",
+      "password":"test",
+      "email": "test1@test.com",
+      "fName": "Jimmy",
+      "lName": "Johnson",
+      "userType": 0
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 2,
+      "username": "test2",
+      "password":"test",
+      "email": "test2@test.com",
+      "fName": "Buck",
+      "lName": "William",
+      "userType": 0
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 3,
+      "username": "test3",
+      "password":"test",
+      "email": "test3@test.com",
+      "fName": "Steve",
+      "lName": "Rogers",
+      "userType": 0
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 4,
+      "username": "test4",
+      "password":"test",
+      "email": "test4@test.com",
+      "fName": "Peter",
+      "lName": "Parker",
+      "userType": 0
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 5,
+      "username": "MO",
+      "password": "test",
+      "email": "test5@test.com",
+      "fName": "Mariano",
+      "lName": "Okpalefe",
+      "userType": 0
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 6,
+      "username": "test6",
+      "password":"test",
+      "email": "test6@test.com",
+      "fName": "Matt",
+      "lName": "Barnes",
+      "userType": 1
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 7,
+      "username": "test7",
+      "password":"test",
+      "email": "test7@test.com",
+      "fName": "Po",
+      "lName": "Crunk",
+      "userType": 1
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 8,
+      "username": "test8",
+      "password":"test",
+      "email": "test8@test.com",
+      "fName": "Reggie",
+      "lName": "Logan",
+      "userType": 1
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 9,
+      "username": "test9",
+      "password":"test",
+      "email": "test9@test.com",
+      "fName": "Pied",
+      "lName": "Piper",
+      "userType": 1
+    }
+  }
+]
