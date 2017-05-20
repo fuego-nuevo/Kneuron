@@ -80,13 +80,7 @@ exports.loginUser = (creds) => {
 }
 
 exports.signupUser = (creds) => {
-  let userType;
-  if(creds.userType === 'teacher'){
-    userType = 0;
-  } else if(creds.userType === 'student'){
-    userType = 1;
-  }
-
+  let userType = 0;
   const config = {
     headers: {'Content-type': 'application/x-www-form-urlencoded'},
     body: `email=${creds.email}&password=${creds.password}&userType=${userType}&fName=${creds.fName}&lName=${creds.lName}`

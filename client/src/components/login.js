@@ -21,16 +21,6 @@ class Login extends Component {
     return(
     <div>
         <input type='text'
-        ref='fName'
-        className="form-control"
-        placeholder='First Name'
-        />
-        <input type='text'
-        ref='lName'
-        className="form-control"
-        placeholder='Last Name'
-        />
-        <input type='text'
         ref='email'
         className="form-control"
         placeholder='Email'
@@ -40,21 +30,6 @@ class Login extends Component {
         className="form-control"
         placeholder='Password'
         />
-        <input type="radio"
-        ref="userType"
-        name="account"
-        value="teacher"
-        checked>
-          Teacher
-        </input>
-        <br/>
-        <input type="radio"
-        ref="userType"
-        name="account"
-        value="student">
-          Student
-        </input>
-        <br/>
         <button onClick={(event) => this.handleClick(event)} className="btn btn-primary">
           Login
         </button>

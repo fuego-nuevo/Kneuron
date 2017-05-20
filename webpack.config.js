@@ -10,8 +10,7 @@ module.exports = {
   
   entry: {
     'app': [
-      'react-hot-loader/patch',
-      './client/src/index'
+      './client/src/index',
     ]
   },
   output: {
