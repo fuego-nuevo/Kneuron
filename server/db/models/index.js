@@ -6,7 +6,7 @@ const School = db.define('school', {
     type: Sequelize.STRING,
     allowNull: false,
   }
-}, { underscored: true });
+});
 
 const User = db.define('user', {
   fName: {
@@ -50,14 +50,14 @@ const StudentQuestion = db.define('studentquestion', {
     type: Sequelize.STRING,
     allowNull: false,
   }
-}, { underscored: true });
+});
 
 const Class = db.define('class', {
   subject: {
     type: Sequelize.STRING,
     allowNull: false,
   }
-}, { underscored: true });
+});
 
 const Lecture = db.define('lecture', {
   name: {
@@ -68,21 +68,21 @@ const Lecture = db.define('lecture', {
   //   type: Sequelize.ARRAY(Sequelize.JSON),
   //   allowNull: false,
   // }
-}, { underscored: true });
+});
 
 const Topic = db.define('topic', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
   }
-}, { underscored: true });
+});
 
 const Quiz = db.define('quiz', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
   }
-}, { underscored: true });
+});
 
 const Question = db.define('question', {
   name: {
@@ -93,7 +93,7 @@ const Question = db.define('question', {
     type: Sequelize.INTEGER,
     allowNull: false,
   }
-}, { underscored: true });
+});
 
 const Answer = db.define('answer', {
   choices: {
@@ -104,15 +104,15 @@ const Answer = db.define('answer', {
     type: Sequelize.INTEGER,  
     allowNull: false,
   }
-}, { underscored: true });
+});
 
 
-const StudentAnswer = db.define('studentanswer', {
-  selected: {
-    type: Sequelize.INTEGER,  
-    allowNull: false,
-  }
-}, { underscored: true });
+// const StudentAnswer = db.define('studentanswer', {
+//   selected: {
+//     type: Sequelize.INTEGER,  
+//     allowNull: false,
+//   }
+// });
 
 // const Class = db.define('class', {
 //   subject: {
@@ -130,7 +130,7 @@ const Attendance = db.define('attendance', {
     type: Sequelize.BOOLEAN,
     allowNull: false,
   }
-}, { underscored: true });
+});
 
 // const Class = db.define('class', {
 //   subject: {
@@ -144,46 +144,76 @@ const Attendance = db.define('attendance', {
 
 // 4th Iteration w Suggestions //
 
-School.hasMany(User);
-User.belongsTo(School);
-// Optional
-// User.hasMany(School);
-// School.belongsTo(User);
-// Optional
+const defineRelationship = () => {
+  School.hasMany(User);
+  User.belongsTo(School);
+  // Optional
+  // User.hasMany(School);
+  // School.belongsTo(User);
+  // Optional
 
-User.hasMany(Attendance, { as: 'students_attendance', foreignKey: 'student_id'})
-Attendance.belongsTo(User);
+  User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false }})
+  Attendance.belongsTo(User);
 
-User.hasMany(Class, { as: 'teachers_classes', foreignKey: 'teacher_id'});
-User.hasMany(Class, { as: 'students_classes', foreignKey: 'student_id' });
-Class.belongsTo(User);
+  User.hasMany(Class, { as: 'teachers_classes', foreignKey: { name: 'teacher_id', allowNull: false } });
+  User.hasMany(Class, { as: 'students_classes', foreignKey: { name: 'student_id', allowNull: false } });
+  Class.belongsTo(User);
 
-Class.hasMany(Lecture, { as: 'class_lectures', foreignKey: 'class_id'});
-Lecture.belongsTo(Class);
+  User.hasMany(StudentQuestion);
+  StudentQuestion.belongsTo(User);
 
-// Lecture.hasMany(Attendance, { as: 'lecture_attendance', foreignKey: 'lecture_id'});
-// Attendance.belongsTo(Lecture);
+  Class.hasMany(Lecture, { as: 'class_lectures' });
+  Lecture.belongsTo(Class);
 
-Lecture.belongsToMany(User, { through: 'Attendance', as: 'lecture', foreignKey: 'lecture_id' });
-User.belongsToMany(Lecture, { through: 'Attendance', as: 'student', foreignKey: 'student_id'});
+  Lecture.hasMany(Attendance, { as: 'lecture_attendance' });
+  Attendance.belongsTo(Lecture);
 
-Lecture.hasMany(Topic, { foreignKey: 'topic_id'});
-Topic.belongsTo(Lecture);
+  // Lecture.belongsToMany(User, { through: 'Attendance', as: 'lecture', foreignKey: 'lecture_id' });
+  // User.belongsToMany(Lecture, { through: 'Attendance', as: 'student', foreignKey: 'student_id'});
 
-User.hasMany(StudentQuestion, { foreignKey: 'student_id'});
-StudentQuestion.belongsTo(User);
+  // Lecture.hasMany(User)
+  // User.belongsTo(Lecture)
 
-Topic.hasMany(StudentQuestion, { foreignKey: 'student_question_id' });
-StudentQuestion.belongsTo(Topic);
+  Lecture.hasMany(Topic);
+  Topic.belongsTo(Lecture);
 
-Topic.hasMany(Quiz, { foreignKey: 'topic_id' });
-Quiz.belongsTo(Topic);
+  Topic.hasMany(Quiz);
+  Quiz.belongsTo(Topic);
 
-Quiz.hasMany(Question, { foreignKey: 'quiz_id' });
-Question.belongsTo(Quiz);
+  Topic.hasMany(StudentQuestion);
+  StudentQuestion.belongsTo(Topic);
 
-Question.hasMany(Answer, { foreignKey: 'quiz_id' });
-Answer.belongsTo(Question);
+  Quiz.hasMany(Question);
+  Question.belongsTo(Quiz);
+
+  Question.hasMany(Answer);
+  Answer.belongsTo(Question);
+
+
+  
+}
+
+
+
+
+
+
+// User.hasMany(StudentQuestion, { foreignKey: 'student_id'});
+// StudentQuestion.belongsTo(User);
+
+// Topic.hasMany(StudentQuestion, { foreignKey: 'student_question_id' });
+// StudentQuestion.belongsTo(Topic);
+
+// Topic.hasMany(Quiz, { foreignKey: 'topic_id' });
+// Quiz.belongsTo(Topic);
+
+// Quiz.hasMany(Question, { foreignKey: 'quiz_id' });
+// Question.belongsTo(Quiz);
+
+// Question.hasMany(Answer, { foreignKey: 'quiz_id' });
+// Answer.belongsTo(Question);
+
+// +++++++++++++++++++++++++
 
 // User.hasMany(StudentAnswer, { as: 'quiz_question_selected_student_answer', foreignKey: 'student_id'});
 // StudentAnswer.belongsTo(User, { as: 'student_quiz_answer'});
@@ -352,6 +382,7 @@ module.exports = {
   Quiz,
   Question,
   Answer,
-  // Attendance
+  Attendance,
+  defineRelationship
 };
 
