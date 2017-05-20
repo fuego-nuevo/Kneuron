@@ -94,6 +94,7 @@ exports.signupUser = (creds) => {
                 dispatch(loginError(user.message))
                 return Promise.reject(user)
               } else {
+                console.log('login was succesful');
                 // If login was successful, set the token in local storage
                 localStorage.setItem('id_token', user.id_token)
                 localStorage.setItem('id_token', user.access_token)
