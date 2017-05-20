@@ -23,11 +23,11 @@ const User = db.define('user', {
   },
   fName: {
     type: Sequelize.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   lName: {
     type: Sequelize.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   userType: {
     type: Sequelize.INTEGER,
