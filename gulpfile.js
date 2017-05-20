@@ -77,7 +77,7 @@ gulp.task('seed:seed', ['seed:wipe'], (cb) => {
     });
 })
 
-gulp.task('seed', ['seed:wipe', 'seed:seed']);
+gulp.task('seed', ['seed:wipe']);
 
 gulp.task('nodemon', () => {
   const stream = nodemon({

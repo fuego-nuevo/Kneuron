@@ -7,7 +7,7 @@ const SRC_DIR = path.resolve(__dirname, './client/src');
 const BUILD_DIR = path.resolve(__dirname, './client/src');
 
 module.exports = {
-  
+
   entry: {
     'app': [
       './client/src/index',
