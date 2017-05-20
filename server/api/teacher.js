@@ -45,7 +45,7 @@ router.get('/:email/:creds', (req, res, next) => {
           res.status(200).send({user: user, id_token: hasher(req.params.email)});
         } else {
           console.log('Invalid Login Credentials');
-          res.send('Invalid Login Credentials');
+          res.status(404).send('Invalid Login Credentials');
         }
       });
     } else {

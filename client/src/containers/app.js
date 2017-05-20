@@ -10,7 +10,7 @@ class App extends Component {
         <Routing />
       </div>
     );
-  } 
+  }
 }
 
 export default (App);
