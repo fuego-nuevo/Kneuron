@@ -161,11 +161,20 @@ StudentQuestion.hasOne(Topic);
 Quiz.hasMany(Question);
 Question.belongsTo(Quiz);
 
+School.sync();
+User.sync();
+StudentQuestion.sync();
+Class.sync();
+Lecture.sync();
+Topic.sync();
+Quiz.sync();
+Question.sync();
+Answer.sync();
+
 
 module.exports = {
   School,
-  Teacher,
-  Student,
+  User
   StudentQuestion,
   Class,
   Lecture,
