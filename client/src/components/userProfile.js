@@ -3,7 +3,7 @@ import axios from 'axios';
 // import ReactDOM from 'react-dom';
 // import { Link } from 'react-router';
 // import { Button } from 'semantic-ui-react';
-// import { PageHeader } from 'react-bootstrap';
+import { PageHeader } from 'react-bootstrap';
 
 class UserProfile extends Component {
   constructor (props) {
@@ -19,13 +19,10 @@ class UserProfile extends Component {
     this.fetchUser();
   }
 
-  fetchScore() {
-    axios.get('/api/users')
-  }
 
   fetchUser() {
 
-    axios.get(`/api/users/${auth}`, config)
+    axios.get(`/api/users/${auth}`)
         .then((res) => {
         })
         .catch(err => {
@@ -39,7 +36,7 @@ class UserProfile extends Component {
         <div >
           <PageHeader>Your Profile <small>Account information</small></PageHeader>
         </div>
-        <div className='userprofile'>
+        <div >
           <h1 ><Link to='make a link to the edit profiles page'><Button>Edit Profile</Button></Link></h1>
         </div>
       </div>
