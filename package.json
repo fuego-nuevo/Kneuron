@@ -53,6 +53,7 @@
     "express": "^4.15.2",
     "express-jwt": "^5.3.0",
     "express-session": "^1.15.2",
+    "flexboxgrid": "^6.3.1",
     "ioredis": "^2.5.0",
     "morgan": "^1.8.1",
     "mysql": "^2.13.0",
