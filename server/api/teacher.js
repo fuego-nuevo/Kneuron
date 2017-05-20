@@ -7,13 +7,13 @@ const saltRounds = 10;
 router.post('/', (req, res, next) => {
   bcrypt.genSalt(saltRounds, function(err, salt){
       bcrypt.hash(req.body.password, salt, function(err, hash){
-        User.findOne({where: {username: req.body.username }}).then((person) => {
+        User.findOne({where: {email: req.body.email }}).then((person) => {
           if(person){
-            console.log('That username is taken. Please try another username.');
+            console.log('That email is being used. Please try another email.');
             res.status(404).send(err);
           } else {
             User.create({
-              username: req.body.username,
+              email: req.body.email,
               password: hash
             })
             .then((newUser) => {
@@ -28,7 +28,7 @@ router.post('/', (req, res, next) => {
 //login
 router.get('/:credentials', (req, res, next) => {
   const userInfo = JSON.parse(req.params.credentials);
-  User.findOne({where: {username: userInfo.username }}).then((user) => {
+  User.findOne({where: {email: userInfo.email }}).then((user) => {
     if(user){
       bcrypt.compare(userInfo.password, user.password, function(err, data){
         if(data){
