@@ -49,7 +49,7 @@ exports.loginUser = (creds) => {
   //   headers: {'Content-type': 'application/x-www-form-urlencoded'},
   //   body: `username=${creds.username}&password=${creds.password}`
   // }
-  const userInfo = JSON.stringify({username:creds.username, password: creds.password});
+  const userInfo = JSON.stringify({email:creds.email, password: creds.password});
 
 
   return dispatch => {
@@ -57,8 +57,7 @@ exports.loginUser = (creds) => {
     dispatch(requestLogin(creds))
 
     return axios.get(`http://localhost:8080/api/teachers/${userInfo}`)
-      .then(response =>
-        response.json()
+      .then(response => response.json()
         .then(user => ({ user, response }))
             )
             .then(({ user, response }) =>  {
@@ -82,7 +81,7 @@ exports.loginUser = (creds) => {
 exports.signupUser = (creds) => {
   const config = {
     headers: {'Content-type': 'application/x-www-form-urlencoded'},
-    body: `username=${creds.username}&password=${creds.password}`
+    body: `email=${creds.email}&password=${creds.password}`
   }
 
   return dispatch => {

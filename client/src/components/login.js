@@ -7,9 +7,9 @@ class Login extends Component {
   }
   
   handleClick(event) {
-    const username = this.refs.username
+    const email = this.refs.email
     const password = this.refs.password
-    const creds = { username: username.value.trim(), password: password.value.trim() }
+    const creds = { email: email.value.trim(), password: password.value.trim() }
     this.props.onLoginClick(creds)
   }
 
@@ -18,9 +18,9 @@ class Login extends Component {
     return(
     <div>
         <input type='text'
-        ref='username'
+        ref='email'
         className="form-control"
-        placeholder='Username'
+        placeholder='email'
         />
         <input type='password'
         ref='password'
