@@ -5,11 +5,10 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const router = require('./api/index');
 const path = require('path');
 const http = require('http');
-const  { debugReq, notFound } = require('./utils/index');
 const expressSession = require('express-session');
 const bodyparser = require('body-parser');
 const cors = require('cors');
-const debug = require('debug')('app:http');
+const PORT = process.env.PORT || 8080;
 require('dotenv').config();
 require('dotenv').load();
 const PORT =  8080;
@@ -34,4 +33,4 @@ app.listen(PORT, (err) => {
   }
 });
 
-
+module.exports = app;

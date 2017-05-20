@@ -1,13 +1,23 @@
 const Sequelize = require("sequelize");
-const db = require('../config/database');
+const db = require("../config/database");
 
-const School = db.define('school', {
+// var sequelize = new Sequelize("myconnectionstring",
+//   {
+//     sync: {
+//       force: true
+//     }
+//   });
+
+// sequelize.sync({ force: true });
+
+const School = db.define("school", {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
   }
-});
-const Teacher = db.define('teacher', {
+}, {underscored: true});
+
+const Teacher = db.define("teacher", {
   fName: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -16,8 +26,9 @@ const Teacher = db.define('teacher', {
     type: Sequelize.STRING,
     allowNull: false,
   }
-});
-const Student = db.define('student', {
+}, {underscored: true});
+
+const Student = db.define("student", {
   fName: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -26,20 +37,23 @@ const Student = db.define('student', {
     type: Sequelize.STRING,
     allowNull: false,
   }
-});
-const StudentQuestion = db.define('studentquestion', {
+}, {underscored: true});
+
+const StudentQuestion = db.define("studentquestion", {
   question: {
     type: Sequelize.STRING,
     allowNull: false,
   }
-});
-const Class = db.define('class', {
+}, {underscored: true});
+
+const Class = db.define("class", {
   subject: {
     type: Sequelize.STRING,
     allowNull: false,
   }
-});
-const Lecture = db.define('lecture', {
+}, {underscored: true});
+
+const Lecture = db.define("lecture", {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -48,20 +62,23 @@ const Lecture = db.define('lecture', {
     type: Sequelize.ARRAY(Sequelize.JSON),
     allowNull: false,
   }
-});
-const Topic = db.define('topic', {
+}, {underscored: true});
+
+const Topic = db.define("topic", {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
   }
-});
-const Quiz = db.define('quiz', {
+}, {underscored: true});
+
+const Quiz = db.define("quiz", {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
   }
-});
-const Question = db.define('question', {
+}, {underscored: true});
+
+const Question = db.define("question", {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -70,66 +87,101 @@ const Question = db.define('question', {
     type: Sequelize.INTEGER,
     allowNull: false,
   }
-});
-const Answer = db.define('answer', {
+}, {underscored: true});
+
+const Answer = db.define("answer", {
   choices: {
     type: Sequelize.ARRAY(Sequelize.INTEGER),
     allowNull: false,
   },
   selected: {
-    type: Sequelize.INTEGER,  
+    type: Sequelize.INTEGER,
     allowNull: false,
   }
-});
+}, {underscored: true});
+
+
+//joins
+const ClassStudent = db.define("classstudent", {
+  imInTheDb: {
+    type: Sequelize.STRING,
+    allowNull: true
+  }
+}, {underscored: true});
+
+const StudentLecture = db.define("studentlecture", {
+  present: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false
+  }
+}, {underscored: true});
+
 
 School.hasMany(Teacher);
 School.hasMany(Student);
 Teacher.belongsTo(School);
 Student.belongsTo(School);
 
-
-Teacher.hasMany(Class);
 Class.belongsTo(Teacher);
+Teacher.hasMany(Class);
 
+Student.belongsToMany(Class, { as: "Students_Class", through: "Class_Student", foreignKey: "Class_rowId"});
+Class.belongsToMany(Student, { as: "Classes_Students", through: "Class_Student", foreignKey: "Student_rowId"});
+ClassStudent.belongsTo(Student);
+ClassStudent.belongsTo(Class);
 
-
-Student.hasMany(Class, { through: 'Student_Class'});
 Student.hasMany(Answer);
-Student.hasMany(StudentQuestion);
-Student.hasMany(Lecture, { through: 'Student_Attendance'});
 Answer.belongsTo(Student);
+Student.hasMany(StudentQuestion);
 StudentQuestion.belongsTo(Student);
 
-StudentQuestion.hasOne(Topic);
+Student.belongsToMany(Lecture, { as: "Students_Lecture", through: "Student_Lecture", foreignKey: "Lecture_rowId"});
+Lecture.belongsToMany(Student, { as: "Lectures_Student", through: "Student_Lecture", foreignKey: "Student_rowId"});
+StudentLecture.belongsTo(Lecture);
+StudentLecture.belongsTo(Student);
 
-Class.hasMany(Student, { through: 'Student_Class'});
 Class.hasMany(Lecture);
 Lecture.belongsTo(Class);
 
-Lecture.hasMany(Topic);
-Lecture.hasMany(Student, { through: 'Student_Attendance'});
-Topic.belongsTo(Lecture);
 
 Topic.hasMany(Quiz);
-Topic.hasMany(StudentQuestion);
 Quiz.belongsTo(Topic);
 
-Quiz.hasMany(Question);
-Question.belongsTo(Quiz);
+Lecture.hasMany(Topic);
+Topic.belongsTo(Lecture);
 
 Question.hasMany(Answer);
 Answer.belongsTo(Question);
 
+
+Topic.hasMany(StudentQuestion);
+StudentQuestion.hasOne(Topic);
+
+
+Quiz.hasMany(Question);
+Question.belongsTo(Quiz);
+
+School.sync();
+User.sync();
+StudentQuestion.sync();
+Class.sync();
+Lecture.sync();
+Topic.sync();
+Quiz.sync();
+Question.sync();
+Answer.sync();
+
+
 module.exports = {
   School,
-  Teacher, 
-  Student,
+  User
   StudentQuestion,
   Class,
   Lecture,
   Topic,
   Quiz,
   Question,
-  Answer
+  Answer,
+  ClassStudent
 };
 
