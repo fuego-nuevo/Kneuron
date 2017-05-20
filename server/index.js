@@ -2,13 +2,14 @@ const express = require('express');
 const webpack = require('webpack')
 const path = require('path');
 const http = require('http');
-var logger = require("morgan");
+const logger = require("morgan");
+const app = express();
+const server = require('http').Server(app);
+
 
 require('dotenv').config();
 require('dotenv').load();
 
-const PORT = process.env.PORT || 8080;
-const app = express();
 const debug = require("debug")("app:http");
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -25,13 +26,11 @@ app.use(debugReq);
 app.use('/api', router);
 app.use(express.static(path.join(__dirname, '../client/src')));
 
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/src/index.html')));
-
-app.listen(PORT, (err) => {
+server.listen(process.env.PORT, (err) => {
   if(err){
     console.log('there was an error connecting to Server', err)
   } else {
-    console.log('You have connected to the server on PORT: ', PORT)
+    console.log('You have connected to the server on PORT: ', process.env.PORT)
   }
 });
 
