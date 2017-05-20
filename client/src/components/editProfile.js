@@ -6,20 +6,49 @@ class EditProfile extends Component {
     super();
 
     this.state = {
-      username: "".
+      username: "",
       email: "",
       fName: "",
       lName: ""
     }
   }
+
+
+// componentDidMount() {
+// }
+
+userNameChange(e) {
+  this.setState({
+    username: e.target.value
+  })
+}
+emailChange(e) { 
+  this.setState({
+    email: e.target.value
+})
+}
+fNameChange(e) {
+  this.setState({
+    fName: e.target.value
+  })
+}
+lNameChange(e) {
+  this.setState({
+    lName: e.target.value
+  })
 }
 
-componentDidMount() {
+
+
+
+handleSubmit() {
+  // some kind of put logic to the database.
 }
 
   render() {
     return (
-      <h1> Edit Your Profile Here: </h1> <br/>
+      <div>
+      <h1> Edit Your Profile Here: </h1> 
   <form onSubmit={this.handleSubmit}>
     <div>
       <label>UserName</label>
@@ -27,7 +56,7 @@ componentDidMount() {
     </div>
     <div>
       <label>email</label>
-      <input placeholder='email' onChange={(e) => {this.userNameChange(e)}}/>
+      <input placeholder='email' onChange={(e) => {this.emailChange(e)}}/>
     </div>
     <div>
       <label>First Name</label>
@@ -38,7 +67,9 @@ componentDidMount() {
       <input placeholder='lName' onChange={(e) => {this.lNameChange(e)}} />
     </div>      
   </form>
+  </div>
     )
-}
+  }
 
-  export default EditProfile;
+}
+export default EditProfile;
