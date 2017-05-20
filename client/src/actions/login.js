@@ -82,9 +82,9 @@ exports.loginUser = (creds) => {
 exports.signupUser = (creds) => {
   let userType;
   if(creds.userType === 'teacher'){
-    userType = 1;
+    userType = 0;
   } else if(creds.userType === 'student'){
-    userType = 2;
+    userType = 1;
   }
 
   const config = {
