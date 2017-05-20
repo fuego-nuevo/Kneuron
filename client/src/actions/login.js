@@ -48,16 +48,25 @@ exports.loginUser = (creds) => {
   // const config = {
   //   headers: {'Content-type': 'application/x-www-form-urlencoded', 'Accept': 'application/json'}
   // }
+<<<<<<< HEAD
   // const userInfo = JSON.stringify({email: creds.email, password: creds.password});
+=======
+  const userInfo = JSON.stringify({email:creds.email, password: creds.password});
+>>>>>>> feat/routing/home
 
 
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))
 
+<<<<<<< HEAD
     return axios.get(`http://localhost:8080/api/teachers/${creds.email}/${creds.password}`)
       .then(response =>
         response.json()
+=======
+    return axios.get(`http://localhost:8080/api/teachers/${userInfo}`)
+      .then(response => response.json()
+>>>>>>> feat/routing/home
         .then(user => ({ user, response }))
             )
             .then(({ user, response }) =>  {

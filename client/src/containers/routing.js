@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
 import { connect }  from 'react-redux';
 import { loginUser } from '../actions/login';
-import NavBar from '../components/navBar';
 import Login from '../components/login';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import FrontPage from '../components/frontPage';
+import UserProfile from '../components/userProfile';
 
 class Router extends Component {
   render() {
     const { dispatch, errorMessage, isAuthenticated } = this.props;
     return( 
       <BrowserRouter>
-        <NavBar
-            isAuthenticated={isAuthenticated}
-            errorMessage={errorMessage}
-            dispatch={dispatch}
+        <div>
+          <Switch>
+            <Route exact path="/">
+              <FrontPage
+                isAuthenticated={isAuthenticated}
+                errorMessage={errorMessage}
+                dispatch={dispatch}
             />
+            </Route>
+            <Route path="/userprofile" component={UserProfile}/>
+          </Switch>
+        </div>
       </BrowserRouter>
     );
   }

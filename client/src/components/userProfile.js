@@ -37,10 +37,11 @@ class UserProfile extends Component {
     return(
       <div>
         <div >
-          <PageHeader>Your Profile <small>Account information</small></PageHeader>
+          {/*<PageHeader>Your Profile <small>Account information</small></PageHeader>*/}
         </div>
         <div className='userprofile'>
-          <h1 ><Link to='make a link to the edit profiles page'><Button>Edit Profile</Button></Link></h1>
+          hi
+          {/*<h1 ><Link to='make a link to the edit profiles page'><Button>Edit Profile</Button></Link></h1>*/}
         </div>
       </div>
     )
