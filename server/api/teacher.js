@@ -45,8 +45,3 @@ router.get('/:credentials', (req, res, next) => {
     }
   });
 });
-
-module.exports = {
-  signupUser,
-  loginUser
-}
