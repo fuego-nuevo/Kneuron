@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect }  from 'react-redux';
 import { loginUser } from '../actions/login';
-import NavBar from '../components/navBar';
 import Login from '../components/login';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import FrontPage from '../components/frontPage';
 import UserProfile from '../components/userProfile';
 
@@ -12,13 +11,17 @@ class Router extends Component {
     const { dispatch, errorMessage, isAuthenticated } = this.props;
     return( 
       <BrowserRouter>
-      <div>
-        <NavBar
-            isAuthenticated={isAuthenticated}
-            errorMessage={errorMessage}
-            dispatch={dispatch}
+        <div>
+          <Switch>
+            <Route exact path="/">
+              <FrontPage
+                isAuthenticated={isAuthenticated}
+                errorMessage={errorMessage}
+                dispatch={dispatch}
             />
-          <Route exact path="/" render={FrontPage}/>
+            </Route>
+            <Route path="/userprofile" component={UserProfile}/>
+          </Switch>
         </div>
       </BrowserRouter>
     );
