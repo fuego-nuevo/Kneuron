@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import ReactDOM from 'react-dom';
-// import { Link } from 'react-router';
-// import { Button } from 'semantic-ui-react';
+import ReactDOM from 'react-dom';
+import { Link } from 'react-router';
+import { Button } from 'semantic-ui-react';
 import { PageHeader } from 'react-bootstrap';
 
 class UserProfile extends Component {
@@ -10,7 +10,10 @@ class UserProfile extends Component {
     super (props)
 
     this.state = {
-      // user info blablalablalbalb
+      username: "",
+      email: "",
+      fName: "",
+      lName: "",
     }
     
   }
@@ -22,11 +25,12 @@ class UserProfile extends Component {
 
   fetchUser() {
 
-    axios.get(`/api/users/${auth}`)
-        .then((res) => {
-        })
-        .catch(err => {
-          console.log('Error in fetchUsers in UserProfile: ', err);
+    axios.get(`/api/users/${token}`)
+      .then((res) => {
+        this.setState({username: res.data.username, email: res.data.username, fName: res.data.fName, lName: res.data.lName})
+      })
+      .catch(err => {
+        console.log('Error in fetchUsers in UserProfile: ', err);
         })
   }
 
@@ -34,11 +38,14 @@ class UserProfile extends Component {
     return(
       <div>
         <div >
-          {/*<PageHeader>Your Profile <small>Account information</small></PageHeader>*/}
+          <PageHeader>Your Profile <small>Account information</small></PageHeader>
         </div>
-        <div className='userprofile'>
-          hi
-          {/*<h1 ><Link to='make a link to the edit profiles page'><Button>Edit Profile</Button></Link></h1>*/}
+        <div>{this.state.username}</div>
+        <div>{this.state.email}</div>
+        <div>{this.state.fName}</div>
+        <div>{this.state.lName}</div>
+        <div >
+          {/*<h1 ><Link to='editprofile'><Button>Edit Profile</Button></Link></h1>*/}
         </div>
       </div>
     )
