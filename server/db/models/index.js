@@ -1,4 +1,4 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 const db = require('../config/database');
 
 const School = db.define('school', {
@@ -64,7 +64,7 @@ const StudentQuestion = db.define('studentquestion', {
   },
 });
 
-const Class = db.define('class', {
+const Cohort = db.define('cohort', {
   subject: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -167,15 +167,15 @@ const defineRelationship = () => {
   User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false } });
   Attendance.belongsTo(User);
 
-  User.hasMany(Class, { as: 'teachers_classes', foreignKey: { name: 'teacher_id', allowNull: false } });
-  User.hasMany(Class, { as: 'students_classes', foreignKey: { name: 'student_id', allowNull: false } });
-  Class.belongsTo(User);
+  User.hasMany(Cohort, { as: 'teachers_cohorts', foreignKey: { name: 'teacher_id', allowNull: false } });
+  User.hasMany(Cohort, { as: 'students_cohorts', foreignKey: { name: 'student_id', allowNull: false } });
+  Cohort.belongsTo(User);
 
   User.hasMany(StudentQuestion);
   StudentQuestion.belongsTo(User);
 
-  Class.hasMany(Lecture, { as: 'class_lectures' });
-  Lecture.belongsTo(Class);
+  Cohort.hasMany(Lecture, { as: 'cohort_lectures' });
+  Lecture.belongsTo(Cohort);
 
   Lecture.hasMany(Attendance, { as: 'lecture_attendance' });
   Attendance.belongsTo(Lecture);
@@ -385,7 +385,7 @@ module.exports = {
   // Teacher,
   // Student,
   StudentQuestion,
-  Class,
+  Cohort,
   Lecture,
   Topic,
   Quiz,

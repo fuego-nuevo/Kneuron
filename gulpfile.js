@@ -19,7 +19,7 @@ const models = {
   'School' : db.School,
   'User': db.User,
   'StudentQuestion' : db.StudentQuestion,
-  'Class' : db.Class,
+  'Cohort' : db.Cohort,
   'Lecture' : db.Lecture,
   'Topic' : db.Topic,
   'Quiz' : db.Quiz,
@@ -28,16 +28,19 @@ const models = {
 };
 
 const relationship = new Promise((resolve, reject) => {
-  resolve(db.defineRelationship());
+  if (db.defineRelationship) {
+    resolve(db.defineRelationship());
+  } else {
+    reject(404);
+  }
 });
 
 gulp.task('seed:wipe', (cb) => {
-  relationship.then(() =>
-  db.School.sync({ force: true })
-  )
+  relationship
+  .then(() => db.School.sync({ force: true }))
   .then(() => db.User.sync({ force: true }))
   .then(() => db.Attendance.sync({ force: true }))
-  .then(() => db.Class.sync({ force: true }))
+  .then(() => db.Cohort.sync({ force: true }))
   .then(() => db.Lecture.sync({ force: true }))
   .then(() => db.Topic.sync({ force: true }))
   .then(() => db.StudentQuestion.sync({ force: true }))
@@ -46,7 +49,7 @@ gulp.task('seed:wipe', (cb) => {
   .then(() => db.Answer.sync({ force: true }))
   .then(() => { cb(); })
   .catch((err) => { cb(err); });
-})
+});
 
 gulp.task('seed:seed', ['seed:wipe'], (cb) => {
   SequelizeFixtures.loadFile('./server/db/models/seedData/data.json', models)
@@ -56,7 +59,7 @@ gulp.task('seed:seed', ['seed:wipe'], (cb) => {
     .catch((err) => {
       cb(err);
     });
-})
+});
 
 gulp.task('seed', ['seed:wipe']);
 
@@ -68,7 +71,7 @@ gulp.task('nodemon', () => {
   });
 });
 
-gulp.task('webpack-dev-server', (cb) => {
+gulp.task('webpack-dev-server', () => {
   const compiler = webpack(webpackConfig);
 
   new WebpackDevServer(compiler, {
