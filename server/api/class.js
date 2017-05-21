@@ -33,7 +33,7 @@ router.post('/', (req, res, next) => {
 
 //Get All Classes For A Given Teacher
 router.get('/:auth_token', (req, res, next) => {
-  User.findOne({where: { email: antiHasher(req.params.auth_token) }})
+  User.findOne({ where: { email: antiHasher(req.params.auth_token) }})
     .then(teacher => {
       Class.findAll({where: { teacherId: teacher.id }})
         .then(classes => {
@@ -70,7 +70,7 @@ router.delete('/', (req, res, next) => {
 
 //Update Information Of A Given Class From A Given Teacher
 router.put('/', (req, res, next) => {
-  User.findOne{where: { email: antiHasher(req.body.auth_token) }}
+  User.findOne{ where: { email: antiHasher(req.body.auth_token) }}
     .then(teacher => {
       Class.findOne({where: {id: req.body.class_id, teacherId: teacher.id}})
       .then(class => {
