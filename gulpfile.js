@@ -10,7 +10,7 @@ const WebpackDevServer = require('webpack-dev-server');
 
 env({
   file: './.env',
-  type: 'ini'
+  type: 'ini',
 });
 
 const db = require('./server/db/models');
@@ -25,11 +25,11 @@ const models = {
   'Quiz' : db.Quiz,
   'Question' : db.Question,
   'Answer' : db.Answer,
-}
+};
 
 const relationship = new Promise((resolve, reject) => {
-  resolve(db.defineRelationship())
-})
+  resolve(db.defineRelationship());
+});
 
 gulp.task('seed:wipe', (cb) => {
   relationship.then(() =>
@@ -44,8 +44,8 @@ gulp.task('seed:wipe', (cb) => {
   .then(() => db.Quiz.sync({ force: true }))
   .then(() => db.Question.sync({ force: true }))
   .then(() => db.Answer.sync({ force: true }))
-  .then(() => { cb() } )
-  .catch((err) => { cb(err) })
+  .then(() => { cb(); })
+  .catch((err) => { cb(err); });
 })
 
 gulp.task('seed:seed', ['seed:wipe'], (cb) => {
@@ -64,13 +64,13 @@ gulp.task('nodemon', () => {
   const stream = nodemon({
     script: 'server/index.js',
     watch: ['server/'],
-    ignore: ['client/**']
+    ignore: ['client/**'],
   });
 });
 
 gulp.task('webpack-dev-server', (cb) => {
   const compiler = webpack(webpackConfig);
-  
+
   new WebpackDevServer(compiler, {
     contentBase: './static',
     publicPath: '/webstatic',
@@ -80,16 +80,16 @@ gulp.task('webpack-dev-server', (cb) => {
     clientLogLevel: 'info',
     proxy: [
       {
-        context:[],
-        target: 'http://localhost:5000',
+        context: ['/api'],
+        target: `http://localhost:${process.env.PORT}`,
       },
-    ]
+    ],
   }).listen(8080, 'localhost', (err) => {
     if (err) {
       throw new gutil.PluginError('webpack-dev-server ', err);
     }
-      gutil.log('[webpack-dev-server]', 'WPDS - Listening in on http://localhost:8080')
+    gutil.log('[webpack-dev-server]', 'WPDS - Listening in on http://localhost:8080');
   });
 });
 
-gulp.task('default', ['nodemon', 'webpack-dev-server'])
+gulp.task('default', ['nodemon', 'webpack-dev-server']);
