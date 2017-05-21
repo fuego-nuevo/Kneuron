@@ -12,7 +12,7 @@ router.post('/', (req, res, next) => {
     .then(teacher => {
 
       Class.findOne({where: {id: teacher.id}})
-        .then(class => {
+        .then(hi => {
             console.log(`${teacher.fName teacher.lName} already has a ${class.subject} class`, class);
             res.status(204).send(`${teacher.fName teacher.lName} already has a ${class.subject} class`);
         });
