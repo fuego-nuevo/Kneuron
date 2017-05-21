@@ -1,6 +1,4 @@
 import axios from 'axios';
-
-
 const requestLogin = (creds) => {
   return {
     type: 'LOGIN_REQUEST',
@@ -61,7 +59,6 @@ exports.loginUser = (creds) => {
         } else {
           localStorage.setItem('id_token', response.data.id_token)
           localStorage.setItem('access_token', response.data.id_token)
-
           dispatch(receiveLogin(response.data))
         }
       })
