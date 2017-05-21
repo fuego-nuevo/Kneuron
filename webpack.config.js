@@ -31,9 +31,6 @@ module.exports = {
         query: {
           cacheDirectory: true,
           presets: ['es2015', 'react'],
-          plugins: [
-            'react-hot-loader/babel',
-          ],
         },
       },
       {
