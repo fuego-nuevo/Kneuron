@@ -5,7 +5,7 @@ class Login extends Component {
     super();
     this.state = {};
   }
-
+  
   handleClick(event) {
     event.preventDefault()
     const email = this.refs.email
@@ -24,6 +24,7 @@ class Login extends Component {
   render() {
     const { errorMessage } = this.props;
     return(
+      
     <div>
         <input type='text'
         ref='email'
@@ -32,10 +33,11 @@ class Login extends Component {
         />
         <input type='password'
         ref='password'
-        className="form-control"
+        
         placeholder='Password'
         />
         <button onClick={(event) =>  this.handleClick(event)} className="btn btn-primary">
+
           Login
         </button>
     </div>
