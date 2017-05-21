@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Routing from './routing';
 import { connect }  from 'react-redux';
 import { loginUser } from '../actions/login';
-import NavBar from '../components/navBar';
+import NavBar from '../components/TopNavBar';
 import UserProfile from '../components/userProfile'
 import Login from '../components/login';
 import { BrowserRouter } from 'react-router-dom';

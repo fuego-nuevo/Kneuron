@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+/*import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -41,4 +41,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideNav);
+export default connect(mapStateToProps, mapDispatchToProps)(SideNav);*/
