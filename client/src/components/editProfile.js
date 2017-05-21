@@ -52,19 +52,19 @@ handleSubmit() {
   <form onSubmit={this.handleSubmit}>
     <div>
       <label>UserName</label>
-      <input placeholder='Name' onChange={(e) => {this.userNameChange(e)}}/>
+      <input placeholder='UserName' onChange={(e) => {this.userNameChange(e)}}/>
     </div>
     <div>
       <label>email</label>
-      <input placeholder='email' onChange={(e) => {this.emailChange(e)}}/>
+      <input placeholder='Email' onChange={(e) => {this.emailChange(e)}}/>
     </div>
     <div>
       <label>First Name</label>
-      <input placeholder='fName' onChange={(e) => {this.fNameChange(e)}} />
+      <input placeholder='first Name' onChange={(e) => {this.fNameChange(e)}} />
     </div>
     <div>
       <label>Last Name</label>
-      <input placeholder='lName' onChange={(e) => {this.lNameChange(e)}} />
+      <input placeholder='Last Name' onChange={(e) => {this.lNameChange(e)}} />
     </div>      
   </form>
   </div>
