@@ -23,13 +23,18 @@ app.use(cors());
 app.use(bodyparser.json({ limit: '50mb'}));
 app.use(bodyparser.urlencoded({ limit: '50mb', extended: true}));
 app.use(debugReq);
+app.use('/', express.static(path.join(__dirname, '../static/')));
 app.use('/api', router);
-app.use(express.static(path.join(__dirname, '../client/src')));
+
+app.get('*', (req, res) => {
+  console.log('it hit the wildcard')
+  res.sendFile(path.join(__dirname, '/../static/index.html'))
+});
 
 server.listen(process.env.PORT, (err) => {
   if(err){
     console.log('there was an error connecting to Server', err)
-  } else {
+  } else { 
     console.log('You have connected to the server on PORT: ', process.env.PORT)
   }
 });
