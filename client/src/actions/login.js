@@ -42,13 +42,11 @@ const receiveLogout = () => {
   }
 }
 
-exports.loginUser = (creds) => {
+exports.loginUser = (creds, history) => {
   console.log("This is Creds: ", creds);
   return dispatch => {
 
     dispatch(requestLogin(creds))
-
-    console.log("Yoo", `http://localhost:8080/api/teachers/${creds.email}/${creds.password}`);
 
     return axios.get(`http://localhost:8080/api/teachers/${creds.email}/${creds.password}`)
       .then(response => {
@@ -60,6 +58,8 @@ exports.loginUser = (creds) => {
           localStorage.setItem('id_token', response.data.id_token)
           localStorage.setItem('access_token', response.data.id_token)
           dispatch(receiveLogin(response.data))
+          history.push('/dashboard');
+          window.location.reload();
         }
       })
       .catch(err => {
