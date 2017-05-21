@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
 // Get All Lectures For A Given Cohort From A Given Teacher
 router.get('/:cohort_id/:auth_token/:subject', (req, res) => {
   // Find A Teacher With Their token_id From The Body
-  User.findOne({where: { email: antiHasher(req.params.auth_token) } })
+  User.findOne({ where: { email: antiHasher(req.params.auth_token) } })
     .then((teacher) => {
       // Find All Of Said Teacher's Cohort
       Cohort.findOne({ where: { id: req.params.cohort_id, subject: req.params.subject, teacherId: teacher.id } })
@@ -60,7 +60,7 @@ router.get('/:cohort_id/:auth_token/:subject', (req, res) => {
             })
             .catch((error) => {
               console.log(`${teacher.fName} ${teacher.lName}'s ${cohort.subject} Cohort Does Not Have Any Lectures...}`);
-              res.status(404).send();
+              res.status(404).send(error);
             });
         });
     })
@@ -91,12 +91,12 @@ router.put('/', (req, res) => {
               .catch((error) => {
                 console.log(`Error Updating ${lecture.name} Lecture For ${cohort.subject} Cohort`);
                 res.status(404).send(error);
-              })
+              });
             })
             .catch((err) => {
               console.log(`${teacher.fName} ${teacher.lName}'s ${cohort.subject} doesn't have a ${req.body.lecture_name} lecture in the DB or Network Error: `, err);
               res.status(404).send(`${teacher.fName} ${teacher.lName}'s ${cohort.subject} doesn't have a ${req.body.lecture_name} lecture in the DB or Network Error: `, err);
-            })
+            });
         })
         .catch((error) => {
           console.log(`${teacher.fName} ${teacher.lName} doesn't have a ${req.body.subject} cohort in the DB or Network Error: `, error);
