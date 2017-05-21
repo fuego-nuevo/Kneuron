@@ -16,11 +16,7 @@ class Login extends Component {
     const creds = { email: email.value.trim(), password: password.value.trim() }
     this.props.onLoginClick(creds)
   }
-
-  componentWillUnmount() {
-    console.log('UNMOUNTINGGG ')
-  }
-
+  
   render() {
     const { errorMessage } = this.props;
     return(
