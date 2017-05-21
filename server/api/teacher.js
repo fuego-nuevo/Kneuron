@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const User = require('../db/models').User;
-let bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const hasher = require('./util').hasher;
-var async = require('asyncawait/async');
-var await = require('asyncawait/await');
+const async = require('asyncawait/async');
+const await = require('asyncawait/await');
 
 //signup with Promises
 // router.post('/', (req, res, next) => {
@@ -40,14 +40,14 @@ var await = require('asyncawait/await');
 //signup with async await
 router.post('/', async ((req, res, next) => {
   try{
-    let salt = await (bcrypt.genSalt(saltRounds));
-    let hash = await (bcrypt.hash(req.body.password, salt));
-    let person = await (User.findOne({where: {email: req.body.email }}));
+    const salt = await (bcrypt.genSalt(saltRounds));
+    const hash = await (bcrypt.hash(req.body.password, salt));
+    const person = await (User.findOne({where: {email: req.body.email }}));
     if(person){
         console.log('That email is taken. Please try another email.');
         res.status(404).send();
       } else {
-        let newUser = await (User.create({
+        const newUser = await (User.create({
           email: req.body.email,
           password: hash,
           userType: req.body.userType,

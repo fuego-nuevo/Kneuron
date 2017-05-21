@@ -3,45 +3,76 @@ const User = require('../db/models').User;
 const Class = require('../db/models').Class;
 const Lecture = require('../db/models').Lecture;
 const antiHasher = require('./util').antiHasher;
-
+const async = require('asyncawait/async');
+const await = require('asyncawait/await');
 
 //Post A Lecture For A Given Class From A Given Teacher
-router.post('/', (req, res, next) => {
-  User.findOne({ where: { email: antiHasher(req.body.auth_token) }})
-    .then(teacher => {
-      Class.findOne({ where: { teacherId: teacher.id, id: req.body.id, subject: req.body.subject }})
-        .then(klass => {
-          Lecture.findOne({ where: { classId: klass.id, name: req.body.name }})
-            .then(lecture => {
-              if(lecture){
-                console.log(`${lecture.name} Lecture for ${klass.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
-                res.status(422).send(`${lecture.name} Lecture for ${klass.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
-              } else {
-                Lecture.create({
-                  name: req.body.name,
-                  classId: req.body.id
-                })
-                .then(lecture => {
-                  console.log("Lecture Posted To DB: ", lecture);
-                  rest.status(201).send(lecture);
-                })
-                .catch(error => {
-                  console.log("Error Posting To DB: ", error);
-                  res.status(404).send();
-                });
-              }
-            });
-        })
-        .catch(error => {
-          console.log(`${teacher.fName} ${teacher.lName} Does Not Currently Have A ${klass.subject} Class.`);
-          res.status(404).send();
-        })
-    })
-    .catch(error => {
+// router.post('/', (req, res, next) => {
+//   User.findOne({ where: { email: antiHasher(req.body.auth_token) }})
+//     .then(teacher => {
+//       Class.findOne({ where: { teacherId: teacher.id, id: req.body.id, subject: req.body.subject }})
+//         .then(klass => {
+//           Lecture.findOne({ where: { classId: klass.id, name: req.body.name }})
+//             .then(lecture => {
+//               if(lecture){
+//                 console.log(`${lecture.name} Lecture for ${klass.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
+//                 res.status(422).send(`${lecture.name} Lecture for ${klass.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
+//               } else {
+//                 Lecture.create({
+//                   name: req.body.name,
+//                   classId: req.body.id
+//                 })
+//                 .then(lecture => {
+//                   console.log("Lecture Posted To DB: ", lecture);
+//                   res.status(201).send(lecture);
+//                 })
+//                 .catch(error => {
+//                   console.log("Error Posting To DB: ", error);
+//                   res.status(404).send();
+//                 });
+//               }
+//             });
+//         })
+//         .catch(error => {
+//           console.log(`${teacher.fName} ${teacher.lName} Does Not Currently Have A ${klass.subject} Class.`);
+//           res.status(404).send();
+//         })
+//     })
+//     .catch(error => {
+//       console.log(`Error finding Teacher with email: ${antiHasher(req.body.auth_token)}`);
+//       res.status(404).send();
+//     })
+// });
+
+
+//Post A Lecture For A Class With Async
+router.post('/', async((req, res, next) => {
+  try{
+    const teacher = await(User.findOne({ where: { email: antiHasher(req.body.auth_token) }}));
+    if(teacher){
+      const teacherClass = await(Class.findOne({ where: { teacherId: teacher.id, id: req.body.id, subject: req.body.subject }}));
+      if(teacherClass){
+        const teacherLecture = await(Lecture.findOne({ where: { classId: teacherClass.id, name: req.body.name }}));
+        if(teacherLecture){
+          console.log(`${teacherLecture.name} Lecture for ${teacherClass.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
+          res.status(422).send(`${teacherLecture.name} Lecture for ${teacherClass.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
+        } else {
+          const newLecture = await(Lecture.create({ name: req.body.name, classId: req.body.id}));
+          console.log("Lecture Posted To DB: ", newLecture);
+          res.status(201).send(newLecture);
+        }
+      } else {
+        console.log(`${teacher.fName} ${teacher.lName} Does Not Currently Have A ${req.body.subject} Class.`);
+        res.status(404).send();
+      }
+    } else {
       console.log(`Error finding Teacher with email: ${antiHasher(req.body.auth_token)}`);
       res.status(404).send();
-    })
-});
+    }
+  } catch(e) {
+    res.status(404).send();
+  }
+}));
 
 
 //Get All Lectures For A Given Class From A Given Teacher
