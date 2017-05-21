@@ -5,7 +5,7 @@ const School = db.define('school', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
-  }
+  },
 });
 
 const User = db.define('user', {
@@ -15,11 +15,11 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   email: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   fName: {
     type: Sequelize.STRING,
@@ -32,8 +32,8 @@ const User = db.define('user', {
   userType: {
     type: Sequelize.INTEGER,
     allowNull: false,
-  }
-})
+  },
+});
 
 // const Teacher = db.define('teacher', {
 //   fName: {
@@ -61,14 +61,14 @@ const StudentQuestion = db.define('studentquestion', {
   question: {
     type: Sequelize.STRING,
     allowNull: false,
-  }
+  },
 });
 
 const Class = db.define('class', {
   subject: {
     type: Sequelize.STRING,
     allowNull: false,
-  }
+  },
 });
 
 const Lecture = db.define('lecture', {
@@ -86,14 +86,14 @@ const Topic = db.define('topic', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
-  }
+  },
 });
 
 const Quiz = db.define('quiz', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
-  }
+  },
 });
 
 const Question = db.define('question', {
@@ -104,7 +104,7 @@ const Question = db.define('question', {
   correct: {
     type: Sequelize.INTEGER,
     allowNull: false,
-  }
+  },
 });
 
 const Answer = db.define('answer', {
@@ -115,7 +115,7 @@ const Answer = db.define('answer', {
   selected: {
     type: Sequelize.INTEGER,
     allowNull: false,
-  }
+  },
 });
 
 
@@ -141,7 +141,7 @@ const Attendance = db.define('attendance', {
   present: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
-  }
+  },
 });
 
 // const Class = db.define('class', {
@@ -164,7 +164,7 @@ const defineRelationship = () => {
   // School.belongsTo(User);
   // Optional
 
-  User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false }})
+  User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false } });
   Attendance.belongsTo(User);
 
   User.hasMany(Class, { as: 'teachers_classes', foreignKey: { name: 'teacher_id', allowNull: false } });
@@ -200,10 +200,7 @@ const defineRelationship = () => {
 
   Question.hasMany(Answer);
   Answer.belongsTo(Question);
-
-
-
-}
+};
 
 
 
@@ -395,6 +392,6 @@ module.exports = {
   Question,
   Answer,
   Attendance,
-  defineRelationship
+  defineRelationship,
 };
 
