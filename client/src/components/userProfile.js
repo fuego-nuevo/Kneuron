@@ -40,7 +40,7 @@ class UserProfile extends Component {
           {/*<PageHeader>Your Profile <small>Account information</small></PageHeader>*/}
         </div>
         <div className='userprofile'>
-          hi
+          HIIIIIIIIIII
           {/*<h1 ><Link to='make a link to the edit profiles page'><Button>Edit Profile</Button></Link></h1>*/}
         </div>
       </div>
