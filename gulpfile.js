@@ -80,7 +80,7 @@ gulp.task('webpack-dev-server', (cb) => {
     clientLogLevel: 'info',
     proxy: [
       {
-        context: ['/api'],
+        context: ['/api', '/'],
         target: `http://localhost:${process.env.PORT}`,
       },
     ],
