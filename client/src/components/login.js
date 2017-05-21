@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {};
   }
 
@@ -14,11 +14,15 @@ class Login extends Component {
     const fName = this.refs.fName
     const lName = this.refs.lName
     const creds = { email: email.value.trim(), password: password.value.trim() }
-    this.props.onLoginClick(creds)
+    this.props.onLoginClick(creds, this.props.history);
+    console.log(this.props , 'this props first')
   }
-  
+
+
   render() {
     const { errorMessage } = this.props;
+    console.log(this.props , 'this props second')
+    console.log('this is login');
     return(
     <div>
         <input type='text'
