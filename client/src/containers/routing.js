@@ -8,9 +8,11 @@ import Dashboard from '../components/Dashboard';
 import UserProfile from '../components/userProfile';
 
 class Router extends Component {
-  constructor() {
-    super();
-    this.state = {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      authenticate: props.isAuthenticated,
+    }
     this.renderDashboard = this.renderDashboard.bind(this);
   }
 
@@ -19,26 +21,25 @@ class Router extends Component {
     return isAuthenticated ? <Dashboard /> : <Redirect to="/" />
   }
 
+
   render() {
-    const { dispatch, errorMessage } = this.props;
-    console.log(this.props, 'this is auth nonsense going on');
+    const { dispatch, errorMessage, isAuthenticated, history } = this.props;
+    console.log('this is routing');
     return(
-      <BrowserRouter>
-        <div>
           <Switch>
             <Route exact path="/">
               <FrontPage
+                history={history}
+                isAuthenticated={isAuthenticated}
                 errorMessage={errorMessage}
                 dispatch={dispatch}
-            />
+              />
             </Route>
             <Route path="/dashboard" render={this.renderDashboard}/>
           </Switch>
-        </div>
-      </BrowserRouter>
-    );
-  }
-}
+        );
+      }
+    }
 
 const mapStateToProps = state => {
   const { auth } = state
@@ -50,4 +51,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Router);
+export default connect(mapStateToProps)(withRouter(Router));
