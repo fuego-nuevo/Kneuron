@@ -46,6 +46,6 @@ module.exports = {
   },
   devtool: 'inline-sourcemap',
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
   ],
 };
