@@ -18,21 +18,21 @@ class UserProfile extends Component {
     
   }
 
-  componentDidMount() {
+componentDidMount() {
     this.fetchUser();
   }
 
 
-  fetchUser() {
+fetchUser() {
+  axios.get(`/api/users/${token}`)
+    .then((res) => {
+      this.setState({username: res.data.username, email: res.data.username, fName: res.data.fName, lName: res.data.lName})
 
-    axios.get(`/api/users/${token}`)
-      .then((res) => {
-        this.setState({username: res.data.username, email: res.data.username, fName: res.data.fName, lName: res.data.lName})
+    .catch(err => {
+      console.log('Error in fetchUsers in UserProfile: ', err);
       })
-      .catch(err => {
-        console.log('Error in fetchUsers in UserProfile: ', err);
-        })
-  }
+    }
+}
 
   render() {
     return(
