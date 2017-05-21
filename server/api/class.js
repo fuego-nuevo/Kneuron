@@ -4,25 +4,6 @@ const Class = require('../db/models').Class;
 const antiHasher = require('./util').antiHasher;
 
 
-//Get All Classes For A Given Teacher
-router.get('/:auth_token', (req, res, next) => {
-  User.findOne({where: { email: antiHasher(req.params.auth_token) }})
-    .then(teacher => {
-      Class.findAll({where: { teacherId: teacher.id }})
-        .then(classes => {
-          console.log(`${teacher.fName} ${teacher.lName}'s Classes Grabbed: `, classes);
-          res.status(200).send(classes);
-        })
-        .catch(err => {
-          console.log(`Coudn't Get ${teacher.fName}'s Classes Because: `, err);
-          res.status(404).send();
-        })
-    })
-    .catch(err => {
-      console.log("That Teacher Does Not Exist In DB: ", err);
-      res.status(404).send();
-    })
-});
 
 
 //Create A New Class For A Given Teacher
@@ -50,6 +31,27 @@ router.post('/', (req, res, next) => {
 });
 
 
+//Get All Classes For A Given Teacher
+router.get('/:auth_token', (req, res, next) => {
+  User.findOne({where: { email: antiHasher(req.params.auth_token) }})
+    .then(teacher => {
+      Class.findAll({where: { teacherId: teacher.id }})
+        .then(classes => {
+          console.log(`${teacher.fName} ${teacher.lName}'s Classes Grabbed: `, classes);
+          res.status(200).send(classes);
+        })
+        .catch(err => {
+          console.log(`Coudn't Get ${teacher.fName}'s Classes Because: `, err);
+          res.status(404).send();
+        })
+    })
+    .catch(err => {
+      console.log("That Teacher Does Not Exist In DB: ", err);
+      res.status(404).send();
+    })
+});
+
+
 //Delete A Given Class From A Teachers List of Classes
 router.delete('/', (req, res, next) => {
   Class.findOne({where: {id: req.body.class_id}})
@@ -60,17 +62,17 @@ router.delete('/', (req, res, next) => {
       res.status(204).send(`${class} was destroyed from DB`);
     })
     .catch(err => {
-      console.log("Error Deleting Selected Class: ", err);
-      res.status(404).send("Error Deleting Selected Class...");
+      console.log("Error Deleting Selected Class... Class Does Not Exist: ", err);
+      res.status(404).send("Error Deleting Selected Class... Class Does Not Exist...");
     })
 });
 
 
 //Update Information Of A Given Class From A Given Teacher
 router.put('/', (req, res, next) => {
-  User.findOne{where: { email: antiHasher(req.body.auth_token), fName: req.body.fName, lName: req.body.lName }}
+  User.findOne{where: { email: antiHasher(req.body.auth_token) }}
     .then(teacher => {
-      Class.findOne({where: {teacherId: teacher.id}})
+      Class.findOne({where: {id: req.body.class_id, teacherId: teacher.id}})
       .then(class => {
         res.status(202).send(`${class} was marked for updating...`);
         class.subject = req.body.subject;
