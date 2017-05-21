@@ -2,13 +2,25 @@ import React, { Component } from 'react';
 import { connect }  from 'react-redux';
 import { loginUser } from '../actions/login';
 import Login from '../components/login';
-import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import FrontPage from '../components/frontPage';
+import Dashboard from '../components/Dashboard';
 import UserProfile from '../components/userProfile';
 
 class Router extends Component {
+  constructor() {
+    super();
+    this.state = {}
+    this.renderDashboard = this.renderDashboard.bind(this);
+  }
+
+  renderDashboard() {
+    const { isAuthenticated } = this.props;
+    return isAuthenticated ? <Dashboard /> : <Redirect to="/" />
+  }
+
   render() {
-    const { dispatch, errorMessage, isAuthenticated } = this.props;
+    const { dispatch, errorMessage } = this.props;
     console.log(this.props, 'this is auth nonsense going on');
     return(
       <BrowserRouter>
@@ -16,12 +28,11 @@ class Router extends Component {
           <Switch>
             <Route exact path="/">
               <FrontPage
-                isAuthenticated={isAuthenticated}
                 errorMessage={errorMessage}
                 dispatch={dispatch}
             />
             </Route>
-            <Route path="/userprofile" component={UserProfile}/>
+            <Route path="/dashboard" render={this.renderDashboard}/>
           </Switch>
         </div>
       </BrowserRouter>
