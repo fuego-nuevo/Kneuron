@@ -10,9 +10,6 @@ class Login extends Component {
     event.preventDefault()
     const email = this.refs.email
     const password = this.refs.password
-    const userType = this.refs.userType
-    const fName = this.refs.fName
-    const lName = this.refs.lName
     const creds = { email: email.value.trim(), password: password.value.trim() }
     this.props.onLoginClick(creds, this.props.history);
     console.log(this.props , 'this props first')
