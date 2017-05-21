@@ -73,15 +73,15 @@ gulp.task('webpack-dev-server', (cb) => {
   
   new WebpackDevServer(compiler, {
     contentBase: './static',
-    publicPath: '/webstatic',
+    publicPath: '/static',
     hot: true,
     inline: true,
     stats: true,
     clientLogLevel: 'info',
     proxy: [
       {
-        context:[],
-        target: 'http://localhost:5000',
+        context:['/api', '/'],
+        target: `http://localhost:${process.env.PORT}`,
       },
     ]
   }).listen(8080, 'localhost', (err) => {
