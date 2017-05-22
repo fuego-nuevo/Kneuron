@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Login from '../components/login';
 import NavBar from '../components/frontPageNav';
+import { Redirect, Route } from 'react-router-dom';
 import { loginUser } from '../actions/login';
 
 class FrontPage extends Component {
