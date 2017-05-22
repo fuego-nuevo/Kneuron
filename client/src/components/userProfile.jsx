@@ -26,20 +26,20 @@ class UserProfile extends Component {
     axios.get(`/api/users/${auth}`, config)
         .then((res) => {
         })
-        .catch(err => {
+        .catch((err) => {
           console.log('Error in fetchUsers in UserProfile: ', err);
-        })
+        });
   }
 
   render() {
     return (
       <div>
         <div >
-          {/*<PageHeader>Your Profile <small>Account information</small></PageHeader>*/}
+          {/* <PageHeader>Your Profile <small>Account information</small></PageHeader>*/}
         </div>
-        <div className='userprofile'>
+        <div className="userprofile">
           HIIIIIIIIIII
-          {/*<h1 ><Link to='make a link to the edit profiles page'><Button>Edit Profile</Button></Link></h1>*/}
+          {/* <h1 ><Link to='make a link to the edit profiles page'><Button>Edit Profile</Button></Link></h1>*/}
         </div>
       </div>
     );
