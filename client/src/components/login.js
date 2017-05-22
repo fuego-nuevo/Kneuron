@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/main.css';
 
 class Login extends Component {
   constructor(props) {
@@ -22,16 +23,21 @@ class Login extends Component {
     console.log('this is login');
     return(
     <div>
+      <div className="login-input">
+        {/*<label className="lbl-e">Email</label>*/}
         <input type='text'
         ref='email'
         className="form-control"
         placeholder="email"
         />
+        {/*<label className="lbl-p">Password</label>*/}
         <input type='password'
         ref='password'
         className="form-control"
         placeholder='Password'
         />
+      </div>
+        <hr />
         <button onClick={(event) =>  this.handleClick(event)} className="btn btn-primary">
           Login
         </button>
