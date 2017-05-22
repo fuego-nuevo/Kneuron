@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { forceRefresh } from '../utils/forceRefresh';
+
 const requestLogin = creds => ({
   type: 'LOGIN_REQUEST',
   isFetching: true,
@@ -48,7 +50,7 @@ exports.loginUser = (creds, history) => {
         localStorage.setItem('access_token', response.data.id_token);
         dispatch(receiveLogin(response.data));
         history.push('/dashboard');
-        // window.location.reload();
+        forceRefresh();
       })
       .catch((err) => {
         console.log('Error: ', err);
@@ -64,7 +66,6 @@ exports.signupUser = (creds) => {
   };
 
   return (dispatch) => {
-    // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds));
 
     return axios.get('http://localhost:8080/api/teachers/', config)
@@ -74,15 +75,11 @@ exports.signupUser = (creds) => {
             )
             .then(({ user, response }) => {
               if (!response.ok) {
-          // If there was a problem, we want to
-          // dispatch the error condition
                 dispatch(loginError(user.message));
                 return Promise.reject(user);
               }
-                // If login was successful, set the token in local storage
               localStorage.setItem('id_token', user.id_token);
               localStorage.setItem('id_token', user.access_token);
-                // Dispatch the success action
               dispatch(receiveLogin(user));
             })
         .catch(err => console.log('Error: ', err));

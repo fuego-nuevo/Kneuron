@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import FrontPage from '../components/frontPage';
 import Dashboard from '../components/Dashboard';
-import UserProfile from '../components/userProfile';
+import SignUp from '../containers/signUp';
+import { forceRefresh } from '../utils/forceRefresh';
 
 class Router extends Component {
   constructor(props) {
@@ -14,7 +15,11 @@ class Router extends Component {
 
   renderDashboard() {
     const { isAuthenticated } = this.props;
-    return isAuthenticated ? <Dashboard /> : <Redirect to="/" />;
+    if (isAuthenticated) {
+      return <Dashboard />;
+    }
+    this.props.history.push('/');
+    forceRefresh();
   }
 
 
@@ -30,8 +35,11 @@ class Router extends Component {
             dispatch={dispatch}
           />
         </Route>
-        <Route path="/dashboard" render={this.renderDashboard} />
-        <Route path="/signup" component={UserProfile} />
+        <Route
+          path="/dashboard"
+          render={this.renderDashboard}
+        />
+        <Route path="/signup" component={SignUp} />
       </Switch>
     );
   }
