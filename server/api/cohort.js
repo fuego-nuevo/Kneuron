@@ -9,20 +9,15 @@ const await = require('asyncawait/await');
 
 
 //Create A New Cohort For A Given Teacher wihtout Async
-// router.post('/', (req, res, next) => {
+// router.post('/', (req, res) => {
 //   User.findOne({where: { email: antiHasher(req.body.auth_token) }})
 //     .then(teacher => {
-//       console.log("Found Teacher: ", teacher);
-//       console.log(antiHasher(req.body.auth_token));
-
 //       Cohort.findOne({where: {teacher_id: teacher.id, subject: req.body.subject }})
 //         .then(cohort => {
 //           if(cohort){
-//             console.log(`${teacher.fName} ${teacher.lName} already has a ${cohort.subject} cohort`, cohort);
 //             res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${cohort.subject} cohort`);
 //           } else {
-//             console.log("Need to Create Cohort for teacher: ", antiHasher(req.body.auth_token));
-//             Cohort.create({ subject: req.body.subject, teacher_id: teacher.id})
+//             Cohort.create({ subject: req.body.subject, teacher_id: teacher.id, user_id: teacher.id})
 //               .then(newCohort => {
 //                 console.log(`${teacher.fName} ${teacher.lName} just added a new ${newCohort.subject} cohort to their schedule.`, newCohort);
 //                 res.status(201).send(newCohort);
@@ -41,35 +36,47 @@ const await = require('asyncawait/await');
 
 
 //Create a New Cohort with Async
-router.post('/', async((req, res, next) => {
+router.post('/', async((req, res) => {
   //Find a Teacher by their email and see if they are in the DB or Not...
-  const teacher = await(User.findOne({where: { email: antiHasher(req.body.auth_token) }}));
-  if(teacher){
-    //If Teacher Found the  Find Their Cohort where subject === req.body.subject and their teacherId: as their id
-    console.log("Found Teacher: ", teacher);
-    console.log(antiHasher(req.body.auth_token));
-    const teacherCohort = await(Cohort.findOne({where: {teacherId: teacher.id, subject: req.body.subject, userId: teacher.id }}));
-    if(teacherCohort){
-      //If That cohort found then say cohort already exists
-      console.log(`${teacher.fName} ${teacher.lName} already has a ${teacherCohort.subject} cohort`, teacherCohort);
-      res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${teacherCohort.subject} cohort`);
+  try{
+    const teacher = await(User.findOne({where: { email: antiHasher(req.body.auth_token) }}));
+    if(teacher){
+      //If Teacher Found the  Find Their Cohort where subject === req.body.subject and their teacherId: as their id
+      //Switch with findOrCreate
+      const teacherCohort = await(Cohort.findOne({where: {teacher_id: req.body.teacher_id, subject: req.body.subject.toUpperCase() }}));
+      if(teacherCohort){
+        //If That cohort found then say cohort already exists
+        console.log(`${teacher.fName} ${teacher.lName} already has a ${teacherCohort.subject} cohort`, teacherCohort);
+        res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${teacherCohort.subject} cohort`);
+      } else {
+        //Else Create the Cohort
+        req.body['teacher_id'] = teacher.id;
+        req.body['subject'] = req.body.subject.toUpperCase();
+        console.log("-------------------------\n\n\n\n\n\n\n\n\n\n\n");
+        console.log("Body of request Is:", req.body);
+        const newCohort = await(Cohort.create(req.body));
+        if(newCohort){
+          console.log(`${teacher.fName} ${teacher.lName} just added a new ${newCohort.subject} cohort to their schedule.`, newCohort);
+          res.status(201).send(newCohort);
+        } else {
+          console.log("Failed To Create New Cohort");
+          res.status(404).send();
+        }
+      }
     } else {
-      //Else Create the Cohort
-      console.log("Need to Create Cohort for teacher: ", antiHasher(req.body.auth_token));
-      const newCohort = await(Cohort.create({ subject: req.body.subject, teacherId: teacher.id, userId: teacher.id}));
-      console.log(`${teacher.fName} ${teacher.lName} just added a new ${newCohort.subject} cohort to their schedule.`, newCohort);
-      res.status(201).send(newCohort);
+      //Teacher wasn't found in DB
+      console.log('Teacher Does Not Exist In The DB...');
+      res.status(404).send();
     }
-  } else {
-    //Teacher wasn't found in DB
-    console.log('Teacher Does Not Exist In The DB...');
+  } catch(e) {
+    console.log('Async Or Network Error: ', e);
     res.status(404).send();
   }
 }));
 
 
 //Get All Cohorts For A Given Teacher without Async
-// router.get('/:auth_token', (req, res, next) => {
+// router.get('/:auth_token', (req, res) => {
 //   User.findOne({where: { email: antiHasher(req.params.auth_token) }})
 //     .then(teacher => {
 //       Cohort.findAll({where: { teacherId: teacher.id }})
@@ -90,7 +97,7 @@ router.post('/', async((req, res, next) => {
 
 
 //Get All Cohorts For A Given Teacher With Async
-router.get('/:auth_token', async((req, res, next) => {
+router.get('/:auth_token', async((req, res) => {
   try{
     const teacher = await(User.findOne({where: { email: antiHasher(req.params.auth_token) }}));
     if(teacher){
@@ -111,7 +118,7 @@ router.get('/:auth_token', async((req, res, next) => {
 
 
 //Delete A Given Cohort From A Teachers List of Cohorts without Async
-// router.delete('/', (req, res, next) => {
+// router.delete('/', (req, res) => {
 //   Cohort.findOne({where: {id: req.body.cohortId}})
 //     .then(cohort => {
 //       console.log("Cohort Was Successfully Deleted: ", cohort);
@@ -127,7 +134,7 @@ router.get('/:auth_token', async((req, res, next) => {
 
 
 //Delete A Given Cohort From A Teachers List of Cohorts with Async
-router.delete('/', async((req, res, next) => {
+router.delete('/', async((req, res) => {
   try{
     const cohort = await(Cohort.findOne({where: {id: req.body.cohortId}}));
     console.log("Cohort Was Successfully Deleted: ", cohort);
@@ -142,7 +149,7 @@ router.delete('/', async((req, res, next) => {
 
 
 // //Update Information Of A Given Cohort From A Given Teacher without Async
-// router.put('/', (req, res, next) => {
+// router.put('/', (req, res) => {
 //   User.findOne({where: { email: antiHasher(req.body.auth_token) }})
 //     .then(teacher => {
 //       Cohort.findOne({where: {id: req.body.cohortId, teacherId: teacher.id}})
@@ -176,7 +183,7 @@ router.delete('/', async((req, res, next) => {
 
 
 //Update Information Of A Given Cohort From A Given Teacher with Async
-router.put('/', async((req, res, next) => {
+router.put('/', async((req, res) => {
   try{
     const teacher = await(User.findOne({where: { email: antiHasher(req.body.auth_token) }}));
     if(teacher){
