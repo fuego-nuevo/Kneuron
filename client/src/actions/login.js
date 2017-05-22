@@ -48,7 +48,7 @@ exports.loginUser = (creds, history) => {
         localStorage.setItem('access_token', response.data.id_token);
         dispatch(receiveLogin(response.data));
         history.push('/dashboard');
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((err) => {
         console.log('Error: ', err);

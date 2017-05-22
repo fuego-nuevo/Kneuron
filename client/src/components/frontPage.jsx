@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Login from '../components/login';
 import NavBar from '../components/frontPageNav';
-import { Redirect, Route } from 'react-router-dom';
 import { loginUser } from '../actions/login';
 
 class FrontPage extends Component {
@@ -12,19 +11,20 @@ class FrontPage extends Component {
 
   render() {
     const { dispatch, errorMessage, history, isAuthenticated } = this.props;
-    return(
+    return (
       <div>
-        <NavBar/>
-          <div className="front">
-            <form className="login">
-              <div className="login-top">LOGIN</div>
-              <Login
-               history={history}
-               isAuthenticated={isAuthenticated}
-               errorMessage={errorMessage}
-               onLoginClick={ creds => dispatch(loginUser(creds, history)) } />
-            </form>
-          </div>
+        <NavBar />
+        <div className="front">
+          <form className="login">
+            <div className="login-top">LOGIN</div>
+            <Login
+              history={history}
+              isAuthenticated={isAuthenticated}
+              errorMessage={errorMessage}
+              onLoginClick={creds => dispatch(loginUser(creds, history))}
+            />
+          </form>
+        </div>
       </div>
     );
   }
