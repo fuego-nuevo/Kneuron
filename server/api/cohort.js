@@ -48,10 +48,6 @@ router.post('/', async((req, res) => {
         res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${teacherCohort.subject} cohort`);
       } else {
         //Else Create the Cohort
-        // req.body['teacher_id'] = teacher.id;
-        // req.body['subject'] = req.body.subject.toUpperCase();
-        // console.log("-------------------------\n\n\n\n\n\n\n\n\n\n\n");
-        // console.log("Body of request Is:", req.body);
         const newCohort = await(Cohort.create({subject: req.body.subject.toUpperCase(), teacher_id: teacher.id}));
         console.log("++++++++++\n\n\n", newCohort);
         if(newCohort){
@@ -59,13 +55,14 @@ router.post('/', async((req, res) => {
           res.status(201).send(newCohort);
         } else {
           console.log("Failed To Create New Cohort");
-        });
-    })
-    .catch((error) => {
-      console.log('Teacher Does Not Exist In The DB...');
+        }
+      }
+    }
+  } catch(error) {
+      console.log('Teacher Does Not Exist In The DB...: ', error);
       res.status(404).send(error);
-    });
-});
+  }
+}));
 
 
 // Get All Cohorts For A Given Teacher
@@ -79,12 +76,13 @@ router.get('/:auth_token', (req, res) => {
         })
         .catch((err) => {
           console.log(`Coudn't Get ${teacher.fName}'s Cohorts Because: `, err);
-    }
-  } catch(e) {
+        })
+  })
+  .catch(e => {
     console.log('Async Or Network Error: ', e);
     res.status(404).send();
-  }
-}));
+  });
+});
 
 
 //Get All Cohorts For A Given Teacher without Async
