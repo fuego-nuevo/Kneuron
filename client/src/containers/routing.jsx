@@ -39,7 +39,9 @@ class Router extends Component {
           path="/dashboard"
           render={this.renderDashboard}
         />
-        <Route path="/signup" component={SignUp} />
+        <Route path="/signup">
+          <SignUp history={history} />
+        </Route>
       </Switch>
     );
   }

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { signupUser } from '../actions/login';
 
 class SignUp extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       fName: '',
@@ -17,37 +17,35 @@ class SignUp extends Component {
 
   handleChange(e) {
     const name = e.target.name;
-    console.log(e.target.name);
-    console.log(e.target.value);
     this.setState({ [name]: e.target.value });
   }
 
   render() {
-    console.log('this is the signup sheet!', this.state);
     return (
       <div>
         SIGNUP!
-        <form autoComplete="on">
+        <form onSubmit={(e) => { e.preventDefault(); this.props.signupUser(this.state, this.props.history); }} autoComplete="on">
           <div><label htmlFor="email">Email</label></div>
           <input onChange={this.handleChange} name="email" value={this.state.email} type="email" />
           <div><label htmlFor="fName">first name</label></div>
-          <input onChange={this.handleChange} name="fName" value={this.state.fName} type="text" />
+          <input onChange={this.handleChange} name="fName" value={this.state.fName} type="text" pattern="[a-z]{1,15}" />
           <div><label htmlFor="lName">last name</label></div>
           <input onChange={this.handleChange} name="lName" value={this.state.lName} type="text" />
           <div><label htmlFor="username">username</label></div>
           <input
             onChange={this.handleChange}
             name="username"
-            value={this.state.password}
+            value={this.state.username}
             type="text"
           />
           <div><label htmlFor="password">password</label></div>
           <input
             onChange={this.handleChange}
             name="password"
-            value={this.state.username}
-            type="username"
+            value={this.state.password}
+            type="password"
           />
+          <input type="submit" />
         </form>
       </div>
     );
@@ -55,4 +53,4 @@ class SignUp extends Component {
 }
 
 
-export default SignUp;
+export default connect(null, { signupUser })(SignUp);
