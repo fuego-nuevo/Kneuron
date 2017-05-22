@@ -6,13 +6,12 @@ import axios from 'axios';
 // import { PageHeader } from 'react-bootstrap';
 
 class UserProfile extends Component {
-  constructor (props) {
-    super (props)
+  constructor(props) {
+    super(props);
 
     this.state = {
       // user info blablalablalbalb
-    }
-    
+    };
   }
 
   componentDidMount() {
@@ -20,11 +19,10 @@ class UserProfile extends Component {
   }
 
   fetchScore() {
-    axios.get('/api/users')
+    axios.get('/api/users');
   }
 
   fetchUser() {
-
     axios.get(`/api/users/${auth}`, config)
         .then((res) => {
         })
@@ -34,7 +32,7 @@ class UserProfile extends Component {
   }
 
   render() {
-    return(
+    return (
       <div>
         <div >
           {/*<PageHeader>Your Profile <small>Account information</small></PageHeader>*/}
@@ -44,7 +42,7 @@ class UserProfile extends Component {
           {/*<h1 ><Link to='make a link to the edit profiles page'><Button>Edit Profile</Button></Link></h1>*/}
         </div>
       </div>
-    )
+    );
   }
 }
 
