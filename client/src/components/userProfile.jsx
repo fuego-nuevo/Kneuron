@@ -41,7 +41,6 @@ class UserProfile extends Component {
         <div>{this.state.email}</div>
         <div>{this.state.fName}</div>
         <div>{this.state.lName}</div>
-
       </div>
     );
   }

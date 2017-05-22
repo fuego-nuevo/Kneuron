@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import Routing from './routing';
 import { connect }  from 'react-redux';
 import { loginUser } from '../actions/login';
@@ -12,12 +13,11 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
+      <BrowserRouter>
         <Routing />
-        <UserProfile />
-      </div>
+      </BrowserRouter>
     );
   }
 }
 
-export default (App);
+export default App;

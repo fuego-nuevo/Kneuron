@@ -4,4 +4,7 @@ yarn.lock
 bundle.js
 client/src/bundle.js
 client/build/bundle.js
+static/bundle.js
 yarn-error.log
+.idea/workspace.xml
+.idea

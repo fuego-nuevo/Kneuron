@@ -12,3 +12,4 @@ const Dashboard = (props) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);*/
+export default Dashboard;
