@@ -60,13 +60,26 @@ router.post('/', async((req, res) => {
           res.status(201).send(newCohort);
         } else {
           console.log("Failed To Create New Cohort");
-          res.status(404).send();
-        }
-      }
-    } else {
-      //Teacher wasn't found in DB
+        });
+    })
+    .catch((error) => {
       console.log('Teacher Does Not Exist In The DB...');
-      res.status(404).send();
+      res.status(404).send(error);
+    });
+});
+
+
+// Get All Cohorts For A Given Teacher
+router.get('/:auth_token', (req, res) => {
+  User.findOne({ where: { email: antiHasher(req.params.auth_token) } })
+    .then((teacher) => {
+      Cohort.findAll({ where: { teacherId: teacher.id } })
+        .then((cohorts) => {
+          console.log(`${teacher.fName} ${teacher.lName}'s Cohorts Grabbed: `, cohorts);
+          res.status(200).send(cohorts);
+        })
+        .catch((err) => {
+          console.log(`Coudn't Get ${teacher.fName}'s Cohorts Because: `, err);
     }
   } catch(e) {
     console.log('Async Or Network Error: ', e);
