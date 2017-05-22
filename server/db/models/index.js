@@ -117,20 +117,28 @@ const defineRelationship = () => {
 
   User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
   Attendance.belongsTo(User);
-
+  
   User.hasMany(Cohort, { foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE' });
   User.hasMany(Cohort, { foreignKey: { name: 'student_id', allowNull: true }, onDelete: 'CASCADE' });
 
   // User.hasMany(Cohort, { as: 'teachers_classes' } );
   // User.hasMany(Cohort, { as: 'students_classes' } );
 
-  Cohort.belongsTo(User);
+  Cohort.belongsTo(User, { as: 'student', foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE'});
+  Cohort.belongsTo(User, { as: 'teacher', foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE'});
+
+  // Cohort.belongsTo(User);
+
+  Cohort.hasMany(Lecture, { as: 'cohort_lectures' });
+  Lecture.belongsTo(Cohort);
+
+  User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
+  Attendance.belongsTo(User);
+
 
   User.hasMany(StudentQuestion);
   StudentQuestion.belongsTo(User);
 
-  Cohort.hasMany(Lecture, { as: 'cohort_lectures' });
-  Lecture.belongsTo(Cohort);
 
   Lecture.hasMany(Attendance, { as: 'lecture_attendance' });
   Attendance.belongsTo(Lecture);
