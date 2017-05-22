@@ -2,32 +2,44 @@ import React, { Component } from 'react';
 import { connect }  from 'react-redux';
 import { loginUser } from '../actions/login';
 import Login from '../components/login';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import FrontPage from '../components/frontPage';
+import Dashboard from '../components/Dashboard';
 import UserProfile from '../components/userProfile';
 
 class Router extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      authenticate: props.isAuthenticated,
+    }
+    this.renderDashboard = this.renderDashboard.bind(this);
+  }
+
+  renderDashboard() {
+    const { isAuthenticated } = this.props;
+    return isAuthenticated ? <Dashboard /> : <Redirect to="/" />
+  }
+
+
   render() {
-    const { dispatch, errorMessage, isAuthenticated } = this.props;
-    console.log(this.props, 'this is auth nonsense going on');
+    const { dispatch, errorMessage, isAuthenticated, history } = this.props;
+    console.log('this is routing');
     return(
-      <BrowserRouter>
-        <div>
           <Switch>
             <Route exact path="/">
               <FrontPage
+                history={history}
                 isAuthenticated={isAuthenticated}
                 errorMessage={errorMessage}
                 dispatch={dispatch}
-            />
+              />
             </Route>
-            <Route path="/userprofile" component={UserProfile}/>
+            <Route path="/dashboard" render={this.renderDashboard}/>
           </Switch>
-        </div>
-      </BrowserRouter>
-    );
-  }
-}
+        );
+      }
+    }
 
 const mapStateToProps = state => {
   const { auth } = state
@@ -39,4 +51,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Router);
+export default connect(mapStateToProps)(withRouter(Router));

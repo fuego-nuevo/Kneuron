@@ -31,6 +31,7 @@ const debugReq = (req, res, next) => {
 };
 
 app.use(debugReq);
+app.use('/', express.static(path.join(__dirname, '../static/')));
 app.use('/api', router);
 
 app.get('*', (req, res) => {
