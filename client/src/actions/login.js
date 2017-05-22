@@ -1,4 +1,5 @@
 import axios from 'axios';
+import currentProfile from './currentProfile';
 const requestLogin = (creds) => {
   return {
     type: 'LOGIN_REQUEST',
@@ -50,14 +51,15 @@ exports.loginUser = (creds, history) => {
 
     return axios.get(`http://localhost:8080/api/teachers/${creds.email}/${creds.password}`)
       .then(response => {
-        console.log(response);
+        console.log("this is the response in line 54 of actions ", response);
         if (response.statusText !== 'OK') {
           dispatch(loginError('Bad Request...'))
           return Promise.reject(response)
         } else {
-          localStorage.setItem('id_token', response.data.id_token)
-          localStorage.setItem('access_token', response.data.id_token)
-          dispatch(receiveLogin(response.data))
+          localStorage.setItem('id_token', response.data.id_token);
+          localStorage.setItem('access_token', response.data.id_token);
+          dispatch(receiveLogin(response.data));
+          dispatch(currentProfile(response.data));
           history.push('/dashboard');
           window.location.reload();
         }
