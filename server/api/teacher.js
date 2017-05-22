@@ -55,8 +55,8 @@ router.post('/', async ((req, res, next) => {
           lName: req.body.lName,
           username: req.body.username
         }));
-        console.log("Signed Up New User: ", newUser);
-        res.status(201).send(newUser);
+        console.log("Signed Up New User: ", {user: newUser, id_token: hasher(req.body.email)});
+        res.status(201).send({user: newUser, id_token: hasher(req.body.email)});
       }
     } catch(e) {
       console.log("Invalid Login Credentials")
