@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import FrontPage from '../components/frontPage';
 import Dashboard from '../components/Dashboard';
+import UserProfile from '../components/userProfile';
 
 class Router extends Component {
   constructor(props) {
@@ -19,7 +20,6 @@ class Router extends Component {
 
   render() {
     const { dispatch, errorMessage, isAuthenticated, history } = this.props;
-    console.log('this is routing');
     return (
       <Switch>
         <Route exact path="/">
@@ -31,7 +31,7 @@ class Router extends Component {
           />
         </Route>
         <Route path="/dashboard" render={this.renderDashboard} />
-        <Route path="/signup" />
+        <Route path="/signup" component={UserProfile} />
       </Switch>
     );
   }
