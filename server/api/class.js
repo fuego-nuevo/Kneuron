@@ -2,35 +2,70 @@ const router = require('express').Router();
 const User = require('../db/models').User;
 const Class = require('../db/models').Class;
 const antiHasher = require('./util').antiHasher;
-var async = require('asyncawait/async');
-var await = require('asyncawait/await');
+const async = require('asyncawait/async');
+const await = require('asyncawait/await');
 
 
 
 
 //Create A New Class For A Given Teacher
-router.post('/', (req, res, next) => {
-  User.findOne({where: { email: antiHasher(req.body.auth_token) }})
-    .then(teacher => {
+// router.post('/', (req, res, next) => {
+//   User.findOne({where: { email: antiHasher(req.body.auth_token) }})
+//     .then(teacher => {
+//       console.log("Found Teacher: ", teacher);
+//       console.log(antiHasher(req.body.auth_token));
 
-      Class.findOne({where: {id: teacher.id}})
-        .then(klass => {
-            console.log(`${teacher.fName} ${teacher.lName} already has a ${klass.subject} class`, klass);
-            res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${klass.subject} class`);
-        });
+//       Class.findOne({where: {teacher_id: teacher.id, subject: req.body.subject }})
+//         .then(klass => {
+//           if(klass){
+//             console.log(`${teacher.fName} ${teacher.lName} already has a ${klass.subject} class`, klass);
+//             res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${klass.subject} class`);
+//           } else {
+//             console.log("Need to Create Class for teacher: ", antiHasher(req.body.auth_token));
+//             Class.create({ subject: req.body.subject, teacher_id: teacher.id})
+//               .then(newClass => {
+//                 console.log(`${teacher.fName} ${teacher.lName} just added a new ${newClass.subject} class to their schedule.`, newClass);
+//                 res.status(201).send(newClass);
+//               })
+//               .catch(err => {
+//                 console.log(err);
+//               })
+//           }
+//         });
+//     })
+//     .catch(error => {
+//       console.log('Teacher Does Not Exist In The DB...');
+//       res.status(404).send();
+//     })
+// });
 
-      Class.create({ subject: req.body.subject, teacherId: teacher.id})
-        .then(newClass => {
-          console.log(`${teacher.fName} ${teacher.lName} just added a new ${newClass.subject} class to their schedule.`, newClass);
-          res.status(201).send(newClass);
-        })
 
-    })
-    .catch(error => {
-      console.log('Teacher Does Not Exist In The DB...');
-      res.status(404).send();
-    })
-});
+//Create a New Class with Async
+router.post('/', async((req, res, next) => {
+  //Find a Teacher by their email and see if they are in the DB or Not...
+  const teacher = await(User.findOne({where: { email: antiHasher(req.body.auth_token) }}));
+  if(teacher){
+    //If Teacher Found the  Find Their Class where subject === req.body.subject and their teacherId: as their id
+    console.log("Found Teacher: ", teacher);
+    console.log(antiHasher(req.body.auth_token));
+    const teacherClass = await(Class.findOne({where: {teacherId: teacher.id, subject: req.body.subject, userId: teacher.id }}));
+    if(teacherClass){
+      //If That class found then say class already exists
+      console.log(`${teacher.fName} ${teacher.lName} already has a ${klass.subject} class`, klass);
+      res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${klass.subject} class`);
+    } else {
+      //Else Create the Class
+      console.log("Need to Create Class for teacher: ", antiHasher(req.body.auth_token));
+      const newClass = await(Class.create({ subject: req.body.subject, teacherId: teacher.id, userId: teacher.id}));
+      console.log(`${teacher.fName} ${teacher.lName} just added a new ${newClass.subject} class to their schedule.`, newClass);
+      res.status(201).send(newClass);
+    }
+  } else {
+    //Teacher wasn't found in DB
+    console.log('Teacher Does Not Exist In The DB...');
+    res.status(404).send();
+  }
+}));
 
 
 //Get All Classes For A Given Teacher

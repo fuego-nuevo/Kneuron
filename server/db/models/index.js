@@ -65,6 +65,11 @@ const StudentQuestion = db.define('studentquestion', {
 });
 
 const Class = db.define('class', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   subject: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -164,11 +169,11 @@ const defineRelationship = () => {
   // School.belongsTo(User);
   // Optional
 
-  User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false }})
+  User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'studentId', allowNull: false }})
   Attendance.belongsTo(User);
 
-  User.hasMany(Class, { as: 'teachers_classes', foreignKey: { name: 'teacher_id', allowNull: false } });
-  User.hasMany(Class, { as: 'students_classes', foreignKey: { name: 'student_id', allowNull: false } });
+  User.hasMany(Class, { as: 'teachers_classes', foreignKey: { name: 'teacherId', allowNull: false } });
+  User.hasMany(Class, { as: 'students_classes', foreignKey: { name: 'studentId', allowNull: false } });
   Class.belongsTo(User);
 
   User.hasMany(StudentQuestion);
