@@ -120,11 +120,11 @@ const defineRelationship = () => {
   // School.belongsTo(User);
   // Optional
 
-  User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'studentId', allowNull: false }})
+  User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false }})
   Attendance.belongsTo(User);
 
-  User.hasMany(Cohort, { as: 'teachers_classes', foreignKey: { name: 'teacherId', allowNull: false } });
-  User.hasMany(Cohort, { as: 'students_classes', foreignKey: { name: 'studentId', allowNull: false } });
+  User.hasMany(Cohort, { as: 'teachers_classes', foreignKey: { name: 'teacher_id', allowNull: false } });
+  User.hasMany(Cohort, { as: 'students_classes', foreignKey: { name: 'student_id', allowNull: false } });
   Cohort.belongsTo(User);
 
   User.hasMany(StudentQuestion);
