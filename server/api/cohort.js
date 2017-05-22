@@ -6,63 +6,64 @@ const async = require('asyncawait/async');
 const await = require('asyncawait/await');
 
 //Create A New Cohort For A Given Teacher wihtout Async
-// router.post('/', (req, res) => {
-//   User.findOne({where: { email: antiHasher(req.body.auth_token) }})
-//     .then(teacher => {
-//       Cohort.findOne({where: {teacher_id: teacher.id, subject: req.body.subject }})
-//         .then(cohort => {
-//           if(cohort){
-//             res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${cohort.subject} cohort`);
-//           } else {
-//             console.log("YOOOO REGINA \n\n\n\n\n\n\n\n\n", teacher.id);
-//             Cohort.create({ subject: req.body.subject, teacher_id: teacher.id, userId: teacher.id})
-//               .then(newCohort => {
-//                 console.log(`${teacher.fName} ${teacher.lName} just added a new ${newCohort.subject} cohort to their schedule.`, newCohort);
-//                 res.status(201).send(newCohort);
-//               })
-//               .catch(err => {
-//                 console.log(err);
-//               })
-//           }
-//         });
-//     })
-//     .catch(error => {
-//       console.log('Teacher Does Not Exist In The DB...');
-//       res.status(404).send();
-//     })
-// });
+router.post('/', (req, res) => {
+  User.findOne({where: { email: antiHasher(req.body.auth_token) }})
+    .then(teacher => {
+      Cohort.findOne({where: {teacher_id: teacher.id, subject: req.body.subject }})
+        .then(cohort => {
+          if(cohort){
+            res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${cohort.subject} cohort`);
+          } else {
+            console.log("YOOOO DANIEL \n\n\n\n\n\n\n\n\n", teacher.id);
+            let newCohort = Cohort.create({ subject: req.body.subject });
+            console.log(newCohort);
+            newCohort.setUsers(teacher.id, { save: false });
+            newCohort.save()
+              .then(newCohort => {
+                console.log("THIS IS THE RESOLVED PROMISE OBJECT: ", newCohort);
+                console.log(`${teacher.fName} ${teacher.lName} just added a new ${newCohort.subject} cohort to their schedule.`, newCohort);
+                res.status(201).send(newCohort);
+              })
+              .catch(err => {
+                console.log(err);
+              })
+          }
+        });
+    })
+    .catch(error => {
+      console.log('Teacher Does Not Exist In The DB...');
+      res.status(404).send();
+    })
+});
 
 
 //Create a New Cohort with Async
-router.post('/', async((req, res) => {
-  //Find a Teacher by their email and see if they are in the DB or Not...
-  try{
-    const teacher = await(User.findOne({where: { email: antiHasher(req.body.auth_token) }}));
-    if(teacher){
-      //If Teacher Found the  Find Their Cohort where subject === req.body.subject and their teacherId: as their id
-      //Switch with findOrCreate
-      const teacherCohort = await(Cohort.findOne({where: {teacher_id: teacher.id, subject: req.body.subject.toUpperCase() }}));
-      if(teacherCohort){
-        //If That cohort found then say cohort already exists
-        console.log(`${teacher.fName} ${teacher.lName} already has a ${teacherCohort.subject} cohort`, teacherCohort);
-        res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${teacherCohort.subject} cohort`);
-      } else {
-        //Else Create the Cohort
-        const newCohort = await(Cohort.create({subject: req.body.subject.toUpperCase(), teacher_id: teacher.id}));
-        console.log("++++++++++\n\n\n", newCohort);
-        if(newCohort){
-          console.log(`${teacher.fName} ${teacher.lName} just added a new ${newCohort.subject} cohort to their schedule.`, newCohort);
-          res.status(201).send(newCohort);
-        } else {
-          console.log("Failed To Create New Cohort");
-        }
-      }
-    }
-  } catch(error) {
-      console.log('Teacher Does Not Exist In The DB...: ', error);
-      res.status(404).send(error);
-  }
-}));
+// router.post('/', async((req, res) => {
+//   //Find a Teacher by their email and see if they are in the DB or Not...
+//   try{
+//     const teacher = await(User.findOne({where: { email: antiHasher(req.body.auth_token) }}));
+//     if(teacher){
+//       //If Teacher Found the  Find Their Cohort where subject === req.body.subject and their teacherId: as their id
+//       //Switch with findOrCreate
+//       const teacherCohort = await(Cohort.findOne({where: {teacher_id: teacher.id, subject: req.body.subject.toUpperCase() }}));
+//       if(teacherCohort){
+//         //If That cohort found then say cohort already exists
+//         console.log(`${teacher.fName} ${teacher.lName} already has a ${teacherCohort.subject} cohort`, teacherCohort);
+//         res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${teacherCohort.subject} cohort`);
+//       } else {
+//         //Else Create the Cohort
+//         console.log("YOOO ANDREW!!! THE TEACHER OBJECT LOOKS LIKE: ", teacher.id);
+//         const newCohort = await(Cohort.create({subject: req.body.subject.toUpperCase(), teacher_id: teacher.id}));
+//         console.log("++++++++++\n\n\n", newCohort);
+//         console.log(`${teacher.fName} ${teacher.lName} just added a new ${newCohort.subject} cohort to their schedule.`, newCohort);
+//           res.status(201).send(newCohort);
+//         }
+//       }
+//   } catch(error) {
+//       console.log('IM GETTING FUCKED SO HARD BY THIS SHIT..: ', error);
+//       res.status(404).send(error);
+//   }
+// }));
 
 
 // Get All Cohorts For A Given Teacher

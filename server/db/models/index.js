@@ -115,16 +115,16 @@ const defineRelationship = () => {
   // School.belongsTo(User);
   // Optional
 
-  User.hasMany(Cohort, { foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE' });
+  User.hasMany(Cohort, { foreignKey: { field: 'teacher_id', allowNull: false }, onDelete: 'CASCADE' });
 
-  User.hasMany(Cohort, { foreignKey: { name: 'student_id', allowNull: true }, onDelete: 'CASCADE' });
+  User.hasMany(Cohort, { foreignKey: { field: 'student_id', allowNull: true }, onDelete: 'CASCADE' });
 
   // User.hasMany(Cohort, { as: 'teachers_classes' } );
   // User.hasMany(Cohort, { as: 'students_classes' } );
 
-  Cohort.belongsTo(User, { as: 'student', foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE'});
+  Cohort.belongsTo(User, { as: 'student', foreignKey: { name: 'student_id', allowNull: true }, onDelete: 'CASCADE'});
 
-  Cohort.belongsTo(User, { as: 'teacher', foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE'});
+  Cohort.belongsTo(User, { as: 'teacher', foreignKey: { name: 'teacher_id', allowNull: true }, onDelete: 'CASCADE'});
 
   // Cohort.belongsTo(User);
 
