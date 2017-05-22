@@ -6,7 +6,7 @@ const NavBar = () => (
   <nav className="front-nav">
     <div className="front-nav-but">
       <button>About Us</button>
-      <button><Link to="/signup">Sign Up</Link></button>
+      <button><Link onClick={this.forceUpdate} to="/signup">Sign Up</Link></button>
     </div>
   </nav>
   );
