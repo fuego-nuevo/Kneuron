@@ -5,8 +5,7 @@
 const Dashboard = (props) => {
   return (
     <div>
-      <TopNavBar />
-      <SideNav />
+      HITS THE DASHBOARD
     </div>
   );
 };
