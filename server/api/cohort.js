@@ -5,9 +5,6 @@ const antiHasher = require('./util').antiHasher;
 const async = require('asyncawait/async');
 const await = require('asyncawait/await');
 
-
-
-
 //Create A New Cohort For A Given Teacher wihtout Async
 // router.post('/', (req, res, next) => {
 //   User.findOne({where: { email: antiHasher(req.body.auth_token) }})
