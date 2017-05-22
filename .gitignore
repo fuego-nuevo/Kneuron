@@ -6,3 +6,4 @@ client/src/bundle.js
 client/build/bundle.js
 yarn-error.log
 .idea/workspace.xml
+.idea
