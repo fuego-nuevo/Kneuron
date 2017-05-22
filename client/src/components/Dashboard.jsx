@@ -3,12 +3,12 @@ import TopNavBar from './TopNavBar';
 import SideNav from './SideNav';
 
 const Dashboard = (props) => {
-  return(
+  return (
     <div>
-      <TopNavBar/>
-      <SideNav/>
+      <TopNavBar />
+      <SideNav />
     </div>
-  )
-}
+  );
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

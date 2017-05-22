@@ -1,11 +1,11 @@
 const express = require('express');
-const webpack = require('webpack')
+const webpack = require('webpack');
 const path = require('path');
 const http = require('http');
-const logger = require("morgan");
+const logger = require('morgan');
+
 const app = express();
 const server = require('http').Server(app);
-
 
 require('dotenv').config();
 require('dotenv').load();
@@ -18,35 +18,40 @@ const expressSession = require('express-session');
 const bodyparser = require('body-parser');
 const cors = require('cors');
 
-app.use(logger("dev"));
+app.use(logger('dev'));
 app.use(cors());
 app.use(bodyparser.json({ limit: '50mb'}));
-app.use(bodyparser.urlencoded({ limit: '50mb', extended: true}));
+app.use(bodyparser.urlencoded({ limit: '50mb', extended: true }));
+
+const debugReq = (req, res, next) => {
+  debug('params: ', req.params);
+  debug('query: ', req.query);
+  debug('body: ', req.body);
+  next();
+};
+
 app.use(debugReq);
 app.use('/api', router);
-app.use(express.static(path.join(__dirname, '../client/src')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/../static/index.html'));
+});
+
+app.use(express.static(path.join(__dirname, '../static')));
 
 server.listen(process.env.PORT, (err) => {
-  if(err){
-    console.log('there was an error connecting to Server', err)
+  if (err) {
+    console.log('there was an error connecting to Server', err);
   } else {
-    console.log('You have connected to the server on PORT: ', process.env.PORT)
+    console.log('You have connected to the server on PORT: ', process.env.PORT);
   }
 });
 
 // Catches all 404 routes.
-app.use(function(req, res, next) {
-  var err = new Error("Not Found");
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
-
-function debugReq(req, res, next) {
-  debug("params:", req.params);
-  debug("query:", req.query);
-  debug("body:", req.body);
-  next();
-}
-
 
 module.exports = app;
