@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d0c60810-cd14-49aa-9b17-9a77663c6bd1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/components/frontPage.js" afterPath="$PROJECT_DIR$/client/src/components/frontPage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/components/login.js" afterPath="$PROJECT_DIR$/client/src/components/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/styles/main.css" afterPath="$PROJECT_DIR$/client/src/styles/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/api/class.js" afterPath="$PROJECT_DIR$/server/api/class.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/api/index.js" afterPath="$PROJECT_DIR$/server/api/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/api/lecture.js" afterPath="$PROJECT_DIR$/server/api/lecture.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/index.html" afterPath="$PROJECT_DIR$/static/index.html" />
-    </list>
+    <list default="true" id="d0c60810-cd14-49aa-9b17-9a77663c6bd1" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -52,8 +42,8 @@
       <file leaf-file-name="main.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/styles/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="618">
-              <caret line="105" column="1" lean-forward="false" selection-start-line="105" selection-start-column="1" selection-end-line="105" selection-end-column="1" />
+            <state relative-caret-position="363">
+              <caret line="94" column="43" lean-forward="true" selection-start-line="94" selection-start-column="43" selection-end-line="94" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -298,15 +288,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1495406959642</updated>
-      <workItem from="1495406961712" duration="8557000" />
+      <workItem from="1495406961712" duration="8754000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8557000" />
+    <option name="totallyTimeSpent" value="8754000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="831" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="831" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
@@ -440,8 +430,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/styles/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="618">
-          <caret line="105" column="1" lean-forward="false" selection-start-line="105" selection-start-column="1" selection-end-line="105" selection-end-column="1" />
+        <state relative-caret-position="363">
+          <caret line="94" column="43" lean-forward="true" selection-start-line="94" selection-start-column="43" selection-end-line="94" selection-end-column="43" />
           <folding />
         </state>
       </provider>
