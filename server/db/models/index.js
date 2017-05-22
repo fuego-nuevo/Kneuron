@@ -115,11 +115,11 @@ const defineRelationship = () => {
   // School.belongsTo(User);
   // Optional
 
-  User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE'})
+  User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
   Attendance.belongsTo(User);
 
-  User.hasMany(Cohort, { foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE'});
-  User.hasMany(Cohort, { foreignKey: { name: 'student_id', allowNull: true }, onDelete: 'CASCADE'});
+  User.hasMany(Cohort, { foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE' });
+  User.hasMany(Cohort, { foreignKey: { name: 'student_id', allowNull: true }, onDelete: 'CASCADE' });
 
   // User.hasMany(Cohort, { as: 'teachers_classes' } );
   // User.hasMany(Cohort, { as: 'students_classes' } );
@@ -172,4 +172,3 @@ module.exports = {
   Attendance,
   defineRelationship,
 };
-
