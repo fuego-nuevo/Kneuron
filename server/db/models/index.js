@@ -394,4 +394,3 @@ module.exports = {
   Attendance,
   defineRelationship,
 };
-
