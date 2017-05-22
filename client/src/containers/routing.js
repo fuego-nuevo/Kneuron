@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch, withRouter, Redirect } from 'react-router
 import FrontPage from '../components/frontPage';
 import Dashboard from '../components/Dashboard';
 import UserProfile from '../components/userProfile';
+import EditProfile from '../components/editProfile';
 
 class Router extends Component {
   constructor(props) {
@@ -35,7 +36,9 @@ class Router extends Component {
                 dispatch={dispatch}
               />
             </Route>
-            <Route path="/dashboard" render={this.renderDashboard}/>
+            <Route path="/dashboard" render={this.renderDashboard} />
+            <Route path="/editProfile" component={EditProfile} />
+            <Route path="/userprofile" component={UserProfile}></Route>
           </Switch>
         );
       }

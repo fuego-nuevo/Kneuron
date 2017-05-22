@@ -64,6 +64,32 @@ router.post('/', async ((req, res, next) => {
     }
 }));
 
+router.put('/', (req, res, next) => {
+  console.log("this is req in teachers route ",req)
+  User.update({
+    email: req.body.email,
+    password: req.body.password,
+    userType: req.body.userType,
+    fName: req.body.fName,
+    lName: req.body.lName,
+    username: req.body.username
+  },
+  { where: {
+    email: req.body.email
+  }})
+  .then((user) => {
+    console.log(user);
+    res.send(user)
+  })
+  .catch( (err) => {
+    if(err){
+      console.log("there is err updating user ", err)
+    } else {
+      console.log("user has been updated!!")
+    }
+  })
+})
+
 
 // //login with Promises
 // router.get('/:email/:creds', (req, res, next) => {
@@ -98,5 +124,6 @@ router.get('/:email/:creds', async((req, res, next) => {
     res.status(404).send('User Does Not Exist or Invalid Login Credentials');
   }
 }));
+
 
 module.exports = router;
