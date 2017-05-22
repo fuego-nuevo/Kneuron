@@ -58,31 +58,37 @@ exports.loginUser = (creds, history) => {
   };
 };
 
-exports.signupUser = (creds) => {
-  const userType = 0;
-  const config = {
-    headers: { 'Content-type': 'application/x-www-form-urlencoded' },
-    body: `email=${creds.email}&password=${creds.password}&userType=${userType}&fName=${creds.fName}&lName=${creds.lName}&username=${creds.username}`,
+exports.signupUser = (creds, history) => {
+  console.log('this is the request in signup line 62 ', creds);
+  const body = {
+    email: creds.email,
+    password: creds.password,
+    userType: 0,
+    fName: creds.fName,
+    lName: creds.lName,
+    username: creds.username,
   };
-
   return (dispatch) => {
     dispatch(requestLogin(creds));
 
-    return axios.get('http://localhost:8080/api/teachers/', config)
-      .then(response =>
-        response.json()
-        .then(user => ({ user, response })),
-            )
-            .then(({ user, response }) => {
-              if (!response.ok) {
-                dispatch(loginError(user.message));
-                return Promise.reject(user);
-              }
-              localStorage.setItem('id_token', user.id_token);
-              localStorage.setItem('id_token', user.access_token);
-              dispatch(receiveLogin(user));
-            })
-        .catch(err => console.log('Error: ', err));
+    return axios.post('http://localhost:8080/api/teachers', body)
+      .then((response) => {
+        console.log(response);
+        if (response.statusText !== 'Created') {
+          dispatch(loginError('Bad Request...'));
+          console.log('user did not sign up succesfully')
+          return Promise.reject(response);
+        }
+        localStorage.setItem('id_token', response.data.id_token);
+        localStorage.setItem('access_token', response.data.id_token);
+        dispatch(receiveLogin(response.data));
+        console.log('user did sign up succesfully')
+        history.push('/dashboard');
+        forceRefresh();
+      })
+      .catch((err) => {
+        console.log('Error: ', err);
+      });
   };
 };
 
