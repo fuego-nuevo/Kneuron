@@ -17,7 +17,8 @@ const await = require('asyncawait/await');
 //           if(cohort){
 //             res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${cohort.subject} cohort`);
 //           } else {
-//             Cohort.create({ subject: req.body.subject, teacher_id: teacher.id, user_id: teacher.id})
+//             console.log("YOOOO REGINA \n\n\n\n\n\n\n\n\n", teacher.id);
+//             Cohort.create({ subject: req.body.subject, teacher_id: teacher.id, userId: teacher.id})
 //               .then(newCohort => {
 //                 console.log(`${teacher.fName} ${teacher.lName} just added a new ${newCohort.subject} cohort to their schedule.`, newCohort);
 //                 res.status(201).send(newCohort);
@@ -43,18 +44,19 @@ router.post('/', async((req, res) => {
     if(teacher){
       //If Teacher Found the  Find Their Cohort where subject === req.body.subject and their teacherId: as their id
       //Switch with findOrCreate
-      const teacherCohort = await(Cohort.findOne({where: {teacher_id: req.body.teacher_id, subject: req.body.subject.toUpperCase() }}));
+      const teacherCohort = await(Cohort.findOne({where: {teacher_id: teacher.id, subject: req.body.subject.toUpperCase() }}));
       if(teacherCohort){
         //If That cohort found then say cohort already exists
         console.log(`${teacher.fName} ${teacher.lName} already has a ${teacherCohort.subject} cohort`, teacherCohort);
         res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${teacherCohort.subject} cohort`);
       } else {
         //Else Create the Cohort
-        req.body['teacher_id'] = teacher.id;
-        req.body['subject'] = req.body.subject.toUpperCase();
-        console.log("-------------------------\n\n\n\n\n\n\n\n\n\n\n");
-        console.log("Body of request Is:", req.body);
-        const newCohort = await(Cohort.create(req.body));
+        // req.body['teacher_id'] = teacher.id;
+        // req.body['subject'] = req.body.subject.toUpperCase();
+        // console.log("-------------------------\n\n\n\n\n\n\n\n\n\n\n");
+        // console.log("Body of request Is:", req.body);
+        const newCohort = await(Cohort.create({subject: req.body.subject.toUpperCase(), teacher_id: teacher.id}));
+        console.log("++++++++++\n\n\n", newCohort);
         if(newCohort){
           console.log(`${teacher.fName} ${teacher.lName} just added a new ${newCohort.subject} cohort to their schedule.`, newCohort);
           res.status(201).send(newCohort);
