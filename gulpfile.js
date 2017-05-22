@@ -10,7 +10,7 @@ const WebpackDevServer = require('webpack-dev-server');
 
 env({
   file: './.env',
-  type: 'ini'
+  type: 'ini',
 });
 
 const db = require('./server/db/models');
@@ -19,34 +19,37 @@ const models = {
   'School' : db.School,
   'User': db.User,
   'StudentQuestion' : db.StudentQuestion,
-  'Class' : db.Class,
+  'Cohort' : db.Cohort,
   'Lecture' : db.Lecture,
   'Topic' : db.Topic,
   'Quiz' : db.Quiz,
   'Question' : db.Question,
   'Answer' : db.Answer,
-}
+};
 
 const relationship = new Promise((resolve, reject) => {
-  resolve(db.defineRelationship())
-})
+  if (db.defineRelationship) {
+    resolve(db.defineRelationship());
+  } else {
+    reject(404);
+  }
+});
 
 gulp.task('seed:wipe', (cb) => {
-  relationship.then(() =>
-  db.School.sync({ force: true })
-  )
+  relationship
+  .then(() => db.School.sync({ force: true }))
   .then(() => db.User.sync({ force: true }))
   .then(() => db.Attendance.sync({ force: true }))
-  .then(() => db.Class.sync({ force: true }))
+  .then(() => db.Cohort.sync({ force: true }))
   .then(() => db.Lecture.sync({ force: true }))
   .then(() => db.Topic.sync({ force: true }))
   .then(() => db.StudentQuestion.sync({ force: true }))
   .then(() => db.Quiz.sync({ force: true }))
   .then(() => db.Question.sync({ force: true }))
   .then(() => db.Answer.sync({ force: true }))
-  .then(() => { cb() } )
-  .catch((err) => { cb(err) })
-})
+  .then(() => { cb(); })
+  .catch((err) => { cb(err); });
+});
 
 gulp.task('seed:seed', ['seed:wipe'], (cb) => {
   SequelizeFixtures.loadFile('./server/db/models/seedData/data.json', models)
@@ -56,7 +59,7 @@ gulp.task('seed:seed', ['seed:wipe'], (cb) => {
     .catch((err) => {
       cb(err);
     });
-})
+});
 
 gulp.task('seed', ['seed:wipe']);
 
@@ -64,13 +67,13 @@ gulp.task('nodemon', () => {
   const stream = nodemon({
     script: 'server/index.js',
     watch: ['server/'],
-    ignore: ['client/**']
+    ignore: ['client/**'],
   });
 });
 
-gulp.task('webpack-dev-server', (cb) => {
+gulp.task('webpack-dev-server', () => {
   const compiler = webpack(webpackConfig);
-  
+
   new WebpackDevServer(compiler, {
     contentBase: './static',
     publicPath: '/webstatic',
@@ -80,16 +83,16 @@ gulp.task('webpack-dev-server', (cb) => {
     clientLogLevel: 'info',
     proxy: [
       {
-        context:[],
-        target: 'http://localhost:5000',
+        context: ['/api', '/'],
+        target: `http://localhost:${process.env.PORT}`,
       },
-    ]
+    ],
   }).listen(8080, 'localhost', (err) => {
     if (err) {
       throw new gutil.PluginError('webpack-dev-server ', err);
     }
-      gutil.log('[webpack-dev-server]', 'WPDS - Listening in on http://localhost:8080')
+    gutil.log('[webpack-dev-server]', 'WPDS - Listening in on http://localhost:8080');
   });
 });
 
-gulp.task('default', ['nodemon', 'webpack-dev-server'])
+gulp.task('default', ['nodemon', 'webpack-dev-server']);
