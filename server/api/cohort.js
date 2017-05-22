@@ -7,7 +7,7 @@ const antiHasher = require('./util').antiHasher;
 
 
 // Create A New Cohort For A Given Teacher
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
   User.findOne({ where: { email: antiHasher(req.body.auth_token) } })
     .then((teacher) => {
       Cohort.findOne({ where: { id: teacher.id } })
@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
 
 
 // Get All Cohorts For A Given Teacher
-router.get('/:auth_token', (req, res, next) => {
+router.get('/:auth_token', (req, res) => {
   User.findOne({ where: { email: antiHasher(req.params.auth_token) } })
     .then((teacher) => {
       Cohort.findAll({ where: { teacherId: teacher.id } })
@@ -51,7 +51,7 @@ router.get('/:auth_token', (req, res, next) => {
 
 
 // Delete A Given Cohort From A Teachers List of Cohorts
-router.delete('/', (req, res, next) => {
+router.delete('/', (req, res) => {
   Cohort.findOne({ where: { id: req.body.cohort_id } })
     .then((cohort) => {
       console.log('Cohort was Successfully Deleted: ', cohort);
@@ -67,7 +67,7 @@ router.delete('/', (req, res, next) => {
 
 
 // Update Information Of A Given Cohort From A Given Teacher
-router.put('/', (req, res, next) => {
+router.put('/', (req, res) => {
   User.findOne({ where: { email: antiHasher(req.body.auth_token) }})
     .then((teacher) => {
       Cohort.findOne({ where: { id: req.body.cohort_id, teacherId: teacher.id } })
