@@ -105,3 +105,80 @@ textarea:focus, input:focus{
     outline: none;
 }
 
+/* SIGN UP PAGE CSS */
+
+.signup {
+    background: #093028;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #237A57, #093028);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #237A57, #093028); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Roboto', sans-serif;
+}
+
+.signup-form{
+    position: absolute;
+    width: 60vw;
+    height: 80vh;
+    left: 20vw;
+    top: 10vh;
+    border-radius: 10px;
+    color: lightgray;
+    background-color: white;
+    text-align: center;
+    box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15);
+}
+
+.signup-form input{
+    border-style: none;
+    background-color: transparent;
+    border-bottom: 2px solid lightgray;
+    width: 40vw;
+    margin-bottom: 5vh;
+}
+
+.signup-info-container{
+    position: absolute;
+    width: 100%;
+    height: 50vh;
+    top: 10vh;
+}
+
+.signup-info{
+    position: absolute;
+    width: auto;
+}
+
+.signup-header{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 8vh;
+    line-height: 8vh;
+    background: #141E30;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#signup-button{
+    border-style: none;
+    height: 8vh;
+    background: #141E30;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    width: 30vw;
+    margin-top: 2vh;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px lightgray;
+    color: white;
+    transition: 1s;
+    font-size: 20px;
+}
+
+#signup-button:hover{
+    color: gold;
+}
+
