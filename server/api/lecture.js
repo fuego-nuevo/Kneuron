@@ -48,24 +48,24 @@ const await = require('asyncawait/await');
 
 
 
-//Post A Lecture For A Class With Async
+//Post A Lecture For A Cohort With Async
 router.post('/', async((req, res, next) => {
   try{
     const teacher = await(User.findOne({ where: { email: antiHasher(req.body.auth_token) }}));
     if(teacher){
-      const teacherClass = await(Class.findOne({ where: { teacherId: teacher.id, id: req.body.id, subject: req.body.subject }}));
-      if(teacherClass){
-        const teacherLecture = await(Lecture.findOne({ where: { cohortId: teacherClass.id, name: req.body.name }}));
+      const teacherCohort = await(Cohort.findOne({ where: { teacherId: teacher.id, id: req.body.id, subject: req.body.subject }}));
+      if(teacherCohort){
+        const teacherLecture = await(Lecture.findOne({ where: { cohortId: teacherCohort.id, name: req.body.name }}));
         if(teacherLecture){
-          console.log(`${teacherLecture.name} Lecture for ${teacherClass.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
-          res.status(422).send(`${teacherLecture.name} Lecture for ${teacherClass.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
+          console.log(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
+          res.status(422).send(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
         } else {
-          const newLecture = await(Lecture.create({ name: req.body.name, classId: req.body.id}));
+          const newLecture = await(Lecture.create({ name: req.body.name, cohortId: req.body.id}));
           console.log("Lecture Posted To DB: ", newLecture);
           res.status(201).send(newLecture);
         }
       } else {
-        console.log(`${teacher.fName} ${teacher.lName} Does Not Currently Have A ${req.body.subject} Class.`);
+        console.log(`${teacher.fName} ${teacher.lName} Does Not Currently Have A ${req.body.subject} Cohort.`);
         res.status(404).send();
       }
     } else {
@@ -110,7 +110,7 @@ router.get('/:cohort_id/:auth_token/:subject', (req, res) => {
 router.put('/', (req, res) => {
   User.findOne({ where: { email: antiHasher(req.body.auth_token) } })
     .then((teacher) => {
-      Cohort.findOne({ where: { id: req.body.cohort_id, subject: req.body.subject, teacherId: teacher.id } })
+      Cohort.findOne({ where: { id: req.body.cohortId, subject: req.body.subject, teacherId: teacher.id } })
         .then((cohort) => {
           Lecture.findOne({ where: {name: req.body.lecture_name, cohortId: cohort.id } })
             .then((lecture) => {
@@ -124,7 +124,7 @@ router.put('/', (req, res) => {
                 res.status(200).send(result);
               })
               .catch(error => {
-                console.log(`Error Updating ${lecture.name} Lecture For ${klass.subject} Class`);
+                console.log(`Error Updating ${lecture.name} Lecture For ${cohort.subject} Cohort`);
                 res.status(404).send();
               })
             })
@@ -151,7 +151,7 @@ router.put('/', (req, res) => {
 
 // Delete A Lecture For A Given Cohort From A Given Teacher without Async
 router.delete('/', (req, res) => {
-  Lecture.findOne({ where: { cohortId: req.body.cohort_id } })
+  Lecture.findOne({ where: { cohortId: req.body.cohortId } })
     .then((lecture) => {
       res.status(202).send(`${lecture} was marked for deletion...`);
       lecture.destroy({ force: true });
