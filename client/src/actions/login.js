@@ -12,6 +12,17 @@ import { forceRefresh } from '../utils/forceRefresh';
 //   }
 // }
 // >>>>>>>  created actions for current user and reducer thingy
+// =======
+// import currentProfile from './currentProfile';
+// const requestLogin = (creds) => {
+//   return {
+//     type: 'LOGIN_REQUEST',
+//     isFetching: true,
+//     isAuthenticated: false,
+//     creds
+//   }
+// }
+// >>>>>>>  created actions for current user and reducer thingy
 
 const requestLogin = creds => ({
   type: 'LOGIN_REQUEST',
@@ -72,6 +83,7 @@ exports.loginUser = (creds, history) => {
 //           history.push('/dashboard');
 //           window.location.reload();
 // >>>>>>>  created actions for current user and reducer thingy
+
         }
         localStorage.setItem('id_token', response.data.id_token);
         localStorage.setItem('access_token', response.data.id_token);
