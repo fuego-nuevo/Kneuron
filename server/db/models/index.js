@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
+// Table Definitions
 const School = db.define('school', {
   name: {
     type: Sequelize.STRING,
@@ -39,7 +40,6 @@ const User = db.define('user', {
   },
 });
 
-
 const StudentQuestion = db.define('studentquestion', {
   question: {
     type: Sequelize.STRING,
@@ -65,6 +65,10 @@ const Cohort = db.define('cohort', {
 const Lecture = db.define('lecture', {
   name: {
     type: Sequelize.STRING,
+    allowNull: false,
+  },
+  cohort_id: {
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
 });
@@ -105,7 +109,6 @@ const Answer = db.define('answer', {
   },
 });
 
-
 const Attendance = db.define('attendance', {
   present: {
     type: Sequelize.BOOLEAN,
@@ -113,7 +116,20 @@ const Attendance = db.define('attendance', {
   },
 });
 
+// Join Tables
+// Students and Cohorts
+const StudentCohort = db.define('studentcohort', {
+  student_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  cohort_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+});
 
+// Relation Definitions
 const defineRelationship = () => {
   School.hasMany(User, { foreignKey: { name: 'school_id', allowNull: false }, onDelete: 'CASCADE' });
   User.belongsTo(School, { foreignKey: { name: 'school_id', allowNull: false }, onDelete: 'CASCADE' });
@@ -121,11 +137,11 @@ const defineRelationship = () => {
   User.hasMany(Cohort, { foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE' });
   Cohort.belongsTo(User, { as: 'teacher', foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE' });
 
-  User.belongsToMany(Cohort, { as: 'student_cohort', through: 'StudentCohort' });
-  Cohort.belongsToMany(User, { as: 'cohort_student', through: 'StudentCohort' });
+  User.belongsToMany(Cohort, { as: 'student_cohort', through: 'StudentCohort', foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
+  Cohort.belongsToMany(User, { as: 'cohort_student', through: 'StudentCohort', foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
 
-  Cohort.hasMany(Lecture);
-  Lecture.belongsTo(Cohort);
+  Cohort.hasMany(Lecture, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
+  Lecture.belongsTo(Cohort, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
 
   User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
 
@@ -153,13 +169,12 @@ const defineRelationship = () => {
   Answer.belongsTo(Question);
 };
 
-
-
 module.exports = {
   School,
   User,
   StudentQuestion,
   Cohort,
+  StudentCohort,
   Lecture,
   Topic,
   Quiz,
