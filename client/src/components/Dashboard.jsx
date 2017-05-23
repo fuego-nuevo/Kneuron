@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
-import TestOne from '../components/TestOne';
-import TestTwo from '../components/TestTwo';
+import { updateProfile } from '../actions/currentProfile';
+import { connect } from 'react-redux';
 import DashNav from '../components/DashboardNavBar';
+import Performance from '../components/performance';
 // import CohortsList from './CohortsList';
 // import CreateCohortModal from './CreateCohortModal';
 
@@ -12,21 +13,17 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: 'test',
-      email: 'test',
-      fName: 'test',
-      lName: 'test',
-      cohorts: [],
-      subject: '',
+      profile: {},
     };
 
     // this.createCohort = this.createCohort.bind(this);
+    this.renderCohorts = this.renderCohorts.bind(this);
+    this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.fetchUser();
-  //   this.fetchCohorts();
-  // }
+  componentDidMount() {
+    this.fetchTeacherInfo();
+  }
   //
   // async fetchUser() {
   //   try {
@@ -66,22 +63,48 @@ class Dashboard extends Component {
   //   }
   // }
 
+  async fetchTeacherInfo() {
+    try {
+      const profile = await axios.get(`/api/teachers/${localStorage.getItem('id_token')}`);
+      console.log(`/api/teachers/${localStorage.getItem('id_token')}`);
+      this.setState({ profile: profile.data }, () => {
+        this.props.updateProfile(profile);
+      });
+    } catch (error) {
+      console.log('error with your fetch teacher shit ,', error);
+    }
+  }
+
+  renderCohorts() {
+    return <div>THIS IS COHORTS FOOL</div>;
+  }
+
 
   render() {
     const { dispatch } = this.props;
-    console.log(dispatch);
+    console.log(this.props);
     return (
-      <div>
+      <div className="dashboard-content">
         <DashNav dispatch={dispatch} />
-        {/* <CohortsList*/}
-        {/* cohorts={this.state.cohorts}*/}
-        {/* currentUser={{ username: this.state.username, email: this.state.email, fName: this.state.fName, lName: this.state.lName }}*/}
-        {/* />*/}
-        <Route path="/dashboard/test1" component={TestOne} />
-        <Route path="/dashboard/test2" component={TestTwo} />
+        <Route path="/dashboard/class" render={this.renderCohorts} />
+        <Route path="/dashboard/performance" component={Performance} />
       </div>
     );
   }
 }
 
-export default Dashboard;
+
+const mapStateToProps = (state) => {
+  const { email, username, userType, fName, lName, cohort } = state.profile;
+  return {
+    email,
+    username,
+    userType,
+    fName,
+    lName,
+    cohort,
+  };
+}
+
+export default withRouter(connect(mapStateToProps, { updateProfile })(Dashboard));
+

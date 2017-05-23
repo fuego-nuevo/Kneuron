@@ -12,7 +12,7 @@ const fetchAllTeacherData = async (req, res) => {
   try {
     const allData = await db.User.findOne({
       where: {
-        id: req.params.teacherId,
+        email: antiHasher(req.params.auth_token),
         userType: 0,
       },
       include: [{
@@ -137,9 +137,8 @@ const deleteTeacher = async (req, res) => {
   }
 };
 
-
 // Controllers
-router.get('/:teacherId', fetchAllTeacherData);
+router.get('/:auth_token', fetchAllTeacherData);
 router.get('/:email/:creds', fetchTeacher);
 router.post('/', postTeacher);
 router.put('/:auth_token', updateTeacher);

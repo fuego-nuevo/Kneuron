@@ -1,5 +1,7 @@
 body{
     margin: 0;
+    font-family: "Brandon Grotesque";
+    background-color: #edeff0;
 }
 
 a{
@@ -45,7 +47,7 @@ a{
     width: 40vw;
     background-color: white;
     border-radius: 7px;
-    font-family: "Brandon Grotesque"
+    font-family: "Roboto"
 }
 
 .login-top{
@@ -224,4 +226,13 @@ textarea:focus, input:focus{
     font-family: 'Brandon Grotesque';
 }
 
+
+/* dashboard styles */
+
+.dashboard-content{
+    margin-top: 10vh;
+    width: 100%;
+    height:auto;
+    overflow: auto;
+}
 
