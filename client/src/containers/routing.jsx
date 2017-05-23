@@ -40,7 +40,7 @@ class Router extends Component {
           render={this.renderDashboard}
         />
         <Route path="/signup">
-          <SignUp history={history} />
+          <SignUp isAuthenticated={isAuthenticated} history={history} />
         </Route>
       </Switch>
     );
