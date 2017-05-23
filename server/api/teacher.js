@@ -98,7 +98,7 @@ const deleteTeacher = async (req, res) => {
 };
 // Controllers
 
-router.get('/', fetchTeacher);
+router.get('/:email/:creds', fetchTeacher);
 router.post('/', postTeacher);
 router.put('/:auth_token', updateTeacher);
 router.delete('/:auth_token', deleteTeacher);
