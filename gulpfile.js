@@ -73,6 +73,10 @@ gulp.task('nodemon', () => {
   });
 });
 
+gulp.task('dbwatch', () => {
+  gulp.watch(['./server/db/models'], ['seed']);
+});
+
 gulp.task('webpack-dev-server', () => {
   const compiler = webpack(webpackConfig);
 
@@ -97,4 +101,4 @@ gulp.task('webpack-dev-server', () => {
   });
 });
 
-gulp.task('default', ['nodemon', 'webpack-dev-server']);
+gulp.task('default', ['nodemon', 'dbwatch', 'webpack-dev-server']);
