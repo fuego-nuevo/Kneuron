@@ -4,6 +4,7 @@ import CohortsList from './CohortsList';
 import CreateCohortModal from './CreateCohortModal';
 
 
+
 class Dashboard extends Component {
   constructor(props){
     super(props);
@@ -12,18 +13,22 @@ class Dashboard extends Component {
       email: 'test',
       fName: 'test',
       lName: 'test',
-      cohorts: []
+      cohorts: [],
+      subject: '',
     };
+
+    this.createCohort = this.createCohort.bind(this);
   }
 
   componentDidMount() {
     this.fetchUser();
+    this.fetchCohorts();
   }
 
   async fetchUser() {
     try{
       const user = await axios.get(`/api/users/${localStorage.getItem('id_token')}`);
-      this.setState({username: res.data.username, email: res.data.email, fName: res.data.fName, lName: res.data.lName})
+      this.setState({ username: res.data.username, email: res.data.email, fName: res.data.fName, lName: res.data.lName })
     } catch(error) {
       console.log('Error in fetchUsers in UserProfile: ', err);
     }
@@ -33,25 +38,42 @@ class Dashboard extends Component {
     try{
       const cohorts = await axios.get(`/api/cohorts/${localStorage.getItem('id_token')}`);
       console.log(`Grabbed the cohorts for ${this.state.fName}: `, cohorts);
-      this.setState({cohorts: cohorts.data});
+      this.setState({ cohorts: cohorts.data });
     } catch(error) {
       console.log(`Error retrieving cohorts for ${this.state.fName}: `, error);
     }
   }
 
   async handleCohortCreate(subject){
+    try{
+      this.setState({ subject: this.state.subject });
+      console.log("Got state info from create song modal input");
+    } catch(error) {
+      console.log("Error creating getting input data from create song modal: ", error);
+    }
+  }
 
+  async createCohort(){
+    try{
+      const newCohort = await axios.post(`/api/cohorts/`, { subject: this.state.subject, auth_token: localStorage.getItem('id_token') })
+      console.log("Post Route went through: ", newCohort.data);
+      this.setState({ subject: '' });
+    } catch(error) {
+      console.log("Error Posting New Cohort To DB: ", error);
+    }
   }
 
   render(){
     return (
     <div>
-      HITS THE DASHBOARD
+      <CreateCohortModal
+      handleCohortCreate={this.handleCohortCreate.bind(this)}
+      />
       <CohortsList
       cohorts={this.state.cohorts}
       currentUser={{username: this.state.username, email: this.state.email, fName: this.state.fName, lName: this.state.lName}}
       />
-    </div>  
+    </div>
     )
   }
 }

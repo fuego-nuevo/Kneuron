@@ -21,7 +21,7 @@ class Cohort extends Component {
     try{
       const lectures = await axios.get(`/api/lectures/${this.props.cohort.id}/${localStorage.getItem('id_token')}/${this.state.subject}`);
       console.log(`Grabbed the lectures for ${this.props.fName}: `, lectures);
-      this.setState({lectures: lectures.data});
+      this.setState({ lectures: lectures.data });
     } catch(error) {
       console.log(`Error retrieving lectures for ${this.props.fName}`);
     }
