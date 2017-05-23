@@ -37,11 +37,11 @@ const relationship = new Promise((resolve, reject) => {
 });
 
 gulp.task('seed:wipe', (cb) => {
-  relationship.then(() =>
-  db.School.sync({ force: true })
-  )
+  relationship
+  .then(() => db.School.sync({ force: true }))
   .then(() => db.User.sync({ force: true }))
   .then(() => db.Cohort.sync({ force: true }))
+  .then(() => db.StudentCohort.sync({ force: true }))
   .then(() => db.Lecture.sync({ force: true }))
   .then(() => db.Attendance.sync({ force: true }))
   .then(() => db.Topic.sync({ force: true }))
