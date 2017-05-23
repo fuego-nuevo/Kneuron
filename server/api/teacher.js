@@ -17,7 +17,7 @@ const fetchAllTeacherData = async (req, res) => {
       },
       include: [{
         model: db.Cohort,
-        // as: 'cohort',
+        as: 'cohort',
         include: [{
           model: db.Lecture,
           include: [{
@@ -26,9 +26,9 @@ const fetchAllTeacherData = async (req, res) => {
               model: db.Quiz,
               include: [{
                 model: db.Question,
-        //         // include: [{
-        //         //   model: db.Answer,
-        //         // }],
+                include: [{
+                  model: db.Answer,
+                }],
               }],
             }],
           }],
