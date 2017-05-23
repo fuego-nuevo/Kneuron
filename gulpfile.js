@@ -29,6 +29,7 @@ const models = {
 
 const relationship = new Promise((resolve, reject) => {
   if (db.defineRelationship) {
+    // console.log('we in relationshipsssss', db.defineRelationship);
     resolve(db.defineRelationship());
   } else {
     reject(404);
@@ -36,12 +37,13 @@ const relationship = new Promise((resolve, reject) => {
 });
 
 gulp.task('seed:wipe', (cb) => {
-  relationship
-  .then(() => db.School.sync({ force: true }))
+  relationship.then(() =>
+  db.School.sync({ force: true })
+  )
   .then(() => db.User.sync({ force: true }))
-  .then(() => db.Attendance.sync({ force: true }))
   .then(() => db.Cohort.sync({ force: true }))
   .then(() => db.Lecture.sync({ force: true }))
+  .then(() => db.Attendance.sync({ force: true }))
   .then(() => db.Topic.sync({ force: true }))
   .then(() => db.StudentQuestion.sync({ force: true }))
   .then(() => db.Quiz.sync({ force: true }))
@@ -71,6 +73,10 @@ gulp.task('nodemon', () => {
   });
 });
 
+gulp.task('dbwatch', () => {
+  gulp.watch(['./server/db/models'], ['seed']);
+});
+
 gulp.task('webpack-dev-server', () => {
   const compiler = webpack(webpackConfig);
 
@@ -95,4 +101,4 @@ gulp.task('webpack-dev-server', () => {
   });
 });
 
-gulp.task('default', ['nodemon', 'webpack-dev-server']);
+gulp.task('default', ['nodemon', 'dbwatch', 'webpack-dev-server']);

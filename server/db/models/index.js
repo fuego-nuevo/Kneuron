@@ -33,6 +33,10 @@ const User = db.define('user', {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+  school_id: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+  },
 });
 
 
@@ -43,10 +47,17 @@ const StudentQuestion = db.define('studentquestion', {
   },
 });
 
-
 const Cohort = db.define('cohort', {
   subject: {
     type: Sequelize.STRING,
+    allowNull: false,
+  },
+  time: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  teacher_id: {
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
 });
@@ -56,10 +67,6 @@ const Lecture = db.define('lecture', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  // attendance: {
-  //   type: Sequelize.ARRAY(Sequelize.JSON),
-  //   allowNull: false,
-  // }
 });
 
 const Topic = db.define('topic', {
@@ -108,29 +115,36 @@ const Attendance = db.define('attendance', {
 
 
 const defineRelationship = () => {
-  School.hasMany(User);
-  User.belongsTo(School);
+  School.hasMany(User, { foreignKey: { name: 'school_id', allowNull: false }, onDelete: 'CASCADE' });
+  User.belongsTo(School, { foreignKey: { name: 'school_id', allowNull: false }, onDelete: 'CASCADE' });
   // Optional
   // User.hasMany(School);
   // School.belongsTo(User);
   // Optional
 
-  User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
-  Attendance.belongsTo(User);
+  // User.belongsToMany(Cohort, { foreignKey: { name: 'user_id', allowNull: false }, onDelete: 'CASCADE' });
+  // Cohort.belongsToMany(User, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
 
   User.hasMany(Cohort, { foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE' });
-  User.hasMany(Cohort, { foreignKey: { name: 'student_id', allowNull: true }, onDelete: 'CASCADE' });
+  Cohort.belongsTo(User, { as: 'teacher', foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE' });
 
-  // User.hasMany(Cohort, { as: 'teachers_classes' } );
-  // User.hasMany(Cohort, { as: 'students_classes' } );
+  // User.hasMany(Cohort, { foreignKey: { name: 'student_id', allowNull: true }, onDelete: 'CASCADE' });
+  // Cohort.belongsTo(User, { as: 'student', foreignKey: { name: 'student_id', allowNull: true }, onDelete: 'CASCADE' });
 
-  Cohort.belongsTo(User);
+  User.belongsToMany(Cohort, { as: 'student_cohort', through: 'StudentCohort' });
+  Cohort.belongsToMany(User, { as: 'cohort_student', through: 'StudentCohort' });
+
+  Cohort.hasMany(Lecture);
+  Lecture.belongsTo(Cohort);
+
+  User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
+
+  Attendance.belongsTo(User);
+
 
   User.hasMany(StudentQuestion);
   StudentQuestion.belongsTo(User);
 
-  Cohort.hasMany(Lecture, { as: 'cohort_lectures' });
-  Lecture.belongsTo(Cohort);
 
   Lecture.hasMany(Attendance, { as: 'lecture_attendance' });
   Attendance.belongsTo(Lecture);

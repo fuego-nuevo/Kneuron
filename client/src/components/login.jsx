@@ -28,19 +28,17 @@ class Login extends Component {
   render() {
     console.log("this is the state line 25 in login" , this.props.loginComplete)
     const { errorMessage } = this.props;
-    console.log(this.props , 'this props second')
+    console.log(this.props, 'this props second');
     console.log('this is login');
     return (
       <div>
         <div className="login-input">
-          {/*<label className="lbl-e">Email</label>*/}
           <input
             type="text"
             ref="email"
             className="form-control"
             placeholder="email"
           />
-          {/*<label className="lbl-p">Password</label>*/}
           <input
             type="password"
             ref="password"

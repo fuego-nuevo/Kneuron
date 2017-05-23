@@ -1,145 +1,106 @@
 const router = require('express').Router();
-const User = require('../db/models').User;
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
+const User = require('../db/models').User;
 const hasher = require('./util').hasher;
 const antiHasher = require('./util').antiHasher;
 
-const async = require('asyncawait/async');
-const await = require('asyncawait/await');
+const saltRounds = 10;
 
-//signup with Promises
-// router.post('/', (req, res, next) => {
-//   bcrypt.genSalt(saltRounds, function(err, salt){
-//       bcrypt.hash(req.body.password, salt, function(err, hash){
-//         User.findOne({where: {email: req.body.email }}).then((person) => {
-//           if(person){
-//             console.log('That email is taken. Please try another email.');
-//             res.status(404).send(err);
-//           } else {
-//             User.create({
-//               email: req.body.email,
-//               password: hash,
-//               userType: req.body.userType,
-//               fName: req.body.fName,
-//               lName: req.body.lName,
-//               username: req.body.username
-//             })
-//             .then((newUser) => {
-//               console.log("Signed Up New User: ", newUser);
-//               res.status(201).send(newUser);
-//             })
-//           }
-//         })
-//         .catch(err => {
-//           console.log("Network Error: ", err);
-//         })
-//       });
-//     });
-// });
-
-
-//signup with async await
-router.post('/', async ((req, res, next) => {
-  try{
-    const salt = await (bcrypt.genSalt(saltRounds));
-    const hash = await (bcrypt.hash(req.body.password, salt));
-    const person = await (User.findOne({where: {email: req.body.email }}));
-    if(person){
-        console.log('That email is taken. Please try another email.');
-        res.status(404).send();
-      } else {
-        const newUser = await (User.create({
-          email: req.body.email,
-          password: hash,
-          userType: req.body.userType,
-          fName: req.body.fName,
-          lName: req.body.lName,
-          username: req.body.username
-        }));
-        console.log("Signed Up New User: ", {user: newUser, id_token: hasher(req.body.email)});
-        res.status(201).send({user: newUser, id_token: hasher(req.body.email)});
-      }
-    } catch(e) {
-      console.log("Invalid Login Credentials")
-      res.status(404).send('Invalid Login Credentials');
-    }
-}));
-
-router.put('/', (req, res, next) => {
-  console.log("this is req in teachers route ",req)
-  User.update({
-    email: req.body.email,
-    password: req.body.password,
-    userType: req.body.userType,
-    fName: req.body.fName,
-    lName: req.body.lName,
-    username: req.body.username
-  },
-  { where: {
-    email: req.body.email
-  }})
-  .then((user) => {
-    console.log(user);
-    res.send(user)
-  })
-  .catch( (err) => {
-    if(err){
-      console.log("there is err updating user ", err)
-    } else {
-      console.log("user has been updated!!")
-    }
-  })
-})
-
-router.get('/:token', (req, res, next) => {
-  console.log("this is the req in teacher get router boiiii", req)
-  User.findOne({ where: antiHasher(req.params.token)})
-  .then((user) => {
-    res.send(user)
-  })
-  .catch((err) => {
-    if(err){
-    console.log("there was an error getting the user with the token", err)
-    } else {
-      console.log("got the user babY!!!")
-    }
-  })
-})
-
-// //login with Promises
-// router.get('/:email/:creds', (req, res, next) => {
-//   User.findOne({where: {email: req.params.email }}).then((user) => {
-//     if(user){
-//       bcrypt.compare(req.params.creds, user.password, function(err, data){
-//         if(data){
-//           console.log("User Logged In: ", {user: user, id_token: hasher(`${req.params.email}`)});
-//           res.status(200).send({user: user, id_token: hasher(req.params.email)});
-//         } else {
-//           console.log('Invalid Login Credentials');
-//           res.status(404).send('Invalid Login Credentials');
-//         }
-//       });
-//     } else {
-//       console.log('User Does Not Exist');
-//       res.status(404).send('User Does Not Exist');
-//     }
-//   });
-// });
-
-
-//login with async
-router.get('/:email/:creds', async((req, res, next) => {
-  try{
-    const user = await (User.findOne({where: {email: req.params.email }}));
-    const data = await(bcrypt.compare(req.params.creds, user.password));
-    console.log("User Logged In: ", {user: user, id_token: hasher(`${req.params.email}`)});
-    res.status(200).send({user: user, id_token: hasher(req.params.email)});
-  } catch(e) {
+// Controllers
+// Login Teach with Async
+const fetchTeacher = async (req, res) => {
+  try {
+    const user = await User.findOne({ where: { email: req.params.email } });
+    const data = await bcrypt.compare(req.params.creds, user.password);
+    console.log('User Logged In: ', { user: user, id_token: hasher(`${req.params.email}`) });
+    res.status(200).send({ user: user, id_token: hasher(req.params.email) });
+  } catch (error) {
     console.log('User Does Not Exist');
-    res.status(404).send('User Does Not Exist or Invalid Login Credentials');
+    res.status(404).send(error);
   }
-}));
+};
 
+// Sign Up Teacher with Async
+const postTeacher = async (req, res) => {
+  try {
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(req.body.password, salt);
+    const person = await User.findOne({ where: { email: req.body.email } });
+    if (person) {
+      console.log('That email is taken. Please try another email.');
+      res.status(404).send('That email is taken. Please try another email.');
+    } else {
+      const newUser = await User.create({
+        email: req.body.email,
+        password: hash,
+        userType: 0,
+        fName: req.body.fName,
+        lName: req.body.lName,
+        username: req.body.username,
+        school_id: req.body.school_id,
+      });
+      console.log('Signed Up New User: ', { user: newUser, id_token: hasher(req.body.email) });
+      res.status(201).send({ user: newUser, id_token: hasher(req.body.email) });
+    }
+  } catch (error) {
+    console.log('Invalid Login Credentials');
+    res.status(404).send(error);
+  }
+};
+
+// Update Teacher with Async
+const updateTeacher = async (req, res) => {
+  try {
+    console.log(antiHasher(req.params.auth_token));
+    const teacher = await User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
+    if (teacher) {
+      const updatedTeacher = await teacher.update({
+        email: req.body.email,
+        password: hasher(req.body.password),
+        fName: req.body.fName,
+        lName: req.body.lName,
+        username: req.body.username,
+        school_id: req.body.school_id,
+      });
+      if (updatedTeacher) {
+        console.log('Teacher successfully updated ', updatedTeacher);
+        res.status(200).send(updatedTeacher);
+      } else {
+        console.log('Missing a parameter');
+        res.status(500).send('Missing a parameter');
+      }
+    } else {
+      console.log('Teacher not found');
+      res.status(404).send('Teacher not found');
+    }
+  } catch (error) {
+    console.log('Error with async in updateTeacher ', error);
+    res.status(500).send(error);
+  }
+};
+
+// Delete Teacher
+const deleteTeacher = async (req, res) => {
+  try {
+    const teacher = await User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
+    if (teacher) {
+      teacher.destroy({ force: true });
+      console.log('Teacher deleted');
+      res.status(200).send('Teacher deleted');
+    } else {
+      console.log('Teacher not found');
+      res.status(404).send('Teacher not found');
+    }
+  } catch (error) {
+    console.log('ASYNC Error: ', error);
+    res.status(500).send(error);
+  }
+};
+// Controllers
+
+router.get('/', fetchTeacher);
+router.post('/', postTeacher);
+router.put('/:auth_token', updateTeacher);
+router.delete('/:auth_token', deleteTeacher);
 
 module.exports = router;

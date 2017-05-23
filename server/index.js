@@ -30,10 +30,10 @@ const debugReq = (req, res, next) => {
   next();
 };
 
-app.use(debugReq);
+// app.use(debugReq);
 app.use('/', express.static(path.join(__dirname, '../static/')));
 app.use('/api', router);
-//
+
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/../static/index.html'));
@@ -49,11 +49,11 @@ server.listen(process.env.PORT, (err) => {
   }
 });
 
-// Catches all 404 routes.
-app.use((req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+// // Catches all 404 routes.
+// app.use((req, res, next) => {
+//   const err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
 
 module.exports = app;
