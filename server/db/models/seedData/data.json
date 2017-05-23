@@ -32,7 +32,7 @@
       "email": "test3@test.com",
       "fName": "Steve",
       "lName": "Rogers",
-      "userType": 0
+      "userType": 1
     }
   },
   {
@@ -44,67 +44,80 @@
       "email": "test4@test.com",
       "fName": "Peter",
       "lName": "Parker",
-      "userType": 0
-    }
-  },
-  {
-    "model": "User",
-    "data": {
-      "id": 5,
-      "username": "MO",
-      "password": "test",
-      "email": "test5@test.com",
-      "fName": "Mariano",
-      "lName": "Okpalefe",
-      "userType": 0
-    }
-  },
-  {
-    "model": "User",
-    "data": {
-      "id": 6,
-      "username": "test6",
-      "password":"test",
-      "email": "test6@test.com",
-      "fName": "Matt",
-      "lName": "Barnes",
       "userType": 1
     }
   },
   {
-    "model": "User",
+    "model": "Cohort",
     "data": {
-      "id": 7,
-      "username": "test7",
-      "password":"test",
-      "email": "test7@test.com",
-      "fName": "Po",
-      "lName": "Crunk",
-      "userType": 1
+      "id": 1,
+      "subject": "MATH",
+      "time": "1 PM",
+      "teacher_id": 1
     }
   },
   {
-    "model": "User",
+    "model": "Lecture",
     "data": {
-      "id": 8,
-      "username": "test8",
-      "password":"test",
-      "email": "test8@test.com",
-      "fName": "Reggie",
-      "lName": "Logan",
-      "userType": 1
+      "id": 1,
+      "name": "Addition",
+      "cohort_id": 1
     }
   },
   {
-    "model": "User",
+    "model": "Topic",
     "data": {
-      "id": 9,
-      "username": "test9",
-      "password":"test",
-      "email": "test9@test.com",
-      "fName": "Pied",
-      "lName": "Piper",
-      "userType": 1
+      "id": 1,
+      "name": "Short Addition",
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Quiz",
+    "data": {
+      "id": 1,
+      "name": "Short Addition Quiz",
+      "topic_id": 1
+    }
+  },
+  {
+    "model": "Question",
+    "data": {
+      "id": 1,
+      "name": "1+1",
+      "choices": [0,1,2,3],
+      "correct": 2,
+      "quiz_id": 1
+    }
+  },
+  {
+    "model": "Question",
+    "data": {
+      "id": 2,
+      "name": "1+1",
+      "choices": [0,1,2,3],
+      "correct": 2,
+      "quiz_id": 1
+    }
+  },
+  {
+    "model": "Question",
+    "data": {
+      "id": 3,
+      "name": "1+1",
+      "choices": [0,1,2,3],
+      "correct": 2,
+      "quiz_id": 1
+    }
+  },
+  {
+    "model": "Answer",
+    "data": {
+      "id": 1,
+      "name": "1+1",
+      "selected": 2,
+      "student_id": 3,
+      "question_id": 1
     }
   }
 ]
