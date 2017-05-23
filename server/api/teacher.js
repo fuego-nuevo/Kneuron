@@ -64,7 +64,7 @@ const updateTeacher = async (req, res) => {
       });
       if (updatedTeacher) {
         console.log('Teacher successfully updated ', updatedTeacher);
-        res.status(200).send(updatedTeacher);
+        res.status(200).send({ teacher: updatedTeacher, auth_token: hasher(updatedTeacher.email) });
       } else {
         console.log('Missing a parameter');
         res.status(500).send('Missing a parameter');
@@ -86,7 +86,7 @@ const deleteTeacher = async (req, res) => {
     if (teacher) {
       teacher.destroy({ force: true });
       console.log('Teacher deleted');
-      res.status(200).send('Teacher deleted');
+      res.status(200).send(teacher);
     } else {
       console.log('Teacher not found');
       res.status(404).send('Teacher not found');
