@@ -94,6 +94,7 @@ exports.logoutUser = () => {
   console.log('yooo logout ran');
   return (dispatch) => {
     dispatch(requestLogout());
+    console.log('got past the dispatch');
     localStorage.removeItem('id_token');
     localStorage.removeItem('access_token');
     dispatch(receiveLogout());

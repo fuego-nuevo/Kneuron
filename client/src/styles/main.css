@@ -1,6 +1,12 @@
 body{
     margin: 0;
 }
+
+a{
+    color: inherit;
+   text-decoration: none;
+}
+
 .front{
     margin-top: 10vh;
     background-color: #e0ebe8;
@@ -39,7 +45,7 @@ body{
     width: 40vw;
     background-color: white;
     border-radius: 7px;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Timmana"
 }
 
 .login-top{
@@ -113,7 +119,7 @@ textarea:focus, input:focus{
     background: linear-gradient(to bottom, #237A57, #093028); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     height: 100vh;
     width: 100vw;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Timmana"
 }
 
 .signup-form{
@@ -181,4 +187,41 @@ textarea:focus, input:focus{
 #signup-button:hover{
     color: gold;
 }
+
+/* styles for the DASHBOARD */
+
+.dash-nav{
+    background-color: darkslategray;
+    width: 100%;
+    height: 10vh;
+    position: fixed;
+    top: 0;
+}
+
+.dash-nav-items{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.dash-nav-items button{
+    background-color: transparent;
+    color: white;
+    border-style: none;
+    font-size: 18px;
+    margin: 0 5vw;
+    font-family: 'Timmana';
+}
+
+#dash-logout{
+    position: absolute;
+    right: 2vw;
+    bottom: 0;
+    font-size: 18px;
+    background-color: transparent;
+    border-style: none;
+    color: white;
+    font-family: 'Timmana';
+}
+
 

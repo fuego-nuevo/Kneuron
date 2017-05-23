@@ -22,6 +22,7 @@ class Router extends Component {
 
 
   render() {
+    console.log(this.props, 'line 25 props router')
     const { dispatch, errorMessage, isAuthenticated, history } = this.props;
     return (
       <Switch>
