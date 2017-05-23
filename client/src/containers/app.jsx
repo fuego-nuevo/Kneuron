@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routing from './routing';
+import EditProfile from '../components/editProfile';
+
 
 class App extends Component {
   constructor() {
@@ -11,7 +13,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Routing />
-      </BrowserRouter>
+      </BrowserRouter>     
     );
   }
 }
