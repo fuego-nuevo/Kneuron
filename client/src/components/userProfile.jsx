@@ -9,7 +9,7 @@ class UserProfile extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+   this.state = {
       username: 'test',
       email: 'test',
       fName: 'test',
@@ -17,7 +17,7 @@ class UserProfile extends Component {
     };
   }
 
-  componentDidMount() {
+ componentDidMount() {
     this.fetchUser();
   }
 
@@ -33,7 +33,7 @@ class UserProfile extends Component {
   }
 
 
-  render() {
+ render() {
     return (
       <div>
         <PageHeader>Your Profile <small>Account information</small></PageHeader>
@@ -46,8 +46,7 @@ class UserProfile extends Component {
   }
 }
 
-        // {/*<div >
+       // {/*<div >
         //   <h1 ><Link to='editprofile'><button>Edit Profile</button></Link></h1>
         // </div>*/}
 export default UserProfile;
-

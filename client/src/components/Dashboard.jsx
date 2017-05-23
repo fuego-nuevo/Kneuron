@@ -44,13 +44,15 @@ class Dashboard extends Component {
   }
 
   render(){
+    return (
     <div>
       HITS THE DASHBOARD
       <CohortsList
       cohorts={this.state.cohorts}
       currentUser={{username: this.state.username, email: this.state.email, fName: this.state.fName, lName: this.state.lName}}
       />
-    </div>
+    </div>  
+    )
   }
 }
 

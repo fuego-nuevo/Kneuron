@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/main.css';
 import { Link } from 'react-router-dom';
 import '../styles/main.css';
 import forceRefresh from '../utils/forceRefresh';
@@ -11,5 +12,6 @@ const NavBar = () => (
     </div>
   </nav>
   );
+
 
 export default NavBar;

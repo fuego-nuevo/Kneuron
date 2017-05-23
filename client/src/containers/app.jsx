@@ -6,15 +6,17 @@ import { loginUser } from '../actions/login';
 import UserProfile from '../components/userProfile'
 import Login from '../components/login';
 
+
 class App extends Component {
   constructor() {
     super();
+    this.state = {};
   }
   render() {
     return (
       <BrowserRouter>
         <Routing />
-      </BrowserRouter>
+      </BrowserRouter>     
     );
   }
 }
