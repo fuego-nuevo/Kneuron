@@ -117,19 +117,9 @@ const Attendance = db.define('attendance', {
 const defineRelationship = () => {
   School.hasMany(User, { foreignKey: { name: 'school_id', allowNull: false }, onDelete: 'CASCADE' });
   User.belongsTo(School, { foreignKey: { name: 'school_id', allowNull: false }, onDelete: 'CASCADE' });
-  // Optional
-  // User.hasMany(School);
-  // School.belongsTo(User);
-  // Optional
-
-  // User.belongsToMany(Cohort, { foreignKey: { name: 'user_id', allowNull: false }, onDelete: 'CASCADE' });
-  // Cohort.belongsToMany(User, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
 
   User.hasMany(Cohort, { foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE' });
   Cohort.belongsTo(User, { as: 'teacher', foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE' });
-
-  // User.hasMany(Cohort, { foreignKey: { name: 'student_id', allowNull: true }, onDelete: 'CASCADE' });
-  // Cohort.belongsTo(User, { as: 'student', foreignKey: { name: 'student_id', allowNull: true }, onDelete: 'CASCADE' });
 
   User.belongsToMany(Cohort, { as: 'student_cohort', through: 'StudentCohort' });
   Cohort.belongsToMany(User, { as: 'cohort_student', through: 'StudentCohort' });
@@ -141,19 +131,11 @@ const defineRelationship = () => {
 
   Attendance.belongsTo(User);
 
-
   User.hasMany(StudentQuestion);
   StudentQuestion.belongsTo(User);
 
-
   Lecture.hasMany(Attendance, { as: 'lecture_attendance' });
   Attendance.belongsTo(Lecture);
-
-  // Lecture.belongsToMany(User, { through: 'Attendance', as: 'lecture', foreignKey: 'lecture_id' });
-  // User.belongsToMany(Lecture, { through: 'Attendance', as: 'student', foreignKey: 'student_id'});
-
-  // Lecture.hasMany(User)
-  // User.belongsTo(Lecture)
 
   Lecture.hasMany(Topic);
   Topic.belongsTo(Lecture);
