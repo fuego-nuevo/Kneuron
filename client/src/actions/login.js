@@ -1,28 +1,5 @@
 import axios from 'axios';
-// <<<<<<< HEAD
 import { forceRefresh } from '../utils/forceRefresh';
-// =======
-// import currentProfile from './currentProfile';
-// const requestLogin = (creds) => {
-//   return {
-//     type: 'LOGIN_REQUEST',
-//     isFetching: true,
-//     isAuthenticated: false,
-//     creds
-//   }
-// }
-// >>>>>>>  created actions for current user and reducer thingy
-// =======
-// import currentProfile from './currentProfile';
-// const requestLogin = (creds) => {
-//   return {
-//     type: 'LOGIN_REQUEST',
-//     isFetching: true,
-//     isAuthenticated: false,
-//     creds
-//   }
-// }
-// >>>>>>>  created actions for current user and reducer thingy
 
 const requestLogin = creds => ({
   type: 'LOGIN_REQUEST',
@@ -63,27 +40,11 @@ exports.loginUser = (creds, history) => {
     dispatch(requestLogin(creds));
 
     return axios.get(`http://localhost:8080/api/teachers/${creds.email}/${creds.password}`)
-// <<<<<<< HEAD
       .then((response) => {
         console.log(response);
         if (response.statusText !== 'OK') {
           dispatch(loginError('Bad Request...'));
           return Promise.reject(response);
-// =======
-//       .then(response => {
-//         console.log("this is the response in line 54 of actions ", response);
-//         if (response.statusText !== 'OK') {
-//           dispatch(loginError('Bad Request...'))
-//           return Promise.reject(response)
-//         } else {
-//           localStorage.setItem('id_token', response.data.id_token);
-//           localStorage.setItem('access_token', response.data.id_token);
-//           dispatch(receiveLogin(response.data));
-//           dispatch(currentProfile(response.data));
-//           history.push('/dashboard');
-//           window.location.reload();
-// >>>>>>>  created actions for current user and reducer thingy
-
         }
         localStorage.setItem('id_token', response.data.id_token);
         localStorage.setItem('access_token', response.data.id_token);
