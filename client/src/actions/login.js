@@ -1,11 +1,13 @@
 import axios from 'axios';
-import currentProfile from './currentProfile';
+// import currentProfile from './currentProfile';
+
 const requestLogin = (creds) => {
+  console.log('requesting a login', creds)
   return {
     type: 'LOGIN_REQUEST',
     isFetching: true,
     isAuthenticated: false,
-    creds
+    creds,
   }
 }
 
@@ -14,7 +16,7 @@ const receiveLogin = (user) => {
     type: 'LOGIN_SUCCESS',
     isFetching: false,
     isAuthenticated: true,
-    id_token: user.id_token
+    id_token: user.id_token,
   }
 }
 
@@ -23,7 +25,7 @@ const loginError = (message) => {
     type: 'LOGIN_FAILURE',
     isFetching: false,
     isAuthenticated: false,
-    message
+    message,
   }
 }
 
@@ -31,7 +33,7 @@ const requestLogout = () => {
   return {
     type: 'LOGOUT_REQUEST',
     isFetching: true,
-    isAuthenticated: true
+    isAuthenticated: true,
   }
 }
 
@@ -39,8 +41,16 @@ const receiveLogout = () => {
   return {
     type: 'LOGOUT_SUCCESS',
     isFetching: false,
-    isAuthenticated: false
+    isAuthenticated: false,
   }
+}
+
+const getProfile = (profile) => {
+  console.log("this is the profile in actions line 48!!!!!!!!!!!!!!!!!!!", profile);
+  return {
+    type: 'CURRENT_PROFILE',
+    payload: profile,
+  };
 }
 
 exports.loginUser = (creds, history) => {
@@ -48,7 +58,6 @@ exports.loginUser = (creds, history) => {
   return dispatch => {
 
     dispatch(requestLogin(creds))
-
     return axios.get(`http://localhost:8080/api/teachers/${creds.email}/${creds.password}`)
       .then(response => {
         console.log("this is the response in line 54 of actions ", response);
@@ -58,10 +67,12 @@ exports.loginUser = (creds, history) => {
         } else {
           localStorage.setItem('id_token', response.data.id_token);
           localStorage.setItem('access_token', response.data.id_token);
+          // history.push('/editprofile');
           dispatch(receiveLogin(response.data));
-          dispatch(currentProfile(response.data));
-          history.push('/dashboard');
-          window.location.reload();
+          dispatch(getProfile(response));
+          dispatch({type: 'loginComplete'})
+          // var temp = dispatch(getProfile(response))
+          // window.location.reload();
         }
       })
       .catch(err => {
@@ -114,3 +125,5 @@ exports.logoutUser = () => {
     dispatch(receiveLogout())
   }
 }
+
+// exports.CURRENT_PROFILE = 'CURRENT_PROFILE'
