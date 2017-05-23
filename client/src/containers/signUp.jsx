@@ -21,6 +21,7 @@ class SignUp extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className="signup">
         <form className="signup-form" onSubmit={(e) => { e.preventDefault(); this.props.signupUser(this.state, this.props.history); }} autoComplete="on">
