@@ -1,7 +1,8 @@
 import React from "react";
 import { Button, Modal, NavItem } from "react-materialize";
+import { Link } from 'react-router';
 
-var subject = "";
+let subject = "";
 
 const CreateCohortModal = props => {
   return (

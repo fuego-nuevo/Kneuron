@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import FrontPage from '../components/frontPage';
 import Dashboard from '../components/Dashboard';
+import UserProfile from '../components/userProfile';
+import EditProfile from '../components/editProfile';
 import SignUp from '../containers/signUp';
 import { forceRefresh } from '../utils/forceRefresh';
 
@@ -38,8 +40,10 @@ class Router extends Component {
         <Route
           path="/dashboard"
           render={this.renderDashboard}
-        />
-        <Route path="/signup">
+        >
+          <Route path="/signup" />
+          <Route path="/userprofile" component={UserProfile} />
+          <Route path="/editprofile" component={EditProfile} />
           <SignUp history={history} />
         </Route>
       </Switch>
@@ -57,4 +61,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(withRouter(Router));
+export default withRouter(connect(mapStateToProps)(Router));

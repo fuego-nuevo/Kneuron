@@ -18,13 +18,13 @@ class Login extends Component {
     console.log(this.props, 'this props first');
   }
 
-  // componentDidUpdate () {
-  //   console.log("this is the logincomplete in login: ", this.props.loginComplete);
-  //   if (this.props.loginComplete){
-  //   console.log("===============================")
-  //     setTimeout(() => { this.props.history.push('/editprofile')}, 2000);
-  //   }
-  // }
+  componentDidUpdate () {
+    console.log("this is the logincomplete in login: ", this.props.loginComplete);
+    if (this.props.loginComplete){
+    console.log("===============================")
+      setTimeout(() => { this.props.history.push('/editprofile')}, 2000);
+    }
+  }
   render() {
     console.log("this is the state line 25 in login" , this.props.loginComplete)
     const { errorMessage } = this.props;
