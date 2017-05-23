@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import FrontPage from '../components/frontPage';
 import Dashboard from '../components/Dashboard';
+import UserProfile from '../components/userProfile';
+import EditProfile from '../components/editProfile';
 import SignUp from '../containers/signUp';
 
 class Router extends Component {
@@ -40,6 +42,8 @@ class Router extends Component {
           path="/dashboard"
           render={this.renderDashboard}
         />
+        <Route path="/userprofile" component={UserProfile} />
+        <Route path="/editprofile" component={EditProfile} />
       </Switch>
     );
   }
@@ -56,4 +60,3 @@ const mapStateToProps = (state) => {
 };
 
 export default withRouter(connect(mapStateToProps)(Router));
-

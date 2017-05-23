@@ -13,7 +13,21 @@ class Login extends Component {
     const password = this.refs.password;
     const creds = { email: email.value.trim(), password: password.value.trim() };
     this.props.onLoginClick(creds, this.props.history);
+<<<<<<< HEAD
   }
+=======
+    this.props.history.push('/editprofile')
+    console.log(this.props, 'this props first');
+  }
+
+  // componentDidUpdate () {
+  //   console.log("this is the logincomplete in login: ", this.props.loginComplete);
+  //   if (this.props.loginComplete){
+  //   console.log("===============================")
+  //     setTimeout(() => { this.props.history.push('/editprofile')}, 2000);
+  //   }
+  // }
+>>>>>>> 7fc5304da338ff28e39f3f9c95efbcebd8e2391a
   render() {
     return (
       <div>
