@@ -12,8 +12,12 @@ const fetchTeacher = async (req, res) => {
   try {
     const user = await User.findOne({ where: { email: req.params.email } });
     const data = await bcrypt.compare(req.params.creds, user.password);
-    console.log('User Logged In: ', { user: user, id_token: hasher(`${req.params.email}`) });
-    res.status(200).send({ user: user, id_token: hasher(req.params.email) });
+    if(data){
+      console.log('User Logged In: ', { user: user, id_token: hasher(`${req.params.email}`) });
+      res.status(200).send({ user: user, id_token: hasher(req.params.email) });
+    } else {
+      res.status(404).send();
+    }
   } catch (error) {
     console.log('User Does Not Exist');
     res.status(404).send(error);
@@ -98,7 +102,7 @@ const deleteTeacher = async (req, res) => {
 };
 // Controllers
 
-router.get('/', fetchTeacher);
+router.get('/:email/:creds', fetchTeacher);
 router.post('/', postTeacher);
 router.put('/:auth_token', updateTeacher);
 router.delete('/:auth_token', deleteTeacher);
