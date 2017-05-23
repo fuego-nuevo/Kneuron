@@ -3,10 +3,10 @@ const User = require('../db/models').User;
 const Cohort = require('../db/models').Cohort;
 const antiHasher = require('./util').antiHasher;
 
+// Controller
 // Get All Cohorts For a Given Teacher with Async
 const fetchCohorts = async (req, res) => {
   try {
-    console.log('this is the email ', antiHasher(req.params.auth_token));
     const teacher = await User.findOne({ email: antiHasher(req.params.auth_token) });
     if (teacher.userType === 0) {
       const teacherCohort = await (Cohort.findAll({ where: { teacher_id: teacher.id } }));
@@ -38,6 +38,7 @@ const postCohort = async (req, res) => {
       } else {
         // Else Create the Cohort
         req.body['teacher_id'] = teacher.id;
+        req.body['time'] = req.body.time;
         req.body['subject'] = req.body.subject.toUpperCase();
         const newCohort = await Cohort.create(req.body);
         if (newCohort) {
@@ -84,7 +85,10 @@ const updateCohort = async (req, res) => {
       const cohort = await Cohort.findOne({ where: { id: req.body.cohortId, teacher_id: teacher.id } });
       if (cohort) {
         cohort.subject = req.body.subject.toUpperCase();
-        const updatedCohort = await Cohort.update({ subject: cohort.subject }, { where: { id: cohort.id } });
+        const updatedCohort = await Cohort.update({
+          subject: cohort.subject,
+          time: req.body.time,
+        }, { where: { id: cohort.id } });
         if (updatedCohort) {
           res.status(200).send(updatedCohort);
         } else {
@@ -104,6 +108,7 @@ const updateCohort = async (req, res) => {
     res.status(500).send(error);
   }
 };
+// Controller
 
 router.get('/:auth_token', fetchCohorts);
 router.post('/', postCohort);
