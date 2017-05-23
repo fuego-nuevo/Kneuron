@@ -33,6 +33,10 @@ const User = db.define('user', {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+  school_id: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+  },
 });
 
 
@@ -48,14 +52,14 @@ const Cohort = db.define('cohort', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  time: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   teacher_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  // student_id: {
-  //   type: Sequelize.INTEGER,
-  //   allowNull: true,
-  // },
 });
 
 const Lecture = db.define('lecture', {
@@ -111,8 +115,8 @@ const Attendance = db.define('attendance', {
 
 
 const defineRelationship = () => {
-  School.hasMany(User);
-  User.belongsTo(School);
+  School.hasMany(User, { foreignKey: { name: 'school_id', allowNull: false }, onDelete: 'CASCADE' });
+  User.belongsTo(School, { foreignKey: { name: 'school_id', allowNull: false }, onDelete: 'CASCADE' });
   // Optional
   // User.hasMany(School);
   // School.belongsTo(User);
