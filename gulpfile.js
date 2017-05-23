@@ -36,7 +36,7 @@ const relationship = new Promise((resolve, reject) => {
   }
 });
 
-gulp.task('seed:wipe', (cb) => {
+gulp.task('sync', (cb) => {
   relationship
   .then(() => db.School.sync({ force: true }))
   .then(() => db.User.sync({ force: true }))
@@ -53,7 +53,7 @@ gulp.task('seed:wipe', (cb) => {
   .catch((err) => { cb(err); });
 });
 
-gulp.task('seed:seed', ['seed:wipe'], (cb) => {
+gulp.task('seed:seed', ['sync'], (cb) => {
   SequelizeFixtures.loadFile('./server/db/models/seedData/data.json', models)
     .then(() => {
       cb();
@@ -63,7 +63,7 @@ gulp.task('seed:seed', ['seed:wipe'], (cb) => {
     });
 });
 
-gulp.task('seed', ['seed:wipe', 'seed:seed']);
+gulp.task('seed', ['sync', 'seed:seed']);
 
 gulp.task('nodemon', () => {
   const stream = nodemon({
