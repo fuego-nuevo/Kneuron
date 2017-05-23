@@ -3,10 +3,6 @@ const User = require('../db/models').User;
 const Cohort = require('../db/models').Cohort;
 const Lecture = require('../db/models').Lecture;
 const antiHasher = require('./util').antiHasher;
-const async = require('asyncawait/async');
-const await = require('asyncawait/await');
-
-
 
 // Post A Lecture For A Given Cohort From A Given Teacher without Async
 // router.post('/', (req, res) => {
@@ -224,7 +220,6 @@ router.put('/', async((req, res) => {
 //       res.status(404).send('Error Deleting Selected Lecture...');
 //     });
 // });
-
 
 // Delete A Lecture For A Given Cohort From A Given Teacher With Async
 router.delete('/', async((req, res) => {
