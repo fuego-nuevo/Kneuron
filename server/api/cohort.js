@@ -48,6 +48,8 @@ const postCohort = async (req, res) => {
           res.status(404).send('Failed To Create New Cohort');
         }
       }
+    } else {
+      res.status(500).send('Not a teacher');
     }
   } catch (error) {
     console.log('Teacher Does Not Exist In The DB...', error);
