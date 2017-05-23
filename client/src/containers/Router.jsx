@@ -16,7 +16,7 @@ class Router extends Component {
   renderDashboard() {
     const { isAuthenticated } = this.props;
     if (isAuthenticated) {
-      return <Dashboard />;
+      return <Dashboard location={this.props.location} />;
     }
     this.props.history.push('/');
     forceRefresh();
@@ -24,6 +24,7 @@ class Router extends Component {
 
 
   render() {
+    console.log('these are the props for line 27 routing.js ', this.props)
     const { dispatch, errorMessage, isAuthenticated, history } = this.props;
     return (
       <Switch>
@@ -42,12 +43,6 @@ class Router extends Component {
           path="/dashboard"
           render={this.renderDashboard}
         />
-<<<<<<< HEAD
-        <Route path="/signup">
-          <SignUp isAuthenticated={isAuthenticated} history={history} />
-        </Route>
-=======
->>>>>>> moreRoutes
       </Switch>
     );
   }
