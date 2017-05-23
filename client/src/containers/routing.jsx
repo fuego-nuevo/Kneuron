@@ -35,13 +35,19 @@ class Router extends Component {
             dispatch={dispatch}
           />
         </Route>
+        <Route path="/signup">
+          <SignUp isAuthenticated={isAuthenticated} history={history} />
+        </Route>
         <Route
           path="/dashboard"
           render={this.renderDashboard}
         />
+<<<<<<< HEAD
         <Route path="/signup">
           <SignUp isAuthenticated={isAuthenticated} history={history} />
         </Route>
+=======
+>>>>>>> moreRoutes
       </Switch>
     );
   }
