@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import FrontPage from '../components/frontPage';
 import Dashboard from '../components/Dashboard';
 import SignUp from '../containers/signUp';
@@ -13,16 +13,15 @@ class Router extends Component {
   }
 
   renderDashboard() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, dispatch } = this.props;
     if (isAuthenticated) {
-      return <Dashboard />;
+      return <Dashboard dispatch={dispatch} />;
     }
     this.props.history.push('/');
   }
 
 
   render() {
-    console.log('these are the props for line 27 routing.js ', this.props);
     const { dispatch, errorMessage, isAuthenticated, history } = this.props;
     return (
       <Switch>
@@ -57,5 +56,4 @@ const mapStateToProps = (state) => {
 };
 
 export default withRouter(connect(mapStateToProps)(Router));
-
 

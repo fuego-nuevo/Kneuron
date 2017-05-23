@@ -68,11 +68,11 @@ class Dashboard extends Component {
 
 
   render() {
-    console.log('this is the props on line 71 for dashboard ', this.props);
+    const { dispatch } = this.props;
+    console.log(dispatch);
     return (
       <div>
-        HITS THE DASHBOARD
-        <DashNav location={this.props.location} />
+        <DashNav dispatch={dispatch} />
         {/* <CohortsList*/}
         {/* cohorts={this.state.cohorts}*/}
         {/* currentUser={{ username: this.state.username, email: this.state.email, fName: this.state.fName, lName: this.state.lName }}*/}
