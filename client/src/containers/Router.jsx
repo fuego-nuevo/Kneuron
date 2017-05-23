@@ -13,16 +13,15 @@ class Router extends Component {
   }
 
   renderDashboard() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, dispatch } = this.props;
     if (isAuthenticated) {
-      return <Dashboard />;
+      return <Dashboard dispatch={dispatch} />;
     }
     this.props.history.push('/');
   }
 
 
   render() {
-    console.log(this.props, 'line 25 props router')
     const { dispatch, errorMessage, isAuthenticated, history } = this.props;
     return (
       <Switch>
@@ -57,5 +56,4 @@ const mapStateToProps = (state) => {
 };
 
 export default withRouter(connect(mapStateToProps)(Router));
-
 

@@ -45,7 +45,7 @@ a{
     width: 40vw;
     background-color: white;
     border-radius: 7px;
-    font-family: "Timmana"
+    font-family: "Brandon Grotesque"
 }
 
 .login-top{
@@ -119,7 +119,7 @@ textarea:focus, input:focus{
     background: linear-gradient(to bottom, #237A57, #093028); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     height: 100vh;
     width: 100vw;
-    font-family: "Timmana"
+    font-family: "Brandon Grotesque";
 }
 
 .signup-form{
@@ -210,7 +210,7 @@ textarea:focus, input:focus{
     border-style: none;
     font-size: 18px;
     margin: 0 5vw;
-    font-family: 'Timmana';
+    font-family: 'Brandon Grotesque';
 }
 
 #dash-logout{
@@ -221,7 +221,7 @@ textarea:focus, input:focus{
     background-color: transparent;
     border-style: none;
     color: white;
-    font-family: 'Timmana';
+    font-family: 'Brandon Grotesque';
 }
 
 

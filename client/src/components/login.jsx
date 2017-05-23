@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../styles/main.css';
-import { connect } from 'react-redux';
 
 class Login extends Component {
   constructor(props) {

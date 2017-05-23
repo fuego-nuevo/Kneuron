@@ -48,7 +48,9 @@ exports.loginUser = (creds, history) => {
         localStorage.setItem('id_token', response.data.id_token);
         localStorage.setItem('access_token', response.data.id_token);
         dispatch(receiveLogin(response.data));
+        console.log('before dashboard');
         history.push('/dashboard');
+        console.log('after dashboard');
       })
       .catch((err) => {
         console.log('Error: ', err);
@@ -93,10 +95,12 @@ exports.signupUser = (creds, history) => {
 exports.logoutUser = () => {
   console.log('yooo logout ran');
   return (dispatch) => {
+    console.log('got into dispatch line 96 action/login.js')
     dispatch(requestLogout());
     console.log('got past the dispatch');
     localStorage.removeItem('id_token');
     localStorage.removeItem('access_token');
     dispatch(receiveLogout());
+    console.log('did you receive logout')
   };
 };
