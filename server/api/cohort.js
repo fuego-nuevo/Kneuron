@@ -7,7 +7,7 @@ const antiHasher = require('./util').antiHasher;
 // Get All Cohorts For a Given Teacher with Async
 const fetchCohorts = async (req, res) => {
   try {
-    const teacher = await User.findOne({ email: antiHasher(req.params.auth_token) });
+    const teacher = await User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
     if (teacher.userType === 0) {
       const teacherCohort = await (Cohort.findAll({ where: { teacher_id: teacher.id } }));
       if (teacherCohort) {
@@ -27,7 +27,7 @@ const fetchCohorts = async (req, res) => {
 const postCohort = async (req, res) => {
   // Find a Teacher by their email and see if they are in the DB or Not...
   try {
-    const teacher = await User.findOne({ where: { email: antiHasher(req.body.auth_token) }});
+    const teacher = await User.findOne({ where: { email: antiHasher(req.body.auth_token) } });
     if (teacher.userType === 0) {
       // If Teacher Found the  Find Their Cohort where subject === req.body.subject and their teacherId: as their id
       // Switch with findOrCreate
@@ -55,12 +55,43 @@ const postCohort = async (req, res) => {
   }
 };
 
+// Update a Cohort For a Given Teacher with Async
+const updateCohort = async (req, res) => {
+  try {
+    const teacher = await User.findOne({ where: { email: antiHasher(req.body.auth_token) } });
+    if (teacher) {
+      const cohort = await Cohort.findOne({ where: { id: req.body.cohortId, teacher_id: teacher.id } });
+      if (cohort) {
+        cohort.subject = req.body.subject.toUpperCase();
+        const updatedCohort = await Cohort.update({
+          subject: cohort.subject,
+          time: req.body.time,
+        }, { where: { id: cohort.id } });
+        if (updatedCohort) {
+          res.status(204).send(updatedCohort);
+        } else {
+          console.log(`Couldn't update ${teacher.fName} ${teacher.lName}'s ${cohort.subject} cohort`);
+          res.status(500).send(`Couldn't update ${teacher.fName} ${teacher.lName}'s ${cohort.subject} cohort`);
+        }
+      } else {
+        console.log(`${teacher.fName} ${teacher.lName} doesn't exist in the DB or Network Error`);
+        res.status(404).send(`${teacher.fName} ${teacher.lName}'s cohort doesn't exist in the DB or Network Error`);
+      }
+    } else {
+      console.log(`Teacher By The Name Of ${req.body.fName} ${req.body.lName} Does Not Exist In The Db: `);
+      res.status(404).send(`Teacher By The Name Of ${req.body.fName} ${req.body.lName} Does Not Exist In The Db: `);
+    }
+  } catch (error) {
+    console.log('Async Error, Check the logs and Backend: ', error);
+    res.status(500).send(error);
+  }
+};
+
 // Delete a Cohort For a Given Teacher with Async
 const deleteCohort = async (req, res) => {
   try {
     const teacher = await User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
     if (teacher) {
-      console.log('we in teacher nooww', teacher);
       const cohort = await Cohort.findOne({ where: { id: req.params.cohort_id } });
       if (cohort) {
         cohort.destroy({ force: true });
@@ -76,43 +107,11 @@ const deleteCohort = async (req, res) => {
     res.status(500).send(error);
   }
 };
-
-// Update a Cohort For a Given Teacher with Async
-const updateCohort = async (req, res) => {
-  try {
-    const teacher = await User.findOne({ where: { email: antiHasher(req.body.auth_token) } });
-    if (teacher) {
-      const cohort = await Cohort.findOne({ where: { id: req.body.cohortId, teacher_id: teacher.id } });
-      if (cohort) {
-        cohort.subject = req.body.subject.toUpperCase();
-        const updatedCohort = await Cohort.update({
-          subject: cohort.subject,
-          time: req.body.time,
-        }, { where: { id: cohort.id } });
-        if (updatedCohort) {
-          res.status(200).send(updatedCohort);
-        } else {
-          console.log(`Couldn't update ${teacher.fName} ${teacher.lName}'s ${cohort.subject} cohort`);
-          res.status(204).send(`Couldn't update ${teacher.fName} ${teacher.lName}'s ${cohort.subject} cohort`);
-        }
-      } else {
-        console.log(`${teacher.fName} ${teacher.lName} doesn't exist in the DB or Network Error`);
-        res.status(404).send(`${teacher.fName} ${teacher.lName}'s cohort doesn't exist in the DB or Network Error`);
-      }
-    } else {
-      console.log(`Teacher By The Name Of ${req.body.fName} ${req.body.lName} Does Not Exist In The Db: `);
-      res.status(404).send(`Teacher By The Name Of ${req.body.fName} ${req.body.lName} Does Not Exist In The Db: `);
-    }
-  } catch (error) {
-    console.log('Async Error, Check the logs and Backend: ', error);
-    res.status(500).send(error);
-  }
-};
 // Controller
 
 router.get('/:auth_token', fetchCohorts);
 router.post('/', postCohort);
-router.delete('/:auth_token/:cohort_id', deleteCohort);
 router.put('/', updateCohort);
+router.delete('/:auth_token/:cohort_id', deleteCohort);
 
 module.exports = router;
