@@ -71,7 +71,6 @@ class Dashboard extends Component {
     console.log('this is the props on line 71 for dashboard ', this.props);
     return (
       <div>
-        HITS THE DASHBOARD
         <DashNav location={this.props.location} />
         {/* <CohortsList*/}
         {/* cohorts={this.state.cohorts}*/}

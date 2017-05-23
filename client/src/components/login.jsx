@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/main.css';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 class Login extends Component {
   constructor(props) {
@@ -14,22 +14,8 @@ class Login extends Component {
     const password = this.refs.password;
     const creds = { email: email.value.trim(), password: password.value.trim() };
     this.props.onLoginClick(creds, this.props.history);
-    this.props.history.push('/editprofile')
-    console.log(this.props, 'this props first');
-  }
-
-  componentDidUpdate () {
-    console.log("this is the logincomplete in login: ", this.props.loginComplete);
-    if (this.props.loginComplete){
-    console.log("===============================")
-      setTimeout(() => { this.props.history.push('/editprofile')}, 2000);
-    }
   }
   render() {
-    console.log("this is the state line 25 in login" , this.props.loginComplete)
-    const { errorMessage } = this.props;
-    console.log(this.props, 'this props second');
-    console.log('this is login');
     return (
       <div>
         <div className="login-input">
@@ -55,13 +41,6 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    profile: state.profile.profile,
-    loginComplete: state.profile.loginComplete,
-  }
-}
 
-
-export default connect(mapStateToProps)(Login);
+export default Login;
 
