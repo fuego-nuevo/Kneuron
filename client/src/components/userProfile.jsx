@@ -22,7 +22,7 @@ class UserProfile extends Component {
   }
 
 
- async fetchUser() {
+  async fetchUser() {
     try{
       const user = await axios.get(`/api/users/${localStorage.getItem('id_token')}`);
       console.log("Grabbed User: ", user.data);
