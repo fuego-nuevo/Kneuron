@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { forceRefresh } from '../utils/forceRefresh';
 
 const requestLogin = creds => ({
   type: 'LOGIN_REQUEST',
@@ -50,7 +49,6 @@ exports.loginUser = (creds, history) => {
         localStorage.setItem('access_token', response.data.id_token);
         dispatch(receiveLogin(response.data));
         history.push('/dashboard');
-        forceRefresh();
       })
       .catch((err) => {
         console.log('Error: ', err);
@@ -84,7 +82,6 @@ exports.signupUser = (creds, history) => {
         dispatch(receiveLogin(response.data));
         console.log('user did sign up succesfully')
         history.push('/dashboard');
-        forceRefresh();
       })
       .catch((err) => {
         console.log('Error: ', err);

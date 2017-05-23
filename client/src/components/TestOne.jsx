@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
-const TestOne = () => (
-  <div className="testone">
-      HIIIII
-    </div>
-  );
+class TestOne extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-export default TestOne;
+  render() {
+    return (
+      <div className="testone">
+        TEST ONE
+      </div>
+    );
+  }
+}
+
+export default withRouter(TestOne);

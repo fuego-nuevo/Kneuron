@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Routing from './routing';
-import { connect }  from 'react-redux';
-import { loginUser } from '../actions/login';
-import UserProfile from '../components/userProfile'
-import Login from '../components/login';
+import Router from './Router';
 
 
 class App extends Component {
@@ -15,10 +11,11 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Routing />
-      </BrowserRouter>     
+        <Router />
+      </BrowserRouter>
     );
   }
 }
 
 export default App;
+

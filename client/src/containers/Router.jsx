@@ -4,7 +4,6 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import FrontPage from '../components/frontPage';
 import Dashboard from '../components/Dashboard';
 import SignUp from '../containers/signUp';
-import { forceRefresh } from '../utils/forceRefresh';
 
 class Router extends Component {
   constructor(props) {
@@ -16,15 +15,14 @@ class Router extends Component {
   renderDashboard() {
     const { isAuthenticated } = this.props;
     if (isAuthenticated) {
-      return <Dashboard location={this.props.location} />;
+      return <Dashboard />;
     }
     this.props.history.push('/');
-    forceRefresh();
   }
 
 
   render() {
-    console.log('these are the props for line 27 routing.js ', this.props)
+    console.log('these are the props for line 27 routing.js ', this.props);
     const { dispatch, errorMessage, isAuthenticated, history } = this.props;
     return (
       <Switch>
@@ -58,4 +56,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(withRouter(Router));
+export default withRouter(connect(mapStateToProps)(Router));
+
+
