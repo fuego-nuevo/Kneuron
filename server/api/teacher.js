@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-const User = require('../db/models').User;
+const db = require('../db/models');
 const hasher = require('./util').hasher;
 const antiHasher = require('./util').antiHasher;
 
@@ -10,7 +10,7 @@ const saltRounds = 10;
 // Login Teach with Async
 const fetchTeacher = async (req, res) => {
   try {
-    const user = await User.findOne({ where: { email: req.params.email } });
+    const user = await db.User.findOne({ where: { email: req.params.email } });
     const data = await bcrypt.compare(req.params.creds, user.password);
     if(data){
       console.log('User Logged In: ', { user: user, id_token: hasher(`${req.params.email}`) });
@@ -29,12 +29,12 @@ const postTeacher = async (req, res) => {
   try {
     const salt = await bcrypt.genSalt(saltRounds);
     const hash = await bcrypt.hash(req.body.password, salt);
-    const person = await User.findOne({ where: { email: req.body.email } });
+    const person = await db.User.findOne({ where: { email: req.body.email } });
     if (person) {
       console.log('That email is taken. Please try another email.');
       res.status(404).send('That email is taken. Please try another email.');
     } else {
-      const newUser = await User.create({
+      const newUser = await db.User.create({
         email: req.body.email,
         password: hash,
         userType: 0,
@@ -56,7 +56,7 @@ const postTeacher = async (req, res) => {
 const updateTeacher = async (req, res) => {
   try {
     console.log(antiHasher(req.params.auth_token));
-    const teacher = await User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
+    const teacher = await db.User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
     if (teacher) {
       const updatedTeacher = await teacher.update({
         email: req.body.email,
@@ -68,7 +68,7 @@ const updateTeacher = async (req, res) => {
       });
       if (updatedTeacher) {
         console.log('Teacher successfully updated ', updatedTeacher);
-        res.status(200).send(updatedTeacher);
+        res.status(200).send({ teacher: updatedTeacher, auth_token: hasher(updatedTeacher.email) });
       } else {
         console.log('Missing a parameter');
         res.status(500).send('Missing a parameter');
@@ -86,11 +86,11 @@ const updateTeacher = async (req, res) => {
 // Delete Teacher
 const deleteTeacher = async (req, res) => {
   try {
-    const teacher = await User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
+    const teacher = await db.User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
     if (teacher) {
       teacher.destroy({ force: true });
       console.log('Teacher deleted');
-      res.status(200).send('Teacher deleted');
+      res.status(200).send(teacher);
     } else {
       console.log('Teacher not found');
       res.status(404).send('Teacher not found');
