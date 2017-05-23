@@ -14,6 +14,7 @@ class Login extends Component {
     const creds = { email: email.value.trim(), password: password.value.trim() };
     this.props.onLoginClick(creds, this.props.history);
   }
+
   render() {
     return (
       <div>
