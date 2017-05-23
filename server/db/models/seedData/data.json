@@ -57,11 +57,61 @@
     }
   },
   {
+    "model": "Cohort",
+    "data": {
+      "id": 2,
+      "subject": "ENGLISH",
+      "time": "1 PM",
+      "teacher_id": 1
+    }
+  },
+  {
+    "model": "Cohort",
+    "data": {
+      "id": 3,
+      "subject": "SCIENCE",
+      "time": "1 PM",
+      "teacher_id": 1
+    }
+  },
+  {
     "model": "Lecture",
     "data": {
       "id": 1,
       "name": "Addition",
       "cohort_id": 1
+    }
+  },
+  {
+    "model": "Lecture",
+    "data": {
+      "id": 2,
+      "name": "Addition",
+      "cohort_id": 2
+    }
+  },
+  {
+    "model": "Lecture",
+    "data": {
+      "id": 3,
+      "name": "Addition",
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "Lecture",
+    "data": {
+      "id": 4,
+      "name": "Addition",
+      "cohort_id": 3
+    }
+  },
+  {
+    "model": "Lecture",
+    "data": {
+      "id": 5,
+      "name": "Addition",
+      "cohort_id": 3
     }
   },
   {
@@ -73,11 +123,51 @@
     }
   },
   {
+    "model": "Topic",
+    "data": {
+      "id": 2,
+      "name": "Short Addition",
+      "lecture_id": 3
+    }
+  },
+  {
+    "model": "Topic",
+    "data": {
+      "id": 3,
+      "name": "Short Addition",
+      "lecture_id": 2
+    }
+  },
+  {
     "model": "Quiz",
     "data": {
       "id": 1,
       "name": "Short Addition Quiz",
       "topic_id": 1
+    }
+  },
+  {
+    "model": "Quiz",
+    "data": {
+      "id": 2,
+      "name": "Short Addition Quiz",
+      "topic_id": 1
+    }
+  },
+  {
+    "model": "Quiz",
+    "data": {
+      "id": 3,
+      "name": "Short Addition Quiz",
+      "topic_id": 3
+    }
+  },
+  {
+    "model": "Quiz",
+    "data": {
+      "id": 4,
+      "name": "Short Addition Quiz",
+      "topic_id": 3
     }
   },
   {
