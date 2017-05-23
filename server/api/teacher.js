@@ -12,7 +12,7 @@ const fetchAllTeacherData = async (req, res) => {
   try {
     const allData = await db.User.findOne({
       where: {
-        id: req.params.teacherId,
+        email: antiHasher(req.params.auth_token),
         userType: 0,
       },
       include: [{
@@ -47,13 +47,13 @@ const fetchAllTeacherData = async (req, res) => {
 const fetchTeacher = async (req, res) => {
   try {
     const user = await db.User.findOne({ where: { email: req.params.email } });
-    const data = await bcrypt.compare(req.params.creds, user.password);
-    if (data) {
+    // const data = await bcrypt.compare(req.params.creds, user.password);
+    // if (data) {
       console.log('User Logged In: ', { user: user, id_token: hasher(`${req.params.email}`) });
       res.status(200).send({ user: user, id_token: hasher(req.params.email) });
-    } else {
-      res.status(404).send();
-    }
+    // } else {
+    //   res.status(404).send();
+    // }
   } catch (error) {
     console.log('User Does Not Exist');
     res.status(404).send(error);
@@ -137,23 +137,9 @@ const deleteTeacher = async (req, res) => {
   }
 };
 
-router.get('/:token', (req, res, next) => {
-  console.log("this is the req in teacher get router boiiii", req)
-  User.findOne({ where: { email: antiHasher(req.params.token) }})
-  .then((user) => {
-    res.send(user)
-  })
-  .catch((err) => {
-    if(err){
-    console.log("there was an error getting the user with the token", err)
-    } else {
-      console.log("got the user babY!!!")
-    }
-  })
-})
 // Controllers
 
-router.get('/:teacherId', fetchAllTeacherData);
+router.get('/:auth_token', fetchAllTeacherData);
 router.get('/:email/:creds', fetchTeacher);
 router.post('/', postTeacher);
 router.put('/:auth_token', updateTeacher);
