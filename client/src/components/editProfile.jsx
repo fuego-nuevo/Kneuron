@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class EditProfile extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       username: 'jasonk',
@@ -45,7 +46,7 @@ class EditProfile extends Component {
   // }
 
   render() {
-    console.log("this is props from redux profile", this.props.profile)
+    console.log('this is props from redux profile', this.props)
     return (
       <div>
         <h1> Edit Your Profile Here: </h1>
@@ -70,12 +71,15 @@ class EditProfile extends Component {
       </div>
     );
   }
-
-  const mapStateToProps = state => {
-    return {
-      profile: state.profile
-    }
-  }
-
 }
-export default connect(mapStateToProps)(EditProfile);
+
+const mapStateToProps = state => {
+  console.log('state in editProfile', state)
+  return {
+    profile: state.profile
+  }
+}
+// const mapStateToProps = state => ({
+//   profile: state.profile,
+// });
+export default withRouter(connect(mapStateToProps)(EditProfile));

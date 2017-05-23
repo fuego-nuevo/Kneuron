@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
-import { Button } from 'semantic-ui-react';
 import { PageHeader } from 'react-bootstrap';
 
 class UserProfile extends Component {

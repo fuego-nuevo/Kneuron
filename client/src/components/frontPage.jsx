@@ -19,12 +19,18 @@ class FrontPage extends Component {
             <form className="login">
               <div className="login-top">LOGIN</div>
               <Login
-               history={history}
-               isAuthenticated={isAuthenticated}
-               errorMessage={errorMessage}
-               onLoginClick={ creds => dispatch(loginUser(creds, history)) } />
+                history={history}
+                isAuthenticated={isAuthenticated}
+                errorMessage={errorMessage}
+                onLoginClick={(creds, history) => {
+                  console.log('creds after login invoked', creds)
+                  console.log('creds after login invoked', history)
+                  return dispatch(loginUser(creds, history))
+                }} />
+
             </form>
           </div>
+          
       </div>
     );
   }
