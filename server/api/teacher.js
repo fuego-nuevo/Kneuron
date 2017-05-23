@@ -7,12 +7,48 @@ const antiHasher = require('./util').antiHasher;
 const saltRounds = 10;
 
 // Controllers
+// Fetch ALL INFORMATION on Teacher
+const fetchAllData = async (req, res) => {
+  try {
+    const allData = await db.User.findOne({
+      where: {
+        id: req.params.teacherId,
+        userType: 0,
+      },
+      include: [{
+        model: db.Cohort,
+        as: 'teacher',
+        // include: [{
+        //   model: db.Lecture,
+        //   include: [{
+        //     model: db.Topic,
+        //     include: [{
+        //       model: db.Quiz,
+        //       include: [{
+        //         model: db.Question,
+        //         // include: [{
+        //         //   model: db.Answer,
+        //         // }],
+        //       }],
+        //     }],
+        //   }],
+        // }],
+      }],
+    });
+    console.log(allData);
+    res.status(200).send(allData);
+  } catch (error) {
+    console.log('Some shit went wrong ', error);
+    res.status(500).send(error);
+  }
+};
+
 // Login Teach with Async
 const fetchTeacher = async (req, res) => {
   try {
     const user = await db.User.findOne({ where: { email: req.params.email } });
     const data = await bcrypt.compare(req.params.creds, user.password);
-    if(data){
+    if (data) {
       console.log('User Logged In: ', { user: user, id_token: hasher(`${req.params.email}`) });
       res.status(200).send({ user: user, id_token: hasher(req.params.email) });
     } else {
@@ -102,6 +138,7 @@ const deleteTeacher = async (req, res) => {
 };
 // Controllers
 
+router.get('/:teacherId', fetchAllData);
 router.get('/:email/:creds', fetchTeacher);
 router.post('/', postTeacher);
 router.put('/:auth_token', updateTeacher);

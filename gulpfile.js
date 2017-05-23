@@ -2,7 +2,6 @@ const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const env = require('gulp-env');
 const gutil = require('gulp-util');
-const Promise = require('bluebird');
 const SequelizeFixtures = require('sequelize-fixtures');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
@@ -27,18 +26,8 @@ const models = {
   'Answer' : db.Answer,
 };
 
-const relationship = new Promise((resolve, reject) => {
-  if (db.defineRelationship) {
-    // console.log('we in relationshipsssss', db.defineRelationship);
-    resolve(db.defineRelationship());
-  } else {
-    reject(404);
-  }
-});
-
 gulp.task('sync', (cb) => {
-  relationship
-  .then(() => db.School.sync({ force: true }))
+  db.School.sync({ force: true })
   .then(() => db.User.sync({ force: true }))
   .then(() => db.Cohort.sync({ force: true }))
   .then(() => db.StudentCohort.sync({ force: true }))
@@ -79,7 +68,6 @@ gulp.task('dbwatch', () => {
 
 gulp.task('webpack-dev-server', () => {
   const compiler = webpack(webpackConfig);
-
   new WebpackDevServer(compiler, {
     contentBase: './static',
     publicPath: '/static',
