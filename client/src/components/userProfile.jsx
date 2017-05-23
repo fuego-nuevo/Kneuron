@@ -22,13 +22,14 @@ class UserProfile extends Component {
   }
 
 
-  fetchUser() {
-    axios.get(`/api/users/${auth}`, config)
-        .then((res) => {
-        })
-        .catch((err) => {
-          console.log('Error in fetchUsers in UserProfile: ', err);
-        });
+  async fetchUser() {
+    try{
+      const user = await axios.get(`/api/users/${localStorage.getItem('id_token')}`);
+      console.log("Grabbed User: ", user.data);
+      this.setState({ username: user.data.username, email: user.data.email, fName: user.data.fName, lName: user.data.lName });
+    } catch(error) {
+      console.log("Error grabbing user: ", error);
+    }
   }
 
 
