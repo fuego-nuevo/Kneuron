@@ -45,6 +45,14 @@ const StudentQuestion = db.define('studentquestion', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  student_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  topic_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
 });
 
 const Cohort = db.define('cohort', {
@@ -78,11 +86,19 @@ const Topic = db.define('topic', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  lecture_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
 });
 
 const Quiz = db.define('quiz', {
   name: {
     type: Sequelize.STRING,
+    allowNull: false,
+  },
+  topic_id: {
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
 });
@@ -92,18 +108,34 @@ const Question = db.define('question', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  choices: {
+    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    allowNull: false,
+  },
   correct: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  quiz_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
 });
 
 const Answer = db.define('answer', {
-  choices: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER),
+  // choices: {
+  //   type: Sequelize.ARRAY(Sequelize.INTEGER),
+  //   allowNull: false,
+  // },
+  selected: {
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
-  selected: {
+  student_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  question_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
@@ -144,29 +176,28 @@ const defineRelationship = () => {
   Lecture.belongsTo(Cohort, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
 
   User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
-
   Attendance.belongsTo(User);
 
-  User.hasMany(StudentQuestion);
-  StudentQuestion.belongsTo(User);
+  User.hasMany(StudentQuestion, { foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
+  StudentQuestion.belongsTo(User, { foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
 
   Lecture.hasMany(Attendance, { as: 'lecture_attendance' });
   Attendance.belongsTo(Lecture);
 
-  Lecture.hasMany(Topic);
-  Topic.belongsTo(Lecture);
+  Lecture.hasMany(Topic, { foreignKey: { name: 'lecture_id', allowNull: false }, onDelete: 'CASCADE' });
+  Topic.belongsTo(Lecture, { foreignKey: { name: 'lecture_id', allowNull: false }, onDelete: 'CASCADE' });
 
-  Topic.hasMany(Quiz);
-  Quiz.belongsTo(Topic);
+  Topic.hasMany(Quiz, { foreignKey: { name: 'topic_id', allowNull: false }, onDelete: 'CASCADE' });
+  Quiz.belongsTo(Topic, { foreignKey: { name: 'topic_id', allowNull: false }, onDelete: 'CASCADE' });
 
-  Topic.hasMany(StudentQuestion);
-  StudentQuestion.belongsTo(Topic);
+  Topic.hasMany(StudentQuestion, { foreignKey: { name: 'topic_id', allowNull: false }, onDelete: 'CASCADE' });
+  StudentQuestion.belongsTo(Topic, { foreignKey: { name: 'topic_id', allowNull: false }, onDelete: 'CASCADE' });
 
-  Quiz.hasMany(Question);
-  Question.belongsTo(Quiz);
+  Quiz.hasMany(Question, { foreignKey: { name: 'quiz_id', allowNull: false }, onDelete: 'CASCADE' });
+  Question.belongsTo(Quiz, { foreignKey: { name: 'quiz_id', allowNull: false }, onDelete: 'CASCADE' });
 
-  Question.hasMany(Answer);
-  Answer.belongsTo(Question);
+  Question.hasMany(Answer, { foreignKey: { name: 'question_id', allowNull: false }, onDelete: 'CASCADE' });
+  Answer.belongsTo(Question, { foreignKey: { name: 'question_id', allowNull: false }, onDelete: 'CASCADE' });
 };
 
 module.exports = {
