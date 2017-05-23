@@ -3,6 +3,8 @@ const User = require('../db/models').User;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const hasher = require('./util').hasher;
+const antiHasher = require('./util').antiHasher;
+
 const async = require('asyncawait/async');
 const await = require('asyncawait/await');
 
@@ -90,6 +92,20 @@ router.put('/', (req, res, next) => {
   })
 })
 
+router.get('/:token', (req, res, next) => {
+  console.log("this is the req in teacher get router boiiii", req)
+  User.findOne({ where: antiHasher(req.params.token)})
+  .then((user) => {
+    res.send(user)
+  })
+  .catch((err) => {
+    if(err){
+    console.log("there was an error getting the user with the token", err)
+    } else {
+      console.log("got the user babY!!!")
+    }
+  })
+})
 
 // //login with Promises
 // router.get('/:email/:creds', (req, res, next) => {
