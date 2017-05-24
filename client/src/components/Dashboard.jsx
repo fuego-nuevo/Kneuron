@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { updateProfile } from '../actions/currentProfile';
 import DashNav from '../components/DashboardNavBar';
 import AddClass from '../components/AddClass';
+import EditClass from '../components/EditClass';
 import CohortsList from '../components/CohortsList';
 import CurrentLecture from '../components/CurrentLecture';
 import LecturesList from '../components/LecturesList';
@@ -48,8 +49,8 @@ class Dashboard extends Component {
   }
 
   renderCohort() {
-    const { cohort } = this.props;
-    return <CohortsList cohorts={cohort || []} />;
+    const { cohort, history } = this.props;
+    return <CohortsList history={history} cohorts={cohort || []} />;
   }
 
   // renderLecturesList(){
@@ -73,6 +74,7 @@ class Dashboard extends Component {
         <Route path="/dashboard/class" render={this.renderCohort} />
         {/*<Route path="/dashboard/class/lectures" render={this.renderLecturesList} />*/}
         <Route path="/dashboard/addClass" component={AddClass} />
+        <Route path="/dashboard/editClass" component={EditClass} />
         {/*<Route path={currentLectureRoute} render={this.renderCurrentLecture} />*/}
       </div>
     );

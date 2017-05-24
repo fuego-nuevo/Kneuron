@@ -61,7 +61,7 @@ const updateCohort = async (req, res) => {
   try {
     const teacher = await db.User.findOne({ where: { email: antiHasher(req.body.auth_token) } });
     if (teacher) {
-      const cohort = await db.Cohort.findOne({ where: { id: req.body.cohortId, teacher_id: teacher.id } });
+      const cohort = await db.Cohort.findOne({ where: { subject: req.body.subject, teacher_id: teacher.id } });
       if (cohort) {
         cohort.subject = req.body.subject.toUpperCase();
         const updatedCohort = await db.Cohort.update({
