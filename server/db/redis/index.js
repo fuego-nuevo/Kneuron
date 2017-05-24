@@ -1,5 +1,3 @@
-
-
 const Redis = require('ioredis');
 const util = require('util');
 
