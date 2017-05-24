@@ -12,7 +12,7 @@ class Cohort extends Component {
   render() {
     console.log(this.props, ' props from the mfuckin line 13 cohort entry');
     return (
-      <div className="cohort-entry fadeIn" >
+      <div className="cohort-entry animated bounceInUp" >
         <div className="ch-entry-header">{this.props.cohort.subject}</div>
         <h3>{this.props.cohort.time}</h3>
         <button>Lectures</button>
