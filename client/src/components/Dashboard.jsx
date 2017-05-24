@@ -15,16 +15,19 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       profile: {},
+      refresh: [],
     };
 
-
-    // this.createCohort = this.createCohort.bind(this);
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
     this.renderCohort = this.renderCohort.bind(this);
   }
 
   componentDidMount() {
     this.fetchTeacherInfo();
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log('component received new props');
+    this.setState({ refresh: nextProps });
   }
 
   async fetchTeacherInfo() {
@@ -40,7 +43,7 @@ class Dashboard extends Component {
   }
 
   renderCohort() {
-    const { cohort } = this.props
+    const { cohort } = this.props;
     return <CohortsList cohorts={cohort || []} />;
   }
 
@@ -69,7 +72,7 @@ const mapStateToProps = (state) => {
     lName,
     cohort,
   };
-}
+};
 
 export default withRouter(connect(mapStateToProps, { updateProfile })(Dashboard));
 
