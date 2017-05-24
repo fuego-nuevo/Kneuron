@@ -60,8 +60,12 @@ const postCohort = async (req, res) => {
 const updateCohort = async (req, res) => {
   try {
     const teacher = await db.User.findOne({ where: { email: antiHasher(req.body.auth_token) } });
+    console.log('got past anti hasher  ', teacher.id);
     if (teacher) {
-      const cohort = await db.Cohort.findOne({ where: { subject: req.body.subject, teacher_id: teacher.id } });
+      console.log('this is the subject ', req.body.subject.toUpperCase());
+      console.log('this is teacher id again  ', teacher.id);
+      const cohort = await db.Cohort.findOne({ where: { subject: req.body.subject.toUpperCase(), teacher_id: teacher.id } });
+      console.log('on line 66  ', cohort);
       if (cohort) {
         cohort.subject = req.body.subject.toUpperCase();
         const updatedCohort = await db.Cohort.update({
