@@ -8,7 +8,7 @@ const fetchLectures = async (req, res) => {
     if (teacher) {
       const teachersCohort = await db.Cohort.findOne({ where: { id: req.params.cohort_id, subject: req.params.subject, teacher_id: teacher.id } });
       if (teachersCohort) {
-        const lectures = await db.Lecture.findAll({ where: { cohort_id: cohort.id } });
+        const lectures = await db.Lecture.findAll({ where: { cohort_id: teachersCohort.id } });
         if (lectures) {
           res.status(200).send(lectures);
         }
