@@ -15,7 +15,7 @@ class Cohort extends Component {
       <div className="cohort-entry animated bounceInUp" >
         <div className="ch-entry-header">{this.props.cohort.subject}</div>
         <h3>{this.props.cohort.time}</h3>
-        <button>Lectures</button>
+        <button><Link to="/dashboard/class/lectures">Lectures</Link></button>
       </div>
     );
   }
