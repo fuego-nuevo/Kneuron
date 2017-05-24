@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class AddClass extends Component {
   constructor() {
@@ -8,6 +9,7 @@ class AddClass extends Component {
       time: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
@@ -15,13 +17,36 @@ class AddClass extends Component {
     this.setState({ [name]: e.target.value });
   }
 
+  async handleSubmit(e) {
+    e.preventDefault();
+    const body = {
+      auth_token: localStorage.getItem('id_token'),
+      subject: this.state.subject,
+      time: this.state.time,
+    };
+    try {
+      const posted = await axios.post('/api/cohorts/', body);
+      this.props.history.push('/dashboard/class');
+    } catch (error) {
+      console.log('error with axios call line 28 AddClass');
+    }
+  }
+
   render() {
     return (
       <div className="add-class-container">
-        <form className="add-class-form animated bounceInUp">
-          <input onChange={this.handleChange} value={this.state.subject} type="text" placeholder="subject" name="subject" />
-          <input onChange={this.handleChange} value={this.state.time} type="text" placeholder="time" name="time" />
-          <input type="submit" />
+        <form onSubmit={this.handleSubmit} className="add-class-form animated bounceInUp">
+          <div className="add-class-input-container">
+            <div className="add-class-inps">
+              <label htmlFor="subject">Subject</label>
+              <input onChange={this.handleChange} value={this.state.subject} type="text" name="subject" />
+            </div>
+            <div className="add-class-inps">
+              <label htmlFor="time">Time</label>
+              <input onChange={this.handleChange} value={this.state.time} type="text" name="time" />
+            </div>
+          </div>
+          <input id="add-class-submit" type="submit" />
         </form>
       </div>
     );
