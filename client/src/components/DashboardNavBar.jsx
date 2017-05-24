@@ -10,13 +10,12 @@ class DashNav extends Component {
     this.state = {};
   }
   render() {
-    console.log('this is dashboardnavbar line 10, ', this.props);
     return (
       <nav className="dash-nav">
         <div className="dash-nav-items">
           <button><Link to="/dashboard">HOME</Link></button>
           <button><Link to="/dashboard/class">Classes</Link></button>
-          <button><Link to="/dashboard/performance">Performance</Link></button>
+          <button><Link to="/dashboard/addClass">Add Class</Link></button>
         </div>
         <button id="dash-logout"><Link onClick={() => { this.props.dispatch(logoutUser()); }} to="/">LOGOUT</Link></button>
       </nav>

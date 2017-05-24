@@ -4,7 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { updateProfile } from '../actions/currentProfile';
 import DashNav from '../components/DashboardNavBar';
-import Performance from '../components/performance';
+import AddClass from '../components/AddClass';
 import CohortsList from './CohortsList';
 import Lecture from '../components/LecturesList';
 // import CreateCohortModal from './CreateCohortModal';
@@ -51,7 +51,7 @@ class Dashboard extends Component {
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} />
         <Route path="/dashboard/class" render={this.renderCohort} />
-        <Route path="/dashboard/performance" component={Performance} />
+        <Route path="/dashboard/addClass" component={AddClass} />
         <Route path="/dashboard/class/lectures/" component={Lecture} />
       </div>
     );
