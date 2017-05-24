@@ -10,3 +10,5 @@ yarn-error.log
 .idea
 Code-Graveyard.js
 static
+./server/api/util.js
+dump.rdb
