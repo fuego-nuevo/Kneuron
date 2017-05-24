@@ -9,3 +9,6 @@ exports.updateProfile = (profile) => {
     cohort: profile.data.cohort,
   };
 }
+
+//I gotta create an action to make currentLecture the selected or Clicked Lecture from lecture list
+//
