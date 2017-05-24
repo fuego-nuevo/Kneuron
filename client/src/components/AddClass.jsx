@@ -27,6 +27,7 @@ class AddClass extends Component {
     try {
       const posted = await axios.post('/api/cohorts/', body);
       this.props.history.push('/dashboard/class');
+      // window.location.reload();
     } catch (error) {
       console.log('error with axios call line 28 AddClass');
     }
