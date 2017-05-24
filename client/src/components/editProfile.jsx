@@ -46,7 +46,7 @@ class EditProfile extends Component {
   // }
 
   render() {
-    console.log('this is props from redux profile', this.props)
+    console.log('this is props from redux profile', this.props);
     return (
       <div>
         <h1> Edit Your Profile Here: </h1>
@@ -73,12 +73,12 @@ class EditProfile extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log('state in editProfile', state)
+const mapStateToProps = (state) => {
+  console.log('State in EditProfile', state);
   return {
-    profile: state.profile
-  }
-}
+    profile: state.profile,
+  };
+};
 // const mapStateToProps = state => ({
 //   profile: state.profile,
 // });
