@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Login from '../components/login';
-import NavBar from './frontPageNav';
+import Login from '../components/Login';
+import NavBar from './FrontPageNav';
 import { loginUser } from '../actions/login';
 
 class FrontPage extends Component {

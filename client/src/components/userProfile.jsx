@@ -10,7 +10,7 @@ class UserProfile extends Component {
   constructor(props) {
     super(props);
 
-   this.state = {
+    this.state = {
       username: 'test',
       email: 'test',
       fName: 'test',
@@ -18,7 +18,7 @@ class UserProfile extends Component {
     };
   }
 
- componentDidMount() {
+  componentDidMount() {
     this.fetchUser();
   }
 
