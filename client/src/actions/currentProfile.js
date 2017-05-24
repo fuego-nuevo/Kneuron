@@ -1,7 +1,11 @@
-exports.getProfile = (profile) => {
+exports.updateProfile = (profile) => {
   return {
     type: 'CURRENT_PROFILE',
-    payload: profile
+    email: profile.data.email,
+    username: profile.data.username,
+    fName: profile.data.fName,
+    lName: profile.data.lName,
+    userType: profile.data.userType,
+    cohort: profile.data.cohort,
   };
 }
-

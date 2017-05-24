@@ -15,9 +15,8 @@ class DashNav extends Component {
       <nav className="dash-nav">
         <div className="dash-nav-items">
           <button><Link to="/dashboard">HOME</Link></button>
-          <button><Link to="/dashboard/test1">Test1</Link></button>
-          <button><Link to="/dashboard/test2">Test2</Link></button>
-          <button><Link to="/dashboard/userprofile">Test2</Link></button>
+          <button><Link to="/dashboard/class">Classes</Link></button>
+          <button><Link to="/dashboard/performance">Performance</Link></button>
         </div>
         <button id="dash-logout"><Link onClick={() => { this.props.dispatch(logoutUser()); }} to="/">LOGOUT</Link></button>
       </nav>
