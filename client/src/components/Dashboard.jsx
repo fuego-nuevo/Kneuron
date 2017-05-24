@@ -19,7 +19,6 @@ class Dashboard extends Component {
     this.state = {
       profile: {},
       selectedLecture: '',
-      flag: false,
     };
 
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
