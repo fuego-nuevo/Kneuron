@@ -7,12 +7,16 @@ class EditProfile extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      username: 'jasonk',
-      fName: 'jason',
-      lName: 'kim',
-      email: '',
+    this.state = {      
+        fName: 'jason',
+        lName: 'kim',
+        username: 'jasonk',
     };
+    console.log('what is this?', this);
+    this.userNameChange = this.userNameChange.bind(this);
+    this.fNameChange = this.fNameChange.bind(this);
+    this.lNameChange = this.lNameChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 
@@ -39,14 +43,33 @@ class EditProfile extends Component {
   }
 
 
+        // email: req.body.email,
+        // password: hasher(req.body.password),
+        // fName: req.body.fName,
+        // lName: req.body.lName,
+        // username: req.body.username,
 
-
-  // handleSubmit() {
-
-  // }
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log(this.state.fName)
+    console.log(this.state.lName)
+    console.log(this.state.username)
+    const body = {
+      fName: this.state.fName,
+      lName: this.state.lName,
+      username: this.state.username,
+    };
+    axios.put(`/api/teachers/${localStorage.getItem('id_token')}`, body)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log('Err: ', err);
+      })
+  }
 
   render() {
-    console.log('this is props from redux profile', this.props)
+    console.log('this is props from redux profile', this.props);
     return (
       <div>
         <h1> Edit Your Profile Here: </h1>
@@ -56,10 +79,6 @@ class EditProfile extends Component {
             <input placeholder="UserName" onChange={(e) => { this.userNameChange(e); }} />
           </div>
           <div>
-            <label>email</label>
-            <input placeholder="Email" onChange={(e) => { this.emailChange(e); }} />
-          </div>
-          <div>
             <label>First Name</label>
             <input placeholder="first Name" onChange={(e) => { this.fNameChange(e); }} />
           </div>
@@ -67,19 +86,21 @@ class EditProfile extends Component {
             <label>Last Name</label>
             <input placeholder="Last Name" onChange={(e) => { this.lNameChange(e); }} />
           </div>
+          <h1><button type='submit'>Submit</button></h1>
         </form>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  console.log('state in editProfile', state)
-  return {
-    profile: state.profile
-  }
-}
+// const mapStateToProps = state => {
+//   console.log('state in editProfile', state)
+//   return {
+//     profile: state.profile
+//   }
+// }
 // const mapStateToProps = state => ({
 //   profile: state.profile,
 // });
-export default withRouter(connect(mapStateToProps)(EditProfile));
+// export default withRouter(connect(mapStateToProps)(EditProfile));
+export default EditProfile;

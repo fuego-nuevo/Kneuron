@@ -52,7 +52,7 @@ const fetchTeacher = async (req, res) => {
       console.log('User Logged In: ', { user: user, id_token: hasher(`${req.params.email}`) });
       res.status(200).send({ user: user, id_token: hasher(req.params.email) });
     } else {
-      res.status(404).send();
+      res.status(404).send('Credentials incorrect');
     }
   } catch (error) {
     console.log('User Does Not Exist');
@@ -95,12 +95,11 @@ const updateTeacher = async (req, res) => {
     const teacher = await db.User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
     if (teacher) {
       const updatedTeacher = await teacher.update({
-        email: req.body.email,
-        password: hasher(req.body.password),
+        // email: req.body.email,
+        // password: hasher(req.body.password),
         fName: req.body.fName,
         lName: req.body.lName,
         username: req.body.username,
-        school_id: req.body.school_id,
       });
       if (updatedTeacher) {
         console.log('Teacher successfully updated ', updatedTeacher);
@@ -139,7 +138,7 @@ const deleteTeacher = async (req, res) => {
 
 router.get('/:token', (req, res, next) => {
   console.log("this is the req in teacher get router boiiii", req)
-  User.findOne({ where: { email: antiHasher(req.params.token) }})
+  db.User.findOne({ where: { email: antiHasher(req.params.token) }})
   .then((user) => {
     res.send(user)
   })
