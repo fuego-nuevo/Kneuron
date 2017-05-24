@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 // import { Button } from 'semantic-ui-react';
 import { PageHeader } from 'react-bootstrap';
-// import EditProfile from './editProfile';
+// import EditProfile from './EditProfile';
 
 class UserProfile extends Component {
   constructor(props) {
