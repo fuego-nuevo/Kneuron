@@ -1,6 +1,7 @@
 body{
     margin: 0;
     font-family: "Brandon Grotesque";
+    font-weight: bold;
     background-color: #edeff0;
 }
 
@@ -234,5 +235,47 @@ textarea:focus, input:focus{
     width: 100%;
     height:auto;
     overflow: auto;
+}
+
+
+/* cohort */
+
+.cohort-entry{
+    width: 20vw;
+    height: 30vh;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+    position:relative;
+    display: inline-block;
+    float:left;
+    margin: 5vh 5vw;
+    -webkit-transition: margin 0.2s ease-out;
+    -moz-transition: margin 0.2s ease-out;
+    -o-transition: margin 0.2s ease-out;
+    transition: margin 0.2s ease-out;
+}
+
+.cohort-entry:hover{
+    margin-top: 3vh;
+}
+
+.cohort-holder {
+    width: 90vw;
+    position: absolute;
+    left: 5vw;
+    top: 20vh;
+    text-align: center;
+    z-index: -1;
+}
+
+.ch-entry-header {
+    height: 5vh;
+    line-height: 5vh;
+    width: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: #c4be85;
+    color: #e0ebe8;
 }
 

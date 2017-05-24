@@ -5,7 +5,7 @@ import { updateProfile } from '../actions/currentProfile';
 import { connect } from 'react-redux';
 import DashNav from '../components/DashboardNavBar';
 import Performance from '../components/performance';
-// import CohortsList from './CohortsList';
+import CohortsList from './CohortsList';
 // import CreateCohortModal from './CreateCohortModal';
 
 
@@ -17,8 +17,8 @@ class Dashboard extends Component {
     };
 
     // this.createCohort = this.createCohort.bind(this);
-    this.renderCohorts = this.renderCohorts.bind(this);
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
+    this.renderCohort = this.renderCohort.bind(this);
   }
 
   componentDidMount() {
@@ -68,17 +68,17 @@ class Dashboard extends Component {
       const profile = await axios.get(`/api/teachers/${localStorage.getItem('id_token')}`);
       console.log(`/api/teachers/${localStorage.getItem('id_token')}`);
       this.setState({ profile: profile.data }, () => {
+        console.log('line 70 ', profile);
         this.props.updateProfile(profile);
       });
     } catch (error) {
       console.log('error with your fetch teacher shit ,', error);
     }
   }
-
-  renderCohorts() {
-    return <div>THIS IS COHORTS FOOL</div>;
+  renderCohort() {
+    const { cohort } = this.props
+    return <CohortsList cohorts={cohort || []} />;
   }
-
 
   render() {
     const { dispatch } = this.props;
@@ -86,7 +86,7 @@ class Dashboard extends Component {
     return (
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} />
-        <Route path="/dashboard/class" render={this.renderCohorts} />
+        <Route path="/dashboard/class" render={this.renderCohort} />
         <Route path="/dashboard/performance" component={Performance} />
       </div>
     );

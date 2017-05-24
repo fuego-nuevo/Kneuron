@@ -4,7 +4,7 @@
     "data": {
       "id": 1,
       "username": "test1",
-      "password":"test",
+      "password":"$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
       "email": "test1@test.com",
       "fName": "Jimmy",
       "lName": "Johnson",
