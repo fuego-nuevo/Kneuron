@@ -38,13 +38,13 @@ const fetchAllTeacherData = async (req, res) => {
 const fetchTeacher = async (req, res) => {
   try {
     const user = await db.User.findOne({ where: { email: req.params.email } });
-    //const data = await bcrypt.compare(req.params.creds, user.password);
-    //if (data) {
+    const data = await bcrypt.compare(req.params.creds, user.password);
+    if (data) {
       console.log('User Logged In: ', { user: user, id_token: hasher(`${req.params.email}`) });
       res.status(200).send({ user: user, id_token: hasher(req.params.email) });
-    //} else {
-      //res.status(404).send();
-    //}
+    } else {
+      res.status(404).send('Credentials incorrect');
+    }
   } catch (error) {
     console.log('User Does Not Exist');
     res.status(404).send(error);
@@ -86,12 +86,11 @@ const updateTeacher = async (req, res) => {
     const teacher = await db.User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
     if (teacher) {
       const updatedTeacher = await teacher.update({
-        email: req.body.email,
-        password: hasher(req.body.password),
+        // email: req.body.email,
+        // password: hasher(req.body.password),
         fName: req.body.fName,
         lName: req.body.lName,
         username: req.body.username,
-        school_id: req.body.school_id,
       });
       if (updatedTeacher) {
         console.log('Teacher successfully updated ', updatedTeacher);
@@ -127,6 +126,21 @@ const deleteTeacher = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
+// router.get('/:token', (req, res, next) => {
+//   console.log("this is the req in teacher get router boiiii", req)
+//   db.User.findOne({ where: { email: antiHasher(req.params.token) }})
+//   .then((user) => {
+//     res.send(user)
+//   })
+//   .catch((err) => {
+//     if(err){
+//     console.log("there was an error getting the user with the token", err)
+//     } else {
+//       console.log("got the user babY!!!")
+//     }
+//   })
+// })
 
 // Controllers
 router.get('/:auth_token', fetchAllTeacherData);

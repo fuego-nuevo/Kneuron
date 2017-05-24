@@ -23,7 +23,7 @@ class UserProfile extends Component {
   }
 
 
-  async fetchUser() {
+  fetchUser() {
     // try{
     //   const user = await axios.get(`/api/teacher/${localStorage.getItem('id_token')}`);
     //   console.log("Grabbed User: ", user);
@@ -31,8 +31,8 @@ class UserProfile extends Component {
     // } catch(error) {
     //   console.log("Error grabbing user: ", error);
     // }
-    console.log('localStorage ', `/api/teacher/${localStorage.getItem('id_token')}`);
-    axios.get('/api/teachers/' + localStorage.getItem('id_token'))
+    console.log('localStorage! ', `/api/teacher/${localStorage.getItem('id_token')}`);
+    axios.get(`/api/teachers/${localStorage.getItem('id_token')}`)
     .then((data) => {
       console.log("this is the response in user profile fuckkk you", data);
       this.setState({ username: data.data.username, email: data.data.email, fName: data.data.fName, lName: data.data.lName });
