@@ -10,8 +10,6 @@ import CohortsList from '../components/CohortsList';
 import CurrentLecture from '../components/CurrentLecture';
 import LecturesList from '../components/LecturesList';
 import { allLectures, currentLecture } from '../actions/lectures';
-// import CreateCohortModal from './CreateCohortModal';
-
 
 class Dashboard extends Component {
   constructor(props) {
@@ -19,7 +17,6 @@ class Dashboard extends Component {
     this.state = {
       profile: {},
       selectedLecture: '',
-      flag: false,
     };
 
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
@@ -128,5 +125,7 @@ const mapStateToProps = (state) => {
   };
 };
 
+
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));
+
 
