@@ -29,8 +29,8 @@ const updateQuiz = async (req, res) => {
       console.log('Quiz updated!');
       res.status(200).send(updatedQuiz);
     } else {
-      console.log('Topic does not exist');
-      res.status(404).send('Topic does not exist');
+      console.log('Quiz does not exist');
+      res.status(404).send('Quiz does not exist');
     }
   } catch (error) {
     console.log('Error in updateQuiz ', error);
@@ -45,6 +45,9 @@ const deleteQuiz = async (req, res) => {
       const deletedQuiz = await quiz.destroy({ force: true });
       console.log('Quiz deleted');
       res.status(200).send(deletedQuiz);
+    } else {
+      console.log('Quiz does not exist');
+      res.status(404).send('Quiz does not exist');
     }
   } catch (error) {
     console.log('Error in deleteQuiz ', error);
