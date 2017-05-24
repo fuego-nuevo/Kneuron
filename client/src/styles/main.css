@@ -1,3 +1,17 @@
+/*animations*/
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+/*animation end*/
+
 body{
     margin: 0;
     font-family: "Brandon Grotesque";
@@ -253,7 +267,7 @@ textarea:focus, input:focus{
     -webkit-transition: margin 0.2s ease-out;
     -moz-transition: margin 0.2s ease-out;
     -o-transition: margin 0.2s ease-out;
-    transition: margin 0.2s ease-out;
+    transition: margin  0.2s ease-out;
     font-family: "Brandon Grotesque";
 }
 
