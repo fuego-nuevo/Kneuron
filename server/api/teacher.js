@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const db = require('../db/models');
 const hasher = require('./util').hasher;
 const antiHasher = require('./util').antiHasher;
+const redis = require('../db/redis');
 
 const saltRounds = 10;
 
@@ -22,11 +23,18 @@ const fetchAllTeacherData = async (req, res) => {
           model: db.Lecture,
           include: [{
             model: db.Topic,
+            include: [{
+              model: db.Quiz,
+              include: [{
+                model: db.Question,
+              }],
+            }],
           }],
         }],
       }],
     });
     console.log('All information front loaded ', allData);
+    redis.set('allTeacherData', JSON.stringify(allData));
     res.status(200).send(allData);
   } catch (error) {
     console.log('Some shit went wrong ', error);
