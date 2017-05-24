@@ -1,37 +1,15 @@
-// import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import TopicsList from './TopicsList';
 
-
-class Lecture extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-    };
-  }
-
-  // componentDidMount(){
-  //   this.grabTopics();
-  // }
-
-  async grabTopics() {
-    try {
-      const topics = await axios.get(`/api/topics/${localStorage.getItem('id_token')}`);
-      console.log('Grabbed the topics: ', topics);
-      this.setState({ topics: topics.data });
-    } catch (error) {
-      console.log('Error retrieving topics!');
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <p>In The Lecture Component!!!</p>
-      </div>
-    );
-  }
-}
+const Lecture = props =>(
+  <div>
+    <hr/>
+    <u><Link to="/dashboard/class/lectures">{props.lecture.name}</Link></u>
+    <TopicsList topics={props.lecture.topics} lectureName={props.lecture.name}/>
+  </div>
+);
 
 
 
-// export default Lecture;
+export default Lecture;
