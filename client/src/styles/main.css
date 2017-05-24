@@ -357,6 +357,10 @@ textarea:focus, input:focus{
     height: 50vh;
 }
 
+#edit-class{
+    height: 50vh;
+}
+
 .add-class-input-container{
     position: absolute;
     top: 5vh;

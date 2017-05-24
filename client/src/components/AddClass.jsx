@@ -46,7 +46,7 @@ class AddClass extends Component {
               <input onChange={this.handleChange} value={this.state.time} type="text" name="time" />
             </div>
           </div>
-          <input id="add-class-submit" type="submit" />
+          <input id="add-class-submit" type="submit" value="Add Class" />
         </form>
       </div>
     );
