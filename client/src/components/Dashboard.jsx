@@ -15,7 +15,6 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       profile: {},
-      refresh: [],
     };
 
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
@@ -27,7 +26,7 @@ class Dashboard extends Component {
   }
   componentWillReceiveProps(nextProps) {
     console.log('component received new props');
-    this.setState({ refresh: nextProps });
+    this.setState({ profile: nextProps });
   }
 
   async fetchTeacherInfo() {
@@ -49,7 +48,7 @@ class Dashboard extends Component {
 
   render() {
     const { dispatch } = this.props;
-    console.log(this.props);
+    console.log(this.state);
     return (
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} />

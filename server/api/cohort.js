@@ -100,7 +100,7 @@ const deleteCohort = async (req, res) => {
         res.status(204).send(`${cohort} was destroyed from DB`);
       } else {
         console.log('Cohort with teacher_id and cohort_id not found');
-        res.status(404).send('Cohort with teacher_id and cohort_id not found');
+        res.status(500).send('Cohort with teacher_id and cohort_id not found');
       }
     }
   } catch (error) {
