@@ -14,6 +14,9 @@ class Cohort extends Component {
     this.deleteClass = this.deleteClass.bind(this);
     this.fetchLectures = this.fetchLectures.bind(this);
   }
+
+
+
   async deleteClass() {
     console.log('delete class ran');
     try {
@@ -28,15 +31,19 @@ class Cohort extends Component {
 
   async fetchLectures(){
     try{
-      this.setState({ lectures: [] }, () => {
-        this.props.allLectures(this.props.cohort.lectures);
-      });
+      console.log("HERE ARE THE LECTURES OF A COHORT: ", this.props.cohort.lectures)
+      console.log('this is all lectures inside lecture action', this.props.allLectures(this.props.cohort))
+      const resolve = await this.setState({ lectures: []});
+      if(resolve){
+        this.props.allLectures(this.props.cohort);
+      }
     } catch(e) {
       console.log("Error grabbing lectures: ", e);
     }
   }
 
   render() {
+    console.log("IN THE CB FNC: ", this.state.lectures);
     console.log(this.props, ' props from the mfuckin line 13 cohort entry');
     return (
       <div className="cohort-entry animated bounceInUp" >

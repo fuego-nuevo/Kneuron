@@ -19,13 +19,14 @@ class Dashboard extends Component {
     this.state = {
       profile: {},
       selectedLecture: '',
-      lectures: {},
+      flag: false,
     };
 
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
     this.renderCohort = this.renderCohort.bind(this);
     this.renderLecturesList = this.renderLecturesList.bind(this);
     this.renderCurrentLecture = this.renderCurrentLecture.bind(this);
+    this.handleLectureClick = this.handleLectureClick.bind(this);
   }
 
   componentDidMount() {
@@ -53,30 +54,42 @@ class Dashboard extends Component {
     return <CohortsList
             cohorts={cohort || []}
             allLectures={this.props.allLectures.bind(this)}
-            currentLecture={this.props.currentLecture.bind(this)}
             />;
   }
 
   renderLecturesList(){
-    const { lectures } = this.props.cohort;
-    <LecturesList lectures={lectures} handleLectureClick={this.handleLectureClick.bind(this)}/>
+    const { lectures } = this.props;
+    return <LecturesList lectures={lectures || []} handleLectureClick={this.handleLectureClick}/>;
   }
 
   renderCurrentLecture(){
-    const { lectureId, name, topics } = this.props;
-    return <CurrentLecture id={lectureId} name={name} topics={topics}/>
+      const { lectureId, name, topics, lectures } = this.props;
+      return <CurrentLecture pickedLecture={lectures.filter(lecture => lecture.id === this.state.selectedLecture) || []}/>
   }
 
-  handleLectureClick(lectureId){
-    this.setState({ selectedLecture: lectureId });
+  async handleLectureClick(lectureId){
+    try{
+      const { lectures } = this.props;
+      this.setState({ selectedLecture: lectureId});
+      console.log("CHECKING RESOLVE IN DASHBOARD CURRR LECT: ", this.state.selectedLecture);
+      if(typeof this.state.selectedLecture === 'number'){
+        console.log("grabbed the current lecture: ", lectures.filter(lecture => lecture.id === this.state.selectedLecture));
+        this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture));
+        console.log("grabbed the current lecture: ", lectures.filter(lecture => lecture.id === this.state.selectedLecture));
+      }
+    } catch(e) {
+      console.log("Error grabbing current lecture: ", e);
+    }
   }
 
 
   render() {
     const { dispatch } = this.props;
     console.log(this.state);
-    console.log(this.props);
+    console.log('these are the props ', this.props);
+    console.log('these are the lectures ', this.props.lectures);
     const currentLectureRoute = `/dashboard/lectures/${this.state.selectedLecture}`;
+    console.log(currentLectureRoute);
     return (
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} />
@@ -100,7 +113,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   const { email, username, userType, fName, lName, cohort } = state.profile;
-  const { lectureId, lectures, name, topics } = state.lectures;
+  const { lectureId, name, topics, lectures } = state.lectures;
   return {
     email,
     username,

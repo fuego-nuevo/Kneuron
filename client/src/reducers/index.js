@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import CurrentProfile from './currentProfileReducer';
-import Lectures from './lectures';
+import lectures from './lectures';
 import AuthReducer from './authReducer';
 
 
 const RootReducer = combineReducers({
   profile: CurrentProfile,
   auth: AuthReducer,
-  lectures: Lectures,
+  lectures,
 });
 
 export default RootReducer;
