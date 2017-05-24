@@ -43,6 +43,8 @@ const updateAnswer = async (req, res) => {
 };
 // Maybe no need
 
+// Change /:student_id to whatever is semantically correct to use the student's_id
+// like if we're using auth_token then change it to that
 router.post('/:question_id/:student_id', postAnswer);
 router.put('/:answer_id', updateAnswer);
 
