@@ -69,7 +69,7 @@ class EditProfile extends Component {
   }
 
   render() {
-    console.log('this is props from redux profile', this.props);
+    console.log('this is props from redux profile!', this.props);
     return (
       <div>
         <h1> Edit Your Profile Here: </h1>
