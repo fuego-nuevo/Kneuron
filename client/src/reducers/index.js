@@ -6,7 +6,7 @@ import AuthReducer from './authReducer';
 const RootReducer = combineReducers({
   profile: CurrentProfile,
   auth: AuthReducer,
-  lectures: Lectures
+  // lectures: Lectures
 });
 
 export default RootReducer;

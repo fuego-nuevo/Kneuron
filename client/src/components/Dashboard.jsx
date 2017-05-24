@@ -9,8 +9,8 @@ import AddClass from '../components/AddClass';
 import CohortsList from '../components/CohortsList';
 import CurrentLecture from '../components/CurrentLecture';
 import LecturesList from '../components/LecturesList';
-import { updateProfile } from '../actions/currentProfile';
-import { allLectures, currentLecture } from '../actions/lectures';
+// import { updateProfile } from '../actions/currentProfile';
+// import { allLectures, currentLecture } from '../actions/lectures';
 // import CreateCohortModal from './CreateCohortModal';
 
 
@@ -23,8 +23,8 @@ class Dashboard extends Component {
 
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
     this.renderCohort = this.renderCohort.bind(this);
-    this.renderLecturesList = this.renderLecturesList.bind(this);
-    this.renderCurrentLecture = this.renderCurrentLecture.bind(this);
+    // this.renderLecturesList = this.renderLecturesList.bind(this);
+    // this.renderCurrentLecture = this.renderCurrentLecture.bind(this);
   }
 
   componentDidMount() {
@@ -52,15 +52,15 @@ class Dashboard extends Component {
     return <CohortsList cohorts={cohort || []} />;
   }
 
-  renderLecturesList(){
-    const { lectures } = this.props.cohort;
-    <LecturesList lectures={lectures} />
-  }
-
-  renderCurrentLecture(){
-    const { lectureId, name, topics } = this.props;
-    return <CurrentLecture id={lectureId} name={name} topics={topics}/>
-  }
+  // renderLecturesList(){
+  //   const { lectures } = this.props.cohort;
+  //   <LecturesList lectures={lectures} />
+  // }
+  //
+  // renderCurrentLecture(){
+  //   const { lectureId, name, topics } = this.props;
+  //   return <CurrentLecture id={lectureId} name={name} topics={topics}/>
+  // }
 
   render() {
     const { dispatch, lectureId } = this.props;
@@ -71,9 +71,9 @@ class Dashboard extends Component {
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} />
         <Route path="/dashboard/class" render={this.renderCohort} />
-        <Route path="/dashboard/class/lectures" render={this.renderLecturesList} />
+        {/*<Route path="/dashboard/class/lectures" render={this.renderLecturesList} />*/}
         <Route path="/dashboard/addClass" component={AddClass} />
-        <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
+        {/*<Route path={currentLectureRoute} render={this.renderCurrentLecture} />*/}
       </div>
     );
   }
@@ -101,5 +101,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, { mapDispatchToProps })(Dashboard));
+export default withRouter(connect(mapStateToProps, { updateProfile })(Dashboard));
 
