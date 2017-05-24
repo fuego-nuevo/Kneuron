@@ -100,6 +100,7 @@ class EditProfile extends Component {
 //     profile: state.profile
 //   }
 // }
+
 // const mapStateToProps = state => ({
 //   profile: state.profile,
 // });
