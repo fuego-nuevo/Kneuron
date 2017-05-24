@@ -10,6 +10,6 @@ router.use('/lectures', require('./lecture'));
 // router.use('/topics', require('./topic'));
 router.use('/quizzes', require('./quiz'));
 router.use('/questions', require('./question'));
-// router.use('/answers', require('./answer'));
+router.use('/answers', require('./answer'));
 
 module.exports = router;
