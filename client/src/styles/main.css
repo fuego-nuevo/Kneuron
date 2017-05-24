@@ -254,6 +254,26 @@ textarea:focus, input:focus{
     -moz-transition: margin 0.2s ease-out;
     -o-transition: margin 0.2s ease-out;
     transition: margin 0.2s ease-out;
+    font-family: "Brandon Grotesque";
+}
+
+.cohort-entry button{
+    position: absolute;
+    left: 2vh;
+    width: 40%;
+    border: 2px solid lightgray;
+    /*box-shadow: 0 2px 0 rgba(0,0,0,0.06);*/
+    background-color: transparent;
+    height: 5vh;
+    font-size: 14px;
+    border-radius: 5px;
+    bottom: 2vh;
+    transition: border 0.2s ease-in;
+    color: gray;
+}
+
+.cohort-entry button:hover{
+   border: 2px solid grey;
 }
 
 .cohort-entry:hover{

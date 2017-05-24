@@ -14,6 +14,8 @@ class Cohort extends Component {
     return (
       <div className="cohort-entry" >
         <div className="ch-entry-header">{this.props.cohort.subject}</div>
+        <h3>{this.props.cohort.time}</h3>
+        <button>Lectures</button>
       </div>
     );
   }
