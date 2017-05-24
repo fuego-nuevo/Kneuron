@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { updateProfile } from '../actions/currentProfile';
 import { connect } from 'react-redux';
+import { updateProfile } from '../actions/currentProfile';
 import DashNav from '../components/DashboardNavBar';
 import Performance from '../components/performance';
 import CohortsList from './CohortsList';
-import Lecture from './Lecture';
+import Lecture from '../components/LecturesList';
 // import CreateCohortModal from './CreateCohortModal';
 
 
@@ -17,21 +17,21 @@ class Dashboard extends Component {
       profile: {},
     };
 
-    this.renderCohorts = this.renderCohorts.bind(this);
+
+    // this.createCohort = this.createCohort.bind(this);
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
+    this.renderCohort = this.renderCohort.bind(this);
   }
 
   componentDidMount() {
     this.fetchTeacherInfo();
   }
-  
 
   async fetchTeacherInfo() {
     try {
       const profile = await axios.get(`/api/teachers/${localStorage.getItem('id_token')}`);
       console.log(`/api/teachers/${localStorage.getItem('id_token')}`);
       this.setState({ profile: profile.data }, () => {
-        console.log('profile broski line 33 ', profile);
         this.props.updateProfile(profile);
       });
     } catch (error) {
@@ -39,19 +39,10 @@ class Dashboard extends Component {
     }
   }
 
-  renderCohorts() {
-    console.log('line 41 dashboard jsx , ', this.props.cohort);
-    return (
-      <div>
-        <p>Yoooo</p>
-        <CohortsList
-        cohorts={this.props.cohort || []} 
-        currentUser={this.props.username || ''}
-        />
-      </div>
-    );
+  renderCohort() {
+    const { cohort } = this.props
+    return <CohortsList cohorts={cohort || []} />;
   }
-
 
   render() {
     const { dispatch } = this.props;
@@ -59,7 +50,7 @@ class Dashboard extends Component {
     return (
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} />
-        <Route path="/dashboard/class" render={this.renderCohorts} />
+        <Route path="/dashboard/class" render={this.renderCohort} />
         <Route path="/dashboard/performance" component={Performance} />
         <Route path="/dashboard/class/lectures/" component={Lecture} />
       </div>
