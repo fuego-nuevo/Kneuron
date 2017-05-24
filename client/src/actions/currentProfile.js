@@ -9,4 +9,3 @@ exports.updateProfile = (profile) => {
     cohort: profile.data.cohort,
   };
 }
-

@@ -5,7 +5,8 @@ import { updateProfile } from '../actions/currentProfile';
 import { connect } from 'react-redux';
 import DashNav from '../components/DashboardNavBar';
 import Performance from '../components/performance';
-// import CohortsList from './CohortsList';
+import CohortsList from './CohortsList';
+import Lecture from './Lecture';
 // import CreateCohortModal from './CreateCohortModal';
 
 
@@ -16,7 +17,6 @@ class Dashboard extends Component {
       profile: {},
     };
 
-    // this.createCohort = this.createCohort.bind(this);
     this.renderCohorts = this.renderCohorts.bind(this);
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
   }
@@ -24,50 +24,14 @@ class Dashboard extends Component {
   componentDidMount() {
     this.fetchTeacherInfo();
   }
-  //
-  // async fetchUser() {
-  //   try {
-  //     const user = await axios.get(`/api/users/${localStorage.getItem('id_token')}`);
-  //     this.setState({ username: res.data.username, email: res.data.email, fName: res.data.fName, lName: res.data.lName });
-  //   } catch (error) {
-  //     console.log('Error in fetchUsers in UserProfile: ', err);
-  //   }
-  // }
-  //
-  // async fetchCohorts() {
-  //   try {
-  //     const cohorts = await axios.get(`/api/cohorts/${localStorage.getItem('id_token')}`);
-  //     console.log(`Grabbed the cohorts for ${this.state.fName}: `, cohorts);
-  //     this.setState({ cohorts: cohorts.data });
-  //   } catch (error) {
-  //     console.log(`Error retrieving cohorts for ${this.state.fName}: `, error);
-  //   }
-  // }
-  //
-  // async handleCohortCreate(subject) {
-  //   try {
-  //     this.setState({ subject: this.state.subject });
-  //     console.log('Got state info from create song modal input');
-  //   } catch (error) {
-  //     console.log('Error creating getting input data from create song modal: ', error);
-  //   }
-  // }
-  //
-  // async createCohort() {
-  //   try {
-  //     const newCohort = await axios.post('/api/cohorts/', { subject: this.state.subject, auth_token: localStorage.getItem('id_token') });
-  //     console.log('Post Route went through: ', newCohort.data);
-  //     this.setState({ subject: '' });
-  //   } catch (error) {
-  //     console.log('Error Posting New Cohort To DB: ', error);
-  //   }
-  // }
+  
 
   async fetchTeacherInfo() {
     try {
       const profile = await axios.get(`/api/teachers/${localStorage.getItem('id_token')}`);
       console.log(`/api/teachers/${localStorage.getItem('id_token')}`);
       this.setState({ profile: profile.data }, () => {
+        console.log('profile broski line 33 ', profile);
         this.props.updateProfile(profile);
       });
     } catch (error) {
@@ -76,7 +40,16 @@ class Dashboard extends Component {
   }
 
   renderCohorts() {
-    return <div>THIS IS COHORTS FOOL</div>;
+    console.log('line 41 dashboard jsx , ', this.props.cohort);
+    return (
+      <div>
+        <p>Yoooo</p>
+        <CohortsList
+        cohorts={this.props.cohort || []} 
+        currentUser={this.props.username || ''}
+        />
+      </div>
+    );
   }
 
 
@@ -88,6 +61,7 @@ class Dashboard extends Component {
         <DashNav dispatch={dispatch} />
         <Route path="/dashboard/class" render={this.renderCohorts} />
         <Route path="/dashboard/performance" component={Performance} />
+        <Route path="/dashboard/class/lectures/" component={Lecture} />
       </div>
     );
   }
