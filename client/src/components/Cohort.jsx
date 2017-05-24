@@ -28,7 +28,7 @@ class Cohort extends Component {
       <div className="cohort-entry animated bounceInUp" >
         <div className="ch-entry-header">{this.props.cohort.subject}</div>
         <h3>{this.props.cohort.time}</h3>
-        <button className="lecture-button">Lectures</button>
+        <button className="lecture-button"><Link to="/dashboard/class/lectures">Lectures</Link></button>
         <button onClick={this.deleteClass} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
       </div>
     );
