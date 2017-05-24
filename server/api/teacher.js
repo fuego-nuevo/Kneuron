@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const db = require('../db/models');
 const hasher = require('./util').hasher;
 const antiHasher = require('./util').antiHasher;
+const redis = require('../db/redis');
 
 const saltRounds = 10;
 
@@ -12,7 +13,7 @@ const fetchAllTeacherData = async (req, res) => {
   try {
     const allData = await db.User.findOne({
       where: {
-        id: req.params.teacherId,
+        id: req.params.auth_token,
         userType: 0,
       },
       include: [{
@@ -26,9 +27,6 @@ const fetchAllTeacherData = async (req, res) => {
               model: db.Quiz,
               include: [{
                 model: db.Question,
-                include: [{
-                  model: db.Answer,
-                }],
               }],
             }],
           }],
@@ -36,6 +34,7 @@ const fetchAllTeacherData = async (req, res) => {
       }],
     });
     console.log('All information front loaded ', allData);
+    redis.set('allTeacherData', JSON.stringify(allData));
     res.status(200).send(allData);
   } catch (error) {
     console.log('Some shit went wrong ', error);
@@ -137,24 +136,24 @@ const deleteTeacher = async (req, res) => {
   }
 };
 
-router.get('/:token', (req, res, next) => {
-  console.log("this is the req in teacher get router boiiii", req)
-  User.findOne({ where: { email: antiHasher(req.params.token) }})
-  .then((user) => {
-    res.send(user)
-  })
-  .catch((err) => {
-    if(err){
-    console.log("there was an error getting the user with the token", err)
-    } else {
-      console.log("got the user babY!!!")
-    }
-  })
-})
+// router.get('/:token', (req, res, next) => {
+//   console.log("this is the req in teacher get router boiiii", req)
+//   db.User.findOne({ where: { email: antiHasher(req.params.token) }})
+//   .then((user) => {
+//     res.send(user)
+//   })
+//   .catch((err) => {
+//     if(err){
+//     console.log("there was an error getting the user with the token", err)
+//     } else {
+//       console.log("got the user babY!!!")
+//     }
+//   })
+// })
 // Controllers
 
-router.get('/:teacherId', fetchAllTeacherData);
-router.get('/:email/:creds', fetchTeacher);
+router.get('/:auth_token', fetchAllTeacherData);
+router.get('/', fetchTeacher);
 router.post('/', postTeacher);
 router.put('/:auth_token', updateTeacher);
 router.delete('/:auth_token', deleteTeacher);
