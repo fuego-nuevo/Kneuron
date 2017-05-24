@@ -5,7 +5,6 @@ const Lectures = (state = {}, action) => {
         lectureId: action.lectureId,
         name: action.name,
         topics: action.topics,
-        selected: true
       }
 
     case 'ALL_LECTURES' : 
