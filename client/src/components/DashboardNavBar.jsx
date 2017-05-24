@@ -13,11 +13,11 @@ class DashNav extends Component {
     return (
       <nav className="dash-nav">
         <div className="dash-nav-items">
-          <button><Link to="/dashboard">HOME</Link></button>
+          <button><Link to="/dashboard">Home</Link></button>
           <button><Link to="/dashboard/class">Classes</Link></button>
           <button><Link to="/dashboard/addClass">Add Class</Link></button>
         </div>
-        <button id="dash-logout"><Link onClick={() => { this.props.dispatch(logoutUser()); }} to="/">LOGOUT</Link></button>
+        <button id="dash-logout"><Link onClick={() => { this.props.dispatch(logoutUser()); }} to="/">Logout</Link></button>
       </nav>
     );
   }
