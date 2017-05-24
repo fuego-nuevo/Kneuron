@@ -7,7 +7,7 @@ const Lecture = props => {
   return(
     <div>
       <hr/>
-      <u><Link to={currentLectureRoute} selectedLecture={}>{props.lecture.name}</Link></u>
+      <u><Link to={currentLectureRoute} selectedLecture={props.lecture.id} onClick={() => this.handleLectureClick(props.lecture.id)}>{props.lecture.name}</Link></u>
       <TopicsList topics={props.lecture.topics} lectureName={props.lecture.name}/>
     </div>
   );

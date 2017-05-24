@@ -9,7 +9,6 @@ import AddClass from '../components/AddClass';
 import CohortsList from '../components/CohortsList';
 import CurrentLecture from '../components/CurrentLecture';
 import LecturesList from '../components/LecturesList';
-import { updateProfile } from '../actions/currentProfile';
 import { allLectures, currentLecture } from '../actions/lectures';
 // import CreateCohortModal from './CreateCohortModal';
 
@@ -19,6 +18,8 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       profile: {},
+      selectedLecture: '',
+      lectures: {},
     };
 
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
@@ -49,12 +50,16 @@ class Dashboard extends Component {
 
   renderCohort() {
     const { cohort } = this.props;
-    return <CohortsList cohorts={cohort || []} />;
+    return <CohortsList
+            cohorts={cohort || []}
+            allLectures={this.props.allLectures.bind(this)}
+            currentLecture={this.props.currentLecture.bind(this)}
+            />;
   }
 
   renderLecturesList(){
     const { lectures } = this.props.cohort;
-    <LecturesList lectures={lectures} />
+    <LecturesList lectures={lectures} handleLectureClick={this.handleLectureClick.bind(this)}/>
   }
 
   renderCurrentLecture(){
@@ -62,16 +67,21 @@ class Dashboard extends Component {
     return <CurrentLecture id={lectureId} name={name} topics={topics}/>
   }
 
+  handleLectureClick(lectureId){
+    this.setState({ selectedLecture: lectureId });
+  }
+
+
   render() {
-    const { dispatch, lectureId } = this.props;
+    const { dispatch } = this.props;
     console.log(this.state);
     console.log(this.props);
-    const currentLectureRoute = `/dashboard/lectures/${this.props.lectureId}`;
+    const currentLectureRoute = `/dashboard/lectures/${this.state.selectedLecture}`;
     return (
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} />
         <Route path="/dashboard/class" render={this.renderCohort} />
-        <Route path="/dashboard/class/lectures" render={this.renderLecturesList} />
+        <Route path="/dashboard/lectures" render={this.renderLecturesList} />
         <Route path="/dashboard/addClass" component={AddClass} />
         <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
       </div>
@@ -79,14 +89,18 @@ class Dashboard extends Component {
   }
 }
 
-const mapDispatchToProps = () => {
-  let { dispatch } = this.props;
-  let boundActionCreators = bindActionCreators({ updateProfile, allLectures, currentLecture }, dispatch);
-  return boundActionCreators;
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    updateProfile,
+    allLectures,
+    currentLecture
+  }, dispatch);
 }
 
 const mapStateToProps = (state) => {
-  const { email, username, userType, fName, lName, cohort, lectureId, lectures, name, topics } = state.profile;
+  const { email, username, userType, fName, lName, cohort } = state.profile;
+  const { lectureId, lectures, name, topics } = state.lectures;
   return {
     email,
     username,
@@ -101,5 +115,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, { mapDispatchToProps })(Dashboard));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));
 
