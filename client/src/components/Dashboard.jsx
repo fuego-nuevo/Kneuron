@@ -10,7 +10,9 @@ import EditClass from '../components/EditClass';
 import CohortsList from '../components/CohortsList';
 import CurrentLecture from '../components/CurrentLecture';
 import LecturesList from '../components/LecturesList';
-import { allLectures, currentLecture } from '../actions/lectures';
+import { allLectures } from '../actions/lectures';
+import { currentLecture } from '../actions/currentLecture';
+
 
 class Dashboard extends Component {
   constructor(props) {
@@ -57,12 +59,27 @@ class Dashboard extends Component {
 
   renderLecturesList() {
     const { lectures } = this.props;
-    return <LecturesList lectures={lectures || []} handleLectureClick={this.handleLectureClick} />;
+    return <LecturesList lectures={lectures || []} handleLectureClick={this.handleLectureClick}/>;
   }
 
-  renderCurrentLecture() {
-    const { lectureId, name, topics, lectures } = this.props;
-    return <CurrentLecture pickedLecture={lectures.filter(lecture => lecture.id === this.state.selectedLecture) || []} />;
+  renderCurrentLecture(){
+      const { lectureId, name, topics } = this.props;
+      return <CurrentLecture lectureId={lectureId || ''} name={name || ''} topics={topics || []}/>
+  }
+
+  async handleLectureClick(lectureId){
+    try{
+      const { lectures } = this.props;
+      this.setState({ selectedLecture: lectureId});
+      console.log("CHECKING RESOLVE IN DASHBOARD CURRR LECT: ", this.state.selectedLecture);
+      if(typeof this.state.selectedLecture === 'number'){
+        console.log("grabbed the current lecture: ", lectures.filter(lecture => lecture.id === this.state.selectedLecture));
+        return this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture));
+        console.log("grabbed the current lecture: ", lectures.filter(lecture => lecture.id === this.state.selectedLecture));
+      }
+    } catch(e) {
+      console.log("Error grabbing current lecture: ", e);
+    }
   }
 
   render() {
@@ -79,6 +96,7 @@ class Dashboard extends Component {
         <Route path="/dashboard/lectures" render={this.renderLecturesList} />
         <Route path="/dashboard/addClass" component={AddClass} />
         <Route path="/dashboard/editClass" component={EditClass} />
+        <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
       </div>
     );
   }
@@ -93,7 +111,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 const mapStateToProps = (state) => {
   const { email, username, userType, fName, lName, cohort } = state.profile;
-  const { lectureId, name, topics, lectures } = state.lectures;
+  const { lectures } = state.lectures;
+  const { lectureId, name, topics } = state.currentLecture;
   return {
     email,
     username,
@@ -110,4 +129,3 @@ const mapStateToProps = (state) => {
 
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));
-

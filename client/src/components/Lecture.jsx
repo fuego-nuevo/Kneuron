@@ -23,5 +23,5 @@ const Lecture = (props) => {
   );
 };
 
-
 export default Lecture;
+
