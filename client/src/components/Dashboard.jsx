@@ -24,7 +24,6 @@ class Dashboard extends Component {
     this.renderCohort = this.renderCohort.bind(this);
     this.renderLecturesList = this.renderLecturesList.bind(this);
     this.renderCurrentLecture = this.renderCurrentLecture.bind(this);
-    this.handleLectureClick = this.handleLectureClick.bind(this);
   }
 
   componentDidMount() {
