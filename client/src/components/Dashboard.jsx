@@ -10,6 +10,8 @@ import EditClass from '../components/EditClass';
 import CohortsList from '../components/CohortsList';
 import CurrentLecture from '../components/CurrentLecture';
 import LecturesList from '../components/LecturesList';
+import QuizList from '../components/QuizList';
+import TopicsList from '../components/TopicsList';
 import { allLectures } from '../actions/lectures';
 import { currentLecture } from '../actions/currentLecture';
 
@@ -28,6 +30,7 @@ class Dashboard extends Component {
     this.renderCurrentLecture = this.renderCurrentLecture.bind(this);
     this.handleLectureClick = this.handleLectureClick.bind(this);
     this.renderAddClass = this.renderAddClass.bind(this);
+    this.renderQuiz = this.renderQuiz.bind(this);
   }
 
   componentDidMount() {
@@ -61,6 +64,10 @@ class Dashboard extends Component {
     />);
   }
 
+  renderQuiz() {
+    return (<QuizList history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} />);
+  }
+
   renderAddClass() {
     return (<AddClass history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} />);
   }
@@ -85,7 +92,7 @@ class Dashboard extends Component {
     const { dispatch } = this.props;
     console.log(this.state);
     console.log('these are the props ', this.props);
-    const currentLectureRoute = `/dashboard/lectures/${this.state.selectedLecture}`;
+    const currentLectureRoute = `/dashboard/lectures${this.state.selectedLecture}`;
     return (
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} />
@@ -93,6 +100,7 @@ class Dashboard extends Component {
         <Route path="/dashboard/lectures" render={this.renderLecturesList} />
         <Route path="/dashboard/addClass" render={this.renderAddClass} />
         <Route path="/dashboard/editClass" component={EditClass} />
+        <Route path="/dashboard/quiz" render={this.renderQuiz} />
         <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
       </div>
     );

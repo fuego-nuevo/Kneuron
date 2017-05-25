@@ -1,0 +1,13 @@
+import React from 'react';
+
+const Quiz = props => (
+  <div
+    className="cohort-entry animated bounceInUp"
+  >
+    <div id="quiz-entry" className="ch-entry-header">{props.quiz.name}</div>
+    <button className="lecture-button">Quizzes</button>
+  </div>
+);
+
+
+export default Quiz;

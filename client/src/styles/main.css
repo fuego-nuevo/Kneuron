@@ -279,6 +279,15 @@ textarea:focus, input:focus{
     font-family: "Brandon Grotesque";
 }
 
+#topic-entry{
+    background-color: #53BBB4;
+}
+#lecture-entry{
+    background-color: cornflowerblue;
+}
+#quiz-entry{
+    background-color: mediumblue;
+}
 .lecture-button{
     position: absolute;
     left: 2vh;
