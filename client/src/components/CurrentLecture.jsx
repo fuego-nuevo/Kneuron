@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
-import CurrentLectureTopicsList from './CurrentLectureTopicsList';
+import TopicsList from './TopicsList';
 
 class CurrentLecture extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       lecture: [],
     };
-
   }
 
 
-  render(){
-    return(
+  render() {
+    console.log(this.props);
+    return (
       <div>
-        <p>{this.props.name}</p>
-        <CurrentLectureTopicsList topics={this.props.topics || []}/>
+        <TopicsList topics={this.props.topics || []} />
       </div>
     );
   }
-};
+}
 
 
 export default CurrentLecture;
