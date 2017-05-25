@@ -94,10 +94,13 @@ const updateCohort = async (req, res) => {
 
 // Delete a Cohort For a Given Teacher with Async
 const deleteCohort = async (req, res) => {
+  console.log(req.params.cohort_id);
   try {
     const teacher = await db.User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
+    console.log(teacher.id);
     if (teacher) {
       const cohort = await db.Cohort.findOne({ where: { id: req.params.cohort_id } });
+      console.log(cohort);
       if (cohort) {
         cohort.destroy({ force: true });
         console.log('Cohort Was Successfully Deleted: ', cohort);

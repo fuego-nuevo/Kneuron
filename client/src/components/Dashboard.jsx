@@ -28,13 +28,15 @@ class Dashboard extends Component {
     this.renderLecturesList = this.renderLecturesList.bind(this);
     this.renderCurrentLecture = this.renderCurrentLecture.bind(this);
     this.handleLectureClick = this.handleLectureClick.bind(this);
+    this.renderAddClass = this.renderAddClass.bind(this);
   }
 
   componentDidMount() {
     this.fetchTeacherInfo();
   }
   componentWillReceiveProps(nextProps) {
-    console.log('component received new props');
+    console.log('component received new props, here are old props , ', this.props);
+    console.log('actual new props , ', nextProps);
     this.setState({ profile: nextProps });
   }
 
@@ -52,28 +54,31 @@ class Dashboard extends Component {
 
   renderCohort() {
     const { cohort, history } = this.props;
-    return <CohortsList
-            history={history}
-            cohorts={cohort || []}
-            allLectures={this.props.allLectures.bind(this)}
-            />;
+    return (<CohortsList
+      fetchTeacherInfo={this.fetchTeacherInfo}
+      history={history}
+      cohorts={cohort || []}
+      allLectures={this.props.allLectures.bind(this)}
+    />);
   }
 
-  renderLecturesList(){
+  renderAddClass() {
+    return (<AddClass history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} />);
+  }
+
+  renderLecturesList() {
     const { lectures } = this.props;
-    return <LecturesList lectures={lectures || []} selectedLecture={this.state.selectedLecture} handleLectureClick={this.handleLectureClick}/>;
+    return <LecturesList lectures={lectures || []} selectedLecture={this.state.selectedLecture} handleLectureClick={this.handleLectureClick} />;
   }
 
-  renderCurrentLecture(){
-      const { lectureId, name, topics } = this.props;
-      return <CurrentLecture lectureId={lectureId || ''} name={name || ''} topics={topics || []}/>
+  renderCurrentLecture() {
+    const { lectureId, name, topics } = this.props;
+    return <CurrentLecture lectureId={lectureId || ''} name={name || ''} topics={topics || []} />;
   }
 
-  handleLectureClick(lectureId){
-      const { lectures } = this.props;
-      this.setState({ selectedLecture: lectureId},() => {
-        return this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture));
-      });
+  handleLectureClick(lectureId) {
+    const { lectures } = this.props;
+    this.setState({ selectedLecture: lectureId }, () => this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture)));
   }
 
 
@@ -87,7 +92,7 @@ class Dashboard extends Component {
         <DashNav dispatch={dispatch} />
         <Route path="/dashboard/class" render={this.renderCohort} />
         <Route path="/dashboard/lectures" render={this.renderLecturesList} />
-        <Route path="/dashboard/addClass" component={AddClass} />
+        <Route path="/dashboard/addClass" render={this.renderAddClass} />
         <Route path="/dashboard/editClass" component={EditClass} />
         <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
       </div>
@@ -96,13 +101,11 @@ class Dashboard extends Component {
 }
 
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    updateProfile,
-    allLectures,
-    currentLecture
-  }, dispatch);
-}
+const mapDispatchToProps = dispatch => bindActionCreators({
+  updateProfile,
+  allLectures,
+  currentLecture,
+}, dispatch);
 
 const mapStateToProps = (state) => {
   const { email, username, userType, fName, lName, cohort } = state.profile;
