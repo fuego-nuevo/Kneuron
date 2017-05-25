@@ -47,8 +47,9 @@ class Dashboard extends Component {
   }
 
   renderCohort() {
-    const { cohort } = this.props;
+    const { cohort, history } = this.props;
     return (<CohortsList
+      history={history}
       cohorts={cohort || []}
       allLectures={this.props.allLectures.bind(this)}
     />);
