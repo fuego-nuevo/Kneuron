@@ -11,31 +11,37 @@ const saltRounds = 10;
 // Fetch ALL INFORMATION on Teacher
 const fetchAllTeacherData = async (req, res) => {
   try {
-    const allData = await db.User.findOne({
-      where: {
-        email: antiHasher(req.params.auth_token),
-        userType: 0,
-      },
-      include: [{
-        model: db.Cohort,
-        as: 'cohort',
+    const redisTeacherData = await redis.get('allTeacherData');
+    const email = antiHasher(req.params.auth_token);
+    if (redisTeacherData !== 'null' && JSON.parse(redisTeacherData).email === email) {
+      res.status(200).send(JSON.parse(redisTeacherData));
+    } else {
+      const allData = await db.User.findOne({
+        where: {
+          email: email,
+          userType: 0,
+        },
         include: [{
-          model: db.Lecture,
+          model: db.Cohort,
+          as: 'cohort',
           include: [{
-            model: db.Topic,
+            model: db.Lecture,
             include: [{
-              model: db.Quiz,
+              model: db.Topic,
               include: [{
-                model: db.Question,
+                model: db.Quiz,
+                include: [{
+                  model: db.Question,
+                }],
               }],
             }],
           }],
         }],
-      }],
-    });
-    console.log('All information front loaded ', allData);
-    redis.set('allTeacherData', JSON.stringify(allData));
-    res.status(200).send(allData);
+      });
+      console.log('All information front loaded ', allData);
+      redis.set('allTeacherData', JSON.stringify(allData));
+      res.status(200).send(allData);
+    }
   } catch (error) {
     console.log('Some shit went wrong ', error);
     res.status(500).send(error);
