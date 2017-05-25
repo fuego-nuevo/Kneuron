@@ -9,8 +9,8 @@ import AddClass from '../components/AddClass';
 import CohortsList from '../components/CohortsList';
 import CurrentLecture from '../components/CurrentLecture';
 import LecturesList from '../components/LecturesList';
-import { allLectures, currentLecture } from '../actions/lectures';
-// import CreateCohortModal from './CreateCohortModal';
+import { allLectures } from '../actions/lectures';
+import { currentLecture } from '../actions/currentLecture';
 
 
 class Dashboard extends Component {
@@ -62,8 +62,8 @@ class Dashboard extends Component {
   }
 
   renderCurrentLecture(){
-      const { lectureId, name, topics, lectures } = this.props;
-      return <CurrentLecture pickedLecture={lectures.filter(lecture => lecture.id === this.state.selectedLecture) || []}/>
+      const { lectureId, name, topics } = this.props;
+      return <CurrentLecture lectureId={lectureId || ''} name={name || ''} topics={topics || []}/>
   }
 
   async handleLectureClick(lectureId){
@@ -73,7 +73,7 @@ class Dashboard extends Component {
       console.log("CHECKING RESOLVE IN DASHBOARD CURRR LECT: ", this.state.selectedLecture);
       if(typeof this.state.selectedLecture === 'number'){
         console.log("grabbed the current lecture: ", lectures.filter(lecture => lecture.id === this.state.selectedLecture));
-        this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture));
+        return this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture));
         console.log("grabbed the current lecture: ", lectures.filter(lecture => lecture.id === this.state.selectedLecture));
       }
     } catch(e) {
@@ -112,7 +112,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   const { email, username, userType, fName, lName, cohort } = state.profile;
-  const { lectureId, name, topics, lectures } = state.lectures;
+  const { lectures } = state.lectures;
+  const { lectureId, name, topics } = state.currentLecture;
   return {
     email,
     username,
