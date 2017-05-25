@@ -454,3 +454,34 @@ textarea:focus, input:focus{
     font-size: 16px;
     transition: 0.3s;
 }
+
+
+.addL-left{
+    border-style: none;
+    background-color: mediumspringgreen;
+    color: white;
+    position: absolute;
+    left: 2vh;
+    bottom: 0;
+    height: 80%;
+    top: 10%;
+    width: 45%;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.addL-right{
+    border-style: none;
+    background-color: mediumpurple;
+    color: white;
+    position: absolute;
+    right: 2vh;
+    bottom: 0;
+    height: 80%;
+    top: 10%;
+    width: 45%;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+}
