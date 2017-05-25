@@ -68,19 +68,11 @@ class Dashboard extends Component {
       return <CurrentLecture lectureId={lectureId || ''} name={name || ''} topics={topics || []}/>
   }
 
-  async handleLectureClick(lectureId){
-    try{
+  handleLectureClick(lectureId){
       const { lectures } = this.props;
-      this.setState({ selectedLecture: lectureId});
-      console.log("CHECKING RESOLVE IN DASHBOARD CURRR LECT: ", this.state.selectedLecture);
-      if(typeof this.state.selectedLecture === 'number'){
-        console.log("grabbed the current lecture: ", lectures.filter(lecture => lecture.id === this.state.selectedLecture));
+      this.setState({ selectedLecture: lectureId},() => {
         return this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture));
-        console.log("grabbed the current lecture: ", lectures.filter(lecture => lecture.id === this.state.selectedLecture));
-      }
-    } catch(e) {
-      console.log("Error grabbing current lecture: ", e);
-    }
+      });
   }
 
 
