@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/main.css';
-import { Link } from 'react-router-dom';
 import { allLectures, currentLecture } from '../actions/lectures';
 
 class Cohort extends Component {
@@ -31,8 +30,6 @@ class Cohort extends Component {
 
   async fetchLectures(){
     try{
-      console.log("HERE ARE THE LECTURES OF A COHORT: ", this.props.cohort.lectures)
-      console.log('this is all lectures inside lecture action', this.props.allLectures(this.props.cohort))
       const resolve = await this.setState({ lectures: []});
       if(resolve){
         this.props.allLectures(this.props.cohort);
@@ -43,8 +40,6 @@ class Cohort extends Component {
   }
 
   render() {
-    console.log(this.props, 'props from line 26 ');
-    console.log("IN THE CB FNC: ", this.state.lectures);
     return (
       <div className="cohort-entry animated bounceInUp" >
         <div className="ch-entry-header">{this.props.cohort.subject}</div>
