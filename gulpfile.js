@@ -6,6 +6,7 @@ const SequelizeFixtures = require('sequelize-fixtures');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
 const WebpackDevServer = require('webpack-dev-server');
+const redis = require('./server/db/redis');
 
 env({
   file: './.env',
@@ -38,6 +39,7 @@ gulp.task('sync', (cb) => {
   .then(() => db.Quiz.sync({ force: true }))
   .then(() => db.Question.sync({ force: true }))
   .then(() => db.Answer.sync({ force: true }))
+  .then(() => redis.set('allTeacherData', 'null'))
   .then(() => { cb(); })
   .catch((err) => { cb(err); });
 });
