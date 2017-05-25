@@ -135,21 +135,6 @@ const deleteTeacher = async (req, res) => {
   }
 };
 
-// router.get('/:token', (req, res, next) => {
-//   console.log("this is the req in teacher get router boiiii", req)
-//   db.User.findOne({ where: { email: antiHasher(req.params.token) }})
-//   .then((user) => {
-//     res.send(user)
-//   })
-//   .catch((err) => {
-//     if(err){
-//     console.log("there was an error getting the user with the token", err)
-//     } else {
-//       console.log("got the user babY!!!")
-//     }
-//   })
-// })
-
 // Controllers
 router.get('/:auth_token', fetchAllTeacherData);
 router.get('/:email/:creds', fetchTeacher);
