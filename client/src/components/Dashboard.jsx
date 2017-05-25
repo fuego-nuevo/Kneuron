@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { updateProfile } from '../actions/currentProfile';
 import DashNav from '../components/DashboardNavBar';
 import AddClass from '../components/AddClass';
+import EditClass from '../components/EditClass';
 import CohortsList from '../components/CohortsList';
 import CurrentLecture from '../components/CurrentLecture';
 import LecturesList from '../components/LecturesList';
@@ -49,8 +50,9 @@ class Dashboard extends Component {
   }
 
   renderCohort() {
-    const { cohort } = this.props;
+    const { cohort, history } = this.props;
     return <CohortsList
+            history={history}
             cohorts={cohort || []}
             allLectures={this.props.allLectures.bind(this)}
             />;
@@ -95,6 +97,7 @@ class Dashboard extends Component {
         <Route path="/dashboard/class" render={this.renderCohort} />
         <Route path="/dashboard/lectures" render={this.renderLecturesList} />
         <Route path="/dashboard/addClass" component={AddClass} />
+        <Route path="/dashboard/editClass" component={EditClass} />
         <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
       </div>
     );
@@ -128,5 +131,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));
 
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));

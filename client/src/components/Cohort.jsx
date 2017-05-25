@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/main.css';
 import { Link } from 'react-router-dom';
@@ -18,11 +19,10 @@ class Cohort extends Component {
 
 
   async deleteClass() {
-    console.log('delete class ran');
     try {
       const removed = await axios.delete(`/api/cohorts/${localStorage.getItem('id_token')}/${this.props.cohort.id}`);
       if (removed) {
-        this.history.push('/dashboard/class');
+        this.props.history.push('/dashboard');
       }
     } catch (error) {
       console.log(error);
@@ -43,8 +43,8 @@ class Cohort extends Component {
   }
 
   render() {
+    console.log(this.props, 'props from line 26 ');
     console.log("IN THE CB FNC: ", this.state.lectures);
-    console.log(this.props, ' props from the mfuckin line 13 cohort entry');
     return (
       <div className="cohort-entry animated bounceInUp" >
         <div className="ch-entry-header">{this.props.cohort.subject}</div>
