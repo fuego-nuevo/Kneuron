@@ -12,3 +12,4 @@ Code-Graveyard.js
 static
 ./server/api/util.js
 dump.rdb
+firebase.js
