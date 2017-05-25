@@ -4,7 +4,7 @@ import QuestionsList from './QuestionsList';
 const CurrentLectureTopicsListEntry = props => (
   <div>
     <p>{props.topic.name}</p>
-    /* This are the Quizzes Underneath Everything Renders Now*/
+    /* This are the Quizzes Underneath Everything Renders Now */
       {props.topic.quizzes.map(quiz => (
         <QuestionsList questions={quiz.questions}/>
       ))}
