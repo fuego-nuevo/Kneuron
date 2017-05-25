@@ -77,6 +77,10 @@ const updateCohort = async (req, res) => {
           time: req.body.time,
         }, { where: { id: cohort.id } });
         if (updatedCohort) {
+          // const oldData = await redis.get('allTeacherData');
+          // const cohorts = JSON.parse(oldData).cohort;
+          // cohorts.indexOf(cohorts[updatedCohort.id]);
+          // redis.set('allTeacherData', JSON.stringify(oldData));
           res.status(204).send(updatedCohort);
         } else {
           console.log(`Couldn't update ${teacher.fName} ${teacher.lName}'s ${cohort.subject} cohort`);
