@@ -4,7 +4,7 @@ import QuestionEntry from './QuestionEntry';
 const QuestionList = props => (
   <div>
     {props.questions.map(question => (
-      <QuestionEntry name={question.name} choices={question.choices}/>
+      <QuestionEntry name={question.name} choices={question.choices} />
     ))}
   </div>
 );
