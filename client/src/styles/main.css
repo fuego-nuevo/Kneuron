@@ -263,7 +263,7 @@ textarea:focus, input:focus{
 /* cohort */
 
 .cohort-entry{
-    width: 20vw;
+    width: 25vw;
     height: 30vh;
     background-color: white;
     border-radius: 8px;
@@ -271,7 +271,7 @@ textarea:focus, input:focus{
     position:relative;
     display: inline-block;
     float:left;
-    margin: 5vh 5vw;
+    margin: 5vh 3.3vw;
     -webkit-transition: box-shadow 0.2s ease-out;
     -moz-transition: box-shadow 0.2s ease-out;
     -o-transition: box-shadow 0.2s ease-out;
@@ -303,9 +303,9 @@ textarea:focus, input:focus{
 }
 
 .cohort-holder {
-    width: 90%;
+    width: 95%;
     position: absolute;
-    left: 5%;
+    left: 2.5%;
     top: 20vh;
     text-align: center;
     z-index: -1;
