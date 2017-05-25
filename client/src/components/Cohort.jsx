@@ -15,8 +15,6 @@ class Cohort extends Component {
     this.fetchLectures = this.fetchLectures.bind(this);
   }
 
-
-
   async deleteClass() {
     try {
       const removed = await axios.delete(`/api/cohorts/${localStorage.getItem('id_token')}/${this.props.cohort.id}`);
@@ -37,13 +35,13 @@ class Cohort extends Component {
         this.props.allLectures(this.props.cohort);
       }
     } catch (e) {
-      console.log("Error grabbing lectures: ", e);
+      console.log('Error grabbing lectures: ', e);
     }
   }
 
   render() {
     console.log(this.props, 'props from line 26 ');
-    console.log("IN THE CB FNC: ", this.state.lectures);
+    console.log('IN THE CB FNC: ', this.state.lectures);
     return (
       <div className="cohort-entry animated bounceInUp" >
         <div className="ch-entry-header">{this.props.cohort.subject}</div>
