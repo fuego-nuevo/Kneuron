@@ -25,7 +25,7 @@ class AddClass extends Component {
       time: this.state.time,
     };
     try {
-      const posted = await axios.post('/api/cohorts/', body);
+      const posted = await axios.put('/api/cohorts/', body);
       this.props.history.push('/dashboard/class');
     } catch (error) {
       console.log('error with axios call line 28 AddClass');
@@ -40,6 +40,10 @@ class AddClass extends Component {
             <div className="add-class-inps">
               <label htmlFor="subject">Subject</label>
               <input onChange={this.handleChange} value={this.state.subject} type="text" name="subject" />
+            </div>
+            <div className="add-class-inps">
+              <label htmlFor="time">Time</label>
+              <input onChange={this.handleChange} value={this.state.time} type="text" name="time" />
             </div>
             <div className="add-class-inps">
               <label htmlFor="time">Time</label>
