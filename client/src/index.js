@@ -6,6 +6,7 @@ import App from './containers/app.jsx';
 import Reducers from './reducers/index';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
+import {persistStore, autoRehydrate} from 'redux-persist'
 
 const logger = createLogger({});
 const middleware = [
