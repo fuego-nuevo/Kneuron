@@ -159,6 +159,9 @@ Question.belongsTo(Quiz, { foreignKey: { name: 'quiz_id', allowNull: false }, on
 Question.hasMany(Answer, { foreignKey: { name: 'question_id', allowNull: false }, onDelete: 'CASCADE' });
 Answer.belongsTo(Question, { foreignKey: { name: 'question_id', allowNull: false }, onDelete: 'CASCADE' });
 
+User.hasMany(Answer, { foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
+Answer.belongsTo(User, { foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
+
 module.exports = {
   School,
   User,

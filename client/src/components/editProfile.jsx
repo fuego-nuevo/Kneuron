@@ -93,12 +93,14 @@ class EditProfile extends Component {
   }
 }
 
+
 // const mapStateToProps = state => {
 //   console.log('state in editProfile', state)
 //   return {
 //     profile: state.profile
 //   }
 // }
+
 // const mapStateToProps = state => ({
 //   profile: state.profile,
 // });
