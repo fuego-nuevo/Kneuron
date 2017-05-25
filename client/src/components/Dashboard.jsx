@@ -26,6 +26,7 @@ class Dashboard extends Component {
     this.renderCohort = this.renderCohort.bind(this);
     this.renderLecturesList = this.renderLecturesList.bind(this);
     this.renderCurrentLecture = this.renderCurrentLecture.bind(this);
+    this.handleLectureClick = this.handleLectureClick.bind(this);
   }
 
   componentDidMount() {
@@ -50,29 +51,30 @@ class Dashboard extends Component {
 
   renderCohort() {
     const { cohort, history } = this.props;
-    return (<CohortsList
+    return <CohortsList
       history={history}
       cohorts={cohort || []}
       allLectures={this.props.allLectures.bind(this)}
-    />);
+    />;
   }
 
-  renderLecturesList() {
+  renderLecturesList(){
     const { lectures } = this.props;
     return <LecturesList lectures={lectures || []} selectedLecture={this.state.selectedLecture} handleLectureClick={this.handleLectureClick}/>;
   }
 
   renderCurrentLecture(){
-      const { lectureId, name, topics } = this.props;
-      return <CurrentLecture lectureId={lectureId || ''} name={name || ''} topics={topics || []}/>
+    const { lectureId, name, topics } = this.props;
+    return <CurrentLecture lectureId={lectureId || ''} name={name || ''} topics={topics || []}/>
   }
 
   handleLectureClick(lectureId){
-      const { lectures } = this.props;
-      this.setState({ selectedLecture: lectureId},() => {
-        return this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture));
-      });
+    const { lectures } = this.props;
+    this.setState({ selectedLecture: lectureId},() => {
+      return this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture));
+    });
   }
+
 
   render() {
     const { dispatch } = this.props;
@@ -93,11 +95,13 @@ class Dashboard extends Component {
 }
 
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  updateProfile,
-  allLectures,
-  currentLecture,
-}, dispatch);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    updateProfile,
+    allLectures,
+    currentLecture
+  }, dispatch);
+}
 
 const mapStateToProps = (state) => {
   const { email, username, userType, fName, lName, cohort } = state.profile;
