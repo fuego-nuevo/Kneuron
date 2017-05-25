@@ -81,8 +81,9 @@ const Question = db.define('question', {
     allowNull: false,
   },
   choices: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    type: Sequelize.ARRAY(Sequelize.STRING),
     allowNull: false,
+    limit: 4,
   },
   correct: {
     type: Sequelize.INTEGER,
@@ -91,10 +92,11 @@ const Question = db.define('question', {
 });
 
 const Answer = db.define('answer', {
-  // choices: {
-  //   type: Sequelize.ARRAY(Sequelize.INTEGER),
-  //   allowNull: false,
-  // },
+  isCorrect: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
   selected: {
     type: Sequelize.INTEGER,
     allowNull: false,
