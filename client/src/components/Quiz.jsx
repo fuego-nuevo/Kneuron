@@ -5,7 +5,7 @@ const Quiz = props => (
     className="cohort-entry animated bounceInUp"
   >
     <div id="quiz-entry" className="ch-entry-header">{props.quiz.name}</div>
-    <button className="lecture-button">Quizzes</button>
+    <button className="lecture-button">Questions</button>
   </div>
 );
 

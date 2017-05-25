@@ -65,7 +65,8 @@ class Dashboard extends Component {
   }
 
   renderQuiz() {
-    return (<QuizList history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} />);
+    const { quizzes } = this.props
+    return (<QuizList history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} quizzes={quizzes || []} />);
   }
 
   renderAddClass() {
@@ -118,6 +119,7 @@ const mapStateToProps = (state) => {
   const { email, username, userType, fName, lName, cohort } = state.profile;
   const { lectures } = state.lectures;
   const { lectureId, name, topics } = state.currentLecture;
+  const { topicId, quizzes } = state.currentTopic;
   return {
     email,
     username,
@@ -129,6 +131,8 @@ const mapStateToProps = (state) => {
     lectures,
     name,
     topics,
+    topicId,
+    quizzes,
   };
 };
 
