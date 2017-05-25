@@ -15,8 +15,6 @@ class Cohort extends Component {
     this.fetchLectures = this.fetchLectures.bind(this);
   }
 
-
-
   async deleteClass() {
     try {
       const removed = await axios.delete(`/api/cohorts/${localStorage.getItem('id_token')}/${this.props.cohort.id}`);
