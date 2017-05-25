@@ -14,8 +14,8 @@ class CurrentLecture extends Component {
   render(){
     return(
       <div>
-        <p>{this.props.pickedLecture.name}</p>
-        <CurrentLectureTopicsList topics={this.props.pickedLecture.topics || []}/>
+        <p>{this.props.name}</p>
+        <CurrentLectureTopicsList topics={this.props.topics || []}/>
       </div>
     );
   }
