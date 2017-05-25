@@ -12,7 +12,15 @@ const CohortsList = (props) => {
         <button className="addC-right"><Link to="/dashboard/editClass">Edit Class</Link></button>
       </div>
       <div className="cohort-holder">
-        {props.cohorts.map(cohort => <Cohort history={props.history} key={cohort.id} cohort={cohort} allLectures={props.allLectures} currentLecture={props.currentLecture}/>)}
+        {props.cohorts.map(cohort =>
+          (<Cohort
+            history={props.history}
+            fetchTeacherInfo={props.fetchTeacherInfo}
+            key={cohort.id}
+            cohort={cohort} updateCohort={props.updateCohorts}
+            allLectures={props.allLectures}
+            currentLecture={props.currentLecture}
+          />))}
       </div>
     </div>
   );

@@ -6,8 +6,9 @@ import TopicsList from './TopicsList';
 const Lecture = (props) => {
   const currentLectureRoute = `/dashboard/lectures/${props.selectedLecture}`;
   return (
-    <div>
-      <u>
+    <div className="cohort-entry animated bounceInUp">
+      <div className="ch-entry-header">{props.lecture.name}</div>
+      <button className="lecture-button">
         <Link
           to={currentLectureRoute}
           selectedLecture={props.selectedLecture || props.lecture.id}
@@ -15,7 +16,7 @@ const Lecture = (props) => {
         >
           {props.lecture.name}
         </Link>
-      </u>
+      </button>
       <TopicsList
         topics={props.lecture.topics}
         lectureName={props.lecture.name}

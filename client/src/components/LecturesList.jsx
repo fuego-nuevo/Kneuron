@@ -4,9 +4,11 @@ import Lecture from './Lecture';
 
 const LecturesList = props => (
   <div>
-    {props.lectures.map(lecture => (
-      <Lecture className="cohort-holder" selectedLecture={props.selectedLecture} lecture={lecture} handleLectureClick={props.handleLectureClick}/>
-    ))}
+    <div className="cohort-holder">
+      {props.lectures.map(lecture => (
+        <Lecture selectedLecture={props.selectedLecture} lecture={lecture} handleLectureClick={props.handleLectureClick}/>
+      ))}
+    </div>
   </div>
 )
 
