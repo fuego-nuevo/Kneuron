@@ -26,17 +26,12 @@ class Cohort extends Component {
     }
   }
 
-  async fetchLectures(){
-    try{
+  fetchLectures(){
       console.log("HERE ARE THE LECTURES OF A COHORT: ", this.props.cohort.lectures)
       console.log('this is all lectures inside lecture action', this.props.allLectures(this.props.cohort))
-      const resolve = await this.setState({ lectures: []});
-      if(resolve){
+      this.setState({ lectures: []}, () => {
         this.props.allLectures(this.props.cohort);
-      }
-    } catch(e) {
-      console.log("Error grabbing lectures: ", e);
-    }
+      });
   }
 
   render() {

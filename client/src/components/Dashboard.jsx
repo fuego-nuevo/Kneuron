@@ -59,7 +59,7 @@ class Dashboard extends Component {
 
   renderLecturesList() {
     const { lectures } = this.props;
-    return <LecturesList lectures={lectures || []} handleLectureClick={this.handleLectureClick}/>;
+    return <LecturesList lectures={lectures || []} selectedLecture={this.state.selectedLecture} handleLectureClick={this.handleLectureClick}/>;
   }
 
   renderCurrentLecture(){
@@ -67,28 +67,18 @@ class Dashboard extends Component {
       return <CurrentLecture lectureId={lectureId || ''} name={name || ''} topics={topics || []}/>
   }
 
-  async handleLectureClick(lectureId){
-    try{
+  handleLectureClick(lectureId){
       const { lectures } = this.props;
-      this.setState({ selectedLecture: lectureId});
-      console.log("CHECKING RESOLVE IN DASHBOARD CURRR LECT: ", this.state.selectedLecture);
-      if(typeof this.state.selectedLecture === 'number'){
-        console.log("grabbed the current lecture: ", lectures.filter(lecture => lecture.id === this.state.selectedLecture));
+      this.setState({ selectedLecture: lectureId},() => {
         return this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture));
-        console.log("grabbed the current lecture: ", lectures.filter(lecture => lecture.id === this.state.selectedLecture));
-      }
-    } catch(e) {
-      console.log("Error grabbing current lecture: ", e);
-    }
+      });
   }
 
   render() {
     const { dispatch } = this.props;
     console.log(this.state);
     console.log('these are the props ', this.props);
-    console.log('these are the lectures ', this.props.lectures);
     const currentLectureRoute = `/dashboard/lectures/${this.state.selectedLecture}`;
-    console.log(currentLectureRoute);
     return (
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} />
