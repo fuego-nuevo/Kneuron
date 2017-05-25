@@ -10,14 +10,6 @@ class LiveLecture extends Component {
   }
 
   componentDidMount() {
-    firebase.database().refs(`lectures${this.props.lecture.id}/`).on('value', (snapshot) => {
-      const currentQuestions = snapshot.val();
-      if (currentQuestions != null) {
-        this.setState({
-          studentQuestions: currentQuestions,
-        });
-      }
-    });
   }
 
   render() {
