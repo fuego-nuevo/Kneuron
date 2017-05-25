@@ -69,10 +69,10 @@ class Dashboard extends Component {
   }
 
   handleLectureClick(lectureId){
-    const { lectures } = this.props;
-    this.setState({ selectedLecture: lectureId}, () => {
-      return this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture));
-    });
+      const { lectures } = this.props;
+      this.setState({ selectedLecture: lectureId},() => {
+        return this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture));
+      });
   }
 
 

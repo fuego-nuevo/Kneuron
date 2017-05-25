@@ -15,6 +15,7 @@ const CohortsList = (props) => {
         {props.cohorts.map(cohort => <Cohort history={props.history} key={cohort.id} cohort={cohort} allLectures={props.allLectures} currentLecture={props.currentLecture}/>)}
       </div>
     </div>
+  </div>
   );
 };
 
