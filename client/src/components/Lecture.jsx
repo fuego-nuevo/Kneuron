@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import TopicsList from './TopicsList';
 
 const Lecture = props => {
-  const currentLectureRoute = `/dashboard/lectures/${props.lecture.id}`;
+  const currentLectureRoute = `/dashboard/lectures/${props.selectedLecture}`;
   return(
     <div>
       <u>
         <Link
         to={currentLectureRoute}
-        selectedLecture={props.lecture.id}
-        onClick={() => props.handleLectureClick(props.lecture.id)}>
+        selectedLecture={props.selectedLecture || props.lecture.id}
+        onMouseEnter={() => props.handleLectureClick(props.lecture.id)}>
           {props.lecture.name}
         </Link>
       </u>

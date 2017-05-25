@@ -37,8 +37,6 @@ class Cohort extends Component {
   }
 
   render() {
-    console.log(this.props, 'props from line 26 ');
-    console.log("IN THE CB FNC: ", this.state.lectures);
     return (
       <div className="cohort-entry animated bounceInUp" >
         <div className="ch-entry-header">{this.props.cohort.subject}</div>
