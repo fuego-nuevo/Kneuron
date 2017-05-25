@@ -24,6 +24,10 @@ a{
    text-decoration: none;
 }
 
+.text-center{
+    text-align: center;
+}
+
 .front{
     margin-top: 10vh;
     background-color: #e0ebe8;
