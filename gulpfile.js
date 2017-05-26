@@ -26,6 +26,7 @@ const models = {
   'Quiz' : db.Quiz,
   'Question' : db.Question,
   'Answer' : db.Answer,
+  'Result' : db.Result,
 };
 
 gulp.task('sync', (cb) => {
@@ -40,6 +41,7 @@ gulp.task('sync', (cb) => {
   .then(() => db.Quiz.sync({ force: true }))
   .then(() => db.Question.sync({ force: true }))
   .then(() => db.Answer.sync({ force: true }))
+  .then(() => db.Result.sync({ force: true }))
   .then(() => redis.set('allTeacherData', 'null'))
   .then(() => { cb(); })
   .catch((err) => { cb(err); });
