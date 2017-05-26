@@ -29,18 +29,18 @@ app.get('*', (req, res) => {
 app.use(express.static(path.join(__dirname, '../static')));
 
 io.on('connection', (client) => {
-  let nsp = io.of('/topics');
-  client.on('join', (data) => {
-    client.join(data.lecture);
+  const nsp = io.of('/lectures');
+  nsp.on('join', (data) => {
+    nsp.join(data.lecture);
   });
   nsp.on('topic', (data) => {
     io.of(data.name).emit('topic', data);
   });
 
-  client.on('students', (data) => {
+  nsp.on('students', (data) => {
     io.of(data.name).emit('quiz', data);
   });
-  client.on('quiz', (data) => {
+  nsp.on('quiz', (data) => {
     io.of(data.name).emit('answer', data);
   });
 });
