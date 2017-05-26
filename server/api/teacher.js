@@ -62,6 +62,44 @@ const fetchAllTeacherData = async (req, res) => {
   }
 };
 
+// Fetch all students for the teacher associated with a cohort
+
+const fetchStudents = async (req, res) => {
+  try {
+    let redisTeacherData = await redis.get('allTeacherData');
+    const checker = await redis.get('dbTeacherCheck');
+    redisTeacherData = JSON.parse(redisTeacherData);
+    const email = antiHasher(req.params.auth_token);
+    if (redisTeacherData !== null && redisTeacherData.email === email && checker === 'true') {
+      res.status(200).send(redisTeacherData);
+    } else {
+      const allStudent = await db.User.findOne({
+        where: {
+          email: email,
+          userType: 0,
+        },
+        include: [{
+          model: db.Cohort,
+          as: 'cohort',
+          include: [{
+            model: db.StudentCohort,
+            include: [{
+              model: db.User,
+            }],
+          }],
+        }],
+      });
+      console.log('Retrived all students', allStudent);
+      redis.set(`allTeacherStudent${email}`, JSON.stringify(allStudent));
+      redis.set(`dbTeacherStudentCheck${email}`, true);
+      res.status(200).send(allStudent);
+    }
+  } catch (error) {
+    console.log('Error in fetchStudents');
+    res.status(500).send(error);
+  }
+}
+
 // Login Teach with Async
 const fetchTeacher = async (req, res) => {
   try {
