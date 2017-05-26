@@ -91,6 +91,27 @@ const Question = db.define('question', {
   },
 });
 
+
+const Attendance = db.define('attendance', {
+  present: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+  },
+});
+
+// Join Tables
+// Students and Cohorts
+const StudentCohort = db.define('studentcohort', {
+  // student_id: {
+  //   type: Sequelize.INTEGER,
+  //   allowNull: false,
+  // },
+  // cohort_id: {
+  //   type: Sequelize.INTEGER,
+  //   allowNull: false,
+  // },
+});
+
 const Answer = db.define('answer', {
   isCorrect: {
     type: Sequelize.BOOLEAN,
@@ -103,22 +124,9 @@ const Answer = db.define('answer', {
   },
 });
 
-const Attendance = db.define('attendance', {
-  present: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-  },
-});
-
-// Join Tables
-// Students and Cohorts
-const StudentCohort = db.define('studentcohort', {
-  student_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  cohort_id: {
-    type: Sequelize.INTEGER,
+const Result = db.define('result', {
+  percentage: {
+    type: Sequelize.FLOAT,
     allowNull: false,
   },
 });
@@ -169,6 +177,11 @@ StudentCohort.belongsTo(User, { foreignKey: { name: 'student_id', allowNull: fal
 Cohort.hasMany(StudentCohort, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
 StudentCohort.belongsTo(Cohort, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
 
+User.hasMany(Result, { foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
+Result.belongsTo(User, { foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
+Quiz.hasMany(Result, { foreignKey: { name: 'quiz_id', allowNull: false }, onDelete: 'CASCADE' });
+Result.belongsTo(Quiz, { foreignKey: { name: 'quiz_id', allowNull: false }, onDelete: 'CASCADE' });
+
 module.exports = {
   School,
   User,
@@ -181,4 +194,5 @@ module.exports = {
   Question,
   Answer,
   Attendance,
+  Result,
 };
