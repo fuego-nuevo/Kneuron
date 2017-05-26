@@ -283,6 +283,13 @@ textarea:focus, input:focus{
     font-family: "Brandon Grotesque";
 }
 
+.quest-entry{
+    position: relative;
+    width: 70%;
+    left: 15%;
+    border: 1px solid lightgray;
+}
+
 #topic-entry{
     background-color: #53BBB4;
 }
@@ -333,6 +340,11 @@ textarea:focus, input:focus{
     background-color: #c4be85;
     color: #e0ebe8;
     position: relative;
+}
+
+#question-header{
+    width: 100%;
+    border-radius: 0;
 }
 
 .delete-class{
@@ -473,4 +485,20 @@ textarea:focus, input:focus{
     top: 0;
     width: 100%;
     height: 3vh;
+}
+
+.quest-ls{
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+.q-header{
+    bottom-border: 2px solid lightgray;
+    font-size: 18px;
+}
+
+.quest-holder{
+    width: 90%;
+    height: 300px;
+    overflow: auto;
 }

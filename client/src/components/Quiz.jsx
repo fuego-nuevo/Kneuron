@@ -27,6 +27,7 @@ const customStyles = {
     height: '300px',
     transition: '1s',
     animation: 'bounce .40s',
+    margin: '0',
   },
 };
 
@@ -65,13 +66,8 @@ class Quiz extends Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <h1 className="text-center modal-header">Questions</h1>
+          <div id="question-header" className="text-center q-header">Questions</div>
           <QuestionsList questions={this.props.quiz.questions} />
-          <button onClick={this.closeModal} className="delete-class"><img
-            alt="close-modal"
-            src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png"
-            width="25px" height="25px"
-          /></button>
         </Modal>
         <div id="quiz-entry" className="text-center ch-entry-header">{this.props.quiz.name}</div>
         <button onClick={this.openModal} className="lecture-button">Questions</button>
