@@ -3,11 +3,12 @@ import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { updateProfile } from '../actions/currentProfile';
 import DashNav from '../components/DashboardNavBar';
 import AddClass from '../components/AddClass';
+import AddLecture from '../components/AddLecture';
 import EditClass from '../components/EditClass';
+import EditLecture from '../components/EditLecture';
 import CohortsList from '../components/CohortsList';
 import CurrentLecture from '../components/CurrentLecture';
 import LecturesList from '../components/LecturesList';
@@ -32,6 +33,7 @@ class Dashboard extends Component {
     this.handleLectureClick = this.handleLectureClick.bind(this);
     this.renderAddClass = this.renderAddClass.bind(this);
     this.renderQuiz = this.renderQuiz.bind(this);
+    this.renderAddLecture = this.renderAddLecture.bind(this);
   }
 
   componentDidMount() {
@@ -74,14 +76,19 @@ class Dashboard extends Component {
     return (<AddClass history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} />);
   }
 
+  renderAddLecture() {
+    const { currentCohortId } = this.props;
+    return (<AddLecture history={this.props.history} cohortId={currentCohortId} fetchTeacherInfo={this.fetchTeacherInfo} />);
+  }
+
   renderLecturesList() {
-    const { lectures } = this.props;
-    return <LecturesList lectures={lectures || []} selectedLecture={this.state.selectedLecture} handleLectureClick={this.handleLectureClick} />;
+    const { lectures, history } = this.props;
+    return <LecturesList lectures={lectures || []} history={history} fetchTeacherInfo={this.fetchTeacherInfo} selectedLecture={this.state.selectedLecture} handleLectureClick={this.handleLectureClick} />;
   }
 
   renderCurrentLecture() {
-    const { lectureId, name, topics } = this.props;
-    return <CurrentLecture lectureId={lectureId || ''} name={name || ''} topics={topics || []} />;
+    const { lectureId, name, topics, histroy } = this.props;
+    return <CurrentLecture lectureId={lectureId || ''} history={history} fetchTeacherInfo={this.fetchTeacherInfo} name={name || ''} topics={topics || []} />;
   }
 
   handleLectureClick(lectureId) {
@@ -103,6 +110,8 @@ class Dashboard extends Component {
         <Route path="/dashboard/addClass" render={this.renderAddClass} />
         <Route path="/dashboard/editClass" component={EditClass} />
         <Route path="/dashboard/quiz" render={this.renderQuiz} />
+        <Route path="/dashboard/addLecture" render={this.renderAddLecture} />
+        <Route path="/dashboard/editLecture" component={EditLecture} />
         <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
       </div>
     );
@@ -118,7 +127,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 const mapStateToProps = (state) => {
   const { email, username, userType, fName, lName, cohort } = state.profile;
-  const { lectures } = state.lectures;
+  const { lectures, currentCohortId } = state.lectures;
   const { lectureId, name, topics } = state.currentLecture;
   const { topicId, quizzes } = state.currentTopic;
   return {
@@ -130,6 +139,7 @@ const mapStateToProps = (state) => {
     cohort,
     lectureId,
     lectures,
+    currentCohortId,
     name,
     topics,
     topicId,
