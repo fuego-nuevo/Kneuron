@@ -4,14 +4,21 @@ const redis = require('../db/models');
 
 const postTopic = async (req, res) => {
   try {
-    const lecture = await db.Lecture.findOne({ where: { id: req.params.lecture_id } });
+    const lecture = await db.Lecture.findOne({ where: { id: req.body.lecture_id } });
     if (lecture) {
-      req.body['name'] = req.body.name;
-      req.body['lecture_id'] = req.params.lecture_id;
-      const topic = await db.Topic.create(req.body);
-      console.log('Topic created');
-      redis.set('dbTeacherCheck', false);
-      res.status(200).send(topic);
+      const topic = await db.Topic.findOne({ where: { name: req.body.name }});
+      console.log("TOPIC LOOKUP RESULTED IN: ", topic)
+      if(topic === null){
+        req.body['name'] = req.body.name;
+        req.body['lecture_id'] = req.body.lecture_id;
+        const topic = await db.Topic.create(req.body);
+        console.log('Topic created');
+        // redis.set('dbTeacherCheck', false);
+        res.status(200).send(topic);
+      } else {
+        console.log("Topic already exists: ", topic);
+        res.status(200).send(topic);
+      }
     } else {
       console.log('Lecture not found');
       res.status(404).send('Lecture not found');
@@ -43,11 +50,13 @@ const updateTopic = async (req, res) => {
 
 const deleteTopic = async (req, res) => {
   try {
+    console.log(req.params);
     const topic = await db.Topic.findOne({ where: { id: req.params.topic_id } });
     if (topic) {
+      console.log("TOPIC IS: ", topic)
       const deletedTopic = await topic.destroy({ force: true });
       console.log('Topic deleted');
-      redis.set('dbTeacherCheck', false);
+      // redis.set('dbTeacherCheck', false);
       res.status(200).send(deletedTopic);
     } else {
       console.log('Topic not found');
@@ -59,8 +68,8 @@ const deleteTopic = async (req, res) => {
   }
 };
 
-router.post('/:lecture_id', postTopic);
+router.post('/', postTopic);
 router.put('/:topic_id', updateTopic);
-router.put('/:topic_id', deleteTopic);
+router.delete('/:topic_id', deleteTopic);
 
 module.exports = router;

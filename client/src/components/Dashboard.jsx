@@ -3,7 +3,7 @@ import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateProfile } from '../actions/currentProfile';
+import { updateProfile } from '../actions/CurrentProfile';
 import DashNav from '../components/DashboardNavBar';
 import AddClass from '../components/AddClass';
 import AddLecture from '../components/AddLecture';
@@ -14,8 +14,10 @@ import CurrentLecture from '../components/CurrentLecture';
 import LecturesList from '../components/LecturesList';
 import QuizList from '../components/QuizList';
 import TopicsList from '../components/TopicsList';
-import { allLectures } from '../actions/lectures';
-import { currentLecture } from '../actions/currentLecture';
+import { allLectures } from '../actions/Lectures';
+import { currentLecture } from '../actions/CurrentLecture';
+import EditTopic from './EditTopic';
+import AddTopic from './AddTopic';
 
 
 class Dashboard extends Component {
@@ -34,6 +36,7 @@ class Dashboard extends Component {
     this.renderAddClass = this.renderAddClass.bind(this);
     this.renderQuiz = this.renderQuiz.bind(this);
     this.renderAddLecture = this.renderAddLecture.bind(this);
+    this.renderAddTopic = this.renderAddTopic.bind(this);
   }
 
   componentDidMount() {
@@ -81,13 +84,19 @@ class Dashboard extends Component {
     return (<AddLecture history={this.props.history} cohortId={currentCohortId} fetchTeacherInfo={this.fetchTeacherInfo} />);
   }
 
+  renderAddTopic(){
+    const { history, lectureId, name } = this.props;
+    console.log(lectureId + " for " + name);
+    return (<AddTopic history={history} lectureId={lectureId} name={name} fetchTeacherInfo={this.fetchTeacherInfo} />);
+  }
+
   renderLecturesList() {
     const { lectures, history, lectureId } = this.props;
     return (<LecturesList lectures={lectures || []} history={history} fetchTeacherInfo={this.fetchTeacherInfo} selectedLecture={lectureId} handleLectureClick={this.handleLectureClick} />);
   }
 
   renderCurrentLecture() {
-    const { lectureId, name, topics, histroy, location } = this.props;
+    const { lectureId, name, topics, history, location } = this.props;
     return (<CurrentLecture location={location} lectureId={lectureId || ''} history={history} fetchTeacherInfo={this.fetchTeacherInfo} name={name || ''} topics={topics || []} />);
   }
 
@@ -95,6 +104,7 @@ class Dashboard extends Component {
     const { lectures } = this.props;
     this.setState({ selectedLecture: lectureId }, () => this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture)));
   }
+
 
 
   render() {
@@ -112,6 +122,8 @@ class Dashboard extends Component {
         <Route path="/dashboard/quiz" render={this.renderQuiz} />
         <Route path="/dashboard/addLecture" render={this.renderAddLecture} />
         <Route path="/dashboard/editLecture" component={EditLecture} />
+        <Route path="/dashboard/addTopic" render={this.renderAddTopic} />
+        <Route path="/dashboard/editTopic" component={EditTopic} />
         <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
       </div>
     );

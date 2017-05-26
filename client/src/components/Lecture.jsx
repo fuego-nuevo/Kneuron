@@ -18,7 +18,7 @@ class Lecture extends Component {
       console.log("ERRRRMYGOD: ", removed);
         this.props.fetchTeacherInfo()
           .then(() => {
-            this.props.history.push('/dashboard/lectures');
+            this.props.history.push('/dashboard/class');
           })
           .catch((err) => {
             console.log('error with deleting class , ERR: ', err);

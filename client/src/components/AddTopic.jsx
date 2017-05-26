@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class AddLecture extends Component {
-  constructor(props) {
+class AddTopic extends Component {
+  constructor(props){
     super(props);
     this.state = {
       name: '',
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 
-  handleChange(e) {
+ handleChange(e) {
     const name = e.target.name;
     console.log(this.props);
     this.setState({ [name]: e.target.value });
@@ -20,13 +21,14 @@ class AddLecture extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    console.log("COHORT ID IS: ", this.props.cohortId)
+    console.log("THE STUFF I NEED IS: ", [this.state.name, this.props.lectureId, this.props.history]);
     const body = {
       name: this.state.name,
-      cohort_id: this.props.cohortId
+      lecture_id: this.props.lectureId,
     };
+
     try {
-      const posted = await axios.post('/api/lectures/', body);
+      const posted = await axios.post('/api/topics/', body);
       const added = await this.props.fetchTeacherInfo()
       this.props.history.push('/dashboard/class');
     } catch (error) {
@@ -34,8 +36,9 @@ class AddLecture extends Component {
     }
   }
 
-  render() {
-    return (
+
+  render(){
+    return(
       <div className="add-class-container">
         <form onSubmit={this.handleSubmit} className="add-class-form animated bounceInUp">
           <div className="add-class-input-container">
@@ -44,11 +47,11 @@ class AddLecture extends Component {
               <input onChange={this.handleChange} value={this.state.name} type="text" name="name" />
             </div>
           </div>
-          <input id="add-class-submit" type="submit" value="Add Lecture" />
+          <input id="add-class-submit" type="submit" value="Add Topic" />
         </form>
       </div>
     );
   }
 }
 
-export default AddLecture;
+export default AddTopic;
