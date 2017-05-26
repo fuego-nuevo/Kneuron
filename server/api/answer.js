@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const db = require('../db/models');
+const redis = require('../db/redis');
 
 // Change Line 10 so that we can grab the student_id directly off the params_blank
 // so that we don't need to do another query to find the student's id
@@ -12,6 +13,7 @@ const postAnswer = async (req, res) => {
       req.body['selected'] = req.body.selected;
       const postedAnswer = await db.Answer.create(req.body);
       console.log('Answer created!');
+      // redis.set('dbTeacherCheck', false);
       res.status(200).send(postedAnswer);
     } else {
       console.log('Question not found');
@@ -31,6 +33,7 @@ const updateAnswer = async (req, res) => {
       req.body['selected'] = req.body.selected;
       const updatedAnswer = await answer.update(req.body);
       console.log('Answer updated!');
+      // redis.set('dbTeacherCheck', false);
       res.status(200).send(updatedAnswer);
     } else {
       console.log('Answer not found');
