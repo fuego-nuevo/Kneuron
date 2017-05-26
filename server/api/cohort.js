@@ -108,7 +108,8 @@ const deleteCohort = async (req, res) => {
       if (cohort) {
         cohort.destroy({ force: true });
         console.log('Cohort Was Successfully Deleted: ', cohort);
-        res.status(204).send(`${cohort} was destroyed from DB`);
+        redis.set('dbTeacherCheck', false);
+        res.status(201).send(`${cohort} was destroyed from DB`);
       } else {
         console.log('Cohort with teacher_id and cohort_id not found');
         res.status(500).send('Cohort with teacher_id and cohort_id not found');

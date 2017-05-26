@@ -5,11 +5,11 @@ import Quiz from '../components/Quiz';
 const QuizList = props => (
   <div>
     <div className="class-nav">
-      <button className="addC-left"><Link to="/dashboard/addClass">Add Quiz</Link></button>
-      <button className="addC-right"><Link to="/dashboard/editClass">Edit Quiz</Link></button>
+      <button className="addC-left"><Link to="/dashboard/addQuiz">Add Quiz</Link></button>
+      <button className="addC-right"><Link to="/dashboard/editQuiz">Edit Quiz</Link></button>
     </div>
     <div className="cohort-holder">
-      {props.quizzes.map(quiz => <Quiz quiz={quiz} />)}
+      {props.quizzes.map(quiz => <Quiz fetchTeacherInfo={props.fetchTeacherInfo} quiz={quiz} />)}
     </div>
   </div>
 );

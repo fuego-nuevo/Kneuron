@@ -212,7 +212,7 @@ textarea:focus, input:focus{
 /* styles for the DASHBOARD */
 
 .dash-nav{
-    background-color: darkslategray;
+    background-color: rgba(47,47,47,0.98);
     width: 100%;
     height: 7vh;
     position: fixed;
@@ -440,7 +440,7 @@ textarea:focus, input:focus{
 
 .addC-left{
     border-style: none;
-    background-color: mediumspringgreen;
+    background-color: darkgray;
     color: white;
     position: absolute;
     left: 2vh;
@@ -455,7 +455,7 @@ textarea:focus, input:focus{
 
 .addC-right{
     border-style: none;
-    background-color: mediumpurple;
+    background-color: lightsteelblue;
     color: white;
     position: absolute;
     right: 2vh;
