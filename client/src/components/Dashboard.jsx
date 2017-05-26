@@ -12,6 +12,7 @@ import CohortsList from '../components/CohortsList';
 import CurrentLecture from '../components/CurrentLecture';
 import LecturesList from '../components/LecturesList';
 import QuizList from '../components/QuizList';
+
 import { allLectures } from '../actions/lectures';
 import { currentLecture } from '../actions/currentLecture';
 
@@ -21,7 +22,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       profile: {},
-      selectedLecture: '',
+      selectedLecture: this.props.currentLecture.lectureId || '',
     };
 
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
@@ -35,6 +36,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.fetchTeacherInfo();
+    this.setState({ selectedLecture: this.props.currentLecture.lectureId });
   }
   componentWillReceiveProps(nextProps) {
     console.log('component received new props, here are old props , ', this.props);
@@ -61,6 +63,7 @@ class Dashboard extends Component {
       history={history}
       cohorts={cohort || []}
       allLectures={this.props.allLectures.bind(this)}
+      currentLecture={this.props.currentLecture.lectureId}
     />);
   }
 
@@ -93,7 +96,7 @@ class Dashboard extends Component {
     const { dispatch } = this.props;
     console.log(this.state);
     console.log('these are the props ', this.props);
-    const currentLectureRoute = `/dashboard/lectures${this.state.selectedLecture}`;
+    const currentLectureRoute = `/dashboard/lectures${this.props.lectureId}`;
     return (
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} />

@@ -1,22 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { compose, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import App from './containers/app.jsx';
-import Reducers from './reducers/index';
-import thunkMiddleware from 'redux-thunk';
+import { persistStore, autoRehydrate } from 'redux-persist';
 import { createLogger } from 'redux-logger';
-import {persistStore, autoRehydrate} from 'redux-persist'
+import thunkMiddleware from 'redux-thunk';
+import Reducers from './reducers/index';
+import App from './containers/app';
 
 const logger = createLogger({});
 const middleware = [
   thunkMiddleware,
   logger,
 ];
-const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
-
+const createStoreWithMiddleware = compose(applyMiddleware(...middleware), autoRehydrate())(createStore);
 
 const store = createStoreWithMiddleware(Reducers);
+
+persistStore(store);
 
 ReactDOM.render(
   <Provider store={store}>

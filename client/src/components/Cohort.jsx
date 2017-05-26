@@ -42,6 +42,8 @@ class Cohort extends Component {
 
   render() {
     console.log(this.props);
+    const currentLectureRoute = `/dashboard/lectures${this.props.currentLecture}`;
+    console.log(currentLectureRoute, 'this is the current lecture route ');
     return (
       <div className="cohort-entry animated bounceInUp" >
         <div className="ch-entry-header">{this.props.cohort.subject}</div>
