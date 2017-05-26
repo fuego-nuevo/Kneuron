@@ -11,13 +11,13 @@ const saltRounds = 10;
 // Fetch ALL INFORMATION on Teacher
 const fetchAllTeacherData = async (req, res) => {
   try {
-    let redisTeacherData = await redis.get('allTeacherData');
-    const checker = await redis.get('dbTeacherCheck');
-    redisTeacherData = JSON.parse(redisTeacherData);
+    // let redisTeacherData = await redis.get('allTeacherData');
+    // const checker = await redis.get('dbTeacherCheck');
+    // redisTeacherData = JSON.parse(redisTeacherData);
     const email = antiHasher(req.params.auth_token);
-    if (redisTeacherData !== 'null' && redisTeacherData.email === email && checker === 'true') {
-      res.status(200).send(redisTeacherData);
-    } else {
+    // if (redisTeacherData !== null && redisTeacherData.email === email && checker === 'true') {
+    //   res.status(200).send(redisTeacherData);
+    // } else {
       const allData = await db.User.findOne({
         where: {
           email: email,
@@ -41,10 +41,10 @@ const fetchAllTeacherData = async (req, res) => {
         }],
       });
       console.log('All information front loaded ', allData);
-      redis.set('allTeacherData', JSON.stringify(allData));
-      redis.set('dbTeacherCheck', true);
+      // redis.set('allTeacherData', JSON.stringify(allData));
+      // redis.set('dbTeacherCheck', true);
       res.status(200).send(allData);
-    }
+
   } catch (error) {
     console.log('Some shit went wrong ', error);
     res.status(500).send(error);
@@ -104,7 +104,7 @@ const updateTeacher = async (req, res) => {
     const teacher = await db.User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
     if (teacher) {
       const updatedTeacher = await teacher.update({
-        // email: req.body.email,
+        email: req.body.email,
         // password: hasher(req.body.password),
         fName: req.body.fName,
         lName: req.body.lName,

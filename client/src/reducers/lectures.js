@@ -3,6 +3,7 @@ const Lectures = (state = {}, action) => {
     case 'ALL_LECTURES' :
       return {
         lectures: action.lectures,
+        currentCohortId: action.currentCohortId,
       }
 
     default:
