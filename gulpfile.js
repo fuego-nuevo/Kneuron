@@ -20,6 +20,7 @@ const models = {
   'User': db.User,
   'StudentQuestion' : db.StudentQuestion,
   'Cohort' : db.Cohort,
+  'StudentCohort' : db.StudentCohort,
   'Lecture' : db.Lecture,
   'Topic' : db.Topic,
   'Quiz' : db.Quiz,

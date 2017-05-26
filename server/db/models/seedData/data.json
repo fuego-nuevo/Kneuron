@@ -209,5 +209,37 @@
       "student_id": 3,
       "question_id": 1
     }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 1,
+      "student_id": 3,
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 2,
+      "student_id": 4,
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 3,
+      "student_id": 3,
+      "cohort_id": 2
+    }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 4,
+      "student_id": 4,
+      "cohort_id": 2
+    }
   }
 ]
