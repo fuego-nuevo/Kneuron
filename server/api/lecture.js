@@ -40,7 +40,7 @@ const postLecture = async (req, res) => {
         } else {
           const newLecture = await db.Lecture.create({ name: req.body.name, cohort_id: req.body.id });
           console.log('Lecture Posted To DB: ', newLecture);
-          redis.set('dbTeacherCheck', false);
+          // redis.set('dbTeacherCheck', false);
           res.status(201).send(newLecture);
         }
       } else {
@@ -67,7 +67,7 @@ const updateLecture = async (req, res) => {
           lecture.subject = req.body.subject;
           const updatedLecture = await db.Lecture.update({ subject: lecture.subject }, { where: { id: lecture.id } });
           if (updatedLecture) {
-            redis.set('dbTeacherCheck', false);
+            // redis.set('dbTeacherCheck', false);
             res.status(200).send(updatedLecture);
           } else {
             console.log(`Error Updating ${lecture.name} Lecture For ${teachersCohort.subject} Cohort`);
@@ -96,7 +96,7 @@ const deleteLecture = async (req, res) => {
     const lecture = await db.Lecture.findOne({ where: { cohort_id: req.body.cohortId } });
     res.status(202).send(`${lecture} was marked for deletion...`);
     lecture.destroy({ force: true });
-    redis.set('dbTeacherCheck', false);
+    // redis.set('dbTeacherCheck', false);
     res.status(201).send(`${lecture} was destroyed from DB`);
   } catch (error) {
     console.log('ASYNC issue ', error);

@@ -42,7 +42,7 @@ gulp.task('sync', (cb) => {
   .then(() => db.Question.sync({ force: true }))
   .then(() => db.Answer.sync({ force: true }))
   .then(() => db.Result.sync({ force: true }))
-  .then(() => redis.set('allTeacherData', 'null'))
+  // .then(() => redis.set('allTeacherData', 'null'))
   .then(() => { cb(); })
   .catch((err) => { cb(err); });
 });

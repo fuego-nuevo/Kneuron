@@ -11,13 +11,13 @@ const saltRounds = 10;
 // Fetch ALL INFORMATION on Teacher
 const fetchAllTeacherData = async (req, res) => {
   try {
-    let redisTeacherData = await redis.get('allTeacherData');
-    const checker = await redis.get('dbTeacherCheck');
-    redisTeacherData = JSON.parse(redisTeacherData);
+    // let redisTeacherData = await redis.get('allTeacherData');
+    // const checker = await redis.get('dbTeacherCheck');
+    // redisTeacherData = JSON.parse(redisTeacherData);
     const email = antiHasher(req.params.auth_token);
-    if (redisTeacherData !== null && redisTeacherData.email === email && checker === 'true') {
-      res.status(200).send(redisTeacherData);
-    } else {
+    // if (redisTeacherData !== null && redisTeacherData.email === email && checker === 'true') {
+    //   res.status(200).send(redisTeacherData);
+    // } else {
       const allData = await db.User.findOne({
         where: {
           email: email,
@@ -52,10 +52,10 @@ const fetchAllTeacherData = async (req, res) => {
         }],
       });
       console.log('All information front loaded ', allData);
-      redis.set(`allTeacherData${email}`, JSON.stringify(allData));
-      redis.set(`dbTeacherCheck${email}`, true);
+      // redis.set(`allTeacherData${email}`, JSON.stringify(allData));
+      // redis.set(`dbTeacherCheck${email}`, true);
       res.status(200).send(allData);
-    }
+    // }
   } catch (error) {
     console.log('Some shit went wrong ', error);
     res.status(500).send(error);
@@ -66,13 +66,13 @@ const fetchAllTeacherData = async (req, res) => {
 
 const fetchStudents = async (req, res) => {
   try {
-    let redisTeacherData = await redis.get('allTeacherData');
-    const checker = await redis.get('dbTeacherCheck');
-    redisTeacherData = JSON.parse(redisTeacherData);
+    // let redisTeacherData = await redis.get('allTeacherData');
+    // const checker = await redis.get('dbTeacherCheck');
+    // redisTeacherData = JSON.parse(redisTeacherData);
     const email = antiHasher(req.params.auth_token);
-    if (redisTeacherData !== null && redisTeacherData.email === email && checker === 'true') {
-      res.status(200).send(redisTeacherData);
-    } else {
+    // if (redisTeacherData !== null && redisTeacherData.email === email && checker === 'true') {
+    //   res.status(200).send(redisTeacherData);
+    // } else {
       const allStudent = await db.User.findOne({
         where: {
           email: email,
@@ -90,15 +90,15 @@ const fetchStudents = async (req, res) => {
         }],
       });
       console.log('Retrived all students', allStudent);
-      redis.set(`allTeacherStudent${email}`, JSON.stringify(allStudent));
-      redis.set(`dbTeacherStudentCheck${email}`, true);
+      // redis.set(`allTeacherStudent${email}`, JSON.stringify(allStudent));
+      // redis.set(`dbTeacherStudentCheck${email}`, true);
       res.status(200).send(allStudent);
-    }
+    // }
   } catch (error) {
     console.log('Error in fetchStudents');
     res.status(500).send(error);
   }
-}
+};
 
 // Login Teach with Async
 const fetchTeacher = async (req, res) => {
@@ -137,7 +137,7 @@ const postTeacher = async (req, res) => {
         school_id: req.body.school_id,
       });
       console.log('Signed Up New User: ', { user: newUser, id_token: hasher(req.body.email) });
-      redis.set('dbTeacherCheck', false);
+      // redis.set('dbTeacherCheck', false);
       res.status(201).send({ user: newUser, id_token: hasher(req.body.email) });
     }
   } catch (error) {
@@ -161,7 +161,7 @@ const updateTeacher = async (req, res) => {
       });
       if (updatedTeacher) {
         console.log('Teacher successfully updated ', updatedTeacher);
-        redis.set('dbTeacherCheck', false);
+        // redis.set('dbTeacherCheck', false);
         res.status(200).send({ teacher: updatedTeacher, auth_token: hasher(updatedTeacher.email) });
       } else {
         console.log('Missing a parameter');
@@ -184,7 +184,7 @@ const deleteTeacher = async (req, res) => {
     if (teacher) {
       teacher.destroy({ force: true });
       console.log('Teacher deleted');
-      redis.set('dbTeacherCheck', false);
+      // redis.set('dbTeacherCheck', false);
       res.status(200).send(teacher);
     } else {
       console.log('Teacher not found');
@@ -197,6 +197,7 @@ const deleteTeacher = async (req, res) => {
 };
 
 // Controllers
+router.get('/', fetchStudents);
 router.get('/:auth_token', fetchAllTeacherData);
 router.get('/:email/:creds', fetchTeacher);
 router.post('/', postTeacher);

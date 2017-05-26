@@ -4,13 +4,13 @@ const redis = require('../db/models');
 
 const postTopic = async (req, res) => {
   try {
-    const lecture = await db.Lecture.findOne({ where: { id: req.params.lecture_id } });
+    const lecture = await db.Lecture.findOne({ where: { id: req.body.lecture_id } });
     if (lecture) {
       req.body['name'] = req.body.name;
-      req.body['lecture_id'] = req.params.lecture_id;
+      req.body['lecture_id'] = req.body.lecture_id;
       const topic = await db.Topic.create(req.body);
       console.log('Topic created');
-      redis.set('dbTeacherCheck', false);
+      // redis.set('dbTeacherCheck', false);
       res.status(200).send(topic);
     } else {
       console.log('Lecture not found');
@@ -29,7 +29,7 @@ const updateTopic = async (req, res) => {
       req.body['name'] = req.body.name;
       const updatedTopic = await topic.update(req.body);
       console.log('Topic updated');
-      redis.set('dbTeacherCheck', false);
+      // redis.set('dbTeacherCheck', false);
       res.status(200).send(updatedTopic);
     } else {
       console.log('Topic not found');
@@ -47,7 +47,7 @@ const deleteTopic = async (req, res) => {
     if (topic) {
       const deletedTopic = await topic.destroy({ force: true });
       console.log('Topic deleted');
-      redis.set('dbTeacherCheck', false);
+      // redis.set('dbTeacherCheck', false);
       res.status(200).send(deletedTopic);
     } else {
       console.log('Topic not found');
@@ -59,7 +59,7 @@ const deleteTopic = async (req, res) => {
   }
 };
 
-router.post('/:lecture_id', postTopic);
+router.post('/', postTopic);
 router.put('/:topic_id', updateTopic);
 router.put('/:topic_id', deleteTopic);
 

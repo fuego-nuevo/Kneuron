@@ -6,10 +6,10 @@ const redis = require('../db/redis');
 // so that we don't need to do another query to find the student's id
 const postAnswer = async (req, res) => {
   try {
-    const question = await db.Question.findOne({ where: { id: req.params.question_id } });
+    const question = await db.Question.findOne({ where: { id: req.body.question_id } });
     if (question) {
       req.body['question_id'] = question.id;
-      req.body['student_id'] = req.params.student_id;
+      req.body['student_id'] = req.body.student_id;
       req.body['selected'] = req.body.selected;
       const postedAnswer = await db.Answer.create(req.body);
       console.log('Answer created!');
@@ -48,7 +48,7 @@ const updateAnswer = async (req, res) => {
 
 // Change /:student_id to whatever is semantically correct to use the student's_id
 // like if we're using auth_token then change it to that
-router.post('/:question_id/:student_id', postAnswer);
+router.post('/', postAnswer);
 router.put('/:answer_id', updateAnswer);
 
 module.exports = router;
