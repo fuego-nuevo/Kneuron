@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Modal from 'react-modal';
-import { CurrentQuiz } from '../actions/CurrentQuiz';
-import QuestionsList from '../components/QuestionsList';
+import { CurrentQuiz } from '../../actions/CurrentQuiz';
+import QuestionsList from '../Questions/QuestionsList';
 
 const customStyles = {
   overlay: {

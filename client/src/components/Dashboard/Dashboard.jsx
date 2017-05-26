@@ -4,19 +4,19 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { updateProfile } from '../actions/CurrentProfile';
-import DashNav from '../components/DashboardNavBar';
-import AddClass from '../components/AddClass';
-import EditClass from '../components/EditClass';
-import CohortsList from '../components/CohortsList';
-import CurrentLecture from '../components/CurrentLecture';
-import LecturesList from '../components/LecturesList';
-import QuizList from '../components/QuizList';
-import AddQuiz from '../components/AddQuiz';
-import AddQuestion from '../components/AddQuestion';
+import { updateProfile } from '../../actions/CurrentProfile';
+import DashNav from './DashboardNavBar';
+import AddClass from '../Cohorts/AddClass';
+import EditClass from '../Cohorts/EditClass';
+import CohortsList from '../Cohorts/CohortsList';
+import CurrentLecture from '../Lectures/CurrentLecture';
+import LecturesList from '../Lectures/LecturesList';
+import QuizList from '../Quizzes/QuizList';
+import AddQuiz from '../Quizzes/AddQuiz';
+import AddQuestion from '../Questions/AddQuestion';
 
-import { allLectures } from '../actions/Lectures';
-import { currentLecture } from '../actions/CurrentLecture';
+import { allLectures } from '../../actions/Lectures';
+import { currentLecture } from '../../actions/CurrentLecture';
 
 
 class Dashboard extends Component {

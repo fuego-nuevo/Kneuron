@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TopicsList from './TopicsList';
+import TopicsList from '../Topics/TopicsList';
 
 class CurrentLecture extends Component {
   constructor(props) {

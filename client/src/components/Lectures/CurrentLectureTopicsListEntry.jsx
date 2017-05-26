@@ -1,5 +1,5 @@
 import React from 'react';
-import QuestionsList from './QuestionsList';
+import QuestionsList from '../Questions/QuestionsList';
 
 const CurrentLectureTopicsListEntry = props => (
   <div>

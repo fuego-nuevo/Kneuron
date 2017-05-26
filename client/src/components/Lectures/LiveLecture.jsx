@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TopicList from './TopicsList';
+import TopicList from '../Topics/TopicsList';
 
 class LiveLecture extends Component {
   constructor() {

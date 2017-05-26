@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import FrontPage from '../components/FrontPage';
-import Dashboard from '../components/Dashboard';
-import UserProfile from '../components/UserProfile';
-import EditProfile from '../components/EditProfile';
+import FrontPage from '../components/FrontPage/FrontPage';
+import Dashboard from '../components/Dashboard/Dashboard';
+import UserProfile from '../components/Profile/UserProfile';
+import EditProfile from '../components/Profile/EditProfile';
 import SignUp from './SignUp';
 
 class Router extends Component {
