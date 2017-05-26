@@ -2,8 +2,10 @@ const router = require('express').Router();
 const db = require('../db/models');
 
 const postQuestion = async (req, res) => {
+  console.log(req.body, ' THIS IS THE REQ DOT BODY   ');
   try {
-    const quiz = await db.Quiz.findOne({ where: { id: req.params.quiz_id } });
+    const quiz = await db.Quiz.findOne({ where: { id: req.body.quiz_id } });
+    console.log('this is the qui we tryna hit', quiz);
     if (quiz) {
       req.body['quiz_id'] = quiz.id;
       req.body['name'] = req.body.name;
@@ -59,7 +61,7 @@ const deleteQuestion = async (req, res) => {
   }
 };
 
-router.post('/:quiz_id', postQuestion);
+router.post('/', postQuestion);
 router.put('/:question_id', updateQuestion);
 router.delete('/:question_id', deleteQuestion);
 

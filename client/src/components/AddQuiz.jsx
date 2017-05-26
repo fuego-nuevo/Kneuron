@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-class AddClass extends Component {
+class AddQuiz extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,4 +54,4 @@ const mapStateToProps = state => ({
   currentTopic: state.currentTopic,
 });
 
-export default connect(mapStateToProps)(AddClass);
+export default connect(mapStateToProps)(AddQuiz);

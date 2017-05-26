@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import Modal from 'react-modal';
+import { CurrentQuiz } from '../actions/CurrentQuiz';
 import QuestionsList from '../components/QuestionsList';
 
 const customStyles = {
@@ -70,16 +73,25 @@ class Quiz extends Component {
           <QuestionsList questions={this.props.quiz.questions} />
         </Modal>
         <div id="quiz-entry" className="text-center ch-entry-header">{this.props.quiz.name}</div>
-        <button onClick={this.openModal} className="lecture-button">Questions</button>
+        <button onClick={this.openModal} className="lecture-button">See Questions</button>
         <button onClick={this.deleteClass} className="delete-class"><img
           alt="delete"
           src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png"
-          width="25px" height="25px"
+          width="25px"
+          height="25px"
         /></button>
+        <button id="add-question" className="lecture-button">
+          <Link onClick={() => this.props.CurrentQuiz(this.props.quiz.id)} to="/dashboard/addQuestion" >
+            Add Question
+          </Link>
+        </button>
       </div>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  quizId: state.quizId,
+});
 
-export default Quiz;
+export default connect(mapStateToProps, { CurrentQuiz })(Quiz);

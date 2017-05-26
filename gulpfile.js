@@ -56,7 +56,7 @@ gulp.task('seed', ['sync', 'seed:seed']);
 
 gulp.task('nodemon', () => {
   const stream = nodemon({
-    script: 'server/index.js',
+    script: 'server/Index.js',
     watch: ['server/'],
     ignore: ['client/**'],
   });

@@ -102,7 +102,7 @@ exports.signupUser = (creds, history) => {
 exports.logoutUser = () => {
   console.log('yooo logout ran');
   return (dispatch) => {
-    console.log('got into dispatch line 96 action/login.js')
+    console.log('got into dispatch line 96 action/Login.js')
     dispatch(requestLogout());
     console.log('got past the dispatch');
     localStorage.removeItem('id_token');

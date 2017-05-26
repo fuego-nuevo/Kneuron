@@ -5,7 +5,7 @@ import FrontPage from '../components/FrontPage';
 import Dashboard from '../components/Dashboard';
 import UserProfile from '../components/UserProfile';
 import EditProfile from '../components/EditProfile';
-import SignUp from '../containers/signUp';
+import SignUp from './SignUp';
 
 class Router extends Component {
   constructor(props) {

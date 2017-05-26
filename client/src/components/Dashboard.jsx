@@ -4,7 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { updateProfile } from '../actions/currentProfile';
+import { updateProfile } from '../actions/CurrentProfile';
 import DashNav from '../components/DashboardNavBar';
 import AddClass from '../components/AddClass';
 import EditClass from '../components/EditClass';
@@ -13,9 +13,10 @@ import CurrentLecture from '../components/CurrentLecture';
 import LecturesList from '../components/LecturesList';
 import QuizList from '../components/QuizList';
 import AddQuiz from '../components/AddQuiz';
+import AddQuestion from '../components/AddQuestion';
 
-import { allLectures } from '../actions/lectures';
-import { currentLecture } from '../actions/currentLecture';
+import { allLectures } from '../actions/Lectures';
+import { currentLecture } from '../actions/CurrentLecture';
 
 
 class Dashboard extends Component {
@@ -34,6 +35,7 @@ class Dashboard extends Component {
     this.renderAddClass = this.renderAddClass.bind(this);
     this.renderQuiz = this.renderQuiz.bind(this);
     this.renderAddQuiz = this.renderAddQuiz.bind(this);
+    this.renderAddQuestion = this.renderAddQuestion.bind(this);
   }
 
   componentDidMount() {
@@ -58,27 +60,20 @@ class Dashboard extends Component {
     }
   }
 
-  renderCohort() {
-    const { cohort, history } = this.props;
-    return (<CohortsList
-      fetchTeacherInfo={this.fetchTeacherInfo}
-      history={history}
-      cohorts={cohort || []}
-      allLectures={this.props.allLectures.bind(this)}
-      currentLecture={this.props.currentLecture.lectureId}
-    />);
-  }
 
   renderQuiz() {
     const { quizzes } = this.props;
     return (<QuizList history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} quizzes={quizzes || []} />);
   }
   renderAddQuiz() {
-    console.log(' line 76 dassshy');
-    return (<AddQuiz history={this.props.history}  fetchTeacherInfo={this.fetchTeacherInfo} />);
+    return (<AddQuiz history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} />);
+  }
+  renderAddQuestion() {
+    const { quizId } = this.props;
+    return (<AddQuestion history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} quizId={quizId} />);
   }
 
-   renderAddClass() {
+  renderAddClass() {
     return (<AddClass history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} />);
   }
 
@@ -97,6 +92,16 @@ class Dashboard extends Component {
     this.setState({ selectedLecture: lectureId }, () => this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture)));
   }
 
+  renderCohort() {
+    const { cohort, history } = this.props;
+    return (<CohortsList
+      fetchTeacherInfo={this.fetchTeacherInfo}
+      history={history}
+      cohorts={cohort || []}
+      allLectures={this.props.allLectures.bind(this)}
+      currentLecture={this.props.currentLecture.lectureId}
+    />);
+  }
 
   render() {
     const { dispatch } = this.props;
@@ -112,6 +117,7 @@ class Dashboard extends Component {
         <Route path="/dashboard/editClass" component={EditClass} />
         <Route path="/dashboard/addQuiz" render={this.renderAddQuiz} />
         <Route path="/dashboard/quiz" render={this.renderQuiz} />
+        <Route path="/dashboard/addQuestion" render={this.renderAddQuestion} />
         <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
       </div>
     );
@@ -130,6 +136,7 @@ const mapStateToProps = (state) => {
   const { lectures } = state.lectures;
   const { lectureId, name, topics } = state.currentLecture;
   const { topicId, quizzes } = state.currentTopic;
+  const { quizId } = state.currentQuiz;
   return {
     email,
     username,
@@ -143,6 +150,7 @@ const mapStateToProps = (state) => {
     topics,
     topicId,
     quizzes,
+    quizId,
   };
 };
 
