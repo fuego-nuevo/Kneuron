@@ -24,6 +24,10 @@ a{
    text-decoration: none;
 }
 
+.text-center{
+    text-align: center;
+}
+
 .front{
     margin-top: 10vh;
     background-color: #e0ebe8;
@@ -279,6 +283,15 @@ textarea:focus, input:focus{
     font-family: "Brandon Grotesque";
 }
 
+#topic-entry{
+    background-color: #53BBB4;
+}
+#lecture-entry{
+    background-color: cornflowerblue;
+}
+#quiz-entry{
+    background-color: mediumblue;
+}
 .lecture-button{
     position: absolute;
     left: 2vh;
@@ -472,6 +485,36 @@ textarea:focus, input:focus{
 }
 
 .addL-right{
+    border-style: none;
+    background-color: mediumpurple;
+    color: white;
+    position: absolute;
+    right: 2vh;
+    bottom: 0;
+    height: 80%;
+    top: 10%;
+    width: 45%;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.addT-left{
+    border-style: none;
+    background-color: mediumspringgreen;
+    color: white;
+    position: absolute;
+    left: 2vh;
+    bottom: 0;
+    height: 80%;
+    top: 10%;
+    width: 45%;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.addT-right{
     border-style: none;
     background-color: mediumpurple;
     color: white;

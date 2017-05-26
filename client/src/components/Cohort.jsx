@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/main.css';
-import { allLectures, currentLecture } from '../actions/lectures';
+import { allLectures, currentLecture } from '../actions/Lectures';
 
 class Cohort extends Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class Cohort extends Component {
       this.setState({ lectures: []}, () => {
         this.props.allLectures(this.props.cohort);
       });
+      console.log("IT WENT THROUGH AND STATE FOR LECTURES INSIDE COHORT COMP IS: ", this.state.lectures);
   }
 
   render() {
@@ -53,4 +55,4 @@ class Cohort extends Component {
   }
 }
 
-export default Cohort;
+export default connect(null, { allLectures })(Cohort);

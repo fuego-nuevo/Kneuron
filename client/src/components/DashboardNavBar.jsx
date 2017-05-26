@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { logoutUser } from '../actions/login';
+import { logoutUser } from '../actions/Login';
 import '../styles/main.css';
 
 

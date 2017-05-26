@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const db = require('../db/models');
 const antiHasher = require('./util').antiHasher;
+const redis = require('../db/redis');
 
 const fetchLectures = async (req, res) => {
   try {
@@ -32,15 +33,17 @@ const postLecture = async (req, res) => {
     // if (teacher) {
     //   const teacherCohort = await db.Cohort.findOne({ where: { teacher_id: teacher.id, id: req.body.id } });
     //   if (teacherCohort) {
-        const teacherLecture = await db.Lecture.findOne({ where: { cohort_id: req.body.cohort_id, name: req.body.name } });
-        if (teacherLecture) {
-          console.log(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
-          res.status(422).send(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
-        } else {
-          const newLecture = await db.Lecture.create(req.body);
-          console.log("Lecture Posted To DB: ", newLecture);
-          res.status(201).send(newLecture);
-        }
+
+      console.log(req.body)
+      const teacherLecture = await db.Lecture.findOne({ where: { cohort_id: req.body.cohort_id, name: req.body.name } });
+      if (teacherLecture) {
+        console.log(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
+        res.status(422).send(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
+      } else {
+        const newLecture = await db.Lecture.create(req.body);
+        console.log("Lecture Posted To DB: ", newLecture);
+        res.status(201).send(newLecture);
+      }
     //   } else {
     //     console.log(`${teacher.fName} ${teacher.lName} Does Not Currently Have A ${req.body.subject} Cohort.`);
     //     res.status(404).send(`${teacher.fName} ${teacher.lName} Does Not Currently Have A ${req.body.subject} Cohort.`);
@@ -65,6 +68,7 @@ const updateLecture = async (req, res) => {
           lecture.subject = req.body.subject;
           const updatedLecture = await db.Lecture.update({ subject: lecture.subject }, { where: { id: lecture.id } });
           if (updatedLecture) {
+            // redis.set('dbTeacherCheck', false);
             res.status(200).send(updatedLecture);
           } else {
             console.log(`Error Updating ${lecture.name} Lecture For ${teachersCohort.subject} Cohort`);
@@ -92,7 +96,8 @@ const deleteLecture = async (req, res) => {
   try {
     const lecture = await db.Lecture.findOne({ where: { id: req.params.lecture_id } });
     lecture.destroy({ force: true });
-    res.status(204).send(`${lecture} was destroyed from DB`);
+    // redis.set('dbTeacherCheck', false);
+    res.status(201).send(`${lecture} was destroyed from DB`);
   } catch (error) {
     console.log('ASYNC issue ', error);
     res.status(500).send(error);

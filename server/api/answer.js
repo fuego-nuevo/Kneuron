@@ -1,17 +1,19 @@
 const router = require('express').Router();
 const db = require('../db/models');
+const redis = require('../db/redis');
 
 // Change Line 10 so that we can grab the student_id directly off the params_blank
 // so that we don't need to do another query to find the student's id
 const postAnswer = async (req, res) => {
   try {
-    const question = await db.Question.findOne({ where: { id: req.params.question_id } });
+    const question = await db.Question.findOne({ where: { id: req.body.question_id } });
     if (question) {
       req.body['question_id'] = question.id;
-      req.body['student_id'] = req.params.student_id;
+      req.body['student_id'] = req.body.student_id;
       req.body['selected'] = req.body.selected;
       const postedAnswer = await db.Answer.create(req.body);
       console.log('Answer created!');
+      // redis.set('dbTeacherCheck', false);
       res.status(200).send(postedAnswer);
     } else {
       console.log('Question not found');
@@ -31,6 +33,7 @@ const updateAnswer = async (req, res) => {
       req.body['selected'] = req.body.selected;
       const updatedAnswer = await answer.update(req.body);
       console.log('Answer updated!');
+      // redis.set('dbTeacherCheck', false);
       res.status(200).send(updatedAnswer);
     } else {
       console.log('Answer not found');
@@ -45,7 +48,7 @@ const updateAnswer = async (req, res) => {
 
 // Change /:student_id to whatever is semantically correct to use the student's_id
 // like if we're using auth_token then change it to that
-router.post('/:question_id/:student_id', postAnswer);
+router.post('/', postAnswer);
 router.put('/:answer_id', updateAnswer);
 
 module.exports = router;
