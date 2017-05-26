@@ -52,10 +52,9 @@ const fetchAllTeacherData = async (req, res) => {
         }],
       });
       console.log('All information front loaded ', allData);
-      // redis.set(`allTeacherData${email}`, JSON.stringify(allData));
-      // redis.set(`dbTeacherCheck${email}`, true);
+      // redis.set('allTeacherData', JSON.stringify(allData));
+      // redis.set('dbTeacherCheck', true);
       res.status(200).send(allData);
-    // }
   } catch (error) {
     console.log('Some shit went wrong ', error);
     res.status(500).send(error);
@@ -153,7 +152,7 @@ const updateTeacher = async (req, res) => {
     const teacher = await db.User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
     if (teacher) {
       const updatedTeacher = await teacher.update({
-        // email: req.body.email,
+        email: req.body.email,
         // password: hasher(req.body.password),
         fName: req.body.fName,
         lName: req.body.lName,

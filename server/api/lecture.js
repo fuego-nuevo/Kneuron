@@ -29,28 +29,29 @@ const fetchLectures = async (req, res) => {
 
 const postLecture = async (req, res) => {
   try {
-    const teacher = await db.User.findOne({ where: { email: antiHasher(req.body.auth_token) } });
-    if (teacher) {
-      const teacherCohort = await db.Cohort.findOne({ where: { teacher_id: teacher.id, id: req.body.id, subject: req.body.subject } });
-      if (teacherCohort) {
-        const teacherLecture = await db.Lecture.findOne({ where: { cohort_id: teacherCohort.id, name: req.body.name } });
+    // const teacher = await db.User.findOne({ where: { email: antiHasher(req.body.auth_token) } });
+    // if (teacher) {
+    //   const teacherCohort = await db.Cohort.findOne({ where: { teacher_id: teacher.id, id: req.body.id } });
+    //   if (teacherCohort) {
+      console.log(req.body)
+        const teacherLecture = await db.Lecture.findOne({ where: { cohort_id: req.body.cohort_id, name: req.body.name } });
         if (teacherLecture) {
           console.log(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
           res.status(422).send(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
         } else {
-          const newLecture = await db.Lecture.create({ name: req.body.name, cohort_id: req.body.id });
+          const newLecture = await db.Lecture.create(req.body);
           console.log('Lecture Posted To DB: ', newLecture);
           // redis.set('dbTeacherCheck', false);
           res.status(201).send(newLecture);
         }
-      } else {
-        console.log(`${teacher.fName} ${teacher.lName} Does Not Currently Have A ${req.body.subject} Cohort.`);
-        res.status(404).send(`${teacher.fName} ${teacher.lName} Does Not Currently Have A ${req.body.subject} Cohort.`);
-      }
-    } else {
-      console.log(`Error finding Teacher with email: ${antiHasher(req.body.auth_token)}`);
-      res.status(404).send(`Error finding Teacher with email: ${antiHasher(req.body.auth_token)}`);
-    }
+    //   } else {
+    //     console.log(`${teacher.fName} ${teacher.lName} Does Not Currently Have A ${req.body.subject} Cohort.`);
+    //     res.status(404).send(`${teacher.fName} ${teacher.lName} Does Not Currently Have A ${req.body.subject} Cohort.`);
+    //   }
+    // } else {
+    //   console.log(`Error finding Teacher with email: ${antiHasher(req.body.auth_token)}`);
+    //   res.status(404).send(`Error finding Teacher with email: ${antiHasher(req.body.auth_token)}`);
+    // }
   } catch (error) {
     res.status(404).send(error);
   }
@@ -93,8 +94,7 @@ const updateLecture = async (req, res) => {
 
 const deleteLecture = async (req, res) => {
   try {
-    const lecture = await db.Lecture.findOne({ where: { cohort_id: req.body.cohortId } });
-    res.status(202).send(`${lecture} was marked for deletion...`);
+    const lecture = await db.Lecture.findOne({ where: { id: req.params.lecture_id } });
     lecture.destroy({ force: true });
     // redis.set('dbTeacherCheck', false);
     res.status(201).send(`${lecture} was destroyed from DB`);

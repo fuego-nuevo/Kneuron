@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { compose, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import App from './containers/app.jsx';
-import Reducers from './reducers/index';
+import { persistStore, autoRehydrate } from 'redux-persist';
+import App from './containers/App.jsx';
+import Reducers from './reducers/Index';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
@@ -12,10 +13,12 @@ const middleware = [
   thunkMiddleware,
   logger,
 ];
-const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
 
+const createStoreWithMiddleware = compose(applyMiddleware(...middleware), autoRehydrate())(createStore);
 
 const store = createStoreWithMiddleware(Reducers);
+
+persistStore(store);
 
 ReactDOM.render(
   <Provider store={store}>
@@ -23,4 +26,3 @@ ReactDOM.render(
   </Provider>,
     document.getElementById('app'),
 );
-

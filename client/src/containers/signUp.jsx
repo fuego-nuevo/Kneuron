@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { signupUser } from '../actions/login';
+import { signupUser } from '../actions/Login';
 
 class SignUp extends Component {
   constructor(props) {

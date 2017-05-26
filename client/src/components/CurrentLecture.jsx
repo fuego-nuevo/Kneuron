@@ -10,11 +10,15 @@ class CurrentLecture extends Component {
   }
 
 
-  render() {
-    console.log(this.props);
+ render() {
+    console.log("IN CURRENT LECTURE COMP: ", this.props);
     return (
       <div>
-        <TopicsList topics={this.props.topics || []} />
+        <TopicsList
+          topics={this.props.topics || []}
+          lectureId={this.props.lectureId}
+          fetchTeacherInfo={this.props.fetchTeacherInfo}
+          history={this.props.history}/>
       </div>
     );
   }
