@@ -1,7 +1,5 @@
-const Redis = require('ioredis');
 const util = require('util');
-
-const redis = new Redis();
+const redis = require('../config/redis');
 
 redis.monitor((err, monitor) => {
   monitor.on('monitor', (time, args) => {
