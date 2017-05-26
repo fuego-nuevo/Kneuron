@@ -49,15 +49,8 @@ class Quiz extends Component {
   async deleteClass() {
     try {
       const removed = await axios.delete(`/api/quizzes/${this.props.quiz.id}`);
-      if (removed) {
-        this.props.fetchTeacherInfo()
-          .then(() => {
-            this.props.history.push('/dashboard/quiz');
-          })
-          .catch((err) => {
-            console.log('error with deleting quiz , ERR: ', err);
-          });
-      }
+      const push = this.props.fetchTeacherInfo();
+      this.props.history.push('/dashboard/class');
     } catch (error) {
       console.log(error);
     }
@@ -72,7 +65,7 @@ class Quiz extends Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <h1 className="text-center">Questions</h1>
+          <h1 className="text-center modal-header">Questions</h1>
           <QuestionsList questions={this.props.quiz.questions} />
           <button onClick={this.closeModal} className="delete-class"><img
             alt="close-modal"

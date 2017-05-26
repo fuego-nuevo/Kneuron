@@ -9,7 +9,7 @@ const QuizList = props => (
       <button className="addC-right"><Link to="/dashboard/editQuiz">Edit Quiz</Link></button>
     </div>
     <div className="cohort-holder">
-      {props.quizzes.map(quiz => <Quiz fetchTeacherInfo={props.fetchTeacherInfo} quiz={quiz} />)}
+      {props.quizzes.map(quiz => <Quiz history={props.history} fetchTeacherInfo={props.fetchTeacherInfo} quiz={quiz} />)}
     </div>
   </div>
 );
