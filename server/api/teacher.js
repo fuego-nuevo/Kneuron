@@ -26,6 +26,14 @@ const fetchAllTeacherData = async (req, res) => {
         include: [{
           model: db.Cohort,
           as: 'cohort',
+          // Begin - This is the query to find all students associated to a cohort
+          // include: [{
+          //   model: db.StudentCohort,
+          //   include: [{
+          //     model: db.User
+          //   }]
+          // }]
+          // End - This is the query to find all students associated to a cohort
           include: [{
             model: db.Lecture,
             include: [{
@@ -34,6 +42,9 @@ const fetchAllTeacherData = async (req, res) => {
                 model: db.Quiz,
                 include: [{
                   model: db.Question,
+                  // include: [{
+                  //   model: db.Answer,
+                  // }],
                 }],
               }],
             }],
@@ -41,8 +52,8 @@ const fetchAllTeacherData = async (req, res) => {
         }],
       });
       console.log('All information front loaded ', allData);
-      redis.set('allTeacherData', JSON.stringify(allData));
-      redis.set('dbTeacherCheck', true);
+      redis.set(`allTeacherData${email}`, JSON.stringify(allData));
+      redis.set(`dbTeacherCheck${email}`, true);
       res.status(200).send(allData);
     }
   } catch (error) {
