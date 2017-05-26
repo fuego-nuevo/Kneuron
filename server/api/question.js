@@ -4,7 +4,7 @@ const redis = require('../db/redis');
 
 const postQuestion = async (req, res) => {
   try {
-    const quiz = await db.Quiz.findOne({ where: { id: req.params.quiz_id } });
+    const quiz = await db.Quiz.findOne({ where: { id: req.body.quiz_id } });
     if (quiz) {
       req.body['quiz_id'] = quiz.id;
       req.body['name'] = req.body.name;
@@ -12,7 +12,7 @@ const postQuestion = async (req, res) => {
       req.body['correct'] = req.body.correct;
       const newQuestion = await db.Question.create(req.body);
       console.log('Question created');
-      redis.set('dbTeacherCheck', false);
+      // redis.set('dbTeacherCheck', false);
       res.status(200).send(newQuestion);
     } else {
       console.log('Topic not found');
@@ -33,7 +33,7 @@ const updateQuestion = async (req, res) => {
       req.body['correct'] = req.body.correct;
       const updatedQuestion = await question.update(req.body);
       console.log('Question updated!');
-      redis.set('dbTeacherCheck', false);
+      // redis.set('dbTeacherCheck', false);
       res.status(200).send(updatedQuestion);
     } else {
       console.log('Question not found');
@@ -51,7 +51,7 @@ const deleteQuestion = async (req, res) => {
     if (question) {
       const deletedQuestion = question.destroy({ force: true });
       console.log('Question deleted!');
-      redis.set('dbTeacherCheck', false);
+      // redis.set('dbTeacherCheck', false);
       res.status(200).send(deletedQuestion);
     } else {
       console.log('Question not found');
@@ -63,7 +63,7 @@ const deleteQuestion = async (req, res) => {
   }
 };
 
-router.post('/:quiz_id', postQuestion);
+router.post('/', postQuestion);
 router.put('/:question_id', updateQuestion);
 router.delete('/:question_id', deleteQuestion);
 

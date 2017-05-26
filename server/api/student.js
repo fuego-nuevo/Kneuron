@@ -10,29 +10,39 @@ const saltRounds = 10;
 
 const fetchAllStudentData = async (req, res) => {
   try {
-    let redisStudentData = await redis.get('allStudentData');
-    const checker = await redis.get('dbStudentCheck');
-    redisStudentData = JSON.parse(redisStudentData);
+    // let redisStudentData = await redis.get('allStudentData');
+    // const checker = await redis.get('dbStudentCheck');
+    // redisStudentData = JSON.parse(redisStudentData);
     const email = antiHasher(req.params.auth_token);
-    if (redisStudentData !== 'null' && redisStudentData.email === email && checker === 'true') {
-      res.status(200).send(redisStudentData);
-    } else {
+    // if (redisStudentData !== null && redisStudentData.email === email && checker === 'true') {
+    // if (redisStudentData !== null && checker === 'true') {
+      // res.status(200).send(redisStudentData);
+    // } else {
       const allData = await db.User.findOne({
         where: {
           email: email,
-          userType: 0,
+          // id: req.params.id,
+          userType: 1,
         },
         include: [{
-          model: db.Cohort,
-          as: 'cohort',
+          model: db.StudentCohort,
           include: [{
-            model: db.Lecture,
+            model: db.Cohort,
             include: [{
-              model: db.Topic,
+              model: db.Lecture,
               include: [{
-                model: db.Quiz,
+                model: db.Topic,
                 include: [{
-                  model: db.Question,
+                  model: db.Quiz,
+                  include: [{
+                    model: db.Question,
+                    // include: [{
+                    //   model: db.Answer,
+                    //   include: [{
+                    //     model: db.Question
+                    //   }]
+                    // }],
+                  }],
                 }],
               }],
             }],
@@ -40,10 +50,10 @@ const fetchAllStudentData = async (req, res) => {
         }],
       });
       console.log('All information front loaded ', allData);
-      redis.set('allStudentData', JSON.stringify(allData));
-      redis.set('dbStudentCheck', true);
+      // redis.set('allStudentData', JSON.stringify(allData));
+      // redis.set('dbStudentCheck', true);
       res.status(200).send(allData);
-    }
+    // }
   } catch (error) {
     console.log('Some shit went wrong ', error);
     res.status(500).send(error);
@@ -85,7 +95,7 @@ const postStudent = async (req, res) => {
         school_id: req.body.school_id,
       });
       console.log('Signed Up New User: ', { user: newUser, id_token: hasher(req.body.email) });
-      redis.set('dbStudentCheck', false);
+      // redis.set('dbStudentCheck', false);
       res.status(201).send({ user: newUser, id_token: hasher(req.body.email) });
     }
   } catch (error) {
@@ -108,7 +118,7 @@ const updateStudent = async (req, res) => {
       });
       if (updatedStudent) {
         console.log('Student successfully updated ', updatedStudent);
-        redis.set('dbStudentCheck', false);
+        // redis.set('dbStudentCheck', false);
         res.status(200).send({ student: updatedStudent, auth_token: hasher(updatedStudent.email) });
       } else {
         console.log('Missing a parameter');
@@ -130,7 +140,7 @@ const deleteStudent = async (req, res) => {
     if (student) {
       student.destroy({ force: true });
       console.log('Student deleted');
-      redis.set('dbStudentCheck', false);
+      // redis.set('dbStudentCheck', false);
       res.status(200).send(student);
     } else {
       console.log('Student not found');
@@ -142,6 +152,7 @@ const deleteStudent = async (req, res) => {
   }
 };
 
+// router.get('/:id', fetchAllStudentData);
 router.get('/:auth_token', fetchAllStudentData);
 router.get('/:email/:creds', fetchStudent);
 router.post('/', postStudent);

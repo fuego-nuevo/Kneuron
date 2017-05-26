@@ -3,11 +3,11 @@ const router = require('express').Router();
 
 const postStudentQuestion = async (req, res) => {
   try {
-    const topic = await db.Topic.findOne({ where: { id: req.params.topic_id } });
+    const topic = await db.Topic.findOne({ where: { id: req.body.topic_id } });
     if (topic) {
       req.body['question'] = req.body.question;
-      req.body['student_id'] = req.params.student_id;
-      req.body['topic_id'] = req.params.topic_id;
+      req.body['student_id'] = req.body.student_id;
+      req.body['topic_id'] = req.body.topic_id;
       const studentQuestion = await db.StudentQuestion.create(req.body);
       console.log('Student Question created');
       res.status(200).send(studentQuestion);
@@ -38,7 +38,7 @@ const deleteStudentQuestion = async (req, res) => {
   }
 }
 
-router.post('/:topic_id/:student_id', postStudentQuestion);
+router.post('/', postStudentQuestion);
 router.delete('/:SQ_id', deleteStudentQuestion);
 
 module.exports = router;

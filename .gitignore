@@ -13,3 +13,4 @@ static
 ./server/api/util.js
 dump.rdb
 firebase.js
+.DS_Store
