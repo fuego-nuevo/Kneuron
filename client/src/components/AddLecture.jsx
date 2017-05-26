@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class AddLecture extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       name: '',
     };
@@ -27,7 +27,7 @@ class AddLecture extends Component {
     };
     try {
       const posted = await axios.post('/api/lectures/', body);
-      const added = await this.props.fetchTeacherInfo();
+      const added = await this.props.fetchTeacherInfo()
       this.props.history.push('/dashboard/lectures');
     } catch (error) {
       console.log('error with axios call line 28 AddClass ', error);

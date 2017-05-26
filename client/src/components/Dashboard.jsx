@@ -82,13 +82,13 @@ class Dashboard extends Component {
   }
 
   renderLecturesList() {
-    const { lectures, history } = this.props;
-    return <LecturesList lectures={lectures || []} history={history} fetchTeacherInfo={this.fetchTeacherInfo} selectedLecture={this.state.selectedLecture} handleLectureClick={this.handleLectureClick} />;
+    const { lectures, history, lectureId } = this.props;
+    return (<LecturesList lectures={lectures || []} history={history} fetchTeacherInfo={this.fetchTeacherInfo} selectedLecture={lectureId} handleLectureClick={this.handleLectureClick} />);
   }
 
   renderCurrentLecture() {
-    const { lectureId, name, topics, histroy } = this.props;
-    return <CurrentLecture lectureId={lectureId || ''} history={history} fetchTeacherInfo={this.fetchTeacherInfo} name={name || ''} topics={topics || []} />;
+    const { lectureId, name, topics, histroy, location } = this.props;
+    return (<CurrentLecture location={location} lectureId={lectureId || ''} history={history} fetchTeacherInfo={this.fetchTeacherInfo} name={name || ''} topics={topics || []} />);
   }
 
   handleLectureClick(lectureId) {
@@ -101,7 +101,7 @@ class Dashboard extends Component {
     const { dispatch } = this.props;
     console.log(this.state);
     console.log('these are the props ', this.props);
-    const currentLectureRoute = `/dashboard/lectures${this.state.selectedLecture}`;
+    const currentLectureRoute = `/dashboard/lectures${this.props.lectureId}`;
     return (
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} />

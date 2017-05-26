@@ -33,6 +33,7 @@ const postLecture = async (req, res) => {
     // if (teacher) {
     //   const teacherCohort = await db.Cohort.findOne({ where: { teacher_id: teacher.id, id: req.body.id } });
     //   if (teacherCohort) {
+      console.log(req.body)
         const teacherLecture = await db.Lecture.findOne({ where: { cohort_id: req.body.cohort_id, name: req.body.name } });
         if (teacherLecture) {
           console.log(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);

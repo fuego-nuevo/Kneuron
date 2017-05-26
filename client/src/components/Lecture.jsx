@@ -14,8 +14,8 @@ class Lecture extends Component {
 
   async deleteLecture() {
     try {
-      const removed = await axios.delete(`/api/lectures/${this.props.selectedLecture}`);
-      if (removed) {
+      const removed = await axios.delete(`/api/lectures/${this.props.lecture.id}`);
+      console.log("ERRRRMYGOD: ", removed);
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/lectures');
@@ -23,7 +23,6 @@ class Lecture extends Component {
           .catch((err) => {
             console.log('error with deleting class , ERR: ', err);
           });
-      }
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +30,8 @@ class Lecture extends Component {
 
 
   render(){
-    const currentLectureRoute = `/dashboard/lectures/${this.props.selectedLecture}`;
+    const currentLectureRoute = `/dashboard/lectures${this.props.lecture.id}`;
+    console.log("THE PROPS FOR LECTURE: ", this.props)
     return (
       <div
         className="cohort-entry animated bounceInUp"
@@ -43,7 +43,7 @@ class Lecture extends Component {
       <button className="lecture-button">
         <Link
           to={currentLectureRoute}
-          selectedLecture={this.props.selectedLecture || this.props.lecture.id}
+          selectedLecture={this.props.lecture.id}
         >
           See Topics
         </Link>
