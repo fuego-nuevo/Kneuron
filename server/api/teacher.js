@@ -15,7 +15,7 @@ const fetchAllTeacherData = async (req, res) => {
     const checker = await redis.get('dbTeacherCheck');
     redisTeacherData = JSON.parse(redisTeacherData);
     const email = antiHasher(req.params.auth_token);
-    if (redisTeacherData !== 'null' && redisTeacherData.email === email && checker === 'true') {
+    if (redisTeacherData !== null && redisTeacherData.email === email && checker === 'true') {
       res.status(200).send(redisTeacherData);
     } else {
       const allData = await db.User.findOne({
