@@ -1,11 +1,49 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Modal from 'react-modal';
+import QuestionsList from '../components/QuestionsList';
+
+const customStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+  },
+  content: {
+    position: 'absolute',
+    top: '15%',
+    left: '25%',
+    border: 'none',
+    background: '#fff',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    borderRadius: '7px',
+    outline: 'none',
+    padding: '20px',
+    width: '50%',
+    height: '300px',
+    transition: '1s',
+    animation: 'bounce .40s',
+  },
+};
+
 
 class Quiz extends Component {
   constructor(props) {
     super(props);
     this.state = {};
     this.deleteClass = this.deleteClass.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+  openModal() {
+    this.setState({ modalIsOpen: true });
+  }
+  closeModal() {
+    this.setState({ modalIsOpen: false });
   }
 
   async deleteClass() {
@@ -25,11 +63,25 @@ class Quiz extends Component {
     }
   }
   render() {
-    console.log(this.props, 'quiiiiiiiz')
+    console.log(this.props, 'quiiiiiiiz');
     return (
       <div className="cohort-entry animated bounceInUp">
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <h1 className="text-center">Questions</h1>
+          <QuestionsList questions={this.props.quiz.questions} />
+          <button onClick={this.closeModal} className="delete-class"><img
+            alt="close-modal"
+            src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png"
+            width="25px" height="25px"
+          /></button>
+        </Modal>
         <div id="quiz-entry" className="text-center ch-entry-header">{this.props.quiz.name}</div>
-        <button className="lecture-button">Questions</button>
+        <button onClick={this.openModal} className="lecture-button">Questions</button>
         <button onClick={this.deleteClass} className="delete-class"><img
           alt="delete"
           src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png"
