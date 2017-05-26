@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/Main.css';
+import '../styles/main.css';
 import { allLectures, currentLecture } from '../actions/Lectures';
 
 class Cohort extends Component {
