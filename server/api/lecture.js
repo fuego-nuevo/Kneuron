@@ -36,13 +36,13 @@ const postLecture = async (req, res) => {
 
       console.log(req.body)
       const teacherLecture = await db.Lecture.findOne({ where: { cohort_id: req.body.cohort_id, name: req.body.name } });
-      if (teacherLecture) {
-        console.log(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
-        res.status(422).send(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
-      } else {
+      if (teacherLecture === null) {
         const newLecture = await db.Lecture.create(req.body);
         console.log("Lecture Posted To DB: ", newLecture);
         res.status(201).send(newLecture);
+      } else {
+        console.log(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
+        res.status(422).send(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
       }
     //   } else {
     //     console.log(`${teacher.fName} ${teacher.lName} Does Not Currently Have A ${req.body.subject} Cohort.`);
