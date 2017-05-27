@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import TopicList from '../../components/Topics/TopicsList';
 
 
 class LiveLecture extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       studentQuestions: [],
     };
@@ -14,9 +13,10 @@ class LiveLecture extends Component {
   }
 
   render() {
+    const { topics } = this.props;
     return (
       <div>
-        <TopicList sQuestions={this.state.studentQuestions} />
+        {topics.map(topic => <h1>{topic.name}</h1>)}
       </div>
     );
   }
