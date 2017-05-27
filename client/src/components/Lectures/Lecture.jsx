@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 class Lecture extends Component {
@@ -36,20 +37,22 @@ class Lecture extends Component {
         className="cohort-entry animated bounceInUp"
         onMouseEnter={() => this.props.handleLectureClick(this.props.lecture.id)}
       >
-        <div
-          id="lecture-entry"
-          className="ch-entry-header">{props.lecture.name}</div>
-        <button className="lecture-button">
-          <Link
-            to={currentLectureRoute}
-            selectedLecture={props.selectedLecture || props.lecture.id}
-          >
-            See Topics
-          </Link>
-        </button>
-      </div>
+      <div
+        id="lecture-entry"
+        className="ch-entry-header">{this.props.lecture.name}</div>
+      <button className="lecture-button">
+        <Link
+          to={currentLectureRoute}
+          selectedLecture={this.props.lecture.id}
+        >
+          See Topics
+        </Link>
+      </button>
+      <button onClick={this.deleteLecture} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
+    </div>
     );
-  };
-}
+  }
+};
+
 
 export default Lecture;

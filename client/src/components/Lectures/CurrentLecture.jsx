@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TopicsList from '../Topics/TopicsList';
+import TopicsList from '../../components/Topics/TopicsList';
 
 class CurrentLecture extends Component {
   constructor(props) {
@@ -10,11 +10,15 @@ class CurrentLecture extends Component {
   }
 
 
-  render() {
-    console.log(this.props);
+ render() {
+    console.log("IN CURRENT LECTURE COMP: ", this.props);
     return (
       <div>
-        <TopicsList topics={this.props.topics || []} />
+        <TopicsList
+          topics={this.props.topics || []}
+          lectureId={this.props.lectureId}
+          fetchTeacherInfo={this.props.fetchTeacherInfo}
+          history={this.props.history}/>
       </div>
     );
   }
