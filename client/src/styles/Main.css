@@ -593,7 +593,7 @@ textarea:focus, input:focus{
     position:absolute;
     right: 0;
     border-style: none;
-    background-color: #e0ebe8;
+    background-color: white;
     width: 70%;
     border-radius: 5px;
     height: 100%;
