@@ -17,14 +17,9 @@ class DashNav extends Component {
         <div className="dash-nav-items">
           <button><Link to="/dashboard">Home</Link></button>
           <button><Link to="/dashboard/class">Classes</Link></button>
+          <button><Link to="/dashboard/livelecture">live-lecture</Link></button>
         </div>
         <div className="search-container">
-          {/*<select className="filter-bar">*/}
-            {/*<option />*/}
-            {/*<option />*/}
-            {/*<option />*/}
-            {/*<option />*/}
-          {/*</select>*/}
           <form>
             <input className="nav-search" placeholder="   search . . ." type="text" />
           </form>

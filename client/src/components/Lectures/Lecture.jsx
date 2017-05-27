@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 class Lecture extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {};
@@ -15,8 +15,8 @@ class Lecture extends Component {
   async deleteLecture() {
     try {
       const removed = await axios.delete(`/api/lectures/${this.props.lecture.id}`);
-      console.log("ERRRRMYGOD: ", removed);
-        this.props.fetchTeacherInfo()
+      console.log('ERRRRMYGOD: ', removed);
+      this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
           })
@@ -29,30 +29,32 @@ class Lecture extends Component {
   }
 
 
-  render(){
+  render() {
     const currentLectureRoute = `/dashboard/lectures${this.props.lecture.id}`;
-    console.log("THE PROPS FOR LECTURE: ", this.props)
+    console.log('THE PROPS FOR LECTURE: ', this.props);
     return (
       <div
         className="cohort-entry animated bounceInUp"
         onMouseEnter={() => this.props.handleLectureClick(this.props.lecture.id)}
       >
-      <div
-        id="lecture-entry"
-        className="ch-entry-header">{this.props.lecture.name}</div>
-      <button className="lecture-button">
-        <Link
-          to={currentLectureRoute}
-          selectedLecture={this.props.lecture.id}
-        >
+        <div
+          id="lecture-entry"
+          className="ch-entry-header"
+        >{this.props.lecture.name}</div>
+        <button className="lecture-button">
+          <Link
+            to={currentLectureRoute}
+            selectedLecture={this.props.lecture.id}
+          >
           See Topics
         </Link>
-      </button>
-      <button onClick={this.deleteLecture} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
-    </div>
+        </button>
+        <button className="go-live"><img alt="delete" src="https://image.flaticon.com/icons/png/128/42/42912.png" width="25px" height="25px" /></button>
+        <button onClick={this.deleteLecture} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
+      </div>
     );
   }
-};
+}
 
 
 export default Lecture;

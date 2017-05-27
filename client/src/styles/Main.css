@@ -376,6 +376,23 @@ textarea:focus, input:focus{
     transition: 0.3s ease-in;
 }
 
+.go-live{
+    position:absolute;
+    right: 2vh;
+    top: 7vh;
+    border-style: none;
+    background-color: transparent;
+    transition: 0.3s ease-in;
+}
+
+.go-live:hover{
+    position: absolute;
+    right: 2vh;
+    top: 6vh;
+    border-style: none;
+    box-shadow: none;
+}
+
 .delete-class:hover{
     position: absolute;
     right: 2vh;
@@ -617,3 +634,5 @@ textarea:focus, input:focus{
     background-color: lightsteelblue;
     border-radius: 5px;
 }
+
+
