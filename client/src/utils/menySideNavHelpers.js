@@ -1,3 +1,5 @@
+//This is a working version of Alex's stuff
+
 var meny = Meny.create({
   // The element that will be animated in from off screen
   menuElement: document.querySelector( '.meny' ),
