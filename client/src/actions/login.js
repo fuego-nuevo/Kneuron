@@ -48,7 +48,7 @@ exports.loginUser = (creds, history) => {
     return axios.get(`http://localhost:8080/api/teachers/${creds.email}/${creds.password}`)
       .then((response) => {
         console.log(response);
-        if (response.statusText !== 'OK') {
+        if (!response.data) {
           dispatch(loginError('Bad Request...'));
           return Promise.reject(response);
         }
