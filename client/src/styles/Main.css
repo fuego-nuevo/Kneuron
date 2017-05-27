@@ -526,3 +526,30 @@ textarea:focus, input:focus{
     height: 300px;
     overflow: auto;
 }
+
+.nav-search{
+    position:absolute;
+    right: 0;
+    border-style: none;
+    background-color: #e0ebe8;
+    width: 70%;
+    border-radius: 5px;
+    height: 100%;
+}
+
+.search-container{
+    position: absolute;
+    right: 30vh;
+    bottom: 1.5vh;
+    width: 20%;
+    height: 4vh;
+}
+
+.filter-bar{
+    position: absolute;
+    left: 0;
+    width: 30%;
+    height: 100%;
+    background-color: lightsteelblue;
+    border-radius: 5px;
+}
