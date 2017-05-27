@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { currentTopic } from '../../actions/CurrentTopic';
 import axios from 'axios';
 
-// props.topic.quizzes
 
 class Topic extends Component {
   constructor(props) {
@@ -15,38 +14,6 @@ class Topic extends Component {
 
     this.deleteTopic = this.deleteTopic.bind(this);
   }
-
-  // handleDeleteTopic(event) {
-  //   event.preventDefault();
-  //   this.setState({ id: event.target.value });
-  //   axios.delete(`/api/topics/${this.state.id}`);
-  // }
-
-  // handleCreateTopicInput(name){
-  //   this.setState({ name:  name});
-  // }
-
-  // async createTopic(e) {
-  //   e.preventDefault();
-  //   const body = {
-  //     name: this.state.name,
-  //     lecture_id: this.props.lectureId,
-  //   };
-
-  //   try{
-  //     const added = await axios.post(`/api/topics`, body);
-  //     this.props.fetchTeacherInfo()
-  //       .then(() => {
-  //         this.props.history.push('/dashboard/class');
-  //       })
-  //       .catch(err => {
-  //         console.log('Error with adding new topic: ', err);
-  //       })
-
-  //   } catch(error) {
-  //     console.log(error);
-  //   }
-  // }
 
   async deleteTopic(e) {
     e.preventDefault();

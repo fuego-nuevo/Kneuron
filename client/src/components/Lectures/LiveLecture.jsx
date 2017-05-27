@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TopicList from '../../components/Topics/TopicsList';
 
+
 class LiveLecture extends Component {
   constructor() {
     super();

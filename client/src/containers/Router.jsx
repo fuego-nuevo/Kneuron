@@ -7,6 +7,7 @@ import UserProfile from '../components/Profile/UserProfile';
 import EditProfile from '../components/Profile/EditProfile';
 import SignUp from '../containers/SignUp';
 
+
 class Router extends Component {
   constructor(props) {
     super(props);

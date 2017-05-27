@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
-
-
-class AddLecture extends Component {
-  constructor() {
-    super();
+class AddQuiz extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
       name: '',
     };
@@ -21,33 +20,38 @@ class AddLecture extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     const body = {
-      auth_token: localStorage.getItem('id_token'),
+      topic_id: this.props.currentTopic.topicId,
       name: this.state.name,
     };
     try {
-      const posted = await axios.post('/api/lectures/', body);
+      const posted = await axios.post('/api/quizzes/', body);
       const added = await this.props.fetchTeacherInfo();
-      this.props.history.push('/dashboard/lectures');
+      this.props.history.push('/dashboard/class');
     } catch (error) {
-      console.log('error with axios call line 28 AddClass ', error);
+      console.log('error with axios call line 28 AddQuiz ', error);
     }
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="add-class-container">
         <form onSubmit={this.handleSubmit} className="add-class-form animated bounceInUp">
           <div className="add-class-input-container">
             <div className="add-class-inps">
-              <label htmlFor="subject">Subject</label>
+              <label htmlFor="Name">Name</label>
               <input onChange={this.handleChange} value={this.state.name} type="text" name="name" />
             </div>
           </div>
-          <input id="add-class-submit" type="submit" value="Edit Lecture" />
+          <input id="add-class-submit" type="submit" value="Add Quiz" />
         </form>
       </div>
     );
   }
 }
 
-export default AddLecture;
+const mapStateToProps = state => ({
+  currentTopic: state.currentTopic,
+});
+
+export default connect(mapStateToProps)(AddQuiz);

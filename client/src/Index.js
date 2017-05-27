@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { persistStore, autoRehydrate } from 'redux-persist';
-import App from './containers/App.jsx';
+import App from './containers/App';
 import Reducers from './reducers/Index';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
+
 
 const logger = createLogger({});
 const middleware = [

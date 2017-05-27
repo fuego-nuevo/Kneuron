@@ -54,4 +54,5 @@ class Lecture extends Component {
   }
 };
 
+
 export default Lecture;
