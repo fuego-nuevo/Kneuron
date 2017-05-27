@@ -1,5 +1,7 @@
 /*animations*/
 
+button:focus {outline:0;}
+
 @keyframes fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}
@@ -593,7 +595,7 @@ textarea:focus, input:focus{
     position:absolute;
     right: 0;
     border-style: none;
-    background-color: #e0ebe8;
+    background-color: white;
     width: 70%;
     border-radius: 5px;
     height: 100%;
