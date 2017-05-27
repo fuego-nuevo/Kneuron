@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/Main.css';
-import { allLectures, currentLecture } from '../actions/Lectures';
+import { allLectures, currentLecture } from '../../actions/Lectures';
 
 class Cohort extends Component {
   constructor(props) {

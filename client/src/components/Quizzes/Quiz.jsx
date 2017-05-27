@@ -25,11 +25,10 @@ const customStyles = {
     WebkitOverflowScrolling: 'touch',
     borderRadius: '7px',
     outline: 'none',
-    padding: '20px',
     width: '50%',
     height: '300px',
     transition: '1s',
-    animation: 'bounce .40s',
+    animation: 'bounce 0.8s',
     margin: '0',
   },
 };
@@ -69,7 +68,6 @@ class Quiz extends Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <div id="question-header" className="text-center q-header">Questions</div>
           <QuestionsList questions={this.props.quiz.questions} />
         </Modal>
         <div id="quiz-entry" className="text-center ch-entry-header">{this.props.quiz.name}</div>
