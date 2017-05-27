@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { logoutUser } from '../actions/Login';
-import '../styles/main.css';
+import { logoutUser } from '../../actions/Login';
+import '../../styles/main.css';
 
 
 class DashNav extends Component {

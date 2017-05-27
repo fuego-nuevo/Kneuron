@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/main.css';
-import { allLectures, currentLecture } from '../actions/Lectures';
+import '../../styles/main.css';
+import { allLectures, currentLecture } from '../../actions/Lectures';
 
 class Cohort extends Component {
   constructor(props) {

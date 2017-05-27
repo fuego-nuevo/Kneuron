@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Login from '../components/Login';
+import Login from '../../components/Logging/Login';
 import NavBar from './FrontPageNav';
-import { loginUser } from '../actions/Login';
+import { loginUser } from '../../actions/Login';
 
 class FrontPage extends Component {
   constructor(props) {
