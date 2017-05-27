@@ -25,7 +25,7 @@ const customStyles = {
     WebkitOverflowScrolling: 'touch',
     borderRadius: '7px',
     outline: 'none',
-    width: '50%',
+    width: '40%',
     height: '300px',
     transition: '1s',
     animation: 'bounce 0.8s',
