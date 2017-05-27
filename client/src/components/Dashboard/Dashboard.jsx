@@ -3,6 +3,7 @@ import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+<<<<<<< HEAD:client/src/components/Dashboard/Dashboard.jsx
 import { updateProfile } from '../../actions/CurrentProfile';
 import DashNav from './DashboardNavBar';
 import AddClass from '../../components/Cohorts/AddClass';
@@ -18,6 +19,22 @@ import { allLectures } from '../../actions/Lectures';
 import { currentLecture } from '../../actions/CurrentLecture';
 import EditTopic from '../../components/Topics/EditTopic';
 import AddTopic from '../../components/Topics/AddTopic';
+=======
+
+import { updateProfile } from '../../actions/CurrentProfile';
+import DashNav from './DashboardNavBar';
+import AddClass from '../Cohorts/AddClass';
+import EditClass from '../Cohorts/EditClass';
+import CohortsList from '../Cohorts/CohortsList';
+import CurrentLecture from '../Lectures/CurrentLecture';
+import LecturesList from '../Lectures/LecturesList';
+import QuizList from '../Quizzes/QuizList';
+import AddQuiz from '../Quizzes/AddQuiz';
+import AddQuestion from '../Questions/AddQuestion';
+
+import { allLectures } from '../../actions/Lectures';
+import { currentLecture } from '../../actions/CurrentLecture';
+>>>>>>> edeb15198d4cf381160e195e8aa682633f342e76:client/src/components/Dashboard/Dashboard.jsx
 
 
 class Dashboard extends Component {
@@ -25,7 +42,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       profile: {},
-      selectedLecture: '',
+      selectedLecture: this.props.currentLecture.lectureId || '',
     };
 
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
@@ -35,12 +52,18 @@ class Dashboard extends Component {
     this.handleLectureClick = this.handleLectureClick.bind(this);
     this.renderAddClass = this.renderAddClass.bind(this);
     this.renderQuiz = this.renderQuiz.bind(this);
+<<<<<<< HEAD:client/src/components/Dashboard/Dashboard.jsx
     this.renderAddLecture = this.renderAddLecture.bind(this);
     this.renderAddTopic = this.renderAddTopic.bind(this);
+=======
+    this.renderAddQuiz = this.renderAddQuiz.bind(this);
+    this.renderAddQuestion = this.renderAddQuestion.bind(this);
+>>>>>>> edeb15198d4cf381160e195e8aa682633f342e76:client/src/components/Dashboard/Dashboard.jsx
   }
 
   componentDidMount() {
     this.fetchTeacherInfo();
+    this.setState({ selectedLecture: this.props.currentLecture.lectureId });
   }
   componentWillReceiveProps(nextProps) {
     console.log('component received new props, here are old props , ', this.props);
@@ -60,19 +83,17 @@ class Dashboard extends Component {
     }
   }
 
-  renderCohort() {
-    const { cohort, history } = this.props;
-    return (<CohortsList
-      fetchTeacherInfo={this.fetchTeacherInfo}
-      history={history}
-      cohorts={cohort || []}
-      allLectures={this.props.allLectures.bind(this)}
-    />);
-  }
 
   renderQuiz() {
-    const { quizzes } = this.props
+    const { quizzes } = this.props;
     return (<QuizList history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} quizzes={quizzes || []} />);
+  }
+  renderAddQuiz() {
+    return (<AddQuiz history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} />);
+  }
+  renderAddQuestion() {
+    const { quizId } = this.props;
+    return (<AddQuestion history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} quizId={quizId} />);
   }
 
   renderAddClass() {
@@ -105,6 +126,16 @@ class Dashboard extends Component {
     this.setState({ selectedLecture: lectureId }, () => this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture)));
   }
 
+  renderCohort() {
+    const { cohort, history } = this.props;
+    return (<CohortsList
+      fetchTeacherInfo={this.fetchTeacherInfo}
+      history={history}
+      cohorts={cohort || []}
+      allLectures={this.props.allLectures.bind(this)}
+      currentLecture={this.props.currentLecture.lectureId}
+    />);
+  }
 
 
   render() {
@@ -119,11 +150,16 @@ class Dashboard extends Component {
         <Route path="/dashboard/lectures" render={this.renderLecturesList} />
         <Route path="/dashboard/addClass" render={this.renderAddClass} />
         <Route path="/dashboard/editClass" component={EditClass} />
+        <Route path="/dashboard/addQuiz" render={this.renderAddQuiz} />
         <Route path="/dashboard/quiz" render={this.renderQuiz} />
+<<<<<<< HEAD:client/src/components/Dashboard/Dashboard.jsx
         <Route path="/dashboard/addLecture" render={this.renderAddLecture} />
         <Route path="/dashboard/editLecture" component={EditLecture} />
         <Route path="/dashboard/addTopic" render={this.renderAddTopic} />
         <Route path="/dashboard/editTopic" component={EditTopic} />
+=======
+        <Route path="/dashboard/addQuestion" render={this.renderAddQuestion} />
+>>>>>>> edeb15198d4cf381160e195e8aa682633f342e76:client/src/components/Dashboard/Dashboard.jsx
         <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
       </div>
     );
@@ -142,6 +178,7 @@ const mapStateToProps = (state) => {
   const { lectures, currentCohortId } = state.lectures;
   const { lectureId, name, topics } = state.currentLecture;
   const { topicId, quizzes } = state.currentTopic;
+  const { quizId } = state.currentQuiz;
   return {
     email,
     username,
@@ -156,6 +193,7 @@ const mapStateToProps = (state) => {
     topics,
     topicId,
     quizzes,
+    quizId,
   };
 };
 

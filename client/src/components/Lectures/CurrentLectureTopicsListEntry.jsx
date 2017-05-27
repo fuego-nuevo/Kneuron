@@ -1,5 +1,9 @@
 import React from 'react';
+<<<<<<< HEAD:client/src/components/Lectures/CurrentLectureTopicsListEntry.jsx
 import QuestionsList from '../../components/Questions/QuestionsList';
+=======
+import QuestionsList from '../Questions/QuestionsList';
+>>>>>>> edeb15198d4cf381160e195e8aa682633f342e76:client/src/components/Lectures/CurrentLectureTopicsListEntry.jsx
 
 const CurrentLectureTopicsListEntry = props => (
   <div>

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD:client/src/components/FrontPage/FrontPage.jsx
 import Login from '../../components/Logging/Login';
+=======
+import Login from '../Logging/Login';
+>>>>>>> edeb15198d4cf381160e195e8aa682633f342e76:client/src/components/FrontPage/FrontPage.jsx
 import NavBar from './FrontPageNav';
 import { loginUser } from '../../actions/Login';
 

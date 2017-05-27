@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+<<<<<<< HEAD:client/src/components/Cohorts/Cohort.jsx
 import '../../styles/main.css';
+=======
+import '../../styles/Main.css';
+>>>>>>> edeb15198d4cf381160e195e8aa682633f342e76:client/src/components/Cohorts/Cohort.jsx
 import { allLectures, currentLecture } from '../../actions/Lectures';
 
 class Cohort extends Component {
@@ -44,6 +48,8 @@ class Cohort extends Component {
 
   render() {
     console.log(this.props);
+    const currentLectureRoute = `/dashboard/lectures${this.props.currentLecture}`;
+    console.log(currentLectureRoute, 'this is the current lecture route ');
     return (
       <div className="cohort-entry animated bounceInUp" >
         <div className="ch-entry-header">{this.props.cohort.subject}</div>
