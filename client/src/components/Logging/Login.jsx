@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD:client/src/components/Logging/Login.jsx
-import '../../styles/main.css';
-=======
 import '../../styles/Main.css';
->>>>>>> edeb15198d4cf381160e195e8aa682633f342e76:client/src/components/Logging/Login.jsx
 
 class Login extends Component {
   constructor(props) {

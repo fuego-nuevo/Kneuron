@@ -3,7 +3,6 @@ import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-<<<<<<< HEAD:client/src/components/Dashboard/Dashboard.jsx
 import { updateProfile } from '../../actions/CurrentProfile';
 import DashNav from './DashboardNavBar';
 import AddClass from '../../components/Cohorts/AddClass';
@@ -14,27 +13,14 @@ import CohortsList from '../../components/Cohorts/CohortsList';
 import CurrentLecture from '../../components/Lectures/CurrentLecture';
 import LecturesList from '../../components/Lectures/LecturesList';
 import QuizList from '../../components/Quizzes/QuizList';
+import QuizList from '../../components/Quizzes/QuizList';
+import AddQuiz from '../../components/Quizzes/AddQuiz';
 import TopicsList from '../../components/Topics/TopicsList';
 import { allLectures } from '../../actions/Lectures';
 import { currentLecture } from '../../actions/CurrentLecture';
 import EditTopic from '../../components/Topics/EditTopic';
 import AddTopic from '../../components/Topics/AddTopic';
-=======
-
-import { updateProfile } from '../../actions/CurrentProfile';
-import DashNav from './DashboardNavBar';
-import AddClass from '../Cohorts/AddClass';
-import EditClass from '../Cohorts/EditClass';
-import CohortsList from '../Cohorts/CohortsList';
-import CurrentLecture from '../Lectures/CurrentLecture';
-import LecturesList from '../Lectures/LecturesList';
-import QuizList from '../Quizzes/QuizList';
-import AddQuiz from '../Quizzes/AddQuiz';
 import AddQuestion from '../Questions/AddQuestion';
-
-import { allLectures } from '../../actions/Lectures';
-import { currentLecture } from '../../actions/CurrentLecture';
->>>>>>> edeb15198d4cf381160e195e8aa682633f342e76:client/src/components/Dashboard/Dashboard.jsx
 
 
 class Dashboard extends Component {
@@ -52,13 +38,10 @@ class Dashboard extends Component {
     this.handleLectureClick = this.handleLectureClick.bind(this);
     this.renderAddClass = this.renderAddClass.bind(this);
     this.renderQuiz = this.renderQuiz.bind(this);
-<<<<<<< HEAD:client/src/components/Dashboard/Dashboard.jsx
     this.renderAddLecture = this.renderAddLecture.bind(this);
     this.renderAddTopic = this.renderAddTopic.bind(this);
-=======
     this.renderAddQuiz = this.renderAddQuiz.bind(this);
     this.renderAddQuestion = this.renderAddQuestion.bind(this);
->>>>>>> edeb15198d4cf381160e195e8aa682633f342e76:client/src/components/Dashboard/Dashboard.jsx
   }
 
   componentDidMount() {
@@ -152,14 +135,11 @@ class Dashboard extends Component {
         <Route path="/dashboard/editClass" component={EditClass} />
         <Route path="/dashboard/addQuiz" render={this.renderAddQuiz} />
         <Route path="/dashboard/quiz" render={this.renderQuiz} />
-<<<<<<< HEAD:client/src/components/Dashboard/Dashboard.jsx
         <Route path="/dashboard/addLecture" render={this.renderAddLecture} />
         <Route path="/dashboard/editLecture" component={EditLecture} />
         <Route path="/dashboard/addTopic" render={this.renderAddTopic} />
         <Route path="/dashboard/editTopic" component={EditTopic} />
-=======
         <Route path="/dashboard/addQuestion" render={this.renderAddQuestion} />
->>>>>>> edeb15198d4cf381160e195e8aa682633f342e76:client/src/components/Dashboard/Dashboard.jsx
         <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
       </div>
     );
