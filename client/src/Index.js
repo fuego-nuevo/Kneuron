@@ -14,10 +14,7 @@ const middleware = [
   thunkMiddleware,
   logger,
 ];
-<<<<<<< HEAD:client/src/index.js
 
-=======
->>>>>>> edeb15198d4cf381160e195e8aa682633f342e76:client/src/Index.js
 const createStoreWithMiddleware = compose(applyMiddleware(...middleware), autoRehydrate())(createStore);
 
 const store = createStoreWithMiddleware(Reducers);

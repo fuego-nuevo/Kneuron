@@ -13,7 +13,6 @@ import CohortsList from '../../components/Cohorts/CohortsList';
 import CurrentLecture from '../../components/Lectures/CurrentLecture';
 import LecturesList from '../../components/Lectures/LecturesList';
 import QuizList from '../../components/Quizzes/QuizList';
-import QuizList from '../../components/Quizzes/QuizList';
 import AddQuiz from '../../components/Quizzes/AddQuiz';
 import TopicsList from '../../components/Topics/TopicsList';
 import { allLectures } from '../../actions/Lectures';
