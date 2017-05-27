@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateProfile } from '../../actions/CurrentProfile';
 import DashNav from './DashboardNavBar';
-import AddClass from '../../components/Lectures/AddClass';
+import AddClass from '../../components/Cohorts/AddClass';
 import AddLecture from '../../components/Lectures/AddLecture';
 import EditClass from '../../components/Cohorts/EditClass';
 import EditLecture from '../../components/Lectures/EditLecture';

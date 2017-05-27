@@ -1,14 +1,14 @@
-require('dotenv').config();
-require('dotenv').load();
+// require('dotenv').config();
+// require('dotenv').load();
 
-const Redis = require('ioredis');
+// const Redis = require('ioredis');
 
-let redis = null;
+// let redis = null;
 
-if (process.env.REDIS) {
-  redis = new Redis();
-} else {
-  redis = new Redis(80);
-}
+// if (process.env.REDIS) {
+//   redis = new Redis();
+// } else {
+//   redis = new Redis(80);
+// }
 
-module.exports = redis;
+// module.exports = redis;
