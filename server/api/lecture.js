@@ -33,17 +33,17 @@ const postLecture = async (req, res) => {
     // if (teacher) {
     //   const teacherCohort = await db.Cohort.findOne({ where: { teacher_id: teacher.id, id: req.body.id } });
     //   if (teacherCohort) {
+
       console.log(req.body)
-        const teacherLecture = await db.Lecture.findOne({ where: { cohort_id: req.body.cohort_id, name: req.body.name } });
-        if (teacherLecture) {
-          console.log(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
-          res.status(422).send(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
-        } else {
-          const newLecture = await db.Lecture.create(req.body);
-          console.log('Lecture Posted To DB: ', newLecture);
-          // redis.set('dbTeacherCheck', false);
-          res.status(201).send(newLecture);
-        }
+      const teacherLecture = await db.Lecture.findOne({ where: { cohort_id: req.body.cohort_id, name: req.body.name } });
+      if (teacherLecture) {
+        console.log(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
+        res.status(422).send(`${teacherLecture.name} Lecture for ${teacherCohort.subject} already exists for ${teacher.fName} ${teacher.lName}...`);
+      } else {
+        const newLecture = await db.Lecture.create(req.body);
+        console.log("Lecture Posted To DB: ", newLecture);
+        res.status(201).send(newLecture);
+      }
     //   } else {
     //     console.log(`${teacher.fName} ${teacher.lName} Does Not Currently Have A ${req.body.subject} Cohort.`);
     //     res.status(404).send(`${teacher.fName} ${teacher.lName} Does Not Currently Have A ${req.body.subject} Cohort.`);

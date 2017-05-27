@@ -3,21 +3,21 @@ import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateProfile } from '../actions/CurrentProfile';
-import DashNav from '../components/DashboardNavBar';
-import AddClass from '../components/AddClass';
-import AddLecture from '../components/AddLecture';
-import EditClass from '../components/EditClass';
-import EditLecture from '../components/EditLecture';
-import CohortsList from '../components/CohortsList';
-import CurrentLecture from '../components/CurrentLecture';
-import LecturesList from '../components/LecturesList';
-import QuizList from '../components/QuizList';
-import TopicsList from '../components/TopicsList';
-import { allLectures } from '../actions/Lectures';
-import { currentLecture } from '../actions/CurrentLecture';
-import EditTopic from './EditTopic';
-import AddTopic from './AddTopic';
+import { updateProfile } from '../../actions/CurrentProfile';
+import DashNav from './DashboardNavBar';
+import AddClass from '../../components/Lectures/AddClass';
+import AddLecture from '../../components/Lectures/AddLecture';
+import EditClass from '../../components/Cohorts/EditClass';
+import EditLecture from '../../components/Lectures/EditLecture';
+import CohortsList from '../../components/Cohorts/CohortsList';
+import CurrentLecture from '../../components/Lectures/CurrentLecture';
+import LecturesList from '../../components/Lectures/LecturesList';
+import QuizList from '../../components/Quizzes/QuizList';
+import TopicsList from '../../components/Topics/TopicsList';
+import { allLectures } from '../../actions/Lectures';
+import { currentLecture } from '../../actions/CurrentLecture';
+import EditTopic from '../../components/Topics/EditTopic';
+import AddTopic from '../../components/Topics/AddTopic';
 
 
 class Dashboard extends Component {
