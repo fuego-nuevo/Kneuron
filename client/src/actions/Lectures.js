@@ -5,18 +5,3 @@ exports.allLectures = (cohort) => {
     currentCohortId: cohort.id,
   };
 }
-
-
-// exports.createLecture = (lecture) => {
-//   return {
-//     type: 'CREATE_LECTURE',
-//     lecture: lecture,
-//   };
-// }
-
-// exports.deleteLecture = (lecture) => {
-//   return {
-//     type: 'DELETE_LECTURE',
-//     lecture: [],
-//   }
-// }

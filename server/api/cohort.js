@@ -43,13 +43,7 @@ const postCohort = async (req, res) => {
         const newCohort = await db.Cohort.create(req.body);
         if (newCohort) {
           console.log(`${teacher.fName} ${teacher.lName} just added a new ${newCohort.subject} cohort to their schedule.`, newCohort);
-<<<<<<< HEAD
           // redis.set('dbTeacherCheck', false);
-=======
-          const oldData = await redis.get('allTeacherData');
-          JSON.parse(oldData).cohort.push(newCohort);
-          // redis.set('allTeacherData', JSON.stringify(oldData));
->>>>>>> edeb15198d4cf381160e195e8aa682633f342e76
           res.status(201).send(newCohort);
         } else {
           res.status(404).send('Failed To Create New Cohort');

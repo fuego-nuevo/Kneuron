@@ -5,11 +5,8 @@ import FrontPage from '../components/FrontPage/FrontPage';
 import Dashboard from '../components/Dashboard/Dashboard';
 import UserProfile from '../components/Profile/UserProfile';
 import EditProfile from '../components/Profile/EditProfile';
-<<<<<<< HEAD
 import SignUp from '../containers/SignUp';
-=======
-import SignUp from './SignUp';
->>>>>>> edeb15198d4cf381160e195e8aa682633f342e76
+
 
 class Router extends Component {
   constructor(props) {

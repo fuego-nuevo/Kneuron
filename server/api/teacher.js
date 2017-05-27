@@ -12,17 +12,10 @@ const saltRounds = 10;
 const fetchAllTeacherData = async (req, res) => {
   try {
     // let redisTeacherData = await redis.get('allTeacherData');
-<<<<<<< HEAD
     // const checker = await redis.get('dbTeacherCheck');
     // redisTeacherData = JSON.parse(redisTeacherData);
     const email = antiHasher(req.params.auth_token);
     // if (redisTeacherData !== null && redisTeacherData.email === email && checker === 'true') {
-=======
-    // const check = await redis.get('dbTeacherCheck');
-    // redisTeacherData = JSON.parse(redisTeacherData);
-    const email = antiHasher(req.params.auth_token);
-    // if (redisTeacherData !== null && redisTeacherData.email === email && check === 'true') {
->>>>>>> edeb15198d4cf381160e195e8aa682633f342e76
     //   res.status(200).send(redisTeacherData);
     // } else {
       const allData = await db.User.findOne({
@@ -62,10 +55,6 @@ const fetchAllTeacherData = async (req, res) => {
       // redis.set('allTeacherData', JSON.stringify(allData));
       // redis.set('dbTeacherCheck', true);
       res.status(200).send(allData);
-<<<<<<< HEAD
-=======
-    // }
->>>>>>> edeb15198d4cf381160e195e8aa682633f342e76
   } catch (error) {
     console.log('Some shit went wrong ', error);
     res.status(500).send(error);

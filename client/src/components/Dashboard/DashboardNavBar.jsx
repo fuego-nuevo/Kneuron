@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { logoutUser } from '../../actions/Login';
-<<<<<<< HEAD:client/src/components/Dashboard/DashboardNavBar.jsx
-import '../../styles/main.css';
-=======
 import '../../styles/Main.css';
->>>>>>> edeb15198d4cf381160e195e8aa682633f342e76:client/src/components/Dashboard/DashboardNavBar.jsx
 
 
 class DashNav extends Component {

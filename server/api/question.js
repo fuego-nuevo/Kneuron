@@ -6,10 +6,6 @@ const postQuestion = async (req, res) => {
   console.log(req.body, ' THIS IS THE REQ DOT BODY   ');
   try {
     const quiz = await db.Quiz.findOne({ where: { id: req.body.quiz_id } });
-<<<<<<< HEAD
-=======
-    console.log('this is the qui we tryna hit', quiz);
->>>>>>> edeb15198d4cf381160e195e8aa682633f342e76
     if (quiz) {
       req.body['quiz_id'] = quiz.id;
       req.body['name'] = req.body.name;
