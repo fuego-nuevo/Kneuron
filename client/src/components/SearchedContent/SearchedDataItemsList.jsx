@@ -1,8 +1,8 @@
 import React from 'react';
-import SearchedDataCohorts from './SearchedDataCohorts';
-import SearchedDataLectures from './SearchedDataLectures';
-import SearchedDataTopics from './SearchedDataTopics';
-import SearchedDataQuizzes from './SearchedDataQuizzes';
+import SearchedDataCohorts from './Cohorts/SearchedDataCohorts';
+import SearchedDataLectures from './Lectures/SearchedDataLectures';
+import SearchedDataTopics from './Topics/SearchedDataTopics';
+import SearchedDataQuizzes from './Quizzes/SearchedDataQuizzes';
 
 
 const SearchedDataItemsList = props => (
