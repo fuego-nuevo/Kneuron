@@ -11,50 +11,42 @@ const saltRounds = 10;
 // Fetch ALL INFORMATION on Teacher
 const fetchAllTeacherData = async (req, res) => {
   try {
-    // let redisTeacherData = await redis.get('allTeacherData');
-    // const checker = await redis.get('dbTeacherCheck');
-    // redisTeacherData = JSON.parse(redisTeacherData);
     const email = antiHasher(req.params.auth_token);
-    // if (redisTeacherData !== null && redisTeacherData.email === email && checker === 'true') {
-    //   res.status(200).send(redisTeacherData);
-    // } else {
-      const allData = await db.User.findOne({
-        where: {
-          email: email,
-          userType: 0,
-        },
+    const allData = await db.User.findOne({
+      where: {
+        email: email,
+        userType: 0,
+      },
+      include: [{
+        model: db.Cohort,
+        as: 'cohort',
+        // Begin - This is the query to find all students associated to a cohort
+        // include: [{
+        //   model: db.StudentCohort,
+        //   include: [{
+        //     model: db.User
+        //   }]
+        // }]
+        // End - This is the query to find all students associated to a cohort
         include: [{
-          model: db.Cohort,
-          as: 'cohort',
-          // Begin - This is the query to find all students associated to a cohort
-          // include: [{
-          //   model: db.StudentCohort,
-          //   include: [{
-          //     model: db.User
-          //   }]
-          // }]
-          // End - This is the query to find all students associated to a cohort
+          model: db.Lecture,
           include: [{
-            model: db.Lecture,
+            model: db.Topic,
             include: [{
-              model: db.Topic,
+              model: db.Quiz,
               include: [{
-                model: db.Quiz,
-                include: [{
-                  model: db.Question,
-                  // include: [{
-                  //   model: db.Answer,
-                  // }],
-                }],
+                model: db.Question,
+                // include: [{
+                //   model: db.Answer,
+                // }],
               }],
             }],
           }],
         }],
-      });
-      console.log('All information front loaded ', allData);
-      // redis.set('allTeacherData', JSON.stringify(allData));
-      // redis.set('dbTeacherCheck', true);
-      res.status(200).send(allData);
+      }],
+    });
+    console.log('All information front loaded ', allData);
+    res.status(200).send(allData);
   } catch (error) {
     console.log('Some shit went wrong ', error);
     res.status(500).send(error);
@@ -65,34 +57,25 @@ const fetchAllTeacherData = async (req, res) => {
 
 const fetchStudents = async (req, res) => {
   try {
-    // let redisTeacherData = await redis.get('allTeacherData');
-    // const checker = await redis.get('dbTeacherCheck');
-    // redisTeacherData = JSON.parse(redisTeacherData);
     const email = antiHasher(req.params.auth_token);
-    // if (redisTeacherData !== null && redisTeacherData.email === email && checker === 'true') {
-    //   res.status(200).send(redisTeacherData);
-    // } else {
-      const allStudent = await db.User.findOne({
-        where: {
-          email: email,
-          userType: 0,
-        },
+    const allStudent = await db.User.findOne({
+      where: {
+        email: email,
+        userType: 0,
+      },
+      include: [{
+        model: db.Cohort,
+        as: 'cohort',
         include: [{
-          model: db.Cohort,
-          as: 'cohort',
+          model: db.StudentCohort,
           include: [{
-            model: db.StudentCohort,
-            include: [{
-              model: db.User,
-            }],
+            model: db.User,
           }],
         }],
-      });
-      console.log('Retrived all students', allStudent);
-      // redis.set(`allTeacherStudent${email}`, JSON.stringify(allStudent));
-      // redis.set(`dbTeacherStudentCheck${email}`, true);
-      res.status(200).send(allStudent);
-    // }
+      }],
+    });
+    console.log('Retrived all students', allStudent);
+    res.status(200).send(allStudent);
   } catch (error) {
     console.log('Error in fetchStudents');
     res.status(500).send(error);
@@ -138,7 +121,6 @@ const postTeacher = async (req, res) => {
         school_id: req.body.school_id,
       });
       console.log('Signed Up New User: ', { user: newUser, id_token: hasher(req.body.email) });
-      // redis.set('dbTeacherCheck', false);
       res.status(201).send({ user: newUser, id_token: hasher(req.body.email) });
     }
   } catch (error) {
@@ -162,7 +144,6 @@ const updateTeacher = async (req, res) => {
       });
       if (updatedTeacher) {
         console.log('Teacher successfully updated ', updatedTeacher);
-        // redis.set('dbTeacherCheck', false);
         res.status(200).send({ teacher: updatedTeacher, auth_token: hasher(updatedTeacher.email) });
       } else {
         console.log('Missing a parameter');
@@ -185,7 +166,6 @@ const deleteTeacher = async (req, res) => {
     if (teacher) {
       teacher.destroy({ force: true });
       console.log('Teacher deleted');
-      // redis.set('dbTeacherCheck', false);
       res.status(200).send(teacher);
     } else {
       console.log('Teacher not found');
