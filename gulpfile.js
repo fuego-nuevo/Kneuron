@@ -16,17 +16,17 @@ env({
 const db = require('./server/db/models');
 
 const models = {
-  'School': db.School,
-  'User': db.User,
-  'StudentQuestion' : db.StudentQuestion,
-  'Cohort' : db.Cohort,
-  'StudentCohort' : db.StudentCohort,
-  'Lecture' : db.Lecture,
-  'Topic' : db.Topic,
-  'Quiz' : db.Quiz,
-  'Question' : db.Question,
-  'Answer' : db.Answer,
-  'Result' : db.Result,
+  School: db.School,
+  User: db.User,
+  StudentQuestion: db.StudentQuestion,
+  Cohort: db.Cohort,
+  StudentCohort: db.StudentCohort,
+  Lecture: db.Lecture,
+  Topic: db.Topic,
+  Quiz: db.Quiz,
+  Question: db.Question,
+  Answer: db.Answer,
+  Result: db.Result,
 };
 
 gulp.task('sync', (cb) => {

@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 const TopicsList = props => (
   <div>
     <div className="class-nav">
-      <button className="addT-left"><Link to="/dashboard/addTopic">Add Topic</Link></button>
-      <button className="addT-right"><Link to="/dashboard/editTopic">Edit Topic</Link></button>
+      <button className="addC-left"><Link to="/dashboard/addTopic">Add Topic</Link></button>
+      <button className="addC-right"><Link to="/dashboard/editTopic">Edit Topic</Link></button>
     </div>
     <div className="cohort-holder">
       {props.topics.map(topic => (

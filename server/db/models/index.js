@@ -34,6 +34,10 @@ const User = db.define('user', {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+  image: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
 });
 
 const StudentQuestion = db.define('studentquestion', {

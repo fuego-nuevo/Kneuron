@@ -86,11 +86,9 @@ const fetchStudents = async (req, res) => {
 const fetchTeacher = async (req, res) => {
   try {
     const user = await db.User.findOne({ where: { email: req.params.email } });
-    console.log('this is the user info line 58   ,', user);
     const data = await bcrypt.compare(req.params.creds, user.password);
-    console.log('this is data line 60 true or fale , ', data);
     if (data) {
-      console.log('User Logged In: ', { user: user, id_token: hasher(`${req.params.email}`) });
+      // console.log('User Logged In: ', { user: user, id_token: hasher(`${req.params.email}`) });
       res.status(200).send({ user: user, id_token: hasher(req.params.email) });
     } else {
       res.status(404).send('Credentials incorrect');
@@ -119,6 +117,7 @@ const postTeacher = async (req, res) => {
         lName: req.body.lName,
         username: req.body.username,
         school_id: req.body.school_id,
+        image: req.body.image,
       });
       console.log('Signed Up New User: ', { user: newUser, id_token: hasher(req.body.email) });
       res.status(201).send({ user: newUser, id_token: hasher(req.body.email) });
