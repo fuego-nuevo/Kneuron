@@ -3,8 +3,8 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 
 const redis = require('../db/redis');
-const antiHasher = require('../utils');
-const hasher = require('../utils');
+const antiHasher = require('./util').antiHasher;
+const hasher = require('./util').hasher;
 
 const saltRounds = 10;
 
@@ -36,6 +36,23 @@ const fetchAllStudentData = async (req, res) => {
                   //   }]
                   // }],
                 }],
+    // const email = antiHasher(req.params.auth_token);
+    // const allData = await db.User.findOne({
+    //   where: {
+    //     email: email,
+    //     userType: 1,
+    //   },
+    //   include: [{
+    //     model: db.Cohort,
+    //     as: 'cohort',
+    //     include: [{
+    //       model: db.Lecture,
+    //       include: [{
+    //         model: db.Topic,
+    //         include: [{
+    //           model: db.Quiz,
+    //           include: [{
+    //             model: db.Question,
               }],
             }],
           }],
@@ -53,9 +70,11 @@ const fetchAllStudentData = async (req, res) => {
 const fetchStudent = async (req, res) => {
   try {
     const user = await db.User.findOne({ where: { email: req.params.email } });
-    const data = await bcrypt.compare(req.params.creds, user.password);
-    if (data) {
-      console.log('User Logged In: ', { user: user, id_token: hasher(`${req.params.email}`) });
+    console.log('this is the user in fetchStudent ', user)
+    console.log('this is the user in fetchStudent ', hasher(req.params.email))
+    // const data = await bcrypt.compare(req.params.creds, user.password);
+    if (req.params.creds === user.password) {
+      console.log('User Logged In: ', { user: user, id_token: hasher(req.params.email) });
       res.status(200).send({ user: user, id_token: hasher(req.params.email) });
     } else {
       res.status(404).send('Credentials incorrect');
