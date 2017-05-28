@@ -134,6 +134,7 @@ const postTeacher = async (req, res) => {
         lName: req.body.lName,
         username: req.body.username,
         school_id: req.body.school_id,
+        image: req.body.image,
       });
       console.log('Signed Up New User: ', { user: newUser, id_token: hasher(req.body.email) });
       // redis.set('dbTeacherCheck', false);
