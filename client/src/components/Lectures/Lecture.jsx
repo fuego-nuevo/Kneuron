@@ -12,6 +12,8 @@ class Lecture extends Component {
     this.deleteLecture = this.deleteLecture.bind(this);
   }
 
+
+
   async deleteLecture() {
     try {
       const removed = await axios.delete(`/api/lectures/${this.props.lecture.id}`);
@@ -35,12 +37,11 @@ class Lecture extends Component {
     return (
       <div
         className="cohort-entry animated bounceInUp"
-        onMouseEnter={() => this.props.handleLectureClick(this.props.lecture.id)}
       >
       <div
         id="lecture-entry"
         className="ch-entry-header">{this.props.lecture.name}</div>
-      <button className="lecture-button">
+      <button className="lecture-button" onClick={() => this.props.handleLectureClick(this.props.lecture.id)}>
         <Link
           to={currentLectureRoute}
           selectedLecture={this.props.lecture.id}

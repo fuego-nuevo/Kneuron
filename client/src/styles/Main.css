@@ -601,6 +601,37 @@ textarea:focus, input:focus{
     height: 100%;
 }
 
+.nav-search-submit{
+    position:absolute;
+    right: -70px;
+    border-style: none;
+    background-color: white;
+    opacity: 0.1%;
+    width: 40%;
+    border-radius: 1px;
+    height: 105%;
+}
+
+.search-btn{
+  background-color: rgb(0, 0, 0, 0.1);
+  color: #fff;
+  border: 1px solid #fff;
+  text-align: center;
+  outline: none;
+  text-decoration: none;
+  border-radius: 1px;
+}
+
+.search-btn:hover{
+  background-color: rgb(0, 0, 0, 0.1);
+  color: #f5bd00;
+  border: 1px solid #fff;
+  text-align: center;
+  outline: none;
+  /*text-decoration: none;*/
+  border-radius: 1px;
+}
+
 .search-container{
     position: absolute;
     right: 30vh;

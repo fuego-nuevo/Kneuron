@@ -5,6 +5,7 @@ import currentLecture from './CurrentLecture';
 import currentTopic from './CurrentTopicReducer';
 import currentQuiz from './CurrentQuizReducer';
 import AuthReducer from './AuthReducer';
+import SearchReducer from './SearchReducer';
 
 
 const RootReducer = combineReducers({
@@ -14,6 +15,7 @@ const RootReducer = combineReducers({
   currentLecture,
   currentTopic,
   currentQuiz,
+  searchedResults: SearchReducer,
 });
 
 export default RootReducer;
