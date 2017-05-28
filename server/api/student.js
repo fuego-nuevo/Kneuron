@@ -29,12 +29,6 @@ const fetchAllStudentData = async (req, res) => {
                 model: db.Quiz,
                 include: [{
                   model: db.Question,
-                  // include: [{
-                  //   model: db.Answer,
-                  //   include: [{
-                  //     model: db.Question
-                  //   }]
-                  // }],
                 }],
               }],
             }],
