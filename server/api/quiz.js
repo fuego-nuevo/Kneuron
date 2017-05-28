@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const db = require('../db/models');
-const redis = require('../db/redis');
 
 const postQuiz = async (req, res) => {
   try {
@@ -10,7 +9,6 @@ const postQuiz = async (req, res) => {
       req.body['name'] = req.body.name;
       const quiz = await db.Quiz.create(req.body);
       console.log('Quiz created!');
-      // redis.set('dbTeacherCheck', false);
       res.status(200).send(quiz);
     } else {
       console.log('Topic does not exist');
@@ -29,7 +27,6 @@ const updateQuiz = async (req, res) => {
       req.body['name'] = req.body.name;
       const updatedQuiz = await quiz.update(req.body);
       console.log('Quiz updated!');
-      // redis.set('dbTeacherCheck', false);
       res.status(200).send(updatedQuiz);
     } else {
       console.log('Quiz does not exist');
@@ -47,7 +44,6 @@ const deleteQuiz = async (req, res) => {
     if (quiz) {
       const deletedQuiz = await quiz.destroy({ force: true });
       console.log('Quiz deleted');
-      // redis.set('dbTeacherCheck', false);
       res.status(200).send(deletedQuiz);
     } else {
       console.log('Quiz does not exist');

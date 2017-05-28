@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const db = require('../db/models');
-const redis = require('../db/redis');
+// const redis = require('../db/redis');
 const antiHasher = require('./util').antiHasher;
 
 // Controller
@@ -43,7 +43,6 @@ const postCohort = async (req, res) => {
         const newCohort = await db.Cohort.create(req.body);
         if (newCohort) {
           console.log(`${teacher.fName} ${teacher.lName} just added a new ${newCohort.subject} cohort to their schedule.`, newCohort);
-          // redis.set('dbTeacherCheck', false);
           res.status(201).send(newCohort);
         } else {
           res.status(404).send('Failed To Create New Cohort');
@@ -75,7 +74,6 @@ const updateCohort = async (req, res) => {
           time: req.body.time,
         }, { where: { id: cohort.id } });
         if (updatedCohort) {
-          // redis.set('dbTeacherCheck', false);
           res.status(201).send(updatedCohort);
         } else {
           console.log(`Couldn't update ${teacher.fName} ${teacher.lName}'s ${cohort.subject} cohort`);
@@ -107,7 +105,6 @@ const deleteCohort = async (req, res) => {
       if (cohort) {
         cohort.destroy({ force: true });
         console.log('Cohort Was Successfully Deleted: ', cohort);
-        // redis.set('dbTeacherCheck', false);
         res.status(201).send(`${cohort} was destroyed from DB`);
       } else {
         console.log('Cohort with teacher_id and cohort_id not found');
