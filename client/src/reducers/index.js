@@ -7,7 +7,6 @@ import currentQuiz from './CurrentQuizReducer';
 import AuthReducer from './AuthReducer';
 import SearchReducer from './SearchReducer';
 
-
 const RootReducer = combineReducers({
   profile: CurrentProfile,
   auth: AuthReducer,
