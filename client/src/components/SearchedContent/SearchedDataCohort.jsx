@@ -1,11 +1,12 @@
-import React, { Component } from 'React';
-
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class SearchedDataCohort extends Component {
   constructor(props){
     super(props);
     this.state = {
-
+      lectures: [],
     };
 
     this.deleteClass = this.deleteClass.bind(this);
@@ -45,11 +46,15 @@ class SearchedDataCohort extends Component {
     return(
       <div>
         <div className="cohort-entry animated bounceInUp" >
-        <div className="ch-entry-header">{this.props.cohort.subject}</div>
-        <h3>{this.props.cohort.time}</h3>
-        <button className="lecture-button" onClick={this.fetchLectures}><Link to="/dashboard/lectures">Lectures</Link></button>
-        <button onClick={this.deleteClass} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
+          <div className="ch-entry-header">{this.props.cohort.subject}</div>
+          <h3>{this.props.cohort.time}</h3>
+          <button className="lecture-button" onClick={this.fetchLectures}><Link to="/dashboard/lectures">Lectures</Link></button>
+          <button onClick={this.deleteClass} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
+        </div>
       </div>
     )
   }
 }
+
+
+export default SearchedDataCohort;

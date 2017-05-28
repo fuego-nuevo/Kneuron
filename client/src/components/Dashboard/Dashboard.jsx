@@ -21,7 +21,7 @@ import { reduxDataSearch } from '../../actions/Search';
 import EditTopic from '../../components/Topics/EditTopic';
 import AddTopic from '../../components/Topics/AddTopic';
 import AddQuestion from '../Questions/AddQuestion';
-import SearchedDataItemsList from '../SearchedContent/SearchedDataItemsList';
+import SearchedDataItemsList from '../../components/SearchedContent/SearchedDataItemsList';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -42,6 +42,7 @@ class Dashboard extends Component {
     this.renderAddTopic = this.renderAddTopic.bind(this);
     this.renderAddQuiz = this.renderAddQuiz.bind(this);
     this.renderAddQuestion = this.renderAddQuestion.bind(this);
+    this.renderSearchedDataItemsList = this.renderSearchedDataItemsList.bind(this);
   }
 
   componentDidMount() {
@@ -104,8 +105,9 @@ class Dashboard extends Component {
     return (<CurrentLecture location={location} lectureId={lectureId || ''} history={history} fetchTeacherInfo={this.fetchTeacherInfo} name={name || ''} topics={topics || []} />);
   }
 
-  renderSearchedDataItemsList(){
-    return (<SearchedDataItemsList SearchedContentResults={this.props.searchedResults}/>);
+  renderSearchedDataItemsList() {
+    const { searchedResults, history, lectureId } = this.props;
+    return (<SearchedDataItemsList history={history} lectureId={lectureId || ''} handleLectureClick={this.handleLectureClick} searchedContentResults={searchedResults || []} allLectures={this.props.allLectures.bind(this)} fetchTeacherInfo={this.fetchTeacherInfo} />);
   }
 
   handleLectureClick(lectureId) {

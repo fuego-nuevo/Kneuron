@@ -3,8 +3,8 @@ import SearchedDataQuiz from './SearchedDataQuiz';
 
 const SearchedDataQuizzes = props => (
   <div>
-    {this.props.quizzes.map(quiz => (
-      <SearchedDataQuiz quiz={quiz} />
+    {props.quizzes.map(quiz => (
+      <SearchedDataQuiz quiz={quiz} history={props.history} fetchTeacherInfo={props.fetchTeacherInfo}/>
     ))}
   </div>
 )
