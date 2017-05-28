@@ -53,11 +53,9 @@ server.listen(process.env.PORT, (err) => {
   }
 });
 
-// // Catches all 404 routes.
-// app.use((error, req, res, next) => {
-//   const err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
+// Catches all 404 routes.
+app.use((error, req, res, next) => {;
+  next(error);
+});
 
 module.exports = app;

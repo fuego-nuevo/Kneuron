@@ -16,7 +16,7 @@ env({
 const db = require('./server/db/models');
 
 const models = {
-  'School' : db.School,
+  'School': db.School,
   'User': db.User,
   'StudentQuestion' : db.StudentQuestion,
   'Cohort' : db.Cohort,
