@@ -63,6 +63,10 @@ const Lecture = db.define('lecture', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  date: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
 });
 
 const Topic = db.define('topic', {
@@ -105,16 +109,7 @@ const Attendance = db.define('attendance', {
 
 // Join Tables
 // Students and Cohorts
-const StudentCohort = db.define('studentcohort', {
-  // student_id: {
-  //   type: Sequelize.INTEGER,
-  //   allowNull: false,
-  // },
-  // cohort_id: {
-  //   type: Sequelize.INTEGER,
-  //   allowNull: false,
-  // },
-});
+const StudentCohort = db.define('studentcohort', {});
 
 const Answer = db.define('answer', {
   isCorrect: {
@@ -185,6 +180,9 @@ User.hasMany(Result, { foreignKey: { name: 'student_id', allowNull: false }, onD
 Result.belongsTo(User, { foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
 Quiz.hasMany(Result, { foreignKey: { name: 'quiz_id', allowNull: false }, onDelete: 'CASCADE' });
 Result.belongsTo(Quiz, { foreignKey: { name: 'quiz_id', allowNull: false }, onDelete: 'CASCADE' });
+
+Cohort.hasMany(Result, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
+Result.belongsTo(Cohort, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
 
 module.exports = {
   School,

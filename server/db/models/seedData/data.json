@@ -79,14 +79,16 @@
     "data": {
       "id": 1,
       "name": "Addition Lecture",
+      "date": "2017-08-09",
       "cohort_id": 1
     }
   },
-  {
+   {
     "model": "Lecture",
     "data": {
       "id": 2,
       "name": "Subtraction Lecture",
+      "date": "2017-08-02",
       "cohort_id": 2
     }
   },
@@ -95,6 +97,7 @@
     "data": {
       "id": 3,
       "name": "Multiplacation Lecture",
+      "date": "2017-08-03",
       "cohort_id": 1
     }
   },
@@ -103,6 +106,7 @@
     "data": {
       "id": 4,
       "name": "Division Lecture",
+      "date": "2017-08-04",
       "cohort_id": 3
     }
   },
@@ -111,6 +115,7 @@
     "data": {
       "id": 5,
       "name": "Long Division Lecture",
+      "date": "2017-08-05",
       "cohort_id": 3
     }
   },
@@ -204,10 +209,30 @@
     "model": "Answer",
     "data": {
       "id": 1,
-      "name": "1+1",
+      "isCorrect": true,
+      "selected": 2,
+      "student_id": 3,
+      "question_id": 2
+    }
+  },
+  {
+    "model": "Answer",
+    "data": {
+      "id": 2,
+      "isCorrect": true,
       "selected": 2,
       "student_id": 3,
       "question_id": 1
+    }
+  },
+  {
+    "model": "Answer",
+    "data": {
+      "id": 3,
+      "isCorrect": false,
+      "selected": 2,
+      "student_id": 3,
+      "question_id": 3
     }
   },
   {
