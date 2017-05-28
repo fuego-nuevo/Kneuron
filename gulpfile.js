@@ -94,4 +94,8 @@ gulp.task('webpack-dev-server', () => {
   });
 });
 
+// gulp.task('deploy', () => {
+
+});
+
 gulp.task('default', ['nodemon', 'dbwatch', 'webpack-dev-server']);
