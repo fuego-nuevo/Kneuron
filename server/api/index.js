@@ -5,6 +5,7 @@ router.use('/teachers', require('./teacher'));
 router.use('/students', require('./student'));
 router.use('/studentQuestions', require('./studentQuestion'));
 // router.use('/studentAttendance', require('./studentAttendance'));
+router.use('/studentCohorts', require('./studentCohort'));
 router.use('/cohorts', require('./cohort'));
 router.use('/lectures', require('./lecture'));
 router.use('/topics', require('./topic'));
