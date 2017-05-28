@@ -4,7 +4,6 @@ import lectures from './Lectures';
 import currentLecture from './CurrentLecture';
 import currentTopic from './CurrentTopicReducer';
 import currentQuiz from './CurrentQuizReducer';
-import currentLiveLecture from './CurrentLiveLectureReducer';
 import AuthReducer from './AuthReducer';
 
 
@@ -15,7 +14,6 @@ const RootReducer = combineReducers({
   currentLecture,
   currentTopic,
   currentQuiz,
-  currentLiveLecture,
 });
 
 export default RootReducer;

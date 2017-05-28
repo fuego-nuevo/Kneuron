@@ -21,6 +21,7 @@ import { currentLecture } from '../../actions/CurrentLecture';
 import EditTopic from '../../components/Topics/EditTopic';
 import AddTopic from '../../components/Topics/AddTopic';
 import AddQuestion from '../Questions/AddQuestion';
+import Upload from '../../components/FileUpload/ImageUploader';
 
 const socket = io();
 
@@ -138,6 +139,7 @@ class Dashboard extends Component {
     return (
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} />
+        <Route path="/dashboard/upload" component={Upload} />
         <Route path="/dashboard/class" render={this.renderCohort} />
         <Route path="/dashboard/lectures" render={this.renderLecturesList} />
         <Route path="/dashboard/livelecture" render={this.renderLiveLecture} />

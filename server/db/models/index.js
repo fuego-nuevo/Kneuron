@@ -35,7 +35,7 @@ const User = db.define('user', {
     allowNull: false,
   },
   image: {
-    type: Sequelize.STRING,
+    type: Sequelize.BLOB,
     allowNull: true,
   },
 });

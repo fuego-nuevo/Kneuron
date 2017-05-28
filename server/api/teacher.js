@@ -89,7 +89,7 @@ const fetchTeacher = async (req, res) => {
     const data = await bcrypt.compare(req.params.creds, user.password);
     if (data) {
       // console.log('User Logged In: ', { user: user, id_token: hasher(`${req.params.email}`) });
-      res.status(200).send({ user: user, id_token: hasher(req.params.email) });
+      res.status(200).send({ user, id_token: hasher(req.params.email) });
     } else {
       res.status(404).send('Credentials incorrect');
     }
@@ -101,6 +101,7 @@ const fetchTeacher = async (req, res) => {
 
 // Sign Up Teacher with Async
 const postTeacher = async (req, res) => {
+  console.log(req.body.image, 'this is apppealndsldfsjlkjl;');
   try {
     const salt = await bcrypt.genSalt(saltRounds);
     const hash = await bcrypt.hash(req.body.password, salt);
