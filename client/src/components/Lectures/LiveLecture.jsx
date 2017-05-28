@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import io from 'socket.io-client';
+
+const socket = io();
 
 
 class LiveLecture extends Component {
@@ -10,6 +14,11 @@ class LiveLecture extends Component {
   }
 
   componentDidMount() {
+    const { topics, email } = this.props;
+    socket.emit('live-lecture', { topics, email });
+    socket.on('student-question', (questions) => {
+      console.log(questions);
+    });
   }
 
   render() {
@@ -22,5 +31,9 @@ class LiveLecture extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  email: state.profile.email,
+});
 
-export default LiveLecture;
+
+export default connect(mapStateToProps)(LiveLecture);

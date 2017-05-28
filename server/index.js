@@ -28,6 +28,36 @@ app.get('*', (req, res) => {
 
 app.use(express.static(path.join(__dirname, '../static')));
 
+
+io.on('connection', (socket) => {
+  socket.on('join', (data) => {
+    socket.join(data.email);
+  });
+  socket.on('live-lecture', (data) => {
+    const topics = data.topics;
+    const teacherRoom = data.email;
+    console.log('this is sockets live lecture event emitting ,');
+    console.log(data.topics);
+    console.log(teacherRoom);
+    io.sockets.in(teacherRoom).emit('live-lecture', topics);
+  });
+  socket.on('pop-quiz', (data) => {
+    const quiz = data.quiz;
+    const teacherRoom = data.email;
+    io.sockets.in(teacherRoom).emit('pop-quiz', { quiz });
+  });
+  socket.on('student-question', (data) => {
+    const question = data.question;
+    const topic = data.topic;
+    const student = data.name;
+    const teacherRoom = data.teacherEmail;
+    io.sockets.in(teacherRoom).emit('student-question', {
+      question,
+      topic,
+      student,
+    });
+  });
+});
 // io.on('connection', (client) => {
 //   const nsp = io.of('/lectures');
 //   nsp.on('join', (data) => {
@@ -36,7 +66,7 @@ app.use(express.static(path.join(__dirname, '../static')));
 //   nsp.on('topic', (data) => {
 //     io.of(data.name).emit('topic', data);
 //   });
-
+//
 //   nsp.on('students', (data) => {
 //     io.of(data.name).emit('quiz', data);
 //   });

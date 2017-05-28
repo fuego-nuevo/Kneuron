@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
+import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateProfile } from '../../actions/CurrentProfile';
@@ -20,6 +21,8 @@ import { currentLecture } from '../../actions/CurrentLecture';
 import EditTopic from '../../components/Topics/EditTopic';
 import AddTopic from '../../components/Topics/AddTopic';
 import AddQuestion from '../Questions/AddQuestion';
+
+const socket = io();
 
 
 class Dashboard extends Component {
@@ -45,7 +48,11 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.fetchTeacherInfo();
+    const { email } = this.props;
+    this.fetchTeacherInfo()
+    .then(() => {
+      socket.emit('join', { email });
+    });
     this.setState({ selectedLecture: this.props.currentLecture.lectureId });
   }
   componentWillReceiveProps(nextProps) {
