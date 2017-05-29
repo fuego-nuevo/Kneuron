@@ -120,12 +120,12 @@ class Dashboard extends Component {
     const { lectures } = this.props;
     this.setState({ selectedLecture: lectureId }, () => this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture)));
   }
-    
+
   renderQuiz() {
     const { quizzes } = this.props;
     return (<QuizList history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} quizzes={quizzes || []} />);
   }
-    
+
   renderLiveLecture() {
     const { liveLectureTopics } = this.props;
     return (<LiveLecture topics={liveLectureTopics || []} />);

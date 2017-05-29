@@ -5,32 +5,38 @@ import SearchedDataTopics from './Topics/SearchedDataTopics';
 import SearchedDataQuizzes from './Quizzes/SearchedDataQuizzes';
 
 
-const SearchedDataItemsList = props => (
-  <div>
+const SearchedDataItemsList = props => {
+  const cohortsClassName = props.searchedContentResults[0].length ? 'searched-cohorts' : 'hidden';
+  const lecturesClassName = props.searchedContentResults[1].length ? 'searched-lectures' : 'hidden';
+  const topicsClassName = props.searchedContentResults[2].length ? "searched-topics" : 'hidden';
+  const quizzesClassName = props.searchedContentResults[3].length ? "searched-quizzes" : 'hidden';
+  return(
     <div>
-      <h1>Cohorts</h1>
-      <SearchedDataCohorts fetchTeacherInfo={props.fetchTeacherInfo} history={props.history} allLectures={props.allLectures} cohorts={props.searchedContentResults[0]} />
-    <hr/>
-    <br/>
+      <div className="searched-container">
+        <div className={cohortsClassName}>
+          <h1>Cohorts</h1>
+          <hr/>
+          <SearchedDataCohorts fetchTeacherInfo={props.fetchTeacherInfo} history={props.history} allLectures={props.allLectures} cohorts={props.searchedContentResults[0]} />
+        </div>
+        <div className={lecturesClassName}>
+          <h1>Lectures</h1>
+          <hr/>
+          <SearchedDataLectures handleLectureClick={props.handleLectureClick} fetchTeacherInfo={props.fetchTeacherInfo} history={props.history} lectures={props.searchedContentResults[1]} />
+        </div>
+        <div className={topicsClassName}>
+          <h1>Topics</h1>
+          <hr/>
+          <SearchedDataTopics fetchTeacherInfo={props.fetchTeacherInfo} history={props.history} topics={props.searchedContentResults[2]} />
+        </div>
+        <div className={quizzesClassName}>
+          <h1>Quizzes</h1>
+          <hr/>
+          <SearchedDataQuizzes fetchTeacherInfo={props.fetchTeacherInfo} history={props.history} quizzes={props.searchedContentResults[3]} />
+        </div>
+      </div>
     </div>
-    <div>
-      <h1>Lectures</h1>
-      <SearchedDataLectures handleLectureClick={props.handleLectureClick} fetchTeacherInfo={props.fetchTeacherInfo} history={props.history} lectures={props.searchedContentResults[1]} />
-    <hr/>
-    <br/>
-    </div>
-    <div>
-      <h1>Topics</h1>
-      <SearchedDataTopics fetchTeacherInfo={props.fetchTeacherInfo} history={props.history} topics={props.searchedContentResults[2]} />
-    <hr/>
-    <br/>
-    </div>
-    <div>
-      <h1>Quizzes</h1>
-      <SearchedDataQuizzes fetchTeacherInfo={props.fetchTeacherInfo} history={props.history} quizzes={props.searchedContentResults[3]} />
-    </div>
-  </div>
-);
+  )
+};
 
 
 export default SearchedDataItemsList;
