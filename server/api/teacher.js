@@ -102,6 +102,7 @@ const fetchTeacher = async (req, res) => {
 // Sign Up Teacher with Async
 const postTeacher = async (req, res) => {
   try {
+      console.log('this is the req.body in postTeacher ', req.body)
     const salt = await bcrypt.genSalt(saltRounds);
     const hash = await bcrypt.hash(req.body.password, salt);
     const person = await db.User.findOne({ where: { email: req.body.email } });

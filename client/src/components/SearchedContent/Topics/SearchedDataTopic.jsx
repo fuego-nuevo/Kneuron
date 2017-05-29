@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { currentTopic } from '../../actions/CurrentTopic';
+import { currentTopic } from '../../../actions/CurrentTopic';
 import axios from 'axios';
 
 
