@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { currentLiveLecture } from '../../actions/CurrentLiveLecture';
 
 class SearchDataLecture extends Component {
   constructor(props){
@@ -10,6 +11,7 @@ class SearchDataLecture extends Component {
     };
 
     this.deleteLecture = this.deleteLecture.bind(this);
+    this.runLiveLecture = this.runLiveLecture.bind(this);
   }
 
   async deleteLecture() {
@@ -26,6 +28,11 @@ class SearchDataLecture extends Component {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async runLiveLecture() {
+    const updateLecture = await this.props.currentLiveLecture(this.props.lecture);
+    this.props.history.push('/dashboard/livelecture');
   }
 
 
@@ -47,6 +54,7 @@ class SearchDataLecture extends Component {
           See Topics
         </Link>
       </button>
+      <button onClick={this.runLiveLecture} className="go-live"><img alt="delete" src="https://image.flaticon.com/icons/png/128/42/42912.png" width="25px" height="25px" /></button>
       <button onClick={this.deleteLecture} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
     </div>
     );

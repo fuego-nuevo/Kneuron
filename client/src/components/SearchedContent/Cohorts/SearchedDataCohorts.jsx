@@ -3,7 +3,7 @@ import SearchedDataCohort from './SearchedDataCohort';
 
 
 const SearchedDataCohorts = props => (
-  <div>
+  <div className="searched-cohorts-list">
     {props.cohorts.map(cohort => (
       <SearchedDataCohort cohort={cohort} history={props.history} allLectures={props.allLectures} fetchTeacherInfo={props.fetchTeacherInfo}/>
     ))}

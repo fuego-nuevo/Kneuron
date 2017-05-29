@@ -26,6 +26,10 @@ a{
    text-decoration: none;
 }
 
+h1{
+  text-align: center;
+}
+
 .text-center{
     text-align: center;
 }
@@ -676,4 +680,105 @@ textarea:focus, input:focus{
     border-radius: 5px;
 }
 
+.searched-container{
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  padding: 5px;
+  top: 20px;
+  overflow: auto;
+  z-index: -2;
+  background-color: red solid 4px;
+}
 
+hr{
+  display: inline-block;
+  position: relative;
+  width: 90%;
+  left: 30px;
+}
+
+.searched-cohorts{
+  display: inline-block;
+  position: relative;
+  width: 99%;
+  height: auto;
+  left: 0;
+  right: 0;
+  top: 10px;
+  bottom: 0;
+  margin-bottom: 20px;
+}
+
+.searched-lectures{
+  display: inline-block;
+  position: relative;
+  width: 99%;
+  height: auto;
+  left: 0;
+  right: 0;
+  top: 10px;
+  bottom: 0;
+  margin-bottom: 20px;
+}
+
+
+.searched-topics{
+  display: inline-block;
+  position: relative;
+  width: 99%;
+  height: 650px;
+  left: 0;
+  right: 0;
+  top: 10px;
+  bottom: 0;
+  margin-bottom: 20px;
+}
+
+.searched-quizzes{
+  display: inline-block;
+  position: relative;
+  width: 99%;
+  height: 650px;
+  left: 0;
+  right: 0;
+  top: 10px;
+  bottom: 0;
+  margin-bottom: 20px;
+}
+
+.hidden{
+  display: none;
+  visibility: hidden;
+}
+
+.cohort-entry.animated.boundInUp{
+  z-index: 0;
+  text-align: center;
+}
+
+.ch-entry-header{
+  text-align: center;
+}
+
+.class-time{
+  text-align: center;
+}
+
+.cohort-entry{
+  text-align: center;
+}
+
+.cohort-entry{
+  z-index: 0;
+}
+
+.animated{
+  z-index: 0;
+}
+
+.bounceInUp{
+  z-index: 0;
+}
