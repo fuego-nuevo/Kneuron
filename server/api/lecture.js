@@ -68,7 +68,6 @@ const updateLecture = async (req, res) => {
           lecture.subject = req.body.subject;
           const updatedLecture = await db.Lecture.update({ subject: lecture.subject }, { where: { id: lecture.id } });
           if (updatedLecture) {
-            // redis.set('dbTeacherCheck', false);
             res.status(200).send(updatedLecture);
           } else {
             console.log(`Error Updating ${lecture.name} Lecture For ${teachersCohort.subject} Cohort`);
@@ -96,7 +95,6 @@ const deleteLecture = async (req, res) => {
   try {
     const lecture = await db.Lecture.findOne({ where: { id: req.params.lecture_id } });
     lecture.destroy({ force: true });
-    // redis.set('dbTeacherCheck', false);
     res.status(201).send(`${lecture} was destroyed from DB`);
   } catch (error) {
     console.log('ASYNC issue ', error);

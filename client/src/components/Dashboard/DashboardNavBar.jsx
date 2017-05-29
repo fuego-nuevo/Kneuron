@@ -41,14 +41,9 @@ class DashNav extends Component {
         <div className="dash-nav-items">
           <button><Link to="/dashboard">Home</Link></button>
           <button><Link to="/dashboard/class">Classes</Link></button>
+          <button><Link to="/dashboard/livelecture">live-lecture</Link></button>
         </div>
         <div className="search-container">
-          {/*<select className="filter-bar">*/}
-            {/*<option />*/}
-            {/*<option />*/}
-            {/*<option />*/}
-            {/*<option />*/}
-          {/*</select>*/}
           <form>
             <input onChange={this.handleSearchInput} className="nav-search" placeholder="   search . . ." type="text" />
             <button onClick={this.handleSearchSubmit} className="nav-search-submit"><input className="search-btn" type="submit" value="Search" /></button>

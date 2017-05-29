@@ -11,17 +11,32 @@ class SignUp extends Component {
       lName: '',
       password: '',
       username: '',
+      image: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
   }
 
   handleChange(e) {
     const name = e.target.name;
     this.setState({ [name]: e.target.value });
   }
+  handleImageChange(e) {
+    e.preventDefault();
 
+    const reader = new FileReader();
+    const file = e.target.files[0];
+    reader.onloadend = () => {
+      console.log(file);
+      this.setState({
+        image: reader.result,
+      });
+    }
+    reader.readAsDataURL(file);
+  }
   render() {
-    console.log(this.props)
+    console.log(this.props);
+    console.log(this.state.image);
     return (
       <div className="signup">
         <form className="signup-form" onSubmit={(e) => { e.preventDefault(); this.props.signupUser(this.state, this.props.history); }} autoComplete="on">
@@ -48,6 +63,8 @@ class SignUp extends Component {
                 value={this.state.password}
                 type="password"
               />
+              {/* <label htmlFor="picture">profile picture</label>*/}
+              <input onChange={this.handleImageChange} id="image-upload" type="file" name="profile-picture" />
               <input id="signup-button" type="submit" />
             </div>
           </div>

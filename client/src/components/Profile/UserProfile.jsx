@@ -29,7 +29,7 @@ class UserProfile extends Component {
       if (err){
         console.log('there was an error fetching user', err);
       }
-    })
+    });
   }
 
 

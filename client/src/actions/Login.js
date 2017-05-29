@@ -46,7 +46,6 @@ exports.loginUser = (creds, history) => {
     dispatch(requestLogin(creds));
     return axios.get(`http://localhost:8080/api/teachers/${creds.email}/${creds.password}`)
       .then((response) => {
-        console.log(response);
         if (!response.data) {
           dispatch(loginError('Bad Request...'));
           return Promise.reject(response);
@@ -54,9 +53,7 @@ exports.loginUser = (creds, history) => {
         localStorage.setItem('id_token', response.data.id_token);
         localStorage.setItem('access_token', response.data.id_token);
         dispatch(receiveLogin(response.data));
-        console.log('before dashboard');
         history.push('/dashboard');
-        console.log('after dashboard');
       })
       .catch((err) => {
         console.log('Error: ', err);
@@ -65,7 +62,6 @@ exports.loginUser = (creds, history) => {
 };
 
 exports.signupUser = (creds, history) => {
-  console.log('this is the request in signup line 62 ', creds);
   const body = {
     email: creds.email,
     password: creds.password,
@@ -79,34 +75,24 @@ exports.signupUser = (creds, history) => {
 
     return axios.post('http://localhost:8080/api/teachers', body)
       .then((response) => {
-        console.log(response);
         if (response.statusText !== 'Created') {
           dispatch(loginError('Bad Request...'));
-          console.log('user did not sign up succesfully');
           return Promise.reject(response);
         }
         localStorage.setItem('id_token', response.data.id_token);
         localStorage.setItem('access_token', response.data.id_token);
         dispatch(receiveLogin(response.data));
-        console.log('user did sign up succesfully');
         history.push('/dashboard');
       })
       .catch((err) => {
-        console.log('Error: ', err);
       });
   };
 };
 
 
-exports.logoutUser = () => {
-  console.log('yooo logout ran');
-  return (dispatch) => {
-    console.log('got into dispatch line 96 action/Login.js');
-    dispatch(requestLogout());
-    console.log('got past the dispatch');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('access_token');
-    dispatch(receiveLogout());
-    console.log('did you receive logout');
-  };
+exports.logoutUser = () => (dispatch) => {
+  dispatch(requestLogout());
+  localStorage.removeItem('id_token');
+  localStorage.removeItem('access_token');
+  dispatch(receiveLogout());
 };

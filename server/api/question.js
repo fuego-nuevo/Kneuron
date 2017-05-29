@@ -13,7 +13,6 @@ const postQuestion = async (req, res) => {
       req.body['correct'] = req.body.correct;
       const newQuestion = await db.Question.create(req.body);
       console.log('Question created');
-      // redis.set('dbTeacherCheck', false);
       res.status(200).send(newQuestion);
     } else {
       console.log('Topic not found');
@@ -34,7 +33,6 @@ const updateQuestion = async (req, res) => {
       req.body['correct'] = req.body.correct;
       const updatedQuestion = await question.update(req.body);
       console.log('Question updated!');
-      // redis.set('dbTeacherCheck', false);
       res.status(200).send(updatedQuestion);
     } else {
       console.log('Question not found');
@@ -52,7 +50,6 @@ const deleteQuestion = async (req, res) => {
     if (question) {
       const deletedQuestion = question.destroy({ force: true });
       console.log('Question deleted!');
-      // redis.set('dbTeacherCheck', false);
       res.status(200).send(deletedQuestion);
     } else {
       console.log('Question not found');

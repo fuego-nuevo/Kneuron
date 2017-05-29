@@ -8,13 +8,23 @@ const postAnswer = async (req, res) => {
   try {
     const question = await db.Question.findOne({ where: { id: req.body.question_id } });
     if (question) {
-      req.body['question_id'] = question.id;
-      req.body['student_id'] = req.body.student_id;
-      req.body['selected'] = req.body.selected;
-      const postedAnswer = await db.Answer.create(req.body);
-      console.log('Answer created!');
-      // redis.set('dbTeacherCheck', false);
-      res.status(200).send(postedAnswer);
+      if (question.correct === req.body.selected) {
+        req.body['question_id'] = question.id;
+        req.body['student_id'] = req.body.student_id;
+        req.body['selected'] = req.body.selected;
+        req.body['isCorrect'] = true;
+        const postedAnswer = await db.Answer.create(req.body);
+        console.log('Answer created!');
+        res.status(200).send(postedAnswer);
+      } else {
+        req.body['question_id'] = question.id;
+        req.body['student_id'] = req.body.student_id;
+        req.body['selected'] = req.body.selected;
+        req.body['isCorrect'] = false;
+        const postedAnswer = await db.Answer.create(req.body);
+        console.log('Answer created!');
+        res.status(200).send(postedAnswer);
+      }
     } else {
       console.log('Question not found');
       res.status(404).send('Question not found');
@@ -33,7 +43,6 @@ const updateAnswer = async (req, res) => {
       req.body['selected'] = req.body.selected;
       const updatedAnswer = await answer.update(req.body);
       console.log('Answer updated!');
-      // redis.set('dbTeacherCheck', false);
       res.status(200).send(updatedAnswer);
     } else {
       console.log('Answer not found');

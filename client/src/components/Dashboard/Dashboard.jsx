@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
+import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateProfile } from '../../actions/CurrentProfile';
@@ -14,7 +15,7 @@ import CurrentLecture from '../../components/Lectures/CurrentLecture';
 import LecturesList from '../../components/Lectures/LecturesList';
 import QuizList from '../../components/Quizzes/QuizList';
 import AddQuiz from '../../components/Quizzes/AddQuiz';
-import TopicsList from '../../components/Topics/TopicsList';
+import LiveLecture from '../../components/Lectures/LiveLecture';
 import { allLectures } from '../../actions/Lectures';
 import { currentLecture } from '../../actions/CurrentLecture';
 import { reduxDataSearch } from '../../actions/Search';
@@ -22,6 +23,8 @@ import EditTopic from '../../components/Topics/EditTopic';
 import AddTopic from '../../components/Topics/AddTopic';
 import AddQuestion from '../Questions/AddQuestion';
 import SearchedDataItemsList from '../../components/SearchedContent/SearchedDataItemsList';
+
+const socket = io();
 
 class Dashboard extends Component {
   constructor(props) {
@@ -43,10 +46,15 @@ class Dashboard extends Component {
     this.renderAddQuiz = this.renderAddQuiz.bind(this);
     this.renderAddQuestion = this.renderAddQuestion.bind(this);
     this.renderSearchedDataItemsList = this.renderSearchedDataItemsList.bind(this);
+    this.renderLiveLecture = this.renderLiveLecture.bind(this);
   }
 
   componentDidMount() {
-    this.fetchTeacherInfo();
+    const { email } = this.props;
+    this.fetchTeacherInfo()
+    .then(() => {
+      socket.emit('join', { email });
+    });
     this.setState({ selectedLecture: this.props.currentLecture.lectureId });
   }
   componentWillReceiveProps(nextProps) {
@@ -66,11 +74,9 @@ class Dashboard extends Component {
       console.log('error with your fetch teacher shit ,', error);
     }
   }
-
-
-  renderQuiz() {
-    const { quizzes } = this.props;
-    return (<QuizList history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} quizzes={quizzes || []} />);
+  handleLectureClick(lectureId) {
+    const { lectures } = this.props;
+    this.setState({ selectedLecture: lectureId }, () => this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture)));
   }
   renderAddQuiz() {
     return (<AddQuiz history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} />);
@@ -89,9 +95,9 @@ class Dashboard extends Component {
     return (<AddLecture history={this.props.history} cohortId={currentCohortId} fetchTeacherInfo={this.fetchTeacherInfo} />);
   }
 
-  renderAddTopic(){
+  renderAddTopic() {
     const { history, lectureId, name } = this.props;
-    console.log(lectureId + " for " + name);
+    console.log(`${lectureId} for ${name}`);
     return (<AddTopic history={history} lectureId={lectureId} name={name} fetchTeacherInfo={this.fetchTeacherInfo} />);
   }
 
@@ -113,6 +119,16 @@ class Dashboard extends Component {
   handleLectureClick(lectureId) {
     const { lectures } = this.props;
     this.setState({ selectedLecture: lectureId }, () => this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture)));
+  }
+    
+  renderQuiz() {
+    const { quizzes } = this.props;
+    return (<QuizList history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} quizzes={quizzes || []} />);
+  }
+    
+  renderLiveLecture() {
+    const { liveLectureTopics } = this.props;
+    return (<LiveLecture topics={liveLectureTopics || []} />);
   }
 
   renderCohort() {
@@ -137,6 +153,7 @@ class Dashboard extends Component {
         <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch}/>
         <Route path="/dashboard/class" render={this.renderCohort} />
         <Route path="/dashboard/lectures" render={this.renderLecturesList} />
+        <Route path="/dashboard/livelecture" render={this.renderLiveLecture} />
         <Route path="/dashboard/addClass" render={this.renderAddClass} />
         <Route path="/dashboard/editClass" component={EditClass} />
         <Route path="/dashboard/addQuiz" render={this.renderAddQuiz} />
@@ -165,6 +182,7 @@ const mapStateToProps = (state) => {
   const { email, username, userType, fName, lName, cohort } = state.profile;
   const { lectures, currentCohortId } = state.lectures;
   const { lectureId, name, topics } = state.currentLecture;
+  const { liveLectureId, liveLectureName, liveLectureTopics } = state.currentLiveLecture;
   const { topicId, quizzes } = state.currentTopic;
   const { searchedResults } = state.searchedResults;
   const { quizId } = state.currentQuiz;
@@ -177,6 +195,9 @@ const mapStateToProps = (state) => {
     cohort,
     lectureId,
     lectures,
+    liveLectureId,
+    liveLectureName,
+    liveLectureTopics,
     currentCohortId,
     name,
     topics,

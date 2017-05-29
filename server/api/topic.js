@@ -10,19 +10,17 @@ const postTopic = async (req, res) => {
 //       req.body['lecture_id'] = req.body.lecture_id;
 //       const topic = await db.Topic.create(req.body);
 //       console.log('Topic created');
-//       // redis.set('dbTeacherCheck', false);
 //       res.status(200).send(topic);
       const topic = await db.Topic.findOne({ where: { name: req.body.name }});
-      console.log("TOPIC LOOKUP RESULTED IN: ", topic)
-      if(topic === null){
+      console.log('TOPIC LOOKUP RESULTED IN: ', topic);
+      if (topic === null) {
         req.body['name'] = req.body.name;
         req.body['lecture_id'] = req.body.lecture_id;
-        const topic = await db.Topic.create(req.body);
+        const newTopic = await db.Topic.create(req.body);
         console.log('Topic created');
-        // redis.set('dbTeacherCheck', false);
-        res.status(200).send(topic);
+        res.status(200).send(newTopic);
       } else {
-        console.log("Topic already exists: ", topic);
+        console.log('Topic already exists: ', topic);
         res.status(200).send(topic);
       }
     } else {
@@ -42,7 +40,6 @@ const updateTopic = async (req, res) => {
       req.body['name'] = req.body.name;
       const updatedTopic = await topic.update(req.body);
       console.log('Topic updated');
-      // redis.set('dbTeacherCheck', false);
       res.status(200).send(updatedTopic);
     } else {
       console.log('Topic not found');
@@ -59,10 +56,9 @@ const deleteTopic = async (req, res) => {
     console.log(req.params);
     const topic = await db.Topic.findOne({ where: { id: req.params.topic_id } });
     if (topic) {
-      console.log("TOPIC IS: ", topic)
+      console.log('TOPIC IS: ', topic);
       const deletedTopic = await topic.destroy({ force: true });
       console.log('Topic deleted');
-      // redis.set('dbTeacherCheck', false);
       res.status(200).send(deletedTopic);
     } else {
       console.log('Topic not found');
