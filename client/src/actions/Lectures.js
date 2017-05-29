@@ -4,4 +4,4 @@ exports.allLectures = (cohort) => {
     lectures: cohort.lectures,
     currentCohortId: cohort.id,
   };
-}
+};
