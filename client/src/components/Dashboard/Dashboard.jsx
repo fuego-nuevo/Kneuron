@@ -18,12 +18,13 @@ import AddQuiz from '../../components/Quizzes/AddQuiz';
 import LiveLecture from '../../components/Lectures/LiveLecture';
 import { allLectures } from '../../actions/Lectures';
 import { currentLecture } from '../../actions/CurrentLecture';
+import { reduxDataSearch } from '../../actions/Search';
 import EditTopic from '../../components/Topics/EditTopic';
 import AddTopic from '../../components/Topics/AddTopic';
 import AddQuestion from '../Questions/AddQuestion';
+import SearchedDataItemsList from '../../components/SearchedContent/SearchedDataItemsList';
 
 const socket = io();
-
 
 class Dashboard extends Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class Dashboard extends Component {
     this.renderAddTopic = this.renderAddTopic.bind(this);
     this.renderAddQuiz = this.renderAddQuiz.bind(this);
     this.renderAddQuestion = this.renderAddQuestion.bind(this);
+    this.renderSearchedDataItemsList = this.renderSearchedDataItemsList.bind(this);
     this.renderLiveLecture = this.renderLiveLecture.bind(this);
   }
 
@@ -109,10 +111,21 @@ class Dashboard extends Component {
     return (<CurrentLecture location={location} lectureId={lectureId || ''} history={history} fetchTeacherInfo={this.fetchTeacherInfo} name={name || ''} topics={topics || []} />);
   }
 
+  renderSearchedDataItemsList() {
+    const { searchedResults, history, lectureId } = this.props;
+    return (<SearchedDataItemsList history={history} lectureId={lectureId || ''} handleLectureClick={this.handleLectureClick} searchedContentResults={searchedResults || []} allLectures={this.props.allLectures.bind(this)} fetchTeacherInfo={this.fetchTeacherInfo} />);
+  }
+
+  handleLectureClick(lectureId) {
+    const { lectures } = this.props;
+    this.setState({ selectedLecture: lectureId }, () => this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture)));
+  }
+    
   renderQuiz() {
     const { quizzes } = this.props;
     return (<QuizList history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} quizzes={quizzes || []} />);
   }
+    
   renderLiveLecture() {
     const { liveLectureTopics } = this.props;
     return (<LiveLecture topics={liveLectureTopics || []} />);
@@ -131,13 +144,13 @@ class Dashboard extends Component {
 
 
   render() {
-    const { dispatch } = this.props;
+    const { dispatch, history, cohort } = this.props;
     console.log(this.state);
     console.log('these are the props ', this.props);
     const currentLectureRoute = `/dashboard/lectures${this.props.lectureId}`;
     return (
       <div className="dashboard-content">
-        <DashNav dispatch={dispatch} />
+        <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch}/>
         <Route path="/dashboard/class" render={this.renderCohort} />
         <Route path="/dashboard/lectures" render={this.renderLecturesList} />
         <Route path="/dashboard/livelecture" render={this.renderLiveLecture} />
@@ -151,6 +164,7 @@ class Dashboard extends Component {
         <Route path="/dashboard/editTopic" component={EditTopic} />
         <Route path="/dashboard/addQuestion" render={this.renderAddQuestion} />
         <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
+        <Route path="/dashboard/search" render={this.renderSearchedDataItemsList} />
       </div>
     );
   }
@@ -161,6 +175,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   updateProfile,
   allLectures,
   currentLecture,
+  reduxDataSearch
 }, dispatch);
 
 const mapStateToProps = (state) => {
@@ -169,6 +184,7 @@ const mapStateToProps = (state) => {
   const { lectureId, name, topics } = state.currentLecture;
   const { liveLectureId, liveLectureName, liveLectureTopics } = state.currentLiveLecture;
   const { topicId, quizzes } = state.currentTopic;
+  const { searchedResults } = state.searchedResults;
   const { quizId } = state.currentQuiz;
   return {
     email,
@@ -188,6 +204,7 @@ const mapStateToProps = (state) => {
     topicId,
     quizzes,
     quizId,
+    searchedResults,
   };
 };
 
