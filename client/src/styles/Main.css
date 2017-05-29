@@ -756,6 +756,19 @@ hr{
 
 .cohort-entry.animated.boundInUp{
   z-index: 0;
+  text-align: center;
+}
+
+.ch-entry-header{
+  text-align: center;
+}
+
+.class-time{
+  text-align: center;
+}
+
+.cohort-entry{
+  text-align: center;
 }
 
 .cohort-entry{
