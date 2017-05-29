@@ -58,22 +58,6 @@ io.on('connection', (socket) => {
     });
   });
 });
-// io.on('connection', (client) => {
-//   const nsp = io.of('/lectures');
-//   nsp.on('join', (data) => {
-//     nsp.join(data.lecture);
-//   });
-//   nsp.on('topic', (data) => {
-//     io.of(data.name).emit('topic', data);
-//   });
-//
-//   nsp.on('students', (data) => {
-//     io.of(data.name).emit('quiz', data);
-//   });
-//   nsp.on('quiz', (data) => {
-//     io.of(data.name).emit('answer', data);
-//   });
-// });
 
 server.listen(process.env.PORT, (err) => {
   if (err) {
