@@ -3,7 +3,7 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 
 const redis = require('../db/redis');
-const antiHasher = require('../utils');
+const antiHasher = require('./util').antiHasher;
 const hasher = require('../utils');
 
 const saltRounds = 10;
