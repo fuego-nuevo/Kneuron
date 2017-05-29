@@ -14,3 +14,4 @@ static
 dump.rdb
 firebase.js
 .DS_Store
+ansible.yml
