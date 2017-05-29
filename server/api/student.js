@@ -71,7 +71,7 @@ const postStudent = async (req, res) => {
       res.status(404).send('That email is taken. Please try another email.');
     } else {
       const newUser = await db.User.create({
-        email: req.body.email,
+        email: req.body.email.toLowerCase(),
         password: hash,
         userType: 1,
         fName: req.body.fName,
