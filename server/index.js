@@ -58,34 +58,31 @@ io.on('connection', (socket) => {
     });
   });
 });
-// io.on('connection', (client) => {
-//   const nsp = io.of('/lectures');
-//   nsp.on('join', (data) => {
-//     nsp.join(data.lecture);
-//   });
-//   nsp.on('topic', (data) => {
-//     io.of(data.name).emit('topic', data);
-//   });
-//
-//   nsp.on('students', (data) => {
-//     io.of(data.name).emit('quiz', data);
-//   });
-//   nsp.on('quiz', (data) => {
-//     io.of(data.name).emit('answer', data);
-//   });
-// });
 
-server.listen(process.env.PORT, (err) => {
-  if (err) {
-    console.log('there was an error connecting to Server', err);
-  } else {
-    console.log('You have connected to the server on PORT: ', process.env.PORT);
-  }
-});
+if (process.env.PORT) {
+  server.listen(process.env.PORT, (err) => {
+    if (err) {
+      console.log('There was an error connecting to the Server ', err);
+    } else {
+      console.log('You have connected to the server on PORT: ', process.env.PORT);
+    }
+  });
+} else {
+  server.listen(3000, (err) => {
+    if (err) {
+      console.log('There was an error connecting to the Server ', err);
+    } else {
+      console.log('You have connected to the server on PORT: ', 3000);
+    }
+  });
+}
 
 // Catches all 404 routes.
-app.use((error, req, res, next) => {;
-  next(error);
+app.use((error, req, res, next) => {
+  if (res.headersSent) {
+    return next(error);
+  }
+  res.status(500).send(error);
 });
 
 module.exports = app;
