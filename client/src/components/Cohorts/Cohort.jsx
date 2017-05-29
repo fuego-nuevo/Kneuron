@@ -36,7 +36,7 @@ class Cohort extends Component {
   fetchLectures(){
       console.log("HERE ARE THE LECTURES OF A COHORT: ", this.props.cohort.lectures)
       console.log('this is all lectures inside lecture action', this.props.allLectures(this.props.cohort))
-      this.setState({ lectures: []}, () => {
+      this.setState({ lectures: [] }, () => {
         this.props.allLectures(this.props.cohort);
       });
       console.log("IT WENT THROUGH AND STATE FOR LECTURES INSIDE COHORT COMP IS: ", this.state.lectures);

@@ -4,6 +4,7 @@ const logger = require('morgan');
 
 const app = express();
 const server = require('http').Server(app);
+// const server = app.listen(5000);
 const io = require('socket.io')(server);
 
 require('dotenv').config();
@@ -12,19 +13,21 @@ require('dotenv').load();
 const router = require('./api/index');
 const bodyparser = require('body-parser');
 const cors = require('cors');
+// const webpackDevMiddleware = require('webpack-dev-middleware');
 
 app.use(logger('dev'));
 app.use(cors());
 app.use(bodyparser.json({ limit: '50mb' }));
 app.use(bodyparser.urlencoded({ limit: '50mb', extended: true }));
+// app.use(webpackDevMiddleware);
 
-app.use('/', express.static(path.join(__dirname, '../static/')));
+// app.use('/', express.static(path.join(__dirname, '../static/')));
 app.use('/api', router);
 
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/../static/index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '/../static/index.html'));
+// });
 
 app.use(express.static(path.join(__dirname, '../static')));
 
