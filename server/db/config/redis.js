@@ -8,7 +8,7 @@
 // if (process.env.REDIS) {
 //   redis = new Redis();
 // } else {
-//   redis = new Redis(80);
+//   redis = new Redis();
 // }
 
 // module.exports = redis;
