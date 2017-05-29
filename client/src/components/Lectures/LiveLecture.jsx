@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import LiveLectureTopics from './LiveLectureTopicsEntry';
 import io from 'socket.io-client';
 
 const socket = io();
@@ -25,7 +26,15 @@ class LiveLecture extends Component {
     const { topics } = this.props;
     return (
       <div>
-        {topics.map(topic => <h1>{topic.name}</h1>)}
+        <div className="class-nav">
+          <button className="addC-left">Pop Quiz</button>
+          <button className="addC-right">End Lecture</button>
+        </div>
+        <div className="lecture-filter">
+          <div className="topic-filter">
+            {topics.map(topic => <LiveLectureTopics topic={topic} />)}
+          </div>
+        </div>
       </div>
     );
   }

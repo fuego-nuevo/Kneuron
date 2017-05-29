@@ -650,4 +650,22 @@ textarea:focus, input:focus{
     border-radius: 5px;
 }
 
+.lecture-filter{
+    position: absolute;
+    top: 45vh;
+    border-radius: 6px;
+    width: 90vw;
+    left: 5vw;
+    height: 50vh;
+    background-color: white;
+}
 
+.topic-filter{
+    position: absolute;
+    background-color: #243B55;
+    left: 0;
+    width: 25vw;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    height: 100%;
+}
