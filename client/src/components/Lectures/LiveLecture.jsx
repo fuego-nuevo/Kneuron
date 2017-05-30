@@ -12,6 +12,8 @@ class LiveLecture extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      quizzes: [],
+      filteredQuizzes: [],
       studentQuestions: [],
       filteredQuestions: [],
     };
@@ -37,8 +39,6 @@ class LiveLecture extends Component {
 
   render() {
     const { topics } = this.props;
-    console.log('these are the props in livelecture', this.props);
-    console.log(this.state.filteredQuestions);
     return (
       <div>
         <div className="class-nav">
