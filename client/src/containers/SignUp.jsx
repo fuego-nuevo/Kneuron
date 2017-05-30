@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import blobUtil from 'blob-util';
 import { signupUser } from '../actions/Login';
+import blobUtil from 'blob-util';
+import axios from 'axios';
 
 class SignUp extends Component {
   constructor(props) {
@@ -22,24 +24,19 @@ class SignUp extends Component {
     const name = e.target.name;
     this.setState({ [name]: e.target.value });
   }
+
   handleImageChange(e) {
     e.preventDefault();
     const reader = new FileReader();
     // const file = e.target.files[0];
     let image;
     reader.onloadend = () => {
-      blobUtil.base64StringToBlob(reader.result.substr(23, reader.result.length))
-        .then((blob) => {
-          console.log(blob);
-          image = blob;
-        }).catch((err) => {
-          console.log(err);
-        });
-      this.setState({
-        image,
-      });
-    };
+      console.log(file.name);
+      this.setState({ image: reader.result });
+    }
+    reader.readAsDataURL(file);
   }
+
   render() {
     console.log(this.props);
     console.log(this.state);

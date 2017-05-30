@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+  import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -32,10 +32,10 @@ class SearchDataLecture extends Component {
   }
 
   async runLiveLecture() {
-      console.log("Pre>>>>>>: ", this.props.currentLiveLecture(this.props.lecture));
-      const updateLecture = await this.props.currentLiveLecture(this.props.lecture);
-      console.log("DAMN>>>>>: ", updateLecture);
-      this.props.history.push('/dashboard/livelecture');
+    console.log("Pre>>>>>>: ", this.props.currentLiveLecture(this.props.lecture));
+    const updateLecture = await this.props.currentLiveLecture(this.props.lecture);
+    console.log("DAMN>>>>>: ", updateLecture);
+    this.props.history.push('/dashboard/livelecture');
   }
 
 

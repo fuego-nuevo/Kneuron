@@ -688,8 +688,8 @@ textarea:focus, input:focus{
 .searched-container{
   display: inline-block;
   position: absolute;
-  width: auto;
-  height: auto;
+  width: 1250px;
+  height: 1250px;
   margin: 0 auto;
   padding: 5px;
   top: 20px;
@@ -702,7 +702,7 @@ hr{
   display: inline-block;
   position: relative;
   width: 90%;
-  left: 30px;
+  left: 45px;
 }
 
 .searched-cohorts{
@@ -898,4 +898,36 @@ hr{
 .disabled{
     opacity: 0.65;
     cursor: not-allowed;
+}
+
+.large.card{
+  margin: 0 auto;
+}
+
+.card-content{
+  margin: 0 auto;
+}
+
+.material-icons.right{
+  display: none;
+  visibility: hidden;
+}
+
+.teacher-profile-image{
+  display: inline-block;
+  position: absolute;
+  border-radius: 50%;
+  margin: 0 auto;
+  width: auto;
+  height: 200px;
+}
+
+.profile-image{
+  display: block;
+  position: relative;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  left: 520px;
+  margin: 0 auto;
 }

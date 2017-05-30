@@ -6,6 +6,7 @@ exports.updateProfile = profile => ({
   lName: profile.data.lName,
   userType: profile.data.userType,
   cohort: profile.data.cohort,
+  image: profile.data.image,
   id: profile.data.id,
 });
 
