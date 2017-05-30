@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import StudentQuestions from './StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 
-const socket = io('http://localhost:5000');
-// const socket = io({ path: '/io' });
+// const socket = io('http://localhost:5000');
+const socket = io();
 
 
 class LiveLecture extends Component {
@@ -20,10 +20,12 @@ class LiveLecture extends Component {
 
   componentDidMount() {
     const { topics, email } = this.props;
+    socket.emit('join', { id: this.props.profile });
     socket.emit('live-lecture', { topics, email });
     socket.on('student-question', (studentQuestions) => {
-      this.setState({ studentQuestions: [studentQuestions, ...this.state.studentQuestions] });
       console.log('student questions');
+      this.setState({ studentQuestions: [studentQuestions, ...this.state.studentQuestions] });
+      console.log('student questions ', this.state.studentQuestions);
     });
   }
 
@@ -35,6 +37,7 @@ class LiveLecture extends Component {
 
   render() {
     const { topics } = this.props;
+    console.log('these are the props in livelecture', this.props);
     console.log(this.state.filteredQuestions);
     return (
       <div>
@@ -63,6 +66,7 @@ class LiveLecture extends Component {
 
 const mapStateToProps = state => ({
   email: state.profile.email,
+  profile: state.profile.id
 });
 
 

@@ -1,58 +1,32 @@
-const webpack = require('webpack');
 const path = require('path');
-require('dotenv').config();
 
-const SRC_DIR = path.resolve(__dirname, './client/src');
-const BUILD_DIR = path.resolve(__dirname, './static');
+const SRC_DIR = path.join(__dirname, './client/src');
+const BUILD_DIR = path.join(__dirname, 'static');
 
 module.exports = {
-
-  entry: {
-    app: [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/dev-server',
-      `${SRC_DIR}/index.js`,
-    ],
-  },
+  entry: `${SRC_DIR}/Index.js`,
   output: {
     filename: 'bundle.js',
-    path: BUILD_DIR,
-    publicPath: '/static',
-  },
-  devServer: {
-    historyApiFallback: true,
+    path: BUILD_DIR
   },
   module: {
     rules: [
       {
-        test: /\.js[x]?$/,
-        loader: 'babel-loader?cacheDirectory',
-        include: SRC_DIR,
-        exclude: /node_modules/,
-        query: {
-          cacheDirectory: true,
-          presets: ['es2015', 'react'],
-          plugins: [
-            'react-hot-loader/babel',
-          ],
-        },
+        test: /\.(js|jsx)$/,
+        exclude: [/node_modules/],
+        use: [{
+          loader: 'babel-loader',
+          options: { presets: ['es2015', 'react'] }
+        }],
       },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
-    ],
+    ]
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
-  },
-  node: {
-    __dirname: true,
-  },
-  devtool: 'inline-sourcemap',
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({ 'global.GENTLY': false }),
-  ],
-};
+    extensions: ['.js', '.jsx']
+  }
+}
+
