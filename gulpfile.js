@@ -80,30 +80,30 @@ gulp.task('webpack-dev-server', () => {
     inline: true,
     stats: true,
     clientLogLevel: 'info',
-    proxy: {
-      '**': {
-        target: `http://localhost:${process.env.PORT}`,
-        changeOrigin: true,
-      },
-      '/': {
-        target: `http://localhost:${process.env.PORT}`,
-        changeOrigin: true,
-      },
-      '/io/*': {
-        target: `http://localhost:${process.env.PORT}`,
-        changeOrigin: true,
-      },
-      '/socket/*': {
-        target: `http://localhost:${process.env.PORT}`,
-        changeOrigin: true,
-      },
-    },
-    // proxy: [
-    //   {
-    //     context: ['/api', '/io', '/socket.io'],
+    // proxy: {
+    //   '**': {
     //     target: `http://localhost:${process.env.PORT}`,
+    //     changeOrigin: true,
     //   },
-    // ],
+    //   '/': {
+    //     target: `http://localhost:${process.env.PORT}`,
+    //     changeOrigin: true,
+    //   },
+    //   '/io/*': {
+    //     target: `http://localhost:${process.env.PORT}`,
+    //     changeOrigin: true,
+    //   },
+    //   '/socket/*': {
+    //     target: `http://localhost:${process.env.PORT}`,
+    //     changeOrigin: true,
+    //   },
+    // },
+    proxy: [
+      {
+        context: ['/api', '/', '/io', '/socket.io'],
+        target: `http://localhost:${process.env.PORT}`,
+      },
+    ],
   }).listen(8080, 'localhost', (err) => {
     if (err) {
       throw new gutil.PluginError('webpack-dev-server ', err);
