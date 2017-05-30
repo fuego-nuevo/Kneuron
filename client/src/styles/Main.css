@@ -784,8 +784,29 @@ hr{
   z-index: 0;
 }
 
-.bounceInUp{
-  z-index: 0;
+
+
+.lecture-filter{
+    position: absolute;
+    top: 45vh;
+    border-radius: 6px;
+    width: 70vw;
+    left: 15vw;
+    height: 50vh;
+    background-color: white;
+    color: white;
+    box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15);
+}
+
+.topic-filter{
+    position: absolute;
+    background-color: #6b717a;
+    left: 0;
+    width: 25vw;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    height: 100%;
+}
 
 .lecture-filter{
     position: absolute;
@@ -843,9 +864,33 @@ hr{
     width: 100%;
 }
 
+#student-questions{
+    color: black;
+}
+
+.question-container{
+    height: 6vh;
+}
+
+.question-bubble{
+    margin-top: 1vh;
+    background-color: #c2c7ce;
+    width: 80%;
+    margin-left: 10%;
+    border-radius: 5px;
+    height: auto;
+    padding-left: 2%;
+    padding-right: 2%;
+    color: black;
+}
+.question-bubble em{
+    padding-right: 1%;
+}
+
 .livetop{
     height: 6vh;
     line-height: 6vh;
     text-align: center;
     border-bottom: 1px solid rgba(255, 255, 255, .2);
+    cursor: pointer;
 }
