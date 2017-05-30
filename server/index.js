@@ -34,11 +34,11 @@ app.use(express.static(path.join(__dirname, '../static')));
 
 io.on('connection', (socket) => {
   socket.on('join', (data) => {
-    socket.join(data.email);
+    socket.join(data.id);
   });
   socket.on('live-lecture', (data) => {
     const topics = data.topics;
-    const teacherRoom = data.email;
+    const teacherRoom = data.id;
     console.log('this is sockets live lecture event emitting ,');
     console.log(data.topics);
     console.log(teacherRoom);
@@ -46,14 +46,14 @@ io.on('connection', (socket) => {
   });
   socket.on('pop-quiz', (data) => {
     const quiz = data.quiz;
-    const teacherRoom = data.email;
+    const teacherRoom = data.id;
     io.sockets.in(teacherRoom).emit('pop-quiz', { quiz });
   });
   socket.on('student-question', (data) => {
     const question = data.question;
     const topic = data.topic;
     const student = data.name;
-    const teacherRoom = data.teacherEmail;
+    const teacherRoom = data.id;
     io.sockets.in(teacherRoom).emit('student-question', {
       question,
       topic,

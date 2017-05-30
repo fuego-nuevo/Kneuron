@@ -1,4 +1,9 @@
-exports.isLectureLive = bool => ({
-  type: 'IS_LECTURE_LIVE',
-  liveLecture: bool,
+exports.lectureLive = () => ({
+  type: 'LECTURE_LIVE',
+  liveLecture: true,
+});
+
+exports.lectureOff = () => ({
+  type: 'LECTURE_OFF',
+  liveLecture: false,
 });

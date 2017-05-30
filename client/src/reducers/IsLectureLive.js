@@ -1,9 +1,13 @@
 const isLectureLive = (state = false, action) => {
   switch (action.type) {
-    case 'IS_LECTURE_LIVE' :
+    case 'LECTURE_LIVE' :
       return {
         isLive: action.liveLecture,
       };
+    case 'LECTURE_OFF' :
+      return {
+        isLive: action.liveLecture,
+      }
     default:
       return state;
   }
