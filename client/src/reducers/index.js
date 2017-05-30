@@ -7,6 +7,7 @@ import AuthReducer from './AuthReducer';
 import SearchReducer from './SearchReducer';
 import currentLiveLecture from './CurrentLiveLectureReducer';
 import currentTopic from './CurrentTopicReducer';
+import isLive from './IsLectureLive';
 
 const RootReducer = combineReducers({
   profile: CurrentProfile,
@@ -17,6 +18,7 @@ const RootReducer = combineReducers({
   currentQuiz,
   searchedResults: SearchReducer,
   currentLiveLecture,
+  isLive,
 });
 
 export default RootReducer;
