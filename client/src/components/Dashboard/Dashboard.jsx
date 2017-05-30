@@ -188,22 +188,22 @@ class Dashboard extends Component {
       </div>
     ) : (
       <div className="dashboard-content">
-          <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch}/>
-          <Route path="/dashboard/class" render={this.renderCohort} />
-          <Route path="/dashboard/lectures" render={this.renderLecturesList} />
-          <Route path="/dashboard/livelecture" render={this.renderLiveLecture} />
-          <Route path="/dashboard/addClass" render={this.renderAddClass} />
-          <Route path="/dashboard/editClass" component={EditClass} />
-          <Route path="/dashboard/addQuiz" render={this.renderAddQuiz} />
-          <Route path="/dashboard/quiz" render={this.renderQuiz} />
-          <Route path="/dashboard/addLecture" render={this.renderAddLecture} />
-          <Route path="/dashboard/editLecture" component={EditLecture} />
-          <Route path="/dashboard/addTopic" render={this.renderAddTopic} />
-          <Route path="/dashboard/editTopic" component={EditTopic} />
-          <Route path="/dashboard/addQuestion" render={this.renderAddQuestion} />
-          <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
-          <Route path="/dashboard/search" render={this.renderSearchedDataItemsList} />
-        </div>
+        <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch}/>
+        <Route path="/dashboard/class" render={this.renderCohort} />
+        <Route path="/dashboard/lectures" render={this.renderLecturesList} />
+        <Route path="/dashboard/livelecture" render={this.renderLiveLecture} />
+        <Route path="/dashboard/addClass" render={this.renderAddClass} />
+        <Route path="/dashboard/editClass" component={EditClass} />
+        <Route path="/dashboard/addQuiz" render={this.renderAddQuiz} />
+        <Route path="/dashboard/quiz" render={this.renderQuiz} />
+        <Route path="/dashboard/addLecture" render={this.renderAddLecture} />
+        <Route path="/dashboard/editLecture" component={EditLecture} />
+        <Route path="/dashboard/addTopic" render={this.renderAddTopic} />
+        <Route path="/dashboard/editTopic" component={EditTopic} />
+        <Route path="/dashboard/addQuestion" render={this.renderAddQuestion} />
+        <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
+        <Route path="/dashboard/search" render={this.renderSearchedDataItemsList} />
+      </div>
     );
   }
 }
