@@ -4,8 +4,8 @@ const db = require('../db/models');
 const hasher = require('./util').hasher;
 const antiHasher = require('./util').antiHasher;
 const redis = require('../db/redis');
-
 const saltRounds = 10;
+
 
 // Controllers
 // Fetch ALL INFORMATION on Teacher
@@ -74,7 +74,7 @@ const fetchStudents = async (req, res) => {
         }],
       }],
     });
-    console.log('Retrived all students', allStudent);
+    console.log('Retrieved all students', allStudent);
     res.status(200).send(allStudent);
   } catch (error) {
     console.log('Error in fetchStudents');
@@ -120,8 +120,12 @@ const postTeacher = async (req, res) => {
         school_id: req.body.school_id,
         image: req.body.image,
       });
-      console.log('Signed Up New User: ', { user: newUser, id_token: hasher(req.body.email) });
-      res.status(201).send({ user: newUser, id_token: hasher(req.body.email) });
+      if(newUser){
+        console.log('Signed Up New User: ', { user: newUser, id_token: hasher(req.body.email) });
+        res.status(201).send({ user: newUser, id_token: hasher(req.body.email) });
+      } else {
+        console.log("Invalid Data In Req.Body: ", newUser);
+      }
     }
   } catch (error) {
     console.log('Invalid Login Credentials');

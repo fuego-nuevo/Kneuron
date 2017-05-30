@@ -8,6 +8,7 @@ const currentProfile = (state = {}, action) => {
         lName: action.lName,
         userType: action.userType,
         cohort: action.cohort,
+        image: action.image,
       }
 
     default:

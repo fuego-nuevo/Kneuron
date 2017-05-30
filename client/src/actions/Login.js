@@ -69,6 +69,7 @@ exports.signupUser = (creds, history) => {
     fName: creds.fName,
     lName: creds.lName,
     username: creds.username,
+    image: creds.image,
   };
   return (dispatch) => {
     dispatch(requestLogin(creds));

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { signupUser } from '../actions/Login';
+import blobUtil from 'blob-util';
+import axios from 'axios';
 
 class SignUp extends Component {
   constructor(props) {
@@ -21,19 +23,18 @@ class SignUp extends Component {
     const name = e.target.name;
     this.setState({ [name]: e.target.value });
   }
+
   handleImageChange(e) {
     e.preventDefault();
-
     const reader = new FileReader();
     const file = e.target.files[0];
     reader.onloadend = () => {
-      console.log(file);
-      this.setState({
-        image: reader.result,
-      });
+      console.log(file.name);
+      this.setState({ image: reader.result });
     }
     reader.readAsDataURL(file);
   }
+
   render() {
     console.log(this.props);
     console.log(this.state.image);
