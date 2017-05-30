@@ -175,12 +175,14 @@ class Dashboard extends Component {
         </div>
 
         <Card
-          className='large'>
+          className='large'
+          cohort={cohort}>
           <h1>Welcome {fName} {lName}</h1>
           <div className="teacher-profile-stats">
             <div className="teacher-profile-image">
               <img className="profile-image" src={image} />
             </div>
+            <h2>{"# Of Cohort's: " } {this.props.cohort.length}</h2>
           </div>
         </Card>
       </div>
