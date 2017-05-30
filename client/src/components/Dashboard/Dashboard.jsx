@@ -54,9 +54,9 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.fetchTeacherInfo()
-    .then(() => {
-      socket.emit('join', { id: this.state.profile.id });
-    });
+    // .then(() => {
+    //   socket.emit('join', { id: this.state.profile.id });
+    // });
     this.setState({ selectedLecture: this.props.currentLecture.lectureId });
   }
 
@@ -194,7 +194,7 @@ class Dashboard extends Component {
         <Route path="/dashboard/livelecture" render={this.renderLiveLecture} />
         <Route path="/dashboard/addClass" render={this.renderAddClass} />
         <Route path="/dashboard/editClass" component={EditClass} />
-        <Route path="/dashboard/addQuiz" render={this.renderAddQuiz} />
+        <Route path="/dashboard/addQuiz" render={this.renderAddQuiz} component={(props) => <Quiz question={props.question} >/>
         <Route path="/dashboard/quiz" render={this.renderQuiz} />
         <Route path="/dashboard/addLecture" render={this.renderAddLecture} />
         <Route path="/dashboard/editLecture" component={EditLecture} />

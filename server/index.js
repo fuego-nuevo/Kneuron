@@ -6,6 +6,7 @@ const app = express();
 const server = require('http').Server(app);
 // const server = app.listen(5000);
 const io = require('socket.io')(server);
+// const io = require('socket.io')(server, { path: '/io' });
 
 require('dotenv').config();
 require('dotenv').load();
@@ -57,7 +58,7 @@ io.on('connection', (socket) => {
     const student = data.name;
     const teacherRoom = data.teacher;
     console.log('we in the teacherroom of server ', teacherRoom);
-    io.sockets.in(teacherRoom).emit('student-question', {
+    io.sockets.to(teacherRoom).emit('student-question', {
       name: student,
       question,
       topicId: topic,

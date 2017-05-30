@@ -44,7 +44,7 @@ exports.loginUser = (creds, history) => {
   console.log('This is Creds: ', creds);
   return (dispatch) => {
     dispatch(requestLogin(creds));
-    return axios.get(`http://localhost:8080/api/teachers/${creds.email}/${creds.password}`)
+    return axios.get(`/api/teachers/${creds.email}/${creds.password}`)
       .then((response) => {
         if (!response.data) {
           dispatch(loginError('Bad Request...'));
@@ -73,7 +73,7 @@ exports.signupUser = (creds, history) => {
   };
   return (dispatch) => {
     dispatch(requestLogin(creds));
-    return axios.post('http://localhost:8080/api/teachers', body)
+    return axios.post('/api/teachers', body)
       .then((response) => {
         if (response.statusText !== 'Created') {
           dispatch(loginError('Bad Request...'));

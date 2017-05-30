@@ -12,7 +12,7 @@ module.exports = {
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:8080',
       'webpack/hot/dev-server',
-      `${SRC_DIR}/index.js`,
+      `${SRC_DIR}/Index.js`,
     ],
   },
   output: {
@@ -47,12 +47,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  node: {
-    __dirname: true,
-  },
   devtool: 'inline-sourcemap',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({ 'global.GENTLY': false }),
   ],
 };

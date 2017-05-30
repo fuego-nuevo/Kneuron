@@ -32,6 +32,7 @@ class Lecture extends Component {
       console.log(error);
     }
   }
+  
   async runLiveLecture() {
     try {
       const updateLecture = await this.props.currentLiveLecture(this.props.lecture);
