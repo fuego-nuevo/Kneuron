@@ -100,8 +100,9 @@ gulp.task('webpack-dev-server', () => {
     // },
     proxy: [
       {
-        context: ['/api', '/', '/io', '/socket.io'],
+        context: ['/api', '/', '/sock'],
         target: `http://localhost:${process.env.PORT}`,
+        changeOrigin: true,
       },
     ],
   }).listen(8080, 'localhost', (err) => {

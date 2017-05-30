@@ -51,10 +51,9 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    const { id } = this.props;
     this.fetchTeacherInfo()
     .then(() => {
-      socket.emit('join', { id });
+      socket.emit('join', { id: this.state.profile.id });
     });
     this.setState({ selectedLecture: this.props.currentLecture.lectureId });
   }

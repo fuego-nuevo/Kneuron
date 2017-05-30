@@ -4,23 +4,14 @@ import { connect } from 'react-redux';
 import StudentQuestions from './StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 
-const socket = io();
+const socket = io('http://localhost:5000');
 
 
 class LiveLecture extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      studentQuestions: [
-        { name: 'Mariano Okpalefe', question: 'who is George Washington?', topicId: 1 },
-        { name: 'Justin Kang', question: 'what is 2 + 2 ?', topicId: 1 },
-        { name: 'Alexander Aleksanyan', question: 'wheres the blow?', topicId: 1 },
-        { name: 'Alexander Aleksanyan', question: 'wheres the blow?', topicId: 1 },
-        { name: 'Alexander Aleksanyan', question: 'wheres the blow?', topicId: 1 },
-        { name: 'Alexander Aleksanyan', question: 'wheres the blow?', topicId: 1 },
-        { name: 'Alexander Aleksanyan', question: 'wheres the blow?', topicId: 1 },
-        { name: 'Jason Kim', question: 'Is John Wall the best?', topicId: 5 },
-      ],
+      studentQuestions: [],
       filteredQuestions: [],
     };
     this.filterQuestions = this.filterQuestions.bind(this);
@@ -30,7 +21,7 @@ class LiveLecture extends Component {
     const { topics, email } = this.props;
     socket.emit('live-lecture', { topics, email });
     socket.on('student-question', (studentQuestions) => {
-      this.setState({ studentQuestions });
+      this.setState({ studentQuestions: [studentQuestions, ...this.state.studentQuestions] });
       console.log('student questions');
     });
   }
