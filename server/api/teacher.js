@@ -85,7 +85,7 @@ const fetchStudents = async (req, res) => {
 // Login Teach with Async
 const fetchTeacher = async (req, res) => {
   try {
-    const user = await db.User.findOne({ where: { email: req.params.email } });
+    const user = await db.User.findOne({ where: { email: req.params.email, userType: 0 } });
     const data = await bcrypt.compare(req.params.creds, user.password);
     if (data) {
       // console.log('User Logged In: ', { user: user, id_token: hasher(`${req.params.email}`) });
