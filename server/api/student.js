@@ -5,7 +5,6 @@ const Promise = require('bluebird');
 
 const redis = require('../db/redis');
 const util = require('./util');
-// const hasher = require('./util');
 
 const saltRounds = 10;
 
