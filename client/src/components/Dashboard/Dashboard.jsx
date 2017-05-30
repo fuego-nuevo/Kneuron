@@ -26,7 +26,6 @@ import SearchedDataItemsList from '../../components/SearchedContent/SearchedData
 import { Card, CardTitle } from 'react-materialize';
 
 
-
 const socket = io();
 
 class Dashboard extends Component {
@@ -53,23 +52,17 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.fetchTeacherInfo()
-    // .then(() => {
-    //   socket.emit('join', { id: this.state.profile.id });
-    // });
+    this.fetchTeacherInfo();
     this.setState({ selectedLecture: this.props.currentLecture.lectureId });
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('component received new props, here are old props , ', this.props);
-    console.log('actual new props , ', nextProps);
     this.setState({ profile: nextProps });
   }
 
   async fetchTeacherInfo() {
     try {
       const profile = await axios.get(`/api/teachers/${localStorage.getItem('id_token')}`);
-      console.log(profile, 'this is on line 70');
       this.setState({ profile: profile.data }, () => {
         this.props.updateProfile(profile);
       });
@@ -103,7 +96,6 @@ class Dashboard extends Component {
 
   renderAddTopic() {
     const { history, lectureId, name } = this.props;
-    console.log(`${lectureId} for ${name}`);
     return (<AddTopic history={history} lectureId={lectureId} name={name} fetchTeacherInfo={this.fetchTeacherInfo} />);
   }
 
@@ -157,7 +149,7 @@ class Dashboard extends Component {
     return window.location.pathname === '/dashboard' ? (
       <div>
         <div className="dashboard-content">
-          <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch}/>
+          <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch} />
           <Route path="/dashboard/class" render={this.renderCohort} />
           <Route path="/dashboard/lectures" render={this.renderLecturesList} />
           <Route path="/dashboard/livelecture" render={this.renderLiveLecture} />
@@ -175,12 +167,13 @@ class Dashboard extends Component {
         </div>
 
         <Card
-          className='large'
-          cohort={cohort}>
+          className="large"
+          cohort={cohort}
+        >
           <h1>Welcome {fName} {lName}</h1>
           <div className="teacher-profile-stats">
             <div className="teacher-profile-image">
-              <img className="profile-image" src={image} />
+              <img alt="profile" className="profile-image" src={image} />
             </div>
             <h2>{"# Of Cohort's: " } {this.props.cohort.length}</h2>
           </div>
@@ -188,13 +181,13 @@ class Dashboard extends Component {
       </div>
     ) : (
       <div className="dashboard-content">
-        <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch}/>
+        <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch} />
         <Route path="/dashboard/class" render={this.renderCohort} />
         <Route path="/dashboard/lectures" render={this.renderLecturesList} />
         <Route path="/dashboard/livelecture" render={this.renderLiveLecture} />
         <Route path="/dashboard/addClass" render={this.renderAddClass} />
         <Route path="/dashboard/editClass" component={EditClass} />
-        <Route path="/dashboard/addQuiz" render={this.renderAddQuiz} component={(props) => <Quiz question={props.question} >/>
+        <Route path="/dashboard/addQuiz" render={this.renderAddQuiz} />
         <Route path="/dashboard/quiz" render={this.renderQuiz} />
         <Route path="/dashboard/addLecture" render={this.renderAddLecture} />
         <Route path="/dashboard/editLecture" component={EditLecture} />
@@ -244,7 +237,7 @@ const mapStateToProps = (state) => {
     quizzes,
     quizId,
     searchedResults,
-    image
+    image,
   };
 };
 

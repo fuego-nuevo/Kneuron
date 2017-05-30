@@ -26,7 +26,6 @@ class DashNav extends Component {
 
   handleSearchSubmit(e) {
     e.preventDefault();
-    console.log('this is the props in this fucking crazy submit ', this.props);
     const data = this.props.cohort;
     const query = this.state.text;
     const searchResult = searchReduxForDashNavSearch(data, query);
@@ -36,7 +35,6 @@ class DashNav extends Component {
 
 
   render() {
-    console.log('Input is: ', this.props);
     return (
       <nav className="dash-nav">
         <div className="dash-nav-items">
