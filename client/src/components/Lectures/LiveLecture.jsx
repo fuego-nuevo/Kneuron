@@ -5,6 +5,7 @@ import StudentQuestions from './StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 
 const socket = io('http://localhost:5000');
+// const socket = io({ path: '/io' });
 
 
 class LiveLecture extends Component {

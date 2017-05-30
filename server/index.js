@@ -6,6 +6,7 @@ const app = express();
 const server = require('http').Server(app);
 // const server = app.listen(5000);
 const io = require('socket.io')(server);
+// const io = require('socket.io')(server, { path: '/io' });
 
 require('dotenv').config();
 require('dotenv').load();
