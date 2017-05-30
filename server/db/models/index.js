@@ -54,7 +54,7 @@ const Cohort = db.define('cohort', {
   },
   semester: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   time: {
     type: Sequelize.STRING,
