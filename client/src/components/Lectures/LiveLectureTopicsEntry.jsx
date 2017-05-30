@@ -9,8 +9,9 @@ class LiveLectureTopicsEntry extends Component {
 
   render() {
     const { name } = this.props.topic;
+    console.log(this.props);
     return (
-      <div>
+      <div className="livetop">
         { name }
       </div>
     );

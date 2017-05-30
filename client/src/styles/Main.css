@@ -654,18 +654,61 @@ textarea:focus, input:focus{
     position: absolute;
     top: 45vh;
     border-radius: 6px;
-    width: 90vw;
-    left: 5vw;
+    width: 70vw;
+    left: 15vw;
     height: 50vh;
     background-color: white;
+    color: white;
+    box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15);
 }
 
 .topic-filter{
     position: absolute;
-    background-color: #243B55;
+    background-color: #6b717a;
     left: 0;
     width: 25vw;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     height: 100%;
+}
+
+.topic-header{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: #6b717a;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+    border-top-left-radius: 6px;
+    text-align: center;
+    height:6vh;
+    line-height: 6vh;
+}
+
+#student-header{
+    background-color: white;
+    color: black;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 0px;
+    border-bottom: 1px solid lightgray;
+}
+
+.student-question-filter{
+    position: absolute;
+    right: 0vh;
+    width: 45vw;
+}
+
+.scroll-topics{
+    position: absolute;
+    top: 6vh;
+    height: 44vh;
+    overflow: auto;
+    width: 100%;
+}
+
+.livetop{
+    height: 6vh;
+    line-height: 6vh;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
 }
