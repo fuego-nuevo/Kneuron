@@ -26,6 +26,7 @@ import SearchedDataItemsList from '../../components/SearchedContent/SearchedData
 import { Card, CardTitle } from 'react-materialize';
 
 
+
 const socket = io();
 
 class Dashboard extends Component {
@@ -52,10 +53,9 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    const { email } = this.props;
     this.fetchTeacherInfo()
     .then(() => {
-      socket.emit('join', { email });
+      socket.emit('join', { id: this.state.profile.id });
     });
     this.setState({ selectedLecture: this.props.currentLecture.lectureId });
   }
@@ -69,7 +69,7 @@ class Dashboard extends Component {
   async fetchTeacherInfo() {
     try {
       const profile = await axios.get(`/api/teachers/${localStorage.getItem('id_token')}`);
-      console.log(`/api/teachers/${localStorage.getItem('id_token')}`);
+      console.log(profile, 'this is on line 70');
       this.setState({ profile: profile.data }, () => {
         this.props.updateProfile(profile);
       });
@@ -213,11 +213,11 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   updateProfile,
   allLectures,
   currentLecture,
-  reduxDataSearch
+  reduxDataSearch,
 }, dispatch);
 
 const mapStateToProps = (state) => {
-  const { email, username, userType, fName, lName, cohort, image } = state.profile;
+  const { email, username, userType, fName, lName, cohort, image, id } = state.profile;
   const { lectures, currentCohortId } = state.lectures;
   const { lectureId, name, topics } = state.currentLecture;
   const { liveLectureId, liveLectureName, liveLectureTopics } = state.currentLiveLecture;
@@ -225,6 +225,7 @@ const mapStateToProps = (state) => {
   const { searchedResults } = state.searchedResults;
   const { quizId } = state.currentQuiz;
   return {
+    id,
     email,
     username,
     userType,

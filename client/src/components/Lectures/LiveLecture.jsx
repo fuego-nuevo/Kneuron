@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import io from 'socket.io-client';
+import { connect } from 'react-redux';
+import StudentQuestions from './StudentQuestions';
+import LiveLectureTopics from './LiveLectureTopicsEntry';
 
-const socket = io();
+const socket = io('http://localhost:5000');
 
 
 class LiveLecture extends Component {
@@ -10,22 +12,49 @@ class LiveLecture extends Component {
     super(props);
     this.state = {
       studentQuestions: [],
+      filteredQuestions: [],
     };
+    this.filterQuestions = this.filterQuestions.bind(this);
   }
 
   componentDidMount() {
     const { topics, email } = this.props;
     socket.emit('live-lecture', { topics, email });
-    socket.on('student-question', (questions) => {
-      console.log(questions);
+    socket.on('student-question', (studentQuestions) => {
+      this.setState({ studentQuestions: [studentQuestions, ...this.state.studentQuestions] });
+      console.log('student questions');
     });
+  }
+
+  filterQuestions(id) {
+    console.log('it ran when we clicked the button');
+    const filteredQuestions = this.state.studentQuestions.filter(question => question.topicId === id);
+    this.setState({ filteredQuestions });
   }
 
   render() {
     const { topics } = this.props;
+    console.log(this.state.filteredQuestions);
     return (
       <div>
-        {topics.map(topic => <h1>{topic.name}</h1>)}
+        <div className="class-nav">
+          <button className="addC-left">Pop Quiz</button>
+          <button className="addC-right">End Lecture</button>
+        </div>
+        <div className="lecture-filter">
+          <div className="topic-filter">
+            <div className="topic-header">TOPICS</div>
+            <div className="scroll-topics">
+              {topics.map(topic => <LiveLectureTopics filter={this.filterQuestions} topic={topic} />)}
+            </div>
+          </div>
+          <div className="student-question-filter">
+            <div id="student-header" className="topic-header">Student Questions</div>
+            <div id="student-questions" className="scroll-topics">
+              {this.state.filteredQuestions.map(question => <StudentQuestions question={question} />)}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

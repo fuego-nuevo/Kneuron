@@ -2,16 +2,14 @@ const db = require('../db/models');
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const Promise = require('bluebird');
-
 const redis = require('../db/redis');
-const antiHasher = require('../utils');
-const hasher = require('../utils');
+const util = require('./util');
 
 const saltRounds = 10;
 
 const fetchAllStudentData = async (req, res) => {
   try {
-    const email = antiHasher(req.params.auth_token);
+    const email = util.antiHasher(req.params.auth_token);
     const allData = await db.User.findOne({
       where: {
         email: email,
@@ -47,11 +45,11 @@ const fetchAllStudentData = async (req, res) => {
 
 const fetchStudent = async (req, res) => {
   try {
-    const user = await db.User.findOne({ where: { email: req.params.email } });
+    const user = await db.User.findOne({ where: { email: req.params.email, userType: 1 } });
     const data = await bcrypt.compare(req.params.creds, user.password);
     if (data) {
-      console.log('User Logged In: ', { user: user, id_token: hasher(`${req.params.email}`) });
-      res.status(200).send({ user: user, id_token: hasher(req.params.email) });
+      console.log('User Logged In: ', { user: user, id_token: util.hasher(`${req.params.email}`) });
+      res.status(200).send({ user: user, id_token: util.hasher(req.params.email) });
     } else {
       res.status(404).send('Credentials incorrect');
     }
@@ -79,8 +77,8 @@ const postStudent = async (req, res) => {
         username: req.body.username,
         school_id: req.body.school_id,
       });
-      console.log('Signed Up New User: ', { user: newUser, id_token: hasher(req.body.email) });
-      res.status(201).send({ user: newUser, id_token: hasher(req.body.email) });
+      console.log('Signed Up New User: ', { user: newUser, id_token: util.hasher(req.body.email) });
+      res.status(201).send({ user: newUser, id_token: util.hasher(req.body.email) });
     }
   } catch (error) {
     console.log('Error in postStudent');
@@ -90,8 +88,8 @@ const postStudent = async (req, res) => {
 
 const updateStudent = async (req, res) => {
   try {
-    console.log(antiHasher(req.params.auth_token));
-    const student = await db.User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
+    console.log(util.antiHasher(req.params.auth_token));
+    const student = await db.User.findOne({ where: { email: util.antiHasher(req.params.auth_token) } });
     if (student) {
       const updatedStudent = await student.update({
         fName: req.body.fName,
@@ -100,7 +98,7 @@ const updateStudent = async (req, res) => {
       });
       if (updatedStudent) {
         console.log('Student successfully updated ', updatedStudent);
-        res.status(200).send({ student: updatedStudent, auth_token: hasher(updatedStudent.email) });
+        res.status(200).send({ student: updatedStudent, auth_token: util.hasher(updatedStudent.email) });
       } else {
         console.log('Missing a parameter');
         res.status(500).send('Missing a parameter');
@@ -117,7 +115,7 @@ const updateStudent = async (req, res) => {
 
 const deleteStudent = async (req, res) => {
   try {
-    const student = await db.User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
+    const student = await db.User.findOne({ where: { email: util.antiHasher(req.params.auth_token) } });
     if (student) {
       student.destroy({ force: true });
       console.log('Student deleted');
@@ -132,7 +130,7 @@ const deleteStudent = async (req, res) => {
   }
 };
 
-router.get('/:id', fetchAllStudentData);
+// router.get('/:id', fetchAllStudentData);
 router.get('/:auth_token', fetchAllStudentData);
 router.get('/:email/:creds', fetchStudent);
 router.post('/', postStudent);
@@ -206,7 +204,7 @@ module.exports = router;
 //     .catch(next);
 // });
 
-router.put('/:auth_token', updateStudent);
+// router.put('/:auth_token', updateStudent);
 
-router.delete('/:auth_token', deleteStudent);
+// router.delete('/:auth_token', deleteStudent);
 

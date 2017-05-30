@@ -7,5 +7,6 @@ exports.updateProfile = profile => ({
   userType: profile.data.userType,
   cohort: profile.data.cohort,
   image: profile.data.image,
+  id: profile.data.id,
 });
 

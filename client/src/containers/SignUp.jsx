@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import blobUtil from 'blob-util';
 import { signupUser } from '../actions/Login';
 import blobUtil from 'blob-util';
 import axios from 'axios';
@@ -27,7 +28,8 @@ class SignUp extends Component {
   handleImageChange(e) {
     e.preventDefault();
     const reader = new FileReader();
-    const file = e.target.files[0];
+    // const file = e.target.files[0];
+    let image;
     reader.onloadend = () => {
       console.log(file.name);
       this.setState({ image: reader.result });
@@ -37,7 +39,7 @@ class SignUp extends Component {
 
   render() {
     console.log(this.props);
-    console.log(this.state.image);
+    console.log(this.state);
     return (
       <div className="signup">
         <form className="signup-form" onSubmit={(e) => { e.preventDefault(); this.props.signupUser(this.state, this.props.history); }} autoComplete="on">
@@ -64,8 +66,8 @@ class SignUp extends Component {
                 value={this.state.password}
                 type="password"
               />
-              {/* <label htmlFor="picture">profile picture</label>*/}
-              <input onChange={this.handleImageChange} id="image-upload" type="file" name="profile-picture" />
+              <div><label htmlFor="profile">Profile Picture</label></div>
+              <input id="image-upload" onChange={this.handleImageChange} type="file" name="profile-picture" />
               <input id="signup-button" type="submit" />
             </div>
           </div>

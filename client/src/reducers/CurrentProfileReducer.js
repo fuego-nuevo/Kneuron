@@ -9,6 +9,7 @@ const currentProfile = (state = {}, action) => {
         userType: action.userType,
         cohort: action.cohort,
         image: action.image,
+        id: action.id,
       }
 
     default:

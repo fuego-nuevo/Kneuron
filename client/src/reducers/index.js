@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
-import CurrentProfile from './CurrentProfileReducer';
 import lectures from './Lectures';
 import currentLecture from './CurrentLecture';
-import currentTopic from './CurrentTopicReducer';
+import CurrentProfile from './CurrentProfileReducer';
 import currentQuiz from './CurrentQuizReducer';
-import currentLiveLecture from './CurrentLiveLectureReducer';
 import AuthReducer from './AuthReducer';
 import SearchReducer from './SearchReducer';
+import currentLiveLecture from './CurrentLiveLectureReducer';
+import currentTopic from './CurrentTopicReducer';
+import isLive from './IsLectureLive';
 
 const RootReducer = combineReducers({
   profile: CurrentProfile,
@@ -17,6 +18,7 @@ const RootReducer = combineReducers({
   currentQuiz,
   searchedResults: SearchReducer,
   currentLiveLecture,
+  isLive,
 });
 
 export default RootReducer;
