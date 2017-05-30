@@ -710,6 +710,23 @@ textarea:focus, input:focus{
     color: black;
 }
 
+.question-container{
+    border: 2px solid black;
+    height: 6vh;
+}
+
+.question-bubble{
+    margin-top: 1vh;
+    background-color: red;
+    width: 80%;
+    margin-left: 10%;
+    border-radius: 5px;
+    height: 60%;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+
 .livetop{
     height: 6vh;
     line-height: 6vh;

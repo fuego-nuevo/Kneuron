@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
+import StudentQuestions from './StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 
 const socket = io();
@@ -10,7 +11,12 @@ class LiveLecture extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      studentQuestions: [],
+      studentQuestions: [
+        { name: 'Mariano Okpalefe', question: 'who is George Washington?', topicId: 1 },
+      ],
+      filteredQuestions: [
+        { name: 'Mariano Okpalefe', question: 'who is George Washington?', topicId: 1 },
+      ],
     };
   }
 
@@ -40,7 +46,7 @@ class LiveLecture extends Component {
           <div className="student-question-filter">
             <div id="student-header" className="topic-header">Student Questions</div>
             <div id="student-questions" className="scroll-topics">
-              student questions broski
+              {this.state.filteredQuestions.map(question => <StudentQuestions question={question} />)}
             </div>
           </div>
         </div>
