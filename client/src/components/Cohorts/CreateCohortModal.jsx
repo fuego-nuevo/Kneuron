@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 let subject = "";
 
-const CreateCohortModal = props => {
+const CreateCohortModal = (props) => {
   return (
     <Modal
       header="Create a Cohort"
@@ -26,15 +26,15 @@ const CreateCohortModal = props => {
           modal="close"
           onClick={() => {
             console.log(subject);
-            props.handleCohortCreate(subject)}
+            props.handleCohortCreate(subject);
           }
+        }
         >
           Create Cohort
         </Button>
       </Link>
-
     </Modal>
   );
-}
+};
 
 export default CreateCohortModal;

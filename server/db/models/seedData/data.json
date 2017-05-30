@@ -52,6 +52,7 @@
     "data": {
       "id": 1,
       "subject": "MATH",
+      "semester": "FALL 2017",
       "time": "1 PM",
       "teacher_id": 1
     }
@@ -61,6 +62,7 @@
     "data": {
       "id": 2,
       "subject": "ENGLISH",
+      "semester": "FALL 2017",
       "time": "1 PM",
       "teacher_id": 1
     }
@@ -70,6 +72,7 @@
     "data": {
       "id": 3,
       "subject": "SCIENCE",
+      "semester": "FALL 2017",
       "time": "1 PM",
       "teacher_id": 1
     }

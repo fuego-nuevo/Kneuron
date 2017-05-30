@@ -1,6 +1,7 @@
 const db = require('../db/models');
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
+const Promise = require('bluebird');
 
 const redis = require('../db/redis');
 const antiHasher = require('../utils');
@@ -29,12 +30,6 @@ const fetchAllStudentData = async (req, res) => {
                 model: db.Quiz,
                 include: [{
                   model: db.Question,
-                  // include: [{
-                  //   model: db.Answer,
-                  //   include: [{
-                  //     model: db.Question
-                  //   }]
-                  // }],
                 }],
               }],
             }],
@@ -76,7 +71,7 @@ const postStudent = async (req, res) => {
       res.status(404).send('That email is taken. Please try another email.');
     } else {
       const newUser = await db.User.create({
-        email: req.body.email,
+        email: req.body.email.toLowerCase(),
         password: hash,
         userType: 1,
         fName: req.body.fName,
@@ -137,7 +132,7 @@ const deleteStudent = async (req, res) => {
   }
 };
 
-// router.get('/:id', fetchAllStudentData);
+router.get('/:id', fetchAllStudentData);
 router.get('/:auth_token', fetchAllStudentData);
 router.get('/:email/:creds', fetchStudent);
 router.post('/', postStudent);
@@ -145,3 +140,73 @@ router.put('/:auth_token', updateStudent);
 router.delete('/:auth_token', deleteStudent);
 
 module.exports = router;
+
+
+
+
+
+
+
+
+// router.get('/:auth_token', (req, res, next) => {
+//   const studentEmail = antiHasher(req.params.auth_token);
+//   db.User.findOne({
+//     where: { email: studentEmail, userType: 1 },
+//     include: [{
+//       model: db.StudentCohort,
+//       include: [{
+//         model: db.Cohort,
+//         include: [{
+//           model: db.Lecture,
+//           include: [{
+//             model: db.Topic,
+//             include: [{
+//               model: db.Quiz,
+//               include: [{
+//                 model: db.Question,
+//               }],
+//             }],
+//           }],
+//         }],
+//       }],
+//     }],
+//   })
+//     .then(data => res.status(200).send(data))
+//     .catch(next);
+// });
+
+// router.get('/:email/:creds', (req, res, next) => {
+//   db.User.findOne({ where: { email: req.params.email } })
+//     .then((studentUser) => {
+//       const valid = bcrypt.compare(req.params.creds, studentUser.password);
+//       if (valid) {
+//         res.status(200).send({ user: studentUser, id_token: hasher(req.params.email) });
+//       }
+//     })
+//     .catch(next);
+// });
+
+
+// router.post('/', (req, res, next) => {
+//   req.body['fName'] = req.body.fName;
+//   req.body['lName'] = req.body.lName;
+//   req.body['userType'] = 1;
+//   req.body['email'] = req.body.email;
+//   req.body['password'] = req.body.password;
+//   req.body['username'] = req.body.username;
+//   db.User.findOrCreate({
+//     where: { email: req.body.email },
+//     defaults: req.body,
+//   })
+//     .spread((user, created) => {
+//       if (created) {
+//         res.status(200).send(user);
+//       }
+//     })
+//     .catch(next);
+// });
+
+router.put('/:auth_token', updateStudent);
+
+router.delete('/:auth_token', deleteStudent);
+

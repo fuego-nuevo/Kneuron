@@ -72,7 +72,6 @@ exports.signupUser = (creds, history) => {
   };
   return (dispatch) => {
     dispatch(requestLogin(creds));
-
     return axios.post('http://localhost:8080/api/teachers', body)
       .then((response) => {
         if (response.statusText !== 'Created') {
