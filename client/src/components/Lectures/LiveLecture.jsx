@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
-import io from 'socket.io-client';
 
 // const socket = io();
 const socket = io('http://localhost:5000');
@@ -33,7 +33,13 @@ class LiveLecture extends Component {
         </div>
         <div className="lecture-filter">
           <div className="topic-filter">
-            {topics.map(topic => <LiveLectureTopics topic={topic} />)}
+            <div className="topic-header">TOPICS</div>
+            <div className="scroll-topics">
+              {topics.map(topic => <LiveLectureTopics topic={topic} />)}
+            </div>
+          </div>
+          <div className="student-question-filter">
+            <div id="student-header" className="topic-header">Student Questions</div>
           </div>
         </div>
       </div>
