@@ -711,20 +711,24 @@ textarea:focus, input:focus{
 }
 
 .question-container{
-    border: 2px solid black;
     height: 6vh;
 }
 
 .question-bubble{
     margin-top: 1vh;
-    background-color: red;
+    background-color: #c2c7ce;
     width: 80%;
     margin-left: 10%;
     border-radius: 5px;
-    height: 60%;
+    height: auto;
     padding-left: 2%;
     padding-right: 2%;
+    color: black;
 }
+.question-bubble em{
+    padding-right: 1%;
+}
+
 
 
 .livetop{

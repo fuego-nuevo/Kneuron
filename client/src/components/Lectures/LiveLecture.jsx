@@ -15,7 +15,7 @@ class LiveLecture extends Component {
         { name: 'Mariano Okpalefe', question: 'who is George Washington?', topicId: 1 },
       ],
       filteredQuestions: [
-        { name: 'Mariano Okpalefe', question: 'who is George Washington?', topicId: 1 },
+        { name: 'Mariano Okpalefe', question: 'who is George Washington lets make this question really fucking long bro just to be extra obnoxious about it?', topicId: 1 },
       ],
     };
   }

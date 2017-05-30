@@ -5,7 +5,7 @@ const StudentQuestion = (props) => {
   return (
     <div className="question-container">
       <div className="question-bubble">
-        {props.question.name}: {props.question.question}
+        <em>{props.question.name}:</em> {props.question.question}
       </div>
     </div>
   );
