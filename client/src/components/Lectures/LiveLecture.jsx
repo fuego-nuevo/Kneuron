@@ -39,6 +39,9 @@ class LiveLecture extends Component {
           </div>
           <div className="student-question-filter">
             <div id="student-header" className="topic-header">Student Questions</div>
+            <div id="student-questions" className="scroll-topics">
+              student questions broski
+            </div>
           </div>
         </div>
       </div>

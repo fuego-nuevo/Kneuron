@@ -706,6 +706,10 @@ textarea:focus, input:focus{
     width: 100%;
 }
 
+#student-questions{
+    color: black;
+}
+
 .livetop{
     height: 6vh;
     line-height: 6vh;
