@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import blobUtil from 'blob-util';
 import { signupUser } from '../actions/Login';
 
 class SignUp extends Component {
@@ -23,20 +24,25 @@ class SignUp extends Component {
   }
   handleImageChange(e) {
     e.preventDefault();
-
     const reader = new FileReader();
-    const file = e.target.files[0];
+    // const file = e.target.files[0];
+    let image;
     reader.onloadend = () => {
-      console.log(file);
+      blobUtil.base64StringToBlob(reader.result.substr(23, reader.result.length))
+        .then((blob) => {
+          console.log(blob);
+          image = blob;
+        }).catch((err) => {
+          console.log(err);
+        });
       this.setState({
-        image: reader.result,
+        image,
       });
-    }
-    reader.readAsDataURL(file);
+    };
   }
   render() {
     console.log(this.props);
-    console.log(this.state.image);
+    console.log(this.state);
     return (
       <div className="signup">
         <form className="signup-form" onSubmit={(e) => { e.preventDefault(); this.props.signupUser(this.state, this.props.history); }} autoComplete="on">
@@ -63,8 +69,8 @@ class SignUp extends Component {
                 value={this.state.password}
                 type="password"
               />
-              {/* <label htmlFor="picture">profile picture</label>*/}
-              <input onChange={this.handleImageChange} id="image-upload" type="file" name="profile-picture" />
+              <div><label htmlFor="profile">Profile Picture</label></div>
+              <input id="image-upload" onChange={this.handleImageChange} type="file" name="profile-picture" />
               <input id="signup-button" type="submit" />
             </div>
           </div>

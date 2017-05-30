@@ -2,10 +2,8 @@ const db = require('../db/models');
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const Promise = require('bluebird');
-
 const redis = require('../db/redis');
 const util = require('./util');
-// const hasher = require('./util');
 
 const saltRounds = 10;
 

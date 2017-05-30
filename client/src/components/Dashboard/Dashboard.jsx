@@ -24,6 +24,7 @@ import AddTopic from '../../components/Topics/AddTopic';
 import AddQuestion from '../Questions/AddQuestion';
 import SearchedDataItemsList from '../../components/SearchedContent/SearchedDataItemsList';
 
+
 const socket = io();
 
 class Dashboard extends Component {
@@ -175,7 +176,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   updateProfile,
   allLectures,
   currentLecture,
-  reduxDataSearch
+  reduxDataSearch,
 }, dispatch);
 
 const mapStateToProps = (state) => {

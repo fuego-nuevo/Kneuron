@@ -35,7 +35,7 @@ const User = db.define('user', {
     allowNull: false,
   },
   image: {
-    type: Sequelize.STRING,
+    type: Sequelize.BLOB,
     allowNull: true,
   },
 });
@@ -54,7 +54,7 @@ const Cohort = db.define('cohort', {
   },
   semester: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   time: {
     type: Sequelize.STRING,

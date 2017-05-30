@@ -47,8 +47,12 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  node: {
+    __dirname: true,
+  },
   devtool: 'inline-sourcemap',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({ 'global.GENTLY': false }),
   ],
 };
