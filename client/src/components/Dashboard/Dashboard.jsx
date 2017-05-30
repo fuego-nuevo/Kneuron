@@ -175,7 +175,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   updateProfile,
   allLectures,
   currentLecture,
-  reduxDataSearch
+  reduxDataSearch,
 }, dispatch);
 
 const mapStateToProps = (state) => {

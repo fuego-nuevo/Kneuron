@@ -13,5 +13,6 @@ router.use('/quizzes', require('./quiz'));
 router.use('/questions', require('./question'));
 router.use('/answers', require('./answer'));
 router.use('/results', require('./result'));
+router.use('/upload', require('./uploadToS3'));
 
 module.exports = router;

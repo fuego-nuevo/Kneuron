@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 
 // const socket = io();
-const socket = io({ path: '/io' });
+const socket = io('http://localhost:5000');
 
 
 class LiveLecture extends Component {
