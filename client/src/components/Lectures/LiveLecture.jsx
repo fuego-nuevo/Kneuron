@@ -25,14 +25,8 @@ class LiveLecture extends Component {
   }
 
   componentDidMount() {
-<<<<<<< HEAD
     const { topics, email } = this.props;
     socket.emit('join', { id: this.props.profile });
-=======
-    const { topics, email, profile } = this.props;
-    console.log(this.props);
-    socket.emit('join', { id: profile.id });
->>>>>>> [Add] react modal for quizzes
     socket.emit('live-lecture', { topics, email });
     socket.on('student-question', (studentQuestions) => {
       console.log('student questions');
@@ -104,11 +98,7 @@ class LiveLecture extends Component {
 
 const mapStateToProps = state => ({
   email: state.profile.email,
-<<<<<<< HEAD
-  profile: state.profile.id
-=======
-  profile: state.profile,
->>>>>>> [Add] react modal for quizzes
+  profile: state.profile.id,
 });
 
 
