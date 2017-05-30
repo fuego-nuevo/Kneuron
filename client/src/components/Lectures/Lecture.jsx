@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { currentLiveLecture } from '../../actions/CurrentLiveLecture';
+import { lectureLive } from '../../actions/IsLectureLive';
 
 
 class Lecture extends Component {
@@ -14,7 +15,6 @@ class Lecture extends Component {
     this.deleteLecture = this.deleteLecture.bind(this);
     this.runLiveLecture = this.runLiveLecture.bind(this);
   }
-
 
 
   async deleteLecture() {
@@ -33,11 +33,11 @@ class Lecture extends Component {
     }
   }
   async runLiveLecture() {
-    try{
+    try {
       const updateLecture = await this.props.currentLiveLecture(this.props.lecture);
       this.props.history.push('/dashboard/livelecture');
     } catch (error) {
-      console.log("Error grabbing currentLiveLecture: ", updateLecture);
+      console.log('Error grabbing currentLiveLecture: ', updateLecture);
     }
   }
 
@@ -49,14 +49,15 @@ class Lecture extends Component {
       <div
         className="cohort-entry animated bounceInUp"
       >
-      <div
-        id="lecture-entry"
-        className="ch-entry-header">{this.props.lecture.name}</div>
-      <button className="lecture-button" onClick={() => this.props.handleLectureClick(this.props.lecture.id)}>
-        <Link
-          to={currentLectureRoute}
-          selectedLecture={this.props.lecture.id}
-        >
+        <div
+          id="lecture-entry"
+          className="ch-entry-header"
+        >{this.props.lecture.name}</div>
+        <button className="lecture-button" onClick={() => { this.props.lectureLive(); this.props.handleLectureClick(this.props.lecture.id); }}>
+          <Link
+            to={currentLectureRoute}
+            selectedLecture={this.props.lecture.id}
+          >
           See Topics
         </Link>
         </button>
@@ -68,4 +69,4 @@ class Lecture extends Component {
 }
 
 
-export default connect(null, { currentLiveLecture })(Lecture);
+export default connect(null, { currentLiveLecture, lectureLive })(Lecture);
