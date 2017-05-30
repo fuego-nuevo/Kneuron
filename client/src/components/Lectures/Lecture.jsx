@@ -33,8 +33,12 @@ class Lecture extends Component {
     }
   }
   async runLiveLecture() {
-    const updateLecture = await this.props.currentLiveLecture(this.props.lecture);
-    this.props.history.push('/dashboard/livelecture');
+    try{
+      const updateLecture = await this.props.currentLiveLecture(this.props.lecture);
+      this.props.history.push('/dashboard/livelecture');
+    } catch (error) {
+      console.log("Error grabbing currentLiveLecture: ", updateLecture);
+    }
   }
 
 
