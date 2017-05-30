@@ -61,7 +61,7 @@ gulp.task('seed', ['sync', 'seed:seed']);
 
 gulp.task('nodemon', () => {
   const stream = nodemon({
-    script: 'server/Index.js',
+    script: 'server/index.js',
     watch: ['server/'],
     ignore: ['client/**'],
   });
@@ -80,9 +80,27 @@ gulp.task('webpack-dev-server', () => {
     inline: true,
     stats: true,
     clientLogLevel: 'info',
+    // proxy: {
+    //   '**': {
+    //     target: `http://localhost:${process.env.PORT}`,
+    //     changeOrigin: true,
+    //   },
+    //   '/': {
+    //     target: `http://localhost:${process.env.PORT}`,
+    //     changeOrigin: true,
+    //   },
+    //   '/io/*': {
+    //     target: `http://localhost:${process.env.PORT}`,
+    //     changeOrigin: true,
+    //   },
+    //   '/socket/*': {
+    //     target: `http://localhost:${process.env.PORT}`,
+    //     changeOrigin: true,
+    //   },
+    // },
     proxy: [
       {
-        context: ['/api', '/'],
+        context: ['/api', '/', '/io', '/socket.io'],
         target: `http://localhost:${process.env.PORT}`,
       },
     ],
@@ -99,3 +117,4 @@ gulp.task('webpack-dev-server', () => {
 // });
 
 gulp.task('default', ['nodemon', 'dbwatch', 'webpack-dev-server']);
+// gulp.task('default', ['nodemon']);
