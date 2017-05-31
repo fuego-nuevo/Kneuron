@@ -1002,9 +1002,9 @@ hr{
 }
 
 #edit-sub{
-    width: 12vw;
+    width: 6vw;
     margin-right: 2vw;
-    background-color: dodgerblue;
+    background-color: lightsteelblue;
     transition: box-shadow 0.3s ease-in;
 }
 
