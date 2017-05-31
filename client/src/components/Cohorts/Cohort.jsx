@@ -34,14 +34,11 @@ class Cohort extends Component {
   }
 
   fetchLectures() {
-      this.setState({ lectures: [] }, () => {
-        this.props.allLectures(this.props.cohort);
-      });
-      console.log("IT WENT THROUGH AND STATE FOR LECTURES INSIDE COHORT COMP IS: ", this.state.lectures);
+    this.props.allLectures(this.props.cohort);
   }
 
   render() {
-    const currentLectureRoute = `/dashboard/lectures${this.props.currentLecture}`;
+    console.log('IT WENT THROUGH AND STATE FOR LECTURES INSIDE COHORT COMP IS: ', this.props.cohort);
     return (
       <div className="cohort-entry animated bounceInUp" >
         <div className="ch-entry-header">{this.props.cohort.subject}</div>

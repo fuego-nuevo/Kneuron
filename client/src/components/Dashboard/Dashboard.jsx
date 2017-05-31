@@ -59,6 +59,7 @@ class Dashboard extends Component {
   async fetchTeacherInfo() {
     try {
       const profile = await axios.get(`/api/teachers/${localStorage.getItem('id_token')}`);
+      console.log('fetch teacher info ran');
       this.setState({ profile: profile.data }, () => {
         this.props.updateProfile(profile);
       });
@@ -140,6 +141,7 @@ class Dashboard extends Component {
   render() {
     const { dispatch, history, cohort } = this.props;
     const currentLectureRoute = `/dashboard/lectures${this.props.lectureId}`;
+    console.log(this.props);
     return (
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch} />
