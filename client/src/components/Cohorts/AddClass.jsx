@@ -1,20 +1,33 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { getSeason, getTime } from '../../utils/timeFormatter';
 
 class AddClass extends Component {
   constructor() {
     super();
     this.state = {
       subject: '',
-      time: '',
+      time: getTime() || '',
+      season: getSeason() || '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handleSeasonChange = this.handleSeasonChange.bind(this);
   }
+
 
   handleChange(e) {
     const name = e.target.name;
     this.setState({ [name]: e.target.value });
+  }
+
+  handleTimeChange(e){
+    this.setState({ time: e.target.value });
+  }
+
+  handleSeasonChange(e){
+    this.setState({ season: e.target.value });
   }
 
   async handleSubmit(e) {
@@ -23,6 +36,7 @@ class AddClass extends Component {
       auth_token: localStorage.getItem('id_token'),
       subject: this.state.subject,
       time: this.state.time,
+      semester: this.state.season,
     };
     try {
       const posted = await axios.post('/api/cohorts/', body);
@@ -44,7 +58,11 @@ class AddClass extends Component {
             </div>
             <div className="add-class-inps">
               <label htmlFor="time">Time</label>
-              <input onChange={this.handleChange} value={this.state.time} type="text" name="time" />
+              <input onChange={this.handleTimeChange} value={getTime()} type="text" name="time" />
+            </div>
+            <div className="add-class-inps">
+              <label htmlFor="time">Semester</label>
+              <input onChange={this.handleSeasonChange} value={getSeason()} type="text" name="semester" />
             </div>
           </div>
           <input id="add-class-submit" type="submit" value="Add Class" />
