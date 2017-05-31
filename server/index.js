@@ -7,6 +7,7 @@ const server = require('http').Server(app);
 // const server = app.listen(5000);
 const io = require('socket.io')(server);
 // const io = require('socket.io')(server, { path: '/io' });
+const PORT = process.env.PORT || 80;
 
 require('dotenv').config();
 require('dotenv').load();
@@ -73,23 +74,14 @@ io.on('connection', (socket) => {
   });
 });
 
-if (process.env.PORT) {
-  server.listen(process.env.PORT, (err) => {
-    if (err) {
-      console.log('There was an error connecting to the Server ', err);
-    } else {
-      console.log('You have connected to the server on PORT: ', process.env.PORT);
-    }
-  });
-} else {
-  server.listen(3000, (err) => {
-    if (err) {
-      console.log('There was an error connecting to the Server ', err);
-    } else {
-      console.log('You have connected to the server on PORT: ', 3000);
-    }
-  });
-}
+server.listen(PORT, (err) => {
+  if (err) {
+    console.log('There was an error connecting to the Server ', err);
+  } else {
+    console.log('You have connected to the server on PORT: ', process.env.PORT);
+  }
+});
+
 
 // Catches all 404 routes.
 app.use((error, req, res, next) => {
