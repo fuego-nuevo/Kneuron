@@ -121,8 +121,8 @@ class Dashboard extends Component {
   }
 
   renderLiveLecture() {
-    const { liveLectureTopics } = this.props;
-    return (<LiveLecture topics={liveLectureTopics || []} />);
+    const { liveLectureTopics, history } = this.props;
+    return (<LiveLecture history={history} topics={liveLectureTopics || []} />);
   }
 
   renderCohort() {
@@ -139,8 +139,6 @@ class Dashboard extends Component {
 
   render() {
     const { dispatch, history, cohort } = this.props;
-    console.log(this.state);
-    console.log('these are the props ', this.props);
     const currentLectureRoute = `/dashboard/lectures${this.props.lectureId}`;
     return (
       <div className="dashboard-content">

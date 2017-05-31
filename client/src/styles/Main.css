@@ -688,7 +688,7 @@ textarea:focus, input:focus{
 .searched-container{
   display: inline-block;
   position: absolute;
-  width: 1250px;
+  width: auto;
   height: 1250px;
   margin: 0 auto;
   padding: 5px;

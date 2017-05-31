@@ -22,10 +22,12 @@ class LiveLecture extends Component {
     this.filterQuestions = this.filterQuestions.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.onUnload = this.onUnload.bind(this);
   }
 
   componentDidMount() {
     const { topics, email } = this.props;
+    const quizzes = [];
     socket.emit('join', { id: this.props.profile });
     socket.emit('live-lecture', { topics, email });
     socket.on('student-question', (studentQuestions) => {
@@ -33,20 +35,29 @@ class LiveLecture extends Component {
       this.setState({ studentQuestions: [studentQuestions, ...this.state.studentQuestions] });
       console.log('student questions ', this.state.studentQuestions);
     });
+    console.log(this.props.profile);
     this.props.topics.forEach((topic) => {
       console.log(topic);
       topic.quizzes.forEach((quiz) => {
-        console.log(quiz);
-        this.setState({ quizzes: [quiz, ...this.state.quizzes] });
+        quizzes.push(quiz);
       });
     });
+    this.setState({ quizzes });
+    // window.addEventListener('beforeunload', this.onUnload);
   }
-  // componentDidUpdate() {
-  //
-  // }
-
+  onUnload(evt) {
+    const message = 'Are you sure you want to leave?';
+    if (typeof evt === 'undefined') {
+      console.log('event doesnt');
+      evt = window.event;
+    }
+    if (evt) {
+      console.log('event exists');
+      evt.returnValue = message;
+    }
+    return message;
+  }
   filterQuestions(id) {
-    console.log('it ran when we clicked the button');
     const filteredQuestions = this.state.studentQuestions.filter(question => question.topicId === id);
     this.setState({ filteredQuestions });
   }
@@ -60,6 +71,8 @@ class LiveLecture extends Component {
 
   render() {
     const { topics } = this.props;
+    console.log(this.props);
+    console.log(this.state);
     return (
       <div>
         <div>
@@ -68,7 +81,7 @@ class LiveLecture extends Component {
             <ModalContainer onClose={this.handleClose}>
               <ModalDialog onClose={this.handleClose}>
                 <h1>Dialog Content</h1>
-                {/* <LiveQuizList quiz={this.state.quizzes} />*/}
+                <LiveQuizList quizzes={this.state.quizzes} />
               </ModalDialog>
             </ModalContainer>
           }

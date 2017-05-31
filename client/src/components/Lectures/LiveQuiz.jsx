@@ -6,6 +6,7 @@ class LiveQuiz extends Component {
     this.state = {};
   }
   render() {
+    console.log(this.props);
     return (
       <div>
         {this.props.quiz.name}
