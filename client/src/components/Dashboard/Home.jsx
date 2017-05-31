@@ -9,6 +9,7 @@ class Home extends Component {
   }
   render() {
     const { fName, lName, image, cohort } = this.props.profile;
+    console.log(image);
     return (
       <Card
         className="large"
