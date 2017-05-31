@@ -82,6 +82,7 @@ class Quiz extends Component {
             Add Question
           </Link>
         </button>
+        <button className="edit-button"><img alt="delete" src="http://simpleicon.com/wp-content/uploads/pencil.png" width="25px" height="25px" /></button>
       </div>
     );
   }

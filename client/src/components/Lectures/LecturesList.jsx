@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom';
 
 const LecturesList = props => (
   <div>
-    <div className="class-nav">
-      <button className="addC-left"><Link to="/dashboard/addLecture">Add Lecture</Link></button>
-      <button className="addC-right"><Link to="/dashboard/editLecture">Edit Lecture</Link></button>
+    <div id="single-nav" className="class-nav">
+      <button className="single-hit"><Link to="/dashboard/addLecture">Add Lecture</Link></button>
     </div>
     <div className="cohort-holder">
       {props.lectures.map(lecture => (
