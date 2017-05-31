@@ -15,7 +15,7 @@ class LiveQuiz extends Component {
         onClick={() => {
           selectQuiz(quiz.id);
           closeModal();
-          Swal(`students have ${time} minutes to take the quiz`);
+          Swal(`students have ${time} minute to take the quiz`);
         }} className="pop-quiz"
       >
         {this.props.quiz.name}
