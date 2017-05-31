@@ -12,14 +12,14 @@ class LiveQuiz extends Component {
     console.log(this.props);
     return (
       <div
-        onClick={() => {
-          selectQuiz(quiz.id);
-          startQuiz();
+        onClick={async () => {
+          await selectQuiz(quiz.id);
+          await startQuiz();
           closeModal();
-          Swal(`students have ${time} minute to take the quiz`);
+          Swal(`students have ${time / 60} minute to take the quiz`);
         }} className="pop-quiz"
       >
-        {this.props.quiz.name}
+        {quiz.name}
       </div>
     );
   }

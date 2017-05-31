@@ -47,6 +47,7 @@ io.on('connection', (socket) => {
     io.sockets.in(teacherRoom).emit('live-lecture', topics);
   });
   socket.on('pop-quiz', (data) => {
+    console.log('pop quiz event emmittedddd!!!,', data);
     const quiz = data.quiz;
     const time = data.time;
     const teacherRoom = data.id;
