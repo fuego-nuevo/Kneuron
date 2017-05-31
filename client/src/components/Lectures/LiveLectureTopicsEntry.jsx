@@ -9,7 +9,6 @@ class LiveLectureTopicsEntry extends Component {
 
   render() {
     const { name } = this.props.topic;
-    console.log(this.props);
     return (
       <div onClick={() => { this.props.filter(this.props.topic.id); }} className="livetop">
         { name }

@@ -19,14 +19,13 @@ class DashNav extends Component {
   }
 
 
-  handleSearchInput(query){
-    this.setState({ text: query.target.value});
+  handleSearchInput(query) {
+    this.setState({ text: query.target.value });
   }
 
 
-  handleSearchSubmit(e){
+  handleSearchSubmit(e) {
     e.preventDefault();
-    console.log('this is the props in this fucking crazy submit ', this.props)
     const data = this.props.cohort;
     const query = this.state.text;
     const searchResult = searchReduxForDashNavSearch(data, query);
@@ -36,13 +35,12 @@ class DashNav extends Component {
 
 
   render() {
-    console.log("Input is: ", this.props);
     return (
       <nav className="dash-nav">
         <div className="dash-nav-items">
-          <button><Link to="/dashboard">Home</Link></button>
+          <button><Link to="/dashboard/home">Home</Link></button>
           <button><Link to="/dashboard/class">Classes</Link></button>
-          <button className={this.props.isLive ? '' : 'disabled'}><Link to="/dashboard/livelecture">live-lecture</Link></button>
+          <button><Link to="/dashboard/livelecture">Live-Lecture</Link></button>
         </div>
         <div className="search-container">
           <form>
