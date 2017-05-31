@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
     console.log('this is sockets live lecture event emitting ,');
     console.log(data.topics);
     console.log(teacherRoom);
-    io.sockets.in(teacherRoom).emit('live-lecture', topics);
+    io.sockets.to(teacherRoom).emit('live-lecture', topics);
   });
   socket.on('pop-quiz', (data) => {
     console.log('pop quiz event emmittedddd!!!,', data);
@@ -70,6 +70,18 @@ io.on('connection', (socket) => {
       name: student,
       question,
       topicId: topic,
+    });
+  });
+  socket.on('student-answer', (data) => {
+    console.log('We in student-answer yall ', data);
+    const selected = data.selected;
+    const question = data.questionId;
+    const student = data.name;
+    const teacherRoom = data.teacher;
+    io.sockets.to(teacherRoom).emit('student=answer', {
+      name: student,
+      selected,
+      questionId: question,
     });
   });
 });
