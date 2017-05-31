@@ -4,7 +4,6 @@ import Cohort from './Cohort';
 
 
 const CohortsList = (props) => {
-  console.log(props);
   return (
     <div>
       <div className="class-nav">

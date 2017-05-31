@@ -11,7 +11,6 @@ class CurrentLecture extends Component {
 
 
  render() {
-    console.log("IN CURRENT LECTURE COMP: ", this.props);
     return (
       <div>
         <TopicsList

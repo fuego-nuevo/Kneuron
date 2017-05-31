@@ -1,11 +1,12 @@
 import React from 'react';
-import LiveQuiz from './LiveQuizList';
+import LiveQuiz from './LiveQuiz';
 
 const LiveQuizList = (props) => {
+  console.log(props);
   return (
-  <div>
-    <LiveQuiz quiz={props.quiz} />
-  </div>
+    <div>
+      {props.quizzes.map(quiz => <LiveQuiz startQuiz={props.startQuiz} time={props.time} closeModal={props.closeModal} selectQuiz={props.selectQuiz} quiz={quiz} />)}
+    </div>
   );
 };
 

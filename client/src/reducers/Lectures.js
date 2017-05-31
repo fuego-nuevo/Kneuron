@@ -1,4 +1,5 @@
 const Lectures = (state = {}, action) => {
+  console.log(action.currentCohortId);
   switch (action.type) {
     case 'ALL_LECTURES' :
       return {

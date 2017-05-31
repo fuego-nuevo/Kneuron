@@ -59,7 +59,6 @@ class Quiz extends Component {
     }
   }
   render() {
-    console.log(this.props, 'quiiiiiiiz');
     return (
       <div className="cohort-entry animated bounceInUp">
         <Modal

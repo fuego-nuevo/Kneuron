@@ -47,9 +47,11 @@ io.on('connection', (socket) => {
     io.sockets.in(teacherRoom).emit('live-lecture', topics);
   });
   socket.on('pop-quiz', (data) => {
+    console.log('pop quiz event emmittedddd!!!,', data);
     const quiz = data.quiz;
+    const time = data.time;
     const teacherRoom = data.id;
-    io.sockets.in(teacherRoom).emit('pop-quiz', { quiz });
+    io.sockets.in(teacherRoom).emit('pop-quiz', { quiz, time });
   });
   socket.on('student-question', (data) => {
     console.log(data, 'were in here student question');

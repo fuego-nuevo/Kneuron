@@ -16,16 +16,23 @@ class LiveLecture extends Component {
     this.state = {
       isShowingModal: false,
       quizzes: [],
+      time: 1,
+      selectedQuiz: {},
       studentQuestions: [],
       filteredQuestions: [],
     };
     this.filterQuestions = this.filterQuestions.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.onUnload = this.onUnload.bind(this);
+    this.handleDropdownChange = this.handleDropdownChange.bind(this);
+    this.selectQuiz = this.selectQuiz.bind(this);
+    this.sendPopQuiz = this.sendPopQuiz.bind(this);
   }
 
   componentDidMount() {
     const { topics, email } = this.props;
+    const quizzes = [];
     socket.emit('join', { id: this.props.profile });
     socket.emit('live-lecture', { topics, email });
     socket.on('student-question', (studentQuestions) => {
@@ -33,20 +40,29 @@ class LiveLecture extends Component {
       this.setState({ studentQuestions: [studentQuestions, ...this.state.studentQuestions] });
       console.log('student questions ', this.state.studentQuestions);
     });
+    console.log(this.props.profile);
     this.props.topics.forEach((topic) => {
       console.log(topic);
       topic.quizzes.forEach((quiz) => {
-        console.log(quiz);
-        this.setState({ quizzes: [quiz, ...this.state.quizzes] });
+        quizzes.push(quiz);
       });
     });
+    this.setState({ quizzes });
+    // window.addEventListener('beforeunload', this.onUnload);
   }
-  // componentDidUpdate() {
-  //
-  // }
-
+  onUnload(evt) {
+    const message = 'Are you sure you want to leave?';
+    if (typeof evt === 'undefined') {
+      console.log('event doesnt');
+      evt = window.event;
+    }
+    if (evt) {
+      console.log('event exists');
+      evt.returnValue = message;
+    }
+    return message;
+  }
   filterQuestions(id) {
-    console.log('it ran when we clicked the button');
     const filteredQuestions = this.state.studentQuestions.filter(question => question.topicId === id);
     this.setState({ filteredQuestions });
   }
@@ -58,8 +74,27 @@ class LiveLecture extends Component {
     this.setState({ isShowingModal: false });
   }
 
+  handleDropdownChange(e) {
+    this.setState({ time: e.target.value * 60 });
+  }
+  selectQuiz(id) {
+    const selectedQuiz = this.state.quizzes.filter(quiz => quiz.id === id);
+    this.setState({ selectedQuiz });
+  }
+  sendPopQuiz() {
+    const { profile, cohort_id } = this.props;
+    console.log('send pop quiz ran ');
+    socket.emit('pop-quiz', {
+      time: this.state.time,
+      cohort_id,
+      questions: JSON.stringify(this.state.selectedQuiz[0].questions),
+      id: profile,
+    });
+  }
+
   render() {
     const { topics } = this.props;
+    console.log(this.state);
     return (
       <div>
         <div>
@@ -67,8 +102,13 @@ class LiveLecture extends Component {
             this.state.isShowingModal &&
             <ModalContainer onClose={this.handleClose}>
               <ModalDialog onClose={this.handleClose}>
-                <h1>Dialog Content</h1>
-                {/* <LiveQuizList quiz={this.state.quizzes} />*/}
+                <h2 className="text-center">How much time for students to take quiz?</h2>
+                <select className="pop-quiz" onChange={this.handleDropdownChange}>
+                  <option value="1">1 minutes</option>
+                  <option value="2">2 minutes</option>
+                  <option value="3">3 minutes</option>
+                </select>
+                <LiveQuizList startQuiz={this.sendPopQuiz} time={this.state.time} closeModal={this.handleClose} selectQuiz={this.selectQuiz} quizzes={this.state.quizzes || []} />
               </ModalDialog>
             </ModalContainer>
           }
@@ -99,6 +139,7 @@ class LiveLecture extends Component {
 const mapStateToProps = state => ({
   email: state.profile.email,
   profile: state.profile.id,
+  cohort_id: state.lectures.currentCohortId,
 });
 
 
