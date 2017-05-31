@@ -5,6 +5,7 @@ const Promise = require('bluebird');
 const redis = require('../db/redis');
 const util = require('./util');
 
+
 const saltRounds = 10;
 
 const fetchAllStudentData = async (req, res) => {
