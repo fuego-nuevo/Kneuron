@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { ModalContainer, ModalDialog } from 'react-modal-dialog';
+import Swal from 'sweetalert';
 import axios from 'axios';
 import '../../styles/Main.css';
-import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import { allLectures } from '../../actions/Lectures';
 
 class Cohort extends Component {
@@ -13,12 +14,14 @@ class Cohort extends Component {
       subject: '',
       lectures: [],
       isShowingModal: false,
+      time: '',
     };
     this.deleteClass = this.deleteClass.bind(this);
     this.fetchLectures = this.fetchLectures.bind(this);
     this.editClass = this.editClass.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   async deleteClass() {
@@ -42,16 +45,22 @@ class Cohort extends Component {
     e.preventDefault();
     const body = {
       auth_token: localStorage.getItem('id_token'),
+      ogSubject: this.props.cohort.subject,
       subject: this.state.subject,
       time: this.state.time,
     };
-    try {
-      axios.put('/api/cohorts/', body);
-      console.log(updated);
-      this.props.history.push('/dashboard/class');
-    } catch (error) {
-      console.log('error with axios call line 31 editClass');
-    }
+    axios.put('/api/cohorts/', body)
+        .then(() => {
+          this.props.fetchTeacherInfo()
+            .then(() => {
+              this.props.history.push('/dashboard/class');
+              Swal('class succesfully updated :)');
+            });
+        })
+      .catch((err) => {
+        console.log(err);
+        Swal('there was an error on our server :(');
+      });
   }
 
   fetchLectures() {
@@ -64,7 +73,13 @@ class Cohort extends Component {
     this.setState({ isShowingModal: false });
   }
 
+  handleChange(e) {
+    const name = e.target.name;
+    this.setState({ [name]: e.target.value });
+  }
+
   render() {
+    console.log(this.state, 'this is state bro in cohorts');
     return (
       <div className="cohort-entry animated bounceInUp" >
         <div>
@@ -73,6 +88,17 @@ class Cohort extends Component {
             <ModalContainer onClose={this.handleClose}>
               <ModalDialog onClose={this.handleClose}>
                 <h2 className="text-center">Edit your quiz :)</h2>
+                <form className="edit-forms" onSubmit={this.editClass}>
+                  <div>
+                    <label htmlFor="subject-change" >change subject</label>
+                    <input onChange={this.handleChange} placeholder="subject .." value={this.state.subject} type="text" name="subject" />
+                  </div>
+                  <div>
+                    <label htmlFor="time-change" >change time</label>
+                    <input onChange={this.handleChange} placeholder="time .." value={this.state.time} type="text" name="time" />
+                  </div>
+                  <input id="edit-sub" type="submit" />
+                </form>
               </ModalDialog>
             </ModalContainer>
           }

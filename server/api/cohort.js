@@ -65,7 +65,7 @@ const updateCohort = async (req, res) => {
     if (teacher) {
       console.log('this is the subject ', req.body.subject.toUpperCase());
       console.log('this is teacher id again  ', teacher.id);
-      const cohort = await db.Cohort.findOne({ where: { subject: req.body.subject.toUpperCase(), teacher_id: teacher.id } });
+      const cohort = await db.Cohort.findOne({ where: { subject: req.body.ogSubject.toUpperCase(), teacher_id: teacher.id } });
       console.log('on line 66  ', cohort);
       if (cohort) {
         cohort.subject = req.body.subject.toUpperCase();

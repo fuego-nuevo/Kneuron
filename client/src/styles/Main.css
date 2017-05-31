@@ -982,3 +982,32 @@ hr{
 .pop-quiz:hover{
     box-shadow: 0 0 3px 4px lightgray;
 }
+
+.edit-forms{
+    width: 100%;
+}
+
+.edit-forms input{
+    display: block;
+    border-style: none;
+    width: 10vw;
+    margin: 1vh 3vw;
+    background-color: lightgray;
+    border-radius: 4px;
+    height: 3vh;
+    color: black;
+}
+.edit-forms label{
+    margin: 1vh 3vw;
+}
+
+#edit-sub{
+    width: 12vw;
+    margin-right: 2vw;
+    background-color: dodgerblue;
+    transition: box-shadow 0.3s ease-in;
+}
+
+#edit-sub:hover{
+    box-shadow: 0px 0px 3px 3px lightgray;
+}
