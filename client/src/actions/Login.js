@@ -53,7 +53,7 @@ exports.loginUser = (creds, history) => {
         localStorage.setItem('id_token', response.data.id_token);
         localStorage.setItem('access_token', response.data.id_token);
         dispatch(receiveLogin(response.data));
-        history.push('/dashboard');
+        history.push('/dashboard/home');
       })
       .catch((err) => {
         console.log('Error: ', err);
@@ -82,7 +82,7 @@ exports.signupUser = (creds, history) => {
         localStorage.setItem('id_token', response.data.id_token);
         localStorage.setItem('access_token', response.data.id_token);
         dispatch(receiveLogin(response.data));
-        history.push('/dashboard');
+        history.push('/dashboard/home');
       })
       .catch((err) => {
       });
