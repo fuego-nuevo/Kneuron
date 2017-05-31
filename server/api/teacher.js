@@ -10,6 +10,7 @@ const saltRounds = 10;
 // Controllers
 // Fetch ALL INFORMATION on Teacher
 const fetchAllTeacherData = async (req, res) => {
+
   try {
     const email = antiHasher(req.params.auth_token);
     const allData = await db.User.findOne({
@@ -28,6 +29,7 @@ const fetchAllTeacherData = async (req, res) => {
         //   }]
         // }]
         // End - This is the query to find all students associated to a cohort
+
         include: [{
           model: db.Lecture,
           include: [{
