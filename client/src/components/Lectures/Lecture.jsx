@@ -20,7 +20,6 @@ class Lecture extends Component {
   async deleteLecture() {
     try {
       const removed = await axios.delete(`/api/lectures/${this.props.lecture.id}`);
-      console.log('ERRRRMYGOD: ', removed);
       this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
@@ -32,7 +31,6 @@ class Lecture extends Component {
       console.log(error);
     }
   }
-  
   async runLiveLecture() {
     try {
       const updateLecture = await this.props.currentLiveLecture(this.props.lecture);
@@ -45,7 +43,6 @@ class Lecture extends Component {
 
   render() {
     const currentLectureRoute = `/dashboard/lectures${this.props.lecture.id}`;
-    console.log('THE PROPS FOR LECTURE: ', this.props);
     return (
       <div
         className="cohort-entry animated bounceInUp"

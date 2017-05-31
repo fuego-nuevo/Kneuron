@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Swal from 'sweetalert';
+
 
 class LiveQuiz extends Component {
   constructor(props) {
@@ -6,9 +8,16 @@ class LiveQuiz extends Component {
     this.state = {};
   }
   render() {
+    const { selectQuiz, closeModal, quiz, time } = this.props;
     console.log(this.props);
     return (
-      <div>
+      <div
+        onClick={() => {
+          selectQuiz(quiz.id);
+          closeModal();
+          Swal(`students have ${time} minutes to take the quiz`);
+        }} className="pop-quiz"
+      >
         {this.props.quiz.name}
       </div>
     );

@@ -21,7 +21,6 @@ class Topic extends Component {
 
     try {
       const removed = await axios.delete(`/api/topics/${topic_id}`);
-      console.log("ERRRRMYGOD: ", removed);
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
@@ -35,7 +34,6 @@ class Topic extends Component {
   }
 
   render() {
-    console.log(this.props, ' this is from topics');
     return (
       <div className="cohort-entry animated bounceInUp">
         <div id="topic-entry" className="ch-entry-header">{this.props.topic.name}</div>

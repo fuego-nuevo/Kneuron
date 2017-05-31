@@ -1,10 +1,13 @@
 import React from 'react';
-import LiveQuiz from './LiveQuizList';
+import LiveQuiz from './LiveQuiz';
 
-const LiveQuizList = props => (
-  <div>
-    {props.quizzes.map(quiz => <LiveQuiz quiz={quiz} />)}
-  </div>
+const LiveQuizList = (props) => {
+  console.log(props);
+  return (
+    <div>
+      {props.quizzes.map(quiz => <LiveQuiz time={props.time} closeModal={props.closeModal} selectQuiz={props.selectQuiz} quiz={quiz} />)}
+    </div>
   );
+};
 
 export default LiveQuizList;

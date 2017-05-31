@@ -16,6 +16,8 @@ class LiveLecture extends Component {
     this.state = {
       isShowingModal: false,
       quizzes: [],
+      time: 1,
+      selectedQuiz: {},
       studentQuestions: [],
       filteredQuestions: [],
     };
@@ -23,6 +25,8 @@ class LiveLecture extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.onUnload = this.onUnload.bind(this);
+    this.handleDropdownChange = this.handleDropdownChange.bind(this);
+    this.selectQuiz = this.selectQuiz.bind(this);
   }
 
   componentDidMount() {
@@ -69,9 +73,16 @@ class LiveLecture extends Component {
     this.setState({ isShowingModal: false });
   }
 
+  handleDropdownChange(e) {
+    this.setState({ time: e.target.value * 60 });
+  }
+  selectQuiz(id) {
+    const selectedQuiz = this.state.quizzes.filter(quiz =>  quiz.id === id );
+    this.setState({ selectedQuiz });
+  }
+
   render() {
     const { topics } = this.props;
-    console.log(this.props);
     console.log(this.state);
     return (
       <div>
@@ -80,8 +91,13 @@ class LiveLecture extends Component {
             this.state.isShowingModal &&
             <ModalContainer onClose={this.handleClose}>
               <ModalDialog onClose={this.handleClose}>
-                <h1>Dialog Content</h1>
-                <LiveQuizList quizzes={this.state.quizzes} />
+                <h2 className="text-center">How much time for students to take quiz?</h2>
+                <select className="pop-quiz" onChange={this.handleDropdownChange}>
+                  <option value="1">1 minutes</option>
+                  <option value="2">2 minutes</option>
+                  <option value="3">3 minutes</option>
+                </select>
+                <LiveQuizList time={this.state.time} closeModal={this.handleClose} selectQuiz={this.selectQuiz} quizzes={this.state.quizzes || []} />
               </ModalDialog>
             </ModalContainer>
           }

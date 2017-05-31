@@ -931,3 +931,15 @@ hr{
   left: 520px;
   margin: 0 auto;
 }
+
+.pop-quiz{
+    text-align: center;
+    box-shadow: 0px 2px 2px lightgray;
+    margin: 3vh 15vw;
+    width: 30vw;
+    transition: box-shadow 0.3s ease-in;
+}
+
+.pop-quiz:hover{
+    box-shadow: 0 0 3px 4px lightgray;
+}
