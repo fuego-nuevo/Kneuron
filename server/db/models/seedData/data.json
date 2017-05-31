@@ -16,7 +16,7 @@
     "data": {
       "id": 2,
       "username": "test2",
-      "password":"test",
+      "password":"$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
       "email": "test2@test.com",
       "fName": "Buck",
       "lName": "William",
@@ -28,7 +28,7 @@
     "data": {
       "id": 3,
       "username": "test3",
-      "password":"test",
+      "password":"$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
       "email": "test3@test.com",
       "fName": "Steve",
       "lName": "Rogers",
@@ -40,7 +40,7 @@
     "data": {
       "id": 4,
       "username": "test4",
-      "password":"test",
+      "password":"$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
       "email": "test4@test.com",
       "fName": "Peter",
       "lName": "Parker",
