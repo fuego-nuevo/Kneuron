@@ -5,7 +5,7 @@ const LiveQuizList = (props) => {
   console.log(props);
   return (
     <div>
-      {props.quizzes.map(quiz => <LiveQuiz time={props.time} closeModal={props.closeModal} selectQuiz={props.selectQuiz} quiz={quiz} />)}
+      {props.quizzes.map(quiz => <LiveQuiz startQuiz={props.startQuiz} time={props.time} closeModal={props.closeModal} selectQuiz={props.selectQuiz} quiz={quiz} />)}
     </div>
   );
 };

@@ -8,12 +8,13 @@ class LiveQuiz extends Component {
     this.state = {};
   }
   render() {
-    const { selectQuiz, closeModal, quiz, time } = this.props;
+    const { selectQuiz, closeModal, quiz, time, startQuiz } = this.props;
     console.log(this.props);
     return (
       <div
         onClick={() => {
           selectQuiz(quiz.id);
+          startQuiz();
           closeModal();
           Swal(`students have ${time} minute to take the quiz`);
         }} className="pop-quiz"
