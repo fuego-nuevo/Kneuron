@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import blobUtil from 'blob-util';
 import { signupUser } from '../actions/Login';
-import blobUtil from 'blob-util';
 import axios from 'axios';
 
 class SignUp extends Component {
