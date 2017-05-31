@@ -72,7 +72,7 @@ class LiveLecture extends Component {
               </ModalDialog>
             </ModalContainer>
           }
-        </div>;
+        </div>
         <div className="class-nav animated fadeInDownBig">
           <button onClick={this.handleClick} className="addC-left">Pop Quiz</button>
           <button className="addC-right">End Lecture</button>
