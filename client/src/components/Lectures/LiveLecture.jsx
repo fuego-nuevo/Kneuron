@@ -24,7 +24,6 @@ class LiveLecture extends Component {
     this.filterQuestions = this.filterQuestions.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.onUnload = this.onUnload.bind(this);
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.selectQuiz = this.selectQuiz.bind(this);
     this.sendPopQuiz = this.sendPopQuiz.bind(this);
