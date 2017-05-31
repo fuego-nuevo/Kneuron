@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
-import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateProfile } from '../../actions/CurrentProfile';
 import DashNav from './DashboardNavBar';
+import Home from './Home';
 import AddClass from '../../components/Cohorts/AddClass';
 import AddLecture from '../../components/Lectures/AddLecture';
 import EditClass from '../../components/Cohorts/EditClass';
@@ -23,11 +23,6 @@ import EditTopic from '../../components/Topics/EditTopic';
 import AddTopic from '../../components/Topics/AddTopic';
 import AddQuestion from '../Questions/AddQuestion';
 import SearchedDataItemsList from '../../components/SearchedContent/SearchedDataItemsList';
-import { Card, CardTitle } from 'react-materialize';
-
-
-
-const socket = io();
 
 class Dashboard extends Component {
   constructor(props) {
@@ -53,23 +48,17 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.fetchTeacherInfo()
-    // .then(() => {
-    //   socket.emit('join', { id: this.state.profile.id });
-    // });
+    this.fetchTeacherInfo();
     this.setState({ selectedLecture: this.props.currentLecture.lectureId });
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('component received new props, here are old props , ', this.props);
-    console.log('actual new props , ', nextProps);
     this.setState({ profile: nextProps });
   }
 
   async fetchTeacherInfo() {
     try {
       const profile = await axios.get(`/api/teachers/${localStorage.getItem('id_token')}`);
-      console.log(profile, 'this is on line 70');
       this.setState({ profile: profile.data }, () => {
         this.props.updateProfile(profile);
       });
@@ -103,7 +92,6 @@ class Dashboard extends Component {
 
   renderAddTopic() {
     const { history, lectureId, name } = this.props;
-    console.log(`${lectureId} for ${name}`);
     return (<AddTopic history={history} lectureId={lectureId} name={name} fetchTeacherInfo={this.fetchTeacherInfo} />);
   }
 
@@ -150,51 +138,20 @@ class Dashboard extends Component {
 
 
   render() {
-    const { dispatch, history, cohort, image, fName, lName } = this.props;
+    const { dispatch, history, cohort } = this.props;
     console.log(this.state);
     console.log('these are the props ', this.props);
     const currentLectureRoute = `/dashboard/lectures${this.props.lectureId}`;
-    return window.location.pathname === '/dashboard' ? (
-      <div>
-        <div className="dashboard-content">
-          <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch}/>
-          <Route path="/dashboard/class" render={this.renderCohort} />
-          <Route path="/dashboard/lectures" render={this.renderLecturesList} />
-          <Route path="/dashboard/livelecture" render={this.renderLiveLecture} />
-          <Route path="/dashboard/addClass" render={this.renderAddClass} />
-          <Route path="/dashboard/editClass" component={EditClass} />
-          <Route path="/dashboard/addQuiz" render={this.renderAddQuiz} />
-          <Route path="/dashboard/quiz" render={this.renderQuiz} />
-          <Route path="/dashboard/addLecture" render={this.renderAddLecture} />
-          <Route path="/dashboard/editLecture" component={EditLecture} />
-          <Route path="/dashboard/addTopic" render={this.renderAddTopic} />
-          <Route path="/dashboard/editTopic" component={EditTopic} />
-          <Route path="/dashboard/addQuestion" render={this.renderAddQuestion} />
-          <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
-          <Route path="/dashboard/search" render={this.renderSearchedDataItemsList} />
-        </div>
-
-        <Card
-          className='large'
-          cohort={cohort}>
-          <h1>Welcome {fName} {lName}</h1>
-          <div className="teacher-profile-stats">
-            <div className="teacher-profile-image">
-              <img className="profile-image" src={image} />
-            </div>
-            <h2>{"# Of Cohort's: " } {this.props.cohort.length}</h2>
-          </div>
-        </Card>
-      </div>
-    ) : (
+    return (
       <div className="dashboard-content">
-        <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch}/>
+        <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch} />
+        <Route path="/dashboard/home" component={Home} />
         <Route path="/dashboard/class" render={this.renderCohort} />
         <Route path="/dashboard/lectures" render={this.renderLecturesList} />
         <Route path="/dashboard/livelecture" render={this.renderLiveLecture} />
         <Route path="/dashboard/addClass" render={this.renderAddClass} />
         <Route path="/dashboard/editClass" component={EditClass} />
-        <Route path="/dashboard/addQuiz" render={this.renderAddQuiz} component={(props) => <Quiz question={props.question} >/>
+        <Route path="/dashboard/addQuiz" render={this.renderAddQuiz} />
         <Route path="/dashboard/quiz" render={this.renderQuiz} />
         <Route path="/dashboard/addLecture" render={this.renderAddLecture} />
         <Route path="/dashboard/editLecture" component={EditLecture} />
@@ -244,7 +201,7 @@ const mapStateToProps = (state) => {
     quizzes,
     quizId,
     searchedResults,
-    image
+    image,
   };
 };
 

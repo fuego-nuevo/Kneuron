@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
+import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import StudentQuestions from './StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
+import LiveQuizList from './LiveQuizList';
 
 // const socket = io('http://localhost:5000');
 const socket = io();
@@ -12,10 +14,14 @@ class LiveLecture extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isShowingModal: false,
+      quizzes: [],
       studentQuestions: [],
       filteredQuestions: [],
     };
     this.filterQuestions = this.filterQuestions.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount() {
@@ -27,7 +33,17 @@ class LiveLecture extends Component {
       this.setState({ studentQuestions: [studentQuestions, ...this.state.studentQuestions] });
       console.log('student questions ', this.state.studentQuestions);
     });
+    this.props.topics.forEach((topic) => {
+      console.log(topic);
+      topic.quizzes.forEach((quiz) => {
+        console.log(quiz);
+        this.setState({ quizzes: [quiz, ...this.state.quizzes] });
+      });
+    });
   }
+  // componentDidUpdate() {
+  //
+  // }
 
   filterQuestions(id) {
     console.log('it ran when we clicked the button');
@@ -35,17 +51,33 @@ class LiveLecture extends Component {
     this.setState({ filteredQuestions });
   }
 
+  handleClick() {
+    this.setState({ isShowingModal: true });
+  }
+  handleClose() {
+    this.setState({ isShowingModal: false });
+  }
+
   render() {
     const { topics } = this.props;
-    console.log('these are the props in livelecture', this.props);
-    console.log(this.state.filteredQuestions);
     return (
       <div>
-        <div className="class-nav">
-          <button className="addC-left">Pop Quiz</button>
+        <div>
+          {
+            this.state.isShowingModal &&
+            <ModalContainer onClose={this.handleClose}>
+              <ModalDialog onClose={this.handleClose}>
+                <h1>Dialog Content</h1>
+                {/* <LiveQuizList quiz={this.state.quizzes} />*/}
+              </ModalDialog>
+            </ModalContainer>
+          }
+        </div>
+        <div className="class-nav animated fadeInDownBig">
+          <button onClick={this.handleClick} className="addC-left">Pop Quiz</button>
           <button className="addC-right">End Lecture</button>
         </div>
-        <div className="lecture-filter">
+        <div className="lecture-filter animated fadeInUpBig">
           <div className="topic-filter">
             <div className="topic-header">TOPICS</div>
             <div className="scroll-topics">
@@ -66,7 +98,7 @@ class LiveLecture extends Component {
 
 const mapStateToProps = state => ({
   email: state.profile.email,
-  profile: state.profile.id
+  profile: state.profile.id,
 });
 
 
