@@ -82,11 +82,12 @@ class LiveLecture extends Component {
     this.setState({ selectedQuiz });
   }
   sendPopQuiz() {
-    const { profile } = this.props;
+    const { profile, cohort_id } = this.props;
     console.log('send pop quiz ran ');
     socket.emit('pop-quiz', {
       time: this.state.time,
-      quiz: this.state.selectedQuiz,
+      cohort_id,
+      questions: JSON.stringify(this.state.selectedQuiz[0].questions),
       id: profile,
     });
   }
@@ -138,6 +139,7 @@ class LiveLecture extends Component {
 const mapStateToProps = state => ({
   email: state.profile.email,
   profile: state.profile.id,
+  cohort_id: state.lectures.currentCohortId,
 });
 
 

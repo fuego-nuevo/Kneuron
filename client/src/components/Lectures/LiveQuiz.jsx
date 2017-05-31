@@ -16,7 +16,7 @@ class LiveQuiz extends Component {
           await selectQuiz(quiz.id);
           await startQuiz();
           closeModal();
-          Swal(`students have ${time / 60} minute to take the quiz`);
+          Swal(`students have ${time / 60} minute(s) to take the quiz`);
         }} className="pop-quiz"
       >
         {quiz.name}
