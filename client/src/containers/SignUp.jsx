@@ -25,12 +25,13 @@ class SignUp extends Component {
   handleImageChange(e) {
     e.preventDefault();
     const reader = new FileReader();
-    // const file = e.target.files[0];
+    const file = e.target.files[0];
     let image;
     reader.onloadend = () => {
       console.log(file.name);
       this.setState({ image: reader.result });
     }
+    console.log("THIS IS THE FILE: ", file)
     reader.readAsDataURL(file);
   }
 
