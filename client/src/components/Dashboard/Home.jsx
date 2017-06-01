@@ -7,22 +7,28 @@ class Home extends Component {
     super(props);
     this.state = {};
   }
+
   render() {
     const { fName, lName, image, cohort } = this.props.profile;
-    return (
-      <Card
-        className="large"
-        cohort={cohort}
-      >
-        <h1>Welcome {fName} {lName}</h1>
-        <div className="teacher-profile-stats">
-          <div className="teacher-profile-image">
-            <img alt="profile" className="profile-image" src={image} />
-          </div>
-          <h2>{"# Of Cohort's: " } {cohort.length}</h2>
+    console.log(image);
+    console.log(this.props.profile);
+    if (this.props.profile.fName) {
+      return (
+        <div className="teacher-profile">
+          <div className="teacher-header" />
+          <img alt="profile" className="profile-image" src={image || 'https://web.usask.ca/images/profile.jpg'} />
+          <div className="prof-name"><h1>{fName}  {lName}</h1></div>
+            {/* <img*/}
+            {/* alt="profile" className="profile-image"*/}
+            {/* src={image || 'http://ulbcnj.org/wp-content/uploads/2015/05/placeholder.png'}*/}
+            {/* />*/}
+          {/* <h2>{"# Of Cohort's: " } {cohort.length || 1}</h2>*/}
         </div>
-      </Card>
-    );
+      );
+    }
+    return (<div>
+        .... loading
+      </div>);
   }
 }
 
