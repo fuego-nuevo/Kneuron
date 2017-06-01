@@ -1,15 +1,16 @@
 //searchReduxForDashNavSearch
 
 
-
 const searchReduxForDashNavSearch = (arr, query) => {
   let searchResults = [];
   let finalResult = [];
   let term = query.toUpperCase();
 
 
-  if([].concat([], ...arr.filter(cohort => cohort.subject.toUpperCase().includes(term) || cohort.time.toUpperCase().includes(term))).length > 0){
-    searchResults.push([].concat([], ...[].concat([], ...arr.filter(cohort => cohort.subject.toUpperCase().includes(term) || cohort.time.toUpperCase().includes(term)))));
+  if([].concat([], ...arr
+    .filter(cohort => cohort.subject.toUpperCase().includes(term) || cohort.time.toUpperCase().includes(term))).length > 0){
+    searchResults.push([].concat([], ...[].concat([], ...arr
+      .filter(cohort => cohort.subject.toUpperCase().includes(term) || cohort.time.toUpperCase().includes(term)))));
   }
 
 
@@ -17,8 +18,12 @@ const searchReduxForDashNavSearch = (arr, query) => {
   console.log("\n\n");
 
 
-  if([].concat([], ...[].concat([], ...arr.map(cohort => cohort.lectures.filter(lecture => lecture.name.toUpperCase().includes(term))))).length > 0){
-    searchResults.push([].concat([], ...[].concat([], ...arr.map(cohort => cohort.lectures.filter(lecture => lecture.name.toUpperCase().includes(term))))));
+  if([].concat([], ...[].concat([], ...arr
+    .map(cohort => cohort.lectures
+      .filter(lecture => lecture.name.toUpperCase().includes(term))))).length > 0){
+    searchResults.push([].concat([], ...[].concat([], ...arr
+      .map(cohort => cohort.lectures
+       .filter(lecture => lecture.name.toUpperCase().includes(term))))));
   }
 
 
@@ -26,8 +31,14 @@ const searchReduxForDashNavSearch = (arr, query) => {
   console.log("\n\n");
 
 
-  if([].concat([], ...[].concat([], ...[].concat([], ...[].concat([], ...arr.map(cohort => cohort.lectures.map(lecture => lecture.topics.filter(topic => topic.name.toUpperCase().includes(term)))))))).length > 0){
-    searchResults.push([].concat([], ...[].concat([], ...[].concat([], ...[].concat([], ...arr.map(cohort => cohort.lectures.map(lecture => lecture.topics.filter(topic => topic.name.toUpperCase().includes(term)))))))));
+  if([].concat([], ...[].concat([], ...[].concat([], ...[].concat([], ...arr
+    .map(cohort => cohort.lectures
+     .map(lecture => lecture.topics
+      .filter(topic => topic.name.toUpperCase().includes(term)))))))).length > 0){
+    searchResults.push([].concat([], ...[].concat([], ...[].concat([], ...[].concat([], ...arr
+      .map(cohort => cohort.lectures
+       .map(lecture => lecture.topics
+        .filter(topic => topic.name.toUpperCase().includes(term)))))))));
   }
 
 
@@ -35,8 +46,16 @@ const searchReduxForDashNavSearch = (arr, query) => {
   console.log("\n\n");
 
 
-  if([].concat([], ...[].concat([], ...[].concat([], ...[].concat([], ...arr.map(cohort => cohort.lectures.map(lecture => lecture.topics.map(topic => topic.quizzes.filter(quiz => quiz.name.toUpperCase().includes(term))))))))).length > 0){
-    searchResults.push([].concat([], ...[].concat([], ...[].concat([], ...[].concat([], ...arr.map(cohort => cohort.lectures.map(lecture => lecture.topics.map(topic => topic.quizzes.filter(quiz => quiz.name.toUpperCase().includes(term))))))))));
+  if([].concat([], ...[].concat([], ...[].concat([], ...[].concat([], ...arr
+    .map(cohort => cohort.lectures
+     .map(lecture => lecture.topics
+      .map(topic => topic.quizzes
+        .filter(quiz => quiz.name.toUpperCase().includes(term))))))))).length > 0){
+    searchResults.push([].concat([], ...[].concat([], ...[].concat([], ...[].concat([], ...arr
+      .map(cohort => cohort.lectures
+       .map(lecture => lecture.topics
+         .map(topic => topic.quizzes
+           .filter(quiz => quiz.name.toUpperCase().includes(term))))))))));
   }
 
 
