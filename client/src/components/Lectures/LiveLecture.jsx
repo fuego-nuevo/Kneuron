@@ -13,7 +13,7 @@ class LiveLecture extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShowingModal: false,
+      isShowingQuizModal: false,
       quizzes: [],
       time: 1,
       selectedQuiz: {},
@@ -23,6 +23,7 @@ class LiveLecture extends Component {
     this.filterQuestions = this.filterQuestions.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.selectQuiz = this.selectQuiz.bind(this);
     this.sendPopQuiz = this.sendPopQuiz.bind(this);
@@ -30,14 +31,17 @@ class LiveLecture extends Component {
   }
 
   componentDidMount() {
-    const { topics, email } = this.props;
+    const { topics, email, profile } = this.props;
     const quizzes = [];
-    socket.emit('join', { id: this.props.profile });
+    socket.emit('join', { id: profile });
     socket.emit('live-lecture', { topics, email });
     socket.on('student-question', (studentQuestions) => {
       this.setState({ studentQuestions: [studentQuestions, ...this.state.studentQuestions] });
     });
-    this.props.topics.forEach((topic) => {
+    socket.on('student-answer', (studentAnswer) => {
+      this.setState({ studentAnswer: [studentAnswer, ...this.state.studentAnswer] });
+    });
+    topics.forEach((topic) => {
       topic.quizzes.forEach((quiz) => {
         quizzes.push(quiz);
       });
@@ -48,14 +52,12 @@ class LiveLecture extends Component {
     const filteredQuestions = this.state.studentQuestions.filter(question => question.topicId === id);
     this.setState({ filteredQuestions });
   }
-
   handleClick() {
-    this.setState({ isShowingModal: true });
+    this.setState({ isShowingQuizModal: true });
   }
-  handleClose() {
-    this.setState({ isShowingModal: false });
+  handleModalClose() {
+    this.setState({ isShowingQuizModal: false });
   }
-
   handleDropdownChange(e) {
     this.setState({ time: e.target.value * 60 });
   }
@@ -67,8 +69,8 @@ class LiveLecture extends Component {
     const { profile, cohort_id } = this.props;
     socket.emit('pop-quiz', {
       time: this.state.time,
-      cohort_id,
       questions: JSON.stringify(this.state.selectedQuiz[0].questions),
+      cohort_id,
       id: profile,
     });
   }
@@ -83,14 +85,21 @@ class LiveLecture extends Component {
       <div>
         <div>
           {
-            this.state.isShowingModal &&
-            <ModalContainer onClose={this.handleClose}>
-              <ModalDialog onClose={this.handleClose}>
+            this.state.isShowingQuizModal &&
+            <ModalContainer onClose={this.handleModalClose}>
+              <ModalDialog onClose={this.handleModalClose}>
                 <h2 className="text-center">How much time for students to take quiz?</h2>
                 <select className="pop-quiz" onChange={this.handleDropdownChange}>
                   <option value="1">1 minutes</option>
                   <option value="2">2 minutes</option>
                   <option value="3">3 minutes</option>
+                  <option value="4">4 minutes</option>
+                  <option value="5">5 minutes</option>
+                  <option value="6">6 minutes</option>
+                  <option value="7">7 minutes</option>
+                  <option value="8">8 minutes</option>
+                  <option value="9">9 minutes</option>
+                  <option value="10">10 minutes</option>
                 </select>
                 <LiveQuizList
                   startQuiz={this.sendPopQuiz}

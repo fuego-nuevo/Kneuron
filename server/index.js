@@ -49,10 +49,10 @@ io.on('connection', (socket) => {
   });
   socket.on('pop-quiz', (data) => {
     console.log('pop quiz event emmittedddd!!!,', data);
-    const quiz = data.quiz;
+    const questions = data.questions;
     const time = data.time;
     const teacherRoom = data.id;
-    io.sockets.in(teacherRoom).emit('pop-quiz', { quiz, time });
+    io.sockets.in(teacherRoom).emit('pop-quiz', { questions, time });
   });
   socket.on('attendance', (data) => {
     console.log('attendance!!!,', data);

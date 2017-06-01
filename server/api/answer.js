@@ -14,7 +14,6 @@ const postAnswer = async (req, res) => {
         req.body['selected'] = req.body.selected;
         req.body['isCorrect'] = true;
         const postedAnswer = await db.Answer.create(req.body);
-        console.log('Answer created!');
         res.status(200).send(postedAnswer);
       } else {
         req.body['question_id'] = question.id;
