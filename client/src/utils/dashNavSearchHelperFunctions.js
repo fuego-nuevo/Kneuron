@@ -1,6 +1,7 @@
 //searchReduxForDashNavSearch
 
 
+
 const searchReduxForDashNavSearch = (arr, query) => {
   let searchResults = [];
   let finalResult = [];

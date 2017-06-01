@@ -23,6 +23,7 @@ import EditTopic from '../../components/Topics/EditTopic';
 import AddTopic from '../../components/Topics/AddTopic';
 import AddQuestion from '../Questions/AddQuestion';
 import SearchedDataItemsList from '../../components/SearchedContent/SearchedDataItemsList';
+import getUserMedia from 'getusermedia';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -30,20 +31,58 @@ class Dashboard extends Component {
     this.state = {
       profile: {},
       selectedLecture: this.props.currentLecture.lectureId || '',
+      lat: 0,
+      lng: 0,
+      alt: 0,
     };
 
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
     this.handleLectureClick = this.handleLectureClick.bind(this);
+    this.getUserCoordinates = this.getUserCoordinates.bind(this);
+    this.getSeaLevelAmount = this.getSeaLevelAmount.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchTeacherInfo();
+    this.setState({ selectedLecture: this.props.currentLecture.lectureId });
+    
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ profile: nextProps });
   }
 
   componentDidMount() {
     this.fetchTeacherInfo()
     .then(() => {
       this.setState({ selectedLecture: this.props.currentLecture.lectureId });
+      this.getUserCoordinates();
     })
       .catch((err) => {
         console.log('error in initial fetch , ', err);
       });
+  }
+
+  getUserCoordinates(){
+    if('geolocation' in navigator){
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
+      });
+    }
+  }
+
+  async getSeaLevelAmount(){
+    try{
+      const body = {
+        lat: this.state.lat.toString(),
+        lng: this.state.lng.toString(),
+      };
+      const altitude = await axios.post('/api/teachers/elevation', body);
+      console.log("GOOGLE RESPONSE IS: ", altitude);
+      this.setState({ alt: altitude.data });
+    } catch(error) {
+      console.log("FUCK, IT DIDN'T GET BACK THE DATA!!!");
+    }
   }
 
   async fetchTeacherInfo() {
@@ -62,12 +101,13 @@ class Dashboard extends Component {
     const { lectures } = this.props;
     this.setState({ selectedLecture: lectureId }, () => this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture)));
   }
+
   render() {
     const { dispatch, history, cohort, lectures, lectureId, liveLectureTopics, quizzes, currentCohortId, name, quizId, topics, searchedResults } = this.props;
     const currentLectureRoute = `/dashboard/lectures${this.props.lectureId}`;
     console.log(this.props);
     return (
-      <div className="dashboard-content">
+      <div className="dashboard-content" onMouseEnter={this.getSeaLevelAmount}>
         <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch} />
         <Route path="/dashboard/home" component={Home} />
         <Route
