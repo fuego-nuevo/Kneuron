@@ -27,6 +27,7 @@ class LiveLecture extends Component {
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.selectQuiz = this.selectQuiz.bind(this);
     this.sendPopQuiz = this.sendPopQuiz.bind(this);
+    this.startAttendance = this.startAttendance.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +73,10 @@ class LiveLecture extends Component {
       id: profile,
     });
   }
+  startAttendance() {
+    console.log('it happened starting attendance ,');
+    socket.emit('attendance', { id: this.props.profile });
+  }
 
   render() {
     const { topics } = this.props;
@@ -94,8 +99,9 @@ class LiveLecture extends Component {
           }
         </div>
         <div className="class-nav animated fadeInDownBig">
-          <button onClick={this.handleClick} className="addC-left">Pop Quiz</button>
-          <button className="addC-right">End Lecture</button>
+          <button id="lecleft" onClick={this.handleClick} className="addC-left">Pop Quiz</button>
+          <button id="lecmid" className="addC-right">End Lecture</button>
+          <button id="lecright" onClick={this.startAttendance} className="addC-right">Track Attendance</button>
         </div>
         <div className="lecture-filter animated fadeInUpBig">
           <div className="topic-filter">

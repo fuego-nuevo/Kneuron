@@ -526,6 +526,24 @@ textarea:focus, input:focus{
     font-family: "Brandon Grotesque";
 }
 
+#attendance{
+    position: absolute;
+    right: 8%;
+    width: 5%;
+    height: 8vh;
+    border-style: none;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+}
+
+.track{
+    position: absolute;
+    left: 0%;
+    border-style: none;
+    background-color: transparent;
+}
+
 #single-nav{
     position: absolute;
     width: 20%;
@@ -579,6 +597,25 @@ textarea:focus, input:focus{
     border-radius: 5px;
     font-size: 16px;
     transition: 0.3s;
+}
+
+#lecleft{
+    position:absolute;
+    width: 30%;
+    left: 2%
+}
+
+#lecmid{
+    position: absolute;
+    width: 30%;
+    left: 35%;
+    background-color: #243B55;
+}
+
+#lecright{
+    position: absolute;
+    width: 30%;
+    right: 2%;
 }
 
 
