@@ -29,6 +29,23 @@ const fetchAllStudentData = async (req, res) => {
                 include: [{
                   model: db.Question,
                 }],
+    // const email = antiHasher(req.params.auth_token);
+    // const allData = await db.User.findOne({
+    //   where: {
+    //     email: email,
+    //     userType: 1,
+    //   },
+    //   include: [{
+    //     model: db.Cohort,
+    //     as: 'cohort',
+    //     include: [{
+    //       model: db.Lecture,
+    //       include: [{
+    //         model: db.Topic,
+    //         include: [{
+    //           model: db.Quiz,
+    //           include: [{
+    //             model: db.Question,
               }],
             }],
           }],
