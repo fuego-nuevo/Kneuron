@@ -12,12 +12,16 @@ class Lecture extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      name: '',
+    };
 
     this.deleteLecture = this.deleteLecture.bind(this);
     this.runLiveLecture = this.runLiveLecture.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.editClass = this.editClass.bind(this);
   }
 
 
@@ -44,15 +48,17 @@ class Lecture extends Component {
     }
   }
   editClass(e) {
+    const { cohort_id, name } = this.props.lecture;
     e.preventDefault();
     const body = {
       auth_token: localStorage.getItem('id_token'),
-      ogSubject: this.props.cohort.subject,
-      subject: this.state.subject,
-      time: this.state.time,
+      cohortId: cohort_id,
+      lecture_name: name,
+      newname: this.state.name,
     };
-    axios.put('/api/cohorts/', body)
-      .then(() => {
+    axios.put('/api/lectures/', body)
+      .then((res) => {
+      console.log(res);
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
@@ -70,8 +76,14 @@ class Lecture extends Component {
   handleClose() {
     this.setState({ isShowingModal: false });
   }
+  handleChange(e) {
+    const name = e.target.name;
+    this.setState({ [name]: e.target.value });
+  }
   render() {
     const currentLectureRoute = `/dashboard/lectures${this.props.lecture.id}`;
+    console.log(this.props);
+    console.log(this.state);
     return (
       <div
         className="cohort-entry animated bounceInUp"
@@ -81,18 +93,14 @@ class Lecture extends Component {
             this.state.isShowingModal &&
             <ModalContainer onClose={this.handleClose}>
               <ModalDialog onClose={this.handleClose}>
-                <h2 className="text-center">Edit your quiz :)</h2>
+                <h1 className="text-center">Edit your quiz :)</h1>
                 <form className="edit-forms" onSubmit={this.editClass}>
                   <div>
-                    <label htmlFor="subject-change" >change subject</label>
-                    <input onChange={this.handleChange} placeholder="subject .." value={this.state.subject} type="text" name="subject" />
-                  </div>
-                  <div>
-                    <label htmlFor="time-change" >change time</label>
-                    <input onChange={this.handleChange} placeholder="time .." value={this.state.time} type="text" name="time" />
+                    <label htmlFor="subject-change" >change name</label>
+                    <input onChange={this.handleChange} placeholder="name .." value={this.state.name} type="text" name="name" />
                   </div>
                   <button id="edit-sub" type="submit">
-                    <img alt="delete" src="http://www.freeiconspng.com/uploads/paper-plane-icon--icon-search-engine-13.png" width="25px" height="25px" />
+                    <img alt="edit" src="http://www.freeiconspng.com/uploads/paper-plane-icon--icon-search-engine-13.png" width="25px" height="25px" />
                   </button>
                 </form>
               </ModalDialog>

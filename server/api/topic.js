@@ -28,8 +28,11 @@ const postTopic = async (req, res) => {
 };
 
 const updateTopic = async (req, res) => {
+  console.log(req.body.name);
+  console.log(req.params.topic_id);
   try {
     const topic = await db.Topic.findOne({ where: { id: req.params.topic_id } });
+    console.log(topic, 'WWWWWEEEE KNOW WE HIT IT BROOOOOOOO');
     if (topic) {
       req.body['name'] = req.body.name;
       const updatedTopic = await topic.update(req.body);
@@ -40,8 +43,8 @@ const updateTopic = async (req, res) => {
       res.status(404).send('Topic not found');
     }
   } catch (error) {
-    console.log('Error in updateTopic');
-    res.status(500).send('Error in updateTopic');
+    console.log('Error in updateTopic ', error);
+    res.status(500).send('Error in updateTopic ');
   }
 };
 
