@@ -87,7 +87,7 @@ class Cohort extends Component {
             this.state.isShowingModal &&
             <ModalContainer onClose={this.handleClose}>
               <ModalDialog onClose={this.handleClose}>
-                <h2 className="text-center">Edit your quiz :)</h2>
+                <h1 className="text-center">Edit your lecture :)</h1>
                 <form className="edit-forms" onSubmit={this.editClass}>
                   <div>
                     <label htmlFor="subject-change" >change subject</label>

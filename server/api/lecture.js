@@ -61,12 +61,15 @@ const updateLecture = async (req, res) => {
   try {
     const teacher = await db.User.findOne({ where: { email: antiHasher(req.body.auth_token) } });
     if (teacher) {
-      const teachersCohort = await db.Cohort.findOne({ where: { id: req.body.cohortId, subject: req.body.subject, teacher_id: teacher.id } });
+      console.log('we found the teacher');
+      console.log(req.body.cohortId);
+      const teachersCohort = await db.Cohort.findOne({ where: { id: req.body.cohortId } });
       if (teachersCohort) {
+        console.log('we at least found teachers cohort');
         const lecture = await db.Lecture.findOne({ where: { name: req.body.lecture_name, cohort_id: teachersCohort.id } });
         if (lecture) {
           lecture.subject = req.body.subject;
-          const updatedLecture = await db.Lecture.update({ subject: lecture.subject }, { where: { id: lecture.id } });
+          const updatedLecture = await db.Lecture.update({ name: req.body.newname }, { where: { id: lecture.id } });
           if (updatedLecture) {
             res.status(200).send(updatedLecture);
           } else {
