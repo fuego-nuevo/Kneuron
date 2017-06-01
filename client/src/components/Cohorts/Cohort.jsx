@@ -27,6 +27,7 @@ class Cohort extends Component {
   }
 
   async deleteClass() {
+    console.log('hit the delete route')
     try {
       const removed = await axios.delete(`/api/cohorts/${localStorage.getItem('id_token')}/${this.props.cohort.id}`);
       if (removed) {

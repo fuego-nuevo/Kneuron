@@ -6,7 +6,6 @@ import StudentQuestions from './StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 import LiveQuizList from './LiveQuizList';
 
-// const socket = io('http://localhost:5000');
 const socket = io();
 
 
@@ -93,7 +92,13 @@ class LiveLecture extends Component {
                   <option value="2">2 minutes</option>
                   <option value="3">3 minutes</option>
                 </select>
-                <LiveQuizList startQuiz={this.sendPopQuiz} time={this.state.time} closeModal={this.handleClose} selectQuiz={this.selectQuiz} quizzes={this.state.quizzes || []} />
+                <LiveQuizList
+                  startQuiz={this.sendPopQuiz}
+                  time={this.state.time}
+                  closeModal={this.handleClose}
+                  selectQuiz={this.selectQuiz}
+                  quizzes={this.state.quizzes || []}
+                />
               </ModalDialog>
             </ModalContainer>
           }
