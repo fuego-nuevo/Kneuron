@@ -3,22 +3,18 @@ import Lecture from './Lecture';
 import { Link } from 'react-router-dom';
 
 
-const LecturesList = props => {
-  console.log(props);
-  return (
-    <div>
-      <div className="class-nav">
-        <button className="addC-left"><Link to="/dashboard/addLecture">Add Lecture</Link></button>
-        <button className="addC-right"><Link to="/dashboard/editLecture">Edit Lecture</Link></button>
-      </div>
-      <div className="cohort-holder">
-        {props.lectures.map(lecture => (
-          <Lecture selectedLecture={props.selectedLecture} history={props.history} fetchTeacherInfo={props.fetchTeacherInfo} lecture={lecture} handleLectureClick={props.handleLectureClick}/>
-        ))}
-      </div>
+const LecturesList = props => (
+  <div>
+    <div id="single-nav" className="class-nav">
+      <button className="single-hit"><Link to="/dashboard/addLecture">Add Lecture</Link></button>
     </div>
-  )
-}
+    <div className="cohort-holder">
+      {props.lectures.map(lecture => (
+        <Lecture selectedLecture={props.selectedLecture} history={props.history} fetchTeacherInfo={props.fetchTeacherInfo} lecture={lecture} handleLectureClick={props.handleLectureClick} />
+        ))}
+    </div>
+  </div>
+  );
 
 
 export default LecturesList;

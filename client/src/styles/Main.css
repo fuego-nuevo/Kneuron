@@ -240,6 +240,7 @@ textarea:focus, input:focus{
     top: 0;
 }
 
+
 .dash-nav-items{
     position: absolute;
     left: 0;
@@ -395,6 +396,15 @@ textarea:focus, input:focus{
     transition: 0.3s ease-in;
 }
 
+.edit-button{
+    position: absolute;
+    right: 7vh;
+    border-style: none;
+    bottom: 2vh;
+    background-color: transparent;
+    transition: 0.3s ease-in;
+}
+
 .go-live{
     position:absolute;
     right: 2vh;
@@ -415,6 +425,14 @@ textarea:focus, input:focus{
 .delete-class:hover{
     position: absolute;
     right: 2vh;
+    bottom: 3vh;
+    border-style: none;
+    box-shadow: none;
+}
+
+.edit-button:hover{
+    position: absolute;
+    right: 7vh;
     bottom: 3vh;
     border-style: none;
     box-shadow: none;
@@ -508,8 +526,29 @@ textarea:focus, input:focus{
     font-family: "Brandon Grotesque";
 }
 
+#single-nav{
+    position: absolute;
+    width: 20%;
+    left: 40%;
+}
+
 .class-nav button:hover{
     box-shadow: 0px 0px 3px 3px lightgray;
+}
+
+.single-hit{
+    border-style: none;
+    background-color: darkgray;
+    color: white;
+    position: absolute;
+    left: 10%;
+    bottom: 0;
+    height: 80%;
+    top: 10%;
+    width: 80%;
+    border-radius: 5px;
+    font-size: 16px;
+    transition:0.3s;
 }
 
 .addC-left{
@@ -913,23 +952,44 @@ hr{
   visibility: hidden;
 }
 
-.teacher-profile-image{
-  display: inline-block;
-  position: absolute;
-  border-radius: 50%;
-  margin: 0 auto;
-  width: auto;
-  height: 200px;
+.teacher-profile{
+    position: absolute;
+    width: 60vw;
+    height: 80vh;
+    top: 15vh;
+    left: 20vw;
+    border-radius: 8px;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+    background-color: white;
+}
+
+.teacher-header{
+    background-color: #9298a0;
+    position: absolute;
+    top: 0;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    height: 15vh;
+    width: 100%;
 }
 
 .profile-image{
   display: block;
-  position: relative;
-  height: 200px;
-  width: 200px;
+  position: absolute;
+  height: 25vh;
+  width: 12vw;
   border-radius: 50%;
-  left: 520px;
-  margin: 0 auto;
+  left: 24vw;
+  top: 3vh;
+    z-index: 3;
+}
+
+.prof-name{
+    margin-top: 28vh;
+    text-center: align;
+    border-bottom: 3px solid rgba(0,0,0,0.06);
+    width: 90%;
+    margin-left: 5%;
 }
 
 .pop-quiz{
@@ -943,3 +1003,33 @@ hr{
 .pop-quiz:hover{
     box-shadow: 0 0 3px 4px lightgray;
 }
+
+.edit-forms{
+    width: 100%;
+}
+
+.edit-forms input{
+    display: block;
+    border-style: none;
+    width: 10vw;
+    margin: 1vh 3vw;
+    background-color: lightgray;
+    border-radius: 4px;
+    height: 3vh;
+    color: black;
+}
+.edit-forms label{
+    margin: 1vh 3vw;
+}
+
+#edit-sub{
+    width: 6vw;
+    margin: 1vw;
+    background-color: transparent;
+    border-style: none;
+    transition: box-shadow 0.3s ease-in;
+}
+
+/*#edit-sub:hover{*/
+    /*box-shadow: 0 0 3px 3px lightgray;*/
+/*}*/

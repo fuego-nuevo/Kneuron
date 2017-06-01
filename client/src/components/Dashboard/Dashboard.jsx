@@ -23,7 +23,6 @@ import EditTopic from '../../components/Topics/EditTopic';
 import AddTopic from '../../components/Topics/AddTopic';
 import AddQuestion from '../Questions/AddQuestion';
 import SearchedDataItemsList from '../../components/SearchedContent/SearchedDataItemsList';
-// import VideoChat from '../../components/VideoChat/VideoChat';
 import getUserMedia from 'getusermedia';
 
 class Dashboard extends Component {
@@ -38,18 +37,7 @@ class Dashboard extends Component {
     };
 
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
-    this.renderCohort = this.renderCohort.bind(this);
-    this.renderLecturesList = this.renderLecturesList.bind(this);
-    this.renderCurrentLecture = this.renderCurrentLecture.bind(this);
     this.handleLectureClick = this.handleLectureClick.bind(this);
-    this.renderAddClass = this.renderAddClass.bind(this);
-    this.renderQuiz = this.renderQuiz.bind(this);
-    this.renderAddLecture = this.renderAddLecture.bind(this);
-    this.renderAddTopic = this.renderAddTopic.bind(this);
-    this.renderAddQuiz = this.renderAddQuiz.bind(this);
-    this.renderAddQuestion = this.renderAddQuestion.bind(this);
-    this.renderSearchedDataItemsList = this.renderSearchedDataItemsList.bind(this);
-    this.renderLiveLecture = this.renderLiveLecture.bind(this);
     this.getUserCoordinates = this.getUserCoordinates.bind(this);
     this.getSeaLevelAmount = this.getSeaLevelAmount.bind(this);
   }
@@ -57,11 +45,22 @@ class Dashboard extends Component {
   componentDidMount() {
     this.fetchTeacherInfo();
     this.setState({ selectedLecture: this.props.currentLecture.lectureId });
-    this.getUserCoordinates();
+    
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ profile: nextProps });
+  }
+
+  componentDidMount() {
+    this.fetchTeacherInfo()
+    .then(() => {
+      this.setState({ selectedLecture: this.props.currentLecture.lectureId });
+      this.getUserCoordinates();
+    })
+      .catch((err) => {
+        console.log('error in initial fetch , ', err);
+      });
   }
 
   getUserCoordinates(){
@@ -103,98 +102,62 @@ class Dashboard extends Component {
     this.setState({ selectedLecture: lectureId }, () => this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture)));
   }
 
-  renderAddQuiz() {
-    return (<AddQuiz history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} />);
-  }
-
-  renderAddQuestion() {
-    const { quizId } = this.props;
-    return (<AddQuestion history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} quizId={quizId} />);
-  }
-
-  renderAddClass() {
-    return (<AddClass history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} />);
-  }
-
-  renderAddLecture() {
-    const { currentCohortId } = this.props;
-    return (<AddLecture history={this.props.history} cohortId={currentCohortId} fetchTeacherInfo={this.fetchTeacherInfo} />);
-  }
-
-  renderAddTopic() {
-    const { history, lectureId, name } = this.props;
-    return (<AddTopic history={history} lectureId={lectureId} name={name} fetchTeacherInfo={this.fetchTeacherInfo} />);
-  }
-
-  renderLecturesList() {
-    const { lectures, history, lectureId } = this.props;
-    return (<LecturesList lectures={lectures || []} history={history} fetchTeacherInfo={this.fetchTeacherInfo} selectedLecture={lectureId} handleLectureClick={this.handleLectureClick} />);
-  }
-
-  renderCurrentLecture() {
-    const { lectureId, name, topics, history, location } = this.props;
-    return (<CurrentLecture location={location} lectureId={lectureId || ''} history={history} fetchTeacherInfo={this.fetchTeacherInfo} name={name || ''} topics={topics || []} />);
-  }
-
-  renderSearchedDataItemsList() {
-    const { searchedResults, history, lectureId } = this.props;
-    return (<SearchedDataItemsList history={history} lectureId={lectureId || ''} handleLectureClick={this.handleLectureClick} searchedContentResults={searchedResults || []} allLectures={this.props.allLectures.bind(this)} fetchTeacherInfo={this.fetchTeacherInfo} />);
-  }
-
-  handleLectureClick(lectureId) {
-    const { lectures } = this.props;
-    this.setState({ selectedLecture: lectureId }, () => this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture)));
-  }
-
-  renderQuiz() {
-    const { quizzes } = this.props;
-    return (<QuizList history={this.props.history} fetchTeacherInfo={this.fetchTeacherInfo} quizzes={quizzes || []} />);
-  }
-
-  renderLiveLecture() {
-    const { liveLectureTopics, history } = this.props;
-    return (<LiveLecture history={history} topics={liveLectureTopics || []} />);
-  }
-
-  // renderVideoChat(){
-  //   return (<VideoChat />)
-  // }
-
-  renderCohort() {
-    const { cohort, history } = this.props;
-    return (<CohortsList
-      fetchTeacherInfo={this.fetchTeacherInfo}
-      history={history}
-      cohorts={cohort || []}
-      allLectures={this.props.allLectures.bind(this)}
-      currentLecture={this.props.currentLecture.lectureId}
-    />);
-  }
-
-
   render() {
-    const { dispatch, history, cohort } = this.props;
+    const { dispatch, history, cohort, lectures, lectureId, liveLectureTopics, quizzes, currentCohortId, name, quizId, topics, searchedResults } = this.props;
     const currentLectureRoute = `/dashboard/lectures${this.props.lectureId}`;
     console.log(this.props);
     return (
       <div className="dashboard-content" onMouseEnter={this.getSeaLevelAmount}>
         <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch} />
         <Route path="/dashboard/home" component={Home} />
-        <Route path="/dashboard/class" render={this.renderCohort} />
-        <Route path="/dashboard/lectures" render={this.renderLecturesList} />
-        <Route path="/dashboard/livelecture" render={this.renderLiveLecture} />
-        <Route path="/dashboard/addClass" render={this.renderAddClass} />
-        <Route path="/dashboard/editClass" component={EditClass} />
-        <Route path="/dashboard/addQuiz" render={this.renderAddQuiz} />
-        <Route path="/dashboard/quiz" render={this.renderQuiz} />
-        <Route path="/dashboard/addLecture" render={this.renderAddLecture} />
-        <Route path="/dashboard/editLecture" component={EditLecture} />
-        <Route path="/dashboard/addTopic" render={this.renderAddTopic} />
-        <Route path="/dashboard/editTopic" component={EditTopic} />
-        <Route path="/dashboard/addQuestion" render={this.renderAddQuestion} />
-        <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
-        <Route path="/dashboard/search" render={this.renderSearchedDataItemsList} />
-        // <Route path="/dashboard/videoChat" render={this.renderVideoChat} />
+        <Route
+          path="/dashboard/class" component={() => (<CohortsList
+            fetchTeacherInfo={this.fetchTeacherInfo}
+            history={history}
+            cohorts={cohort || []}
+            allLectures={this.props.allLectures}
+            currentLecture={this.props.currentLecture.lectureId}
+          />)}
+        />
+        <Route
+          path="/dashboard/lectures"
+          component={() => (<LecturesList
+            lectures={lectures || []}
+            history={history}
+            fetchTeacherInfo={this.fetchTeacherInfo}
+            selectedLecture={lectureId}
+            handleLectureClick={this.handleLectureClick}
+          />)}
+        />
+        <Route path="/dashboard/livelecture" component={() => (<LiveLecture history={history} topics={liveLectureTopics || []} />)} />
+        <Route path="/dashboard/addClass" component={() => (<AddClass history={history} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
+        <Route path="/dashboard/addQuiz" component={() => (<AddQuiz history={history} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
+        <Route path="/dashboard/quiz" component={() => (<QuizList history={history} fetchTeacherInfo={this.fetchTeacherInfo} quizzes={quizzes || []} />)} />
+        <Route path="/dashboard/addLecture" component={() => (<AddLecture history={history} cohortId={currentCohortId} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
+        <Route path="/dashboard/addTopic" component={() => (<AddTopic history={history} lectureId={lectureId} name={name} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
+        <Route path="/dashboard/addQuestion" component={() => (<AddQuestion history={history} fetchTeacherInfo={this.fetchTeacherInfo} quizId={quizId} />)} />
+        <Route
+          path={currentLectureRoute}
+          component={props => (<CurrentLecture
+            location={props.location}
+            lectureId={lectureId || ''}
+            history={history}
+            fetchTeacherInfo={this.fetchTeacherInfo}
+            name={name || ''}
+            topics={topics || []}
+          />)}
+        />
+        <Route
+          path="/dashboard/search"
+          component={() => (<SearchedDataItemsList
+            history={history}
+            lectureId={lectureId || ''}
+            handleLectureClick={this.handleLectureClick}
+            searchedContentResults={searchedResults || []}
+            allLectures={this.props.allLectures}
+            fetchTeacherInfo={this.fetchTeacherInfo}
+          />)}
+        />
       </div>
     );
   }

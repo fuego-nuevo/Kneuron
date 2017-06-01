@@ -6,13 +6,7 @@ const postTopic = async (req, res) => {
   try {
     const lecture = await db.Lecture.findOne({ where: { id: req.body.lecture_id } });
     if (lecture) {
-//       req.body['name'] = req.body.name;
-//       req.body['lecture_id'] = req.body.lecture_id;
-//       const topic = await db.Topic.create(req.body);
-//       console.log('Topic created');
-//       res.status(200).send(topic);
       const topic = await db.Topic.findOne({ where: { name: req.body.name }});
-      console.log('TOPIC LOOKUP RESULTED IN: ', topic);
       if (topic === null) {
         req.body['name'] = req.body.name;
         req.body['lecture_id'] = req.body.lecture_id;
@@ -34,8 +28,11 @@ const postTopic = async (req, res) => {
 };
 
 const updateTopic = async (req, res) => {
+  console.log(req.body.name);
+  console.log(req.params.topic_id);
   try {
     const topic = await db.Topic.findOne({ where: { id: req.params.topic_id } });
+    console.log(topic, 'WWWWWEEEE KNOW WE HIT IT BROOOOOOOO');
     if (topic) {
       req.body['name'] = req.body.name;
       const updatedTopic = await topic.update(req.body);
@@ -46,17 +43,15 @@ const updateTopic = async (req, res) => {
       res.status(404).send('Topic not found');
     }
   } catch (error) {
-    console.log('Error in updateTopic');
-    res.status(500).send('Error in updateTopic');
+    console.log('Error in updateTopic ', error);
+    res.status(500).send('Error in updateTopic ');
   }
 };
 
 const deleteTopic = async (req, res) => {
   try {
-    console.log(req.params);
     const topic = await db.Topic.findOne({ where: { id: req.params.topic_id } });
     if (topic) {
-      console.log('TOPIC IS: ', topic);
       const deletedTopic = await topic.destroy({ force: true });
       console.log('Topic deleted');
       res.status(200).send(deletedTopic);

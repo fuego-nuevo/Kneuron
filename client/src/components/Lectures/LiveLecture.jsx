@@ -24,7 +24,6 @@ class LiveLecture extends Component {
     this.filterQuestions = this.filterQuestions.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.onUnload = this.onUnload.bind(this);
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.selectQuiz = this.selectQuiz.bind(this);
     this.sendPopQuiz = this.sendPopQuiz.bind(this);
@@ -36,31 +35,14 @@ class LiveLecture extends Component {
     socket.emit('join', { id: this.props.profile });
     socket.emit('live-lecture', { topics, email });
     socket.on('student-question', (studentQuestions) => {
-      console.log('student questions');
       this.setState({ studentQuestions: [studentQuestions, ...this.state.studentQuestions] });
-      console.log('student questions ', this.state.studentQuestions);
     });
-    console.log(this.props.profile);
     this.props.topics.forEach((topic) => {
-      console.log(topic);
       topic.quizzes.forEach((quiz) => {
         quizzes.push(quiz);
       });
     });
     this.setState({ quizzes });
-    // window.addEventListener('beforeunload', this.onUnload);
-  }
-  onUnload(evt) {
-    const message = 'Are you sure you want to leave?';
-    if (typeof evt === 'undefined') {
-      console.log('event doesnt');
-      evt = window.event;
-    }
-    if (evt) {
-      console.log('event exists');
-      evt.returnValue = message;
-    }
-    return message;
   }
   filterQuestions(id) {
     const filteredQuestions = this.state.studentQuestions.filter(question => question.topicId === id);
@@ -83,7 +65,6 @@ class LiveLecture extends Component {
   }
   sendPopQuiz() {
     const { profile, cohort_id } = this.props;
-    console.log('send pop quiz ran ');
     socket.emit('pop-quiz', {
       time: this.state.time,
       cohort_id,
@@ -94,7 +75,6 @@ class LiveLecture extends Component {
 
   render() {
     const { topics } = this.props;
-    console.log(this.state);
     return (
       <div>
         <div>

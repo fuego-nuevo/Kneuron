@@ -2,53 +2,28 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import Modal from 'react-modal';
+import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import { CurrentQuiz } from '../../actions/CurrentQuiz';
 import QuestionsList from '../../components/Questions/QuestionsList';
 
-const customStyles = {
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.75)',
-  },
-  content: {
-    position: 'absolute',
-    top: '15%',
-    left: '25%',
-    border: 'none',
-    background: '#fff',
-    overflow: 'auto',
-    WebkitOverflowScrolling: 'touch',
-    borderRadius: '7px',
-    outline: 'none',
-    width: '40%',
-    height: '300px',
-    transition: '1s',
-    animation: 'bounce 0.8s',
-    margin: '0',
-  },
-};
 
 
 class Quiz extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isShowingModal: false,
+    };
     this.deleteClass = this.deleteClass.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
-  openModal() {
-    this.setState({ modalIsOpen: true });
+  handleClick() {
+    this.setState({ isShowingModal: true });
   }
-  closeModal() {
-    this.setState({ modalIsOpen: false });
+  handleClose() {
+    this.setState({ isShowingModal: false });
   }
-
   async deleteClass() {
     try {
       const removed = await axios.delete(`/api/quizzes/${this.props.quiz.id}`);
@@ -61,16 +36,19 @@ class Quiz extends Component {
   render() {
     return (
       <div className="cohort-entry animated bounceInUp">
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          <QuestionsList questions={this.props.quiz.questions} />
-        </Modal>
+        <div>
+          {
+            this.state.isShowingModal &&
+            <ModalContainer onClose={this.handleClose}>
+              <ModalDialog onClose={this.handleClose}>
+                <h1 className="text-center">Questions</h1>
+                <QuestionsList questions={this.props.quiz.questions} />
+              </ModalDialog>
+            </ModalContainer>
+          }
+        </div>
         <div id="quiz-entry" className="text-center ch-entry-header">{this.props.quiz.name}</div>
-        <button onClick={this.openModal} className="lecture-button">See Questions</button>
+        <button onClick={this.handleClick} className="lecture-button">See Questions</button>
         <button onClick={this.deleteClass} className="delete-class"><img
           alt="delete"
           src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png"
