@@ -23,6 +23,8 @@ import EditTopic from '../../components/Topics/EditTopic';
 import AddTopic from '../../components/Topics/AddTopic';
 import AddQuestion from '../Questions/AddQuestion';
 import SearchedDataItemsList from '../../components/SearchedContent/SearchedDataItemsList';
+// import VideoChat from '../../components/VideoChat/VideoChat';
+import getUserMedia from 'getusermedia';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -30,6 +32,9 @@ class Dashboard extends Component {
     this.state = {
       profile: {},
       selectedLecture: this.props.currentLecture.lectureId || '',
+      lat: 0,
+      lng: 0,
+      alt: 0,
     };
 
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
@@ -45,15 +50,40 @@ class Dashboard extends Component {
     this.renderAddQuestion = this.renderAddQuestion.bind(this);
     this.renderSearchedDataItemsList = this.renderSearchedDataItemsList.bind(this);
     this.renderLiveLecture = this.renderLiveLecture.bind(this);
+    this.getUserCoordinates = this.getUserCoordinates.bind(this);
+    this.getSeaLevelAmount = this.getSeaLevelAmount.bind(this);
   }
 
   componentDidMount() {
     this.fetchTeacherInfo();
     this.setState({ selectedLecture: this.props.currentLecture.lectureId });
+    this.getUserCoordinates();
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ profile: nextProps });
+  }
+
+  getUserCoordinates(){
+    if('geolocation' in navigator){
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
+      });
+    }
+  }
+
+  async getSeaLevelAmount(){
+    try{
+      const body = {
+        lat: this.state.lat.toString(),
+        lng: this.state.lng.toString(),
+      };
+      const altitude = await axios.post('/api/teachers/elevation', body);
+      console.log("GOOGLE RESPONSE IS: ", altitude);
+      this.setState({ alt: altitude.data });
+    } catch(error) {
+      console.log("FUCK, IT DIDN'T GET BACK THE DATA!!!");
+    }
   }
 
   async fetchTeacherInfo() {
@@ -126,6 +156,10 @@ class Dashboard extends Component {
     return (<LiveLecture history={history} topics={liveLectureTopics || []} />);
   }
 
+  // renderVideoChat(){
+  //   return (<VideoChat />)
+  // }
+
   renderCohort() {
     const { cohort, history } = this.props;
     return (<CohortsList
@@ -143,7 +177,7 @@ class Dashboard extends Component {
     const currentLectureRoute = `/dashboard/lectures${this.props.lectureId}`;
     console.log(this.props);
     return (
-      <div className="dashboard-content">
+      <div className="dashboard-content" onMouseEnter={this.getSeaLevelAmount}>
         <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch} />
         <Route path="/dashboard/home" component={Home} />
         <Route path="/dashboard/class" render={this.renderCohort} />
@@ -160,6 +194,7 @@ class Dashboard extends Component {
         <Route path="/dashboard/addQuestion" render={this.renderAddQuestion} />
         <Route path={currentLectureRoute} render={this.renderCurrentLecture} />
         <Route path="/dashboard/search" render={this.renderSearchedDataItemsList} />
+        // <Route path="/dashboard/videoChat" render={this.renderVideoChat} />
       </div>
     );
   }
