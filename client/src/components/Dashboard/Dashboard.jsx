@@ -8,8 +8,6 @@ import DashNav from './DashboardNavBar';
 import Home from './Home';
 import AddClass from '../../components/Cohorts/AddClass';
 import AddLecture from '../../components/Lectures/AddLecture';
-import EditClass from '../../components/Cohorts/EditClass';
-import EditLecture from '../../components/Lectures/EditLecture';
 import CohortsList from '../../components/Cohorts/CohortsList';
 import CurrentLecture from '../../components/Lectures/CurrentLecture';
 import LecturesList from '../../components/Lectures/LecturesList';
@@ -19,11 +17,9 @@ import LiveLecture from '../../components/Lectures/LiveLecture';
 import { allLectures } from '../../actions/Lectures';
 import { currentLecture } from '../../actions/CurrentLecture';
 import { reduxDataSearch } from '../../actions/Search';
-import EditTopic from '../../components/Topics/EditTopic';
 import AddTopic from '../../components/Topics/AddTopic';
 import AddQuestion from '../Questions/AddQuestion';
 import SearchedDataItemsList from '../../components/SearchedContent/SearchedDataItemsList';
-import getUserMedia from 'getusermedia';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -41,17 +37,6 @@ class Dashboard extends Component {
     this.getUserCoordinates = this.getUserCoordinates.bind(this);
     this.getSeaLevelAmount = this.getSeaLevelAmount.bind(this);
   }
-
-  componentDidMount() {
-    this.fetchTeacherInfo();
-    this.setState({ selectedLecture: this.props.currentLecture.lectureId });
-
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({ profile: nextProps });
-  }
-
   componentDidMount() {
     this.fetchTeacherInfo()
     .then(() => {
@@ -63,24 +48,24 @@ class Dashboard extends Component {
       });
   }
 
-  getUserCoordinates(){
-    if('geolocation' in navigator){
+  getUserCoordinates() {
+    if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
       });
     }
   }
 
-  async getSeaLevelAmount(){
-    try{
+  async getSeaLevelAmount() {
+    try {
       const body = {
         lat: this.state.lat.toString(),
         lng: this.state.lng.toString(),
       };
       const altitude = await axios.post('/api/teachers/elevation', body);
-      console.log("GOOGLE RESPONSE IS: ", altitude);
+      console.log('GOOGLE RESPONSE IS: ', altitude);
       this.setState({ alt: altitude.data });
-    } catch(error) {
+    } catch (error) {
       console.log("FUCK, IT DIDN'T GET BACK THE DATA!!!");
     }
   }

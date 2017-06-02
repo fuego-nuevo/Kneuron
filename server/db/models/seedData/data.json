@@ -54,7 +54,8 @@
       "subject": "MATH",
       "semester": "FALL 2017",
       "time": "1 PM",
-      "teacher_id": 1
+      "teacher_id": 1,
+      "code": "martyr"
     }
   },
   {
@@ -64,7 +65,8 @@
       "subject": "ENGLISH",
       "semester": "FALL 2017",
       "time": "1 PM",
-      "teacher_id": 1
+      "teacher_id": 1,
+      "code": "bomber"
     }
   },
   {
@@ -74,7 +76,8 @@
       "subject": "SCIENCE",
       "semester": "FALL 2017",
       "time": "1 PM",
-      "teacher_id": 1
+      "teacher_id": 1,
+      "code": "england"
     }
   },
   {

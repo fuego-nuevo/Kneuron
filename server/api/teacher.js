@@ -194,7 +194,7 @@ const deleteTeacher = async (req, res) => {
     console.log('ASYNC Error: ', error);
     res.status(500).send(error);
   }
-};
+};/**/
 
 const getElevation = async (req, res) => {
   try {
@@ -205,10 +205,8 @@ const getElevation = async (req, res) => {
     //need to find cartesian coordinates with sin and cosin
   } catch(error) {
     console.log("ERROR FOR ELEVATION DATA IS: ", error);
-  };
+  }
 }
-
-
 
 // Controllers
 router.get('/', fetchStudents);

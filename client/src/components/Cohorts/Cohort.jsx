@@ -27,6 +27,7 @@ class Cohort extends Component {
   }
 
   async deleteClass() {
+    console.log('hit the delete route')
     try {
       const removed = await axios.delete(`/api/cohorts/${localStorage.getItem('id_token')}/${this.props.cohort.id}`);
       if (removed) {
@@ -82,6 +83,7 @@ class Cohort extends Component {
 
   render() {
     console.log(this.state, 'this is state bro in cohorts');
+    console.log(this.props, 'put me in the game coach');
     return (
       <div className="cohort-entry animated bounceInUp" >
         <div>
@@ -110,6 +112,7 @@ class Cohort extends Component {
         <div className="ch-entry-header">{this.props.cohort.subject}</div>
         <h3>{this.props.cohort.semester}</h3>
         <h3>{convertTime(this.props.cohort.time)}</h3>
+        <h4>Code: {this.props.cohort.code}</h4>
         <button className="lecture-button" onClick={this.fetchLectures}><Link to="/dashboard/lectures">Lectures</Link></button>
         <button onClick={this.deleteClass} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
         <button

@@ -1,13 +1,15 @@
 const router = require('express').Router();
 const db = require('../db/models');
+const faker = require('faker');
 // const redis = require('../db/redis');
-const antiHasher = require('./util').antiHasher;
+const util = require('./util');
+
 
 // Controller
 // Get All Cohorts For a Given Teacher with Async
 const fetchCohorts = async (req, res) => {
   try {
-    const teacher = await db.User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
+    const teacher = await db.User.findOne({ where: { email: util.antiHasher(req.params.auth_token) } });
     if (teacher.userType === 0) {
       const teacherCohort = await db.Cohort.findAll({ where: { teacher_id: teacher.id } });
       if (teacherCohort) {
@@ -27,7 +29,8 @@ const fetchCohorts = async (req, res) => {
 const postCohort = async (req, res) => {
   // Find a Teacher by their email and see if they are in the DB or Not...
   try {
-    const teacher = await db.User.findOne({ where: { email: antiHasher(req.body.auth_token) } });
+    const email = util.antiHasher(req.body.auth_token);
+    const teacher = await db.User.findOne({ where: { email } });
     if (teacher.userType === 0) {
       // If Teacher Found the  Find Their Cohort where subject === req.body.subject and their teacherId: as their id
       // Switch with findOrCreate
@@ -40,6 +43,8 @@ const postCohort = async (req, res) => {
         req.body['teacher_id'] = teacher.id;
         req.body['time'] = req.body.time.toUpperCase();
         req.body['subject'] = req.body.subject.toUpperCase();
+        req.body['code'] = `${faker.hacker.adjective()}${faker.hacker.noun()}`;
+        console.log(req.body['code']);
         const newCohort = await db.Cohort.create(req.body);
         if (newCohort) {
           console.log(`${teacher.fName} ${teacher.lName} just added a new ${newCohort.subject} cohort to their schedule.`, newCohort);
@@ -60,7 +65,7 @@ const postCohort = async (req, res) => {
 // Update a Cohort For a Given Teacher with Async
 const updateCohort = async (req, res) => {
   try {
-    const teacher = await db.User.findOne({ where: { email: antiHasher(req.body.auth_token) } });
+    const teacher = await db.User.findOne({ where: { email: util.antiHasher(req.body.auth_token) } });
     console.log('got past anti hasher  ', teacher.id);
     if (teacher) {
       console.log('this is the subject ', req.body.subject.toUpperCase());
@@ -97,7 +102,7 @@ const updateCohort = async (req, res) => {
 const deleteCohort = async (req, res) => {
   console.log(req.params.cohort_id);
   try {
-    const teacher = await db.User.findOne({ where: { email: antiHasher(req.params.auth_token) } });
+    const teacher = await db.User.findOne({ where: { email: util.antiHasher(req.params.auth_token) } });
     console.log(teacher.id);
     if (teacher) {
       const cohort = await db.Cohort.findOne({ where: { id: req.params.cohort_id } });
