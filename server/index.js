@@ -94,7 +94,6 @@ server.listen(PORT, (err) => {
   }
 });
 
-
 // Catches all 404 routes.
 app.use((error, req, res, next) => {
   if (res.headersSent) {
