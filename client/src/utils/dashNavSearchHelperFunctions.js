@@ -1,40 +1,39 @@
-//searchReduxForDashNavSearch
 
 
 const searchReduxForDashNavSearch = (arr, query) => {
-  let searchResults = [];
-  let finalResult = [];
-  let term = query.toUpperCase();
+  const searchResults = [];
+  const finalResult = [];
+  const term = query.toUpperCase();
 
 
-  if([].concat([], ...arr
-    .filter(cohort => cohort.subject.toUpperCase().includes(term) || cohort.time.toUpperCase().includes(term))).length > 0){
+  if ([].concat([], ...arr
+    .filter(cohort => cohort.subject.toUpperCase().includes(term) || cohort.time.toUpperCase().includes(term))).length > 0) {
     searchResults.push([].concat([], ...[].concat([], ...arr
       .filter(cohort => cohort.subject.toUpperCase().includes(term) || cohort.time.toUpperCase().includes(term)))));
   }
 
 
-  console.log("searchResults check after cohorts", searchResults);
-  console.log("\n\n");
+  console.log('searchResults check after cohorts', searchResults);
+  console.log('\n\n');
 
 
-  if([].concat([], ...[].concat([], ...arr
+  if ([].concat([], ...[].concat([], ...arr
     .map(cohort => cohort.lectures
-      .filter(lecture => lecture.name.toUpperCase().includes(term))))).length > 0){
+      .filter(lecture => lecture.name.toUpperCase().includes(term))))).length > 0) {
     searchResults.push([].concat([], ...[].concat([], ...arr
       .map(cohort => cohort.lectures
        .filter(lecture => lecture.name.toUpperCase().includes(term))))));
   }
 
 
-  console.log("Search Results after lectures check: ", searchResults);
-  console.log("\n\n");
+  console.log('Search Results after lectures check: ', searchResults);
+  console.log('\n\n');
 
 
-  if([].concat([], ...[].concat([], ...[].concat([], ...[].concat([], ...arr
+  if ([].concat([], ...[].concat([], ...[].concat([], ...[].concat([], ...arr
     .map(cohort => cohort.lectures
      .map(lecture => lecture.topics
-      .filter(topic => topic.name.toUpperCase().includes(term)))))))).length > 0){
+      .filter(topic => topic.name.toUpperCase().includes(term)))))))).length > 0) {
     searchResults.push([].concat([], ...[].concat([], ...[].concat([], ...[].concat([], ...arr
       .map(cohort => cohort.lectures
        .map(lecture => lecture.topics
@@ -42,15 +41,15 @@ const searchReduxForDashNavSearch = (arr, query) => {
   }
 
 
-  console.log("searchResults after Topics Search: ", searchResults);
-  console.log("\n\n");
+  console.log('searchResults after Topics Search: ', searchResults);
+  console.log('\n\n');
 
 
-  if([].concat([], ...[].concat([], ...[].concat([], ...[].concat([], ...arr
+  if ([].concat([], ...[].concat([], ...[].concat([], ...[].concat([], ...arr
     .map(cohort => cohort.lectures
      .map(lecture => lecture.topics
       .map(topic => topic.quizzes
-        .filter(quiz => quiz.name.toUpperCase().includes(term))))))))).length > 0){
+        .filter(quiz => quiz.name.toUpperCase().includes(term))))))))).length > 0) {
     searchResults.push([].concat([], ...[].concat([], ...[].concat([], ...[].concat([], ...arr
       .map(cohort => cohort.lectures
        .map(lecture => lecture.topics
@@ -59,12 +58,12 @@ const searchReduxForDashNavSearch = (arr, query) => {
   }
 
 
-  console.log("searchResults after quiz check: ", searchResults);
-  console.log("\n\n");
+  console.log('searchResults after quiz check: ', searchResults);
+  console.log('\n\n');
 
 
-  searchResults.forEach((el, i) => {
-    if(el !== [] || el !== undefined){
+  searchResults.forEach((el) => {
+    if (el !== [] || el !== undefined) {
       finalResult.push([].concat([], ...el));
     }
   });
@@ -75,14 +74,11 @@ const searchReduxForDashNavSearch = (arr, query) => {
 
 
 module.exports = {
-  searchReduxForDashNavSearch
-}
+  searchReduxForDashNavSearch,
+};
 
 
-
-
-
-//sample Object for Testing
+// sample Object for Testing
 // searchReduxForDashNavSearch([
 //  {
 //   'id': 1,

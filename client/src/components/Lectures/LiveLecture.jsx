@@ -39,7 +39,7 @@ class LiveLecture extends Component {
       this.setState({ studentQuestions: [studentQuestions, ...this.state.studentQuestions] });
     });
     socket.on('student-answers', (studentAnswer) => {
-      console.log('i heard you stu ansas')
+      console.log('i heard you stu ansas, ', studentAnswer);
       this.setState({ studentAnswer: [studentAnswer, ...this.state.studentAnswer] });
     });
     topics.forEach((topic) => {
