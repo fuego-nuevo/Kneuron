@@ -45,7 +45,7 @@ class Dashboard extends Component {
   componentDidMount() {
     this.fetchTeacherInfo();
     this.setState({ selectedLecture: this.props.currentLecture.lectureId });
-    
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -107,8 +107,8 @@ class Dashboard extends Component {
     const currentLectureRoute = `/dashboard/lectures${this.props.lectureId}`;
     console.log(this.props);
     return (
-      <div className="dashboard-content" onMouseEnter={this.getSeaLevelAmount}>
-        <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch} />
+      <div className="dashboard-content">
+        <DashNav onClick={this.getSeaLevelAmount} dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch} />
         <Route path="/dashboard/home" component={Home} />
         <Route
           path="/dashboard/class" component={() => (<CohortsList
