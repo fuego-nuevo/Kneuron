@@ -38,10 +38,10 @@ class Dashboard extends Component {
     this.getSeaLevelAmount = this.getSeaLevelAmount.bind(this);
   }
   componentDidMount() {
+    this.getUserCoordinates();
     this.fetchTeacherInfo()
     .then(() => {
       this.setState({ selectedLecture: this.props.currentLecture.lectureId });
-      this.getUserCoordinates();
     })
       .catch((err) => {
         console.log('error in initial fetch , ', err);

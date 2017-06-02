@@ -6,6 +6,7 @@ import ReactCountdownClock from 'react-countdown-clock';
 import StudentQuestions from './StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 import LiveQuizList from './LiveQuizList';
+import BarChart from './BarChart';
 
 const socket = io();
 
@@ -153,13 +154,20 @@ class LiveLecture extends Component {
     }
     return (
       <div>
-        <ReactCountdownClock
-          seconds={10}
-          color="#000"
-          alpha={0.9}
-          size={300}
-          onComplete={this.endPopQuiz}
-        />
+        <div className="popquiz-container">
+          <div className="pop-quiz-clock">
+            <ReactCountdownClock
+              seconds={this.state.time}
+              color="#81aff9"
+              alpha={0.9}
+              size={200}
+              onComplete={this.endPopQuiz}
+            />
+            <div className="livedata">
+              <BarChart data={this.state.studentAnswer.map(score => score.correct)} size={[300, 300]} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
