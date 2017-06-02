@@ -832,7 +832,6 @@ hr{
 
 .hidden{
   display: none;
-  visibility: hidden;
 }
 
 .cohort-entry.animated.boundInUp{

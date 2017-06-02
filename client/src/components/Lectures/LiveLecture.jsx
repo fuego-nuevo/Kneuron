@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
+import ReactCountdownClock from 'react-countdown-clock';
 import StudentQuestions from './StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 import LiveQuizList from './LiveQuizList';
@@ -13,6 +14,7 @@ class LiveLecture extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isQuizLive: false,
       isShowingQuizModal: false,
       quizzes: [],
       time: 1,
@@ -28,6 +30,7 @@ class LiveLecture extends Component {
     this.selectQuiz = this.selectQuiz.bind(this);
     this.sendPopQuiz = this.sendPopQuiz.bind(this);
     this.startAttendance = this.startAttendance.bind(this);
+    this.endPopQuiz = this.endPopQuiz.bind(this);
   }
 
   componentDidMount() {
@@ -49,23 +52,29 @@ class LiveLecture extends Component {
     });
     this.setState({ quizzes });
   }
+
   filterQuestions(id) {
     const filteredQuestions = this.state.studentQuestions.filter(question => question.topicId === id);
     this.setState({ filteredQuestions });
   }
+
   handleClick() {
     this.setState({ isShowingQuizModal: true });
   }
+
   handleModalClose() {
     this.setState({ isShowingQuizModal: false });
   }
+
   handleDropdownChange(e) {
     this.setState({ time: e.target.value * 60 });
   }
+
   selectQuiz(id) {
     const selectedQuiz = this.state.quizzes.filter(quiz => quiz.id === id);
     this.setState({ selectedQuiz });
   }
+
   sendPopQuiz() {
     const { profile, cohort_id } = this.props;
     socket.emit('pop-quiz', {
@@ -74,7 +83,12 @@ class LiveLecture extends Component {
       cohort_id,
       id: profile,
     });
+    this.setState({ isQuizLive: true });
   }
+  endPopQuiz() {
+    this.setState({ isQuizLive: false });
+  }
+
   startAttendance() {
     console.log('it happened starting attendance ,');
     socket.emit('attendance', { id: this.props.profile });
@@ -82,56 +96,70 @@ class LiveLecture extends Component {
 
   render() {
     const { topics } = this.props;
+    console.log(this.state);
+    if (!this.state.isQuizLive) {
+      return (
+        <div>
+          <div>
+            {
+              this.state.isShowingQuizModal &&
+              <ModalContainer onClose={this.handleModalClose}>
+                <ModalDialog onClose={this.handleModalClose}>
+                  <h2 className="text-center">How much time for students to take quiz?</h2>
+                  <select className="pop-quiz" onChange={this.handleDropdownChange}>
+                    <option value="1">1 minutes</option>
+                    <option value="2">2 minutes</option>
+                    <option value="3">3 minutes</option>
+                    <option value="4">4 minutes</option>
+                    <option value="5">5 minutes</option>
+                    <option value="6">6 minutes</option>
+                    <option value="7">7 minutes</option>
+                    <option value="8">8 minutes</option>
+                    <option value="9">9 minutes</option>
+                    <option value="10">10 minutes</option>
+                  </select>
+                  <LiveQuizList
+                    startQuiz={this.sendPopQuiz}
+                    time={this.state.time}
+                    closeModal={this.handleModalClose}
+                    selectQuiz={this.selectQuiz}
+                    quizzes={this.state.quizzes || []}
+                  />
+                </ModalDialog>
+              </ModalContainer>
+            }
+          </div>
+          <div className="class-nav animated fadeInDownBig">
+            <button id="lecleft" onClick={this.handleClick} className="addC-left">Pop Quiz</button>
+            <button id="lecmid" className="addC-right">End Lecture</button>
+            <button id="lecright" onClick={this.startAttendance} className="addC-right">Track Attendance</button>
+          </div>
+          <div className="lecture-filter animated fadeInUpBig">
+            <div className="topic-filter">
+              <div className="topic-header">TOPICS</div>
+              <div className="scroll-topics">
+                {topics.map(topic => <LiveLectureTopics filter={this.filterQuestions} topic={topic} />)}
+              </div>
+            </div>
+            <div className="student-question-filter">
+              <div id="student-header" className="topic-header">Student Questions</div>
+              <div id="student-questions" className="scroll-topics">
+                {this.state.filteredQuestions.map(question => <StudentQuestions question={question} />)}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
     return (
       <div>
-        <div>
-          {
-            this.state.isShowingQuizModal &&
-            <ModalContainer onClose={this.handleModalClose}>
-              <ModalDialog onClose={this.handleModalClose}>
-                <h2 className="text-center">How much time for students to take quiz?</h2>
-                <select className="pop-quiz" onChange={this.handleDropdownChange}>
-                  <option value="1">1 minutes</option>
-                  <option value="2">2 minutes</option>
-                  <option value="3">3 minutes</option>
-                  <option value="4">4 minutes</option>
-                  <option value="5">5 minutes</option>
-                  <option value="6">6 minutes</option>
-                  <option value="7">7 minutes</option>
-                  <option value="8">8 minutes</option>
-                  <option value="9">9 minutes</option>
-                  <option value="10">10 minutes</option>
-                </select>
-                <LiveQuizList
-                  startQuiz={this.sendPopQuiz}
-                  time={this.state.time}
-                  closeModal={this.handleModalClose}
-                  selectQuiz={this.selectQuiz}
-                  quizzes={this.state.quizzes || []}
-                />
-              </ModalDialog>
-            </ModalContainer>
-          }
-        </div>
-        <div className="class-nav animated fadeInDownBig">
-          <button id="lecleft" onClick={this.handleClick} className="addC-left">Pop Quiz</button>
-          <button id="lecmid" className="addC-right">End Lecture</button>
-          <button id="lecright" onClick={this.startAttendance} className="addC-right">Track Attendance</button>
-        </div>
-        <div className="lecture-filter animated fadeInUpBig">
-          <div className="topic-filter">
-            <div className="topic-header">TOPICS</div>
-            <div className="scroll-topics">
-              {topics.map(topic => <LiveLectureTopics filter={this.filterQuestions} topic={topic} />)}
-            </div>
-          </div>
-          <div className="student-question-filter">
-            <div id="student-header" className="topic-header">Student Questions</div>
-            <div id="student-questions" className="scroll-topics">
-              {this.state.filteredQuestions.map(question => <StudentQuestions question={question} />)}
-            </div>
-          </div>
-        </div>
+        <ReactCountdownClock
+          seconds={10}
+          color="#000"
+          alpha={0.9}
+          size={300}
+          onComplete={this.endPopQuiz}
+        />
       </div>
     );
   }
