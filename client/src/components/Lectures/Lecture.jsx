@@ -44,7 +44,7 @@ class Lecture extends Component {
       const updateLecture = await this.props.currentLiveLecture(this.props.lecture);
       this.props.history.push('/dashboard/livelecture');
     } catch (error) {
-      console.log('Error grabbing currentLiveLecture: ', updateLecture);
+      console.log('Error grabbing currentLiveLecture: ', error);
     }
   }
   editClass(e) {

@@ -7,6 +7,7 @@ const server = require('http').Server(app);
 // const server = app.listen(5000);
 const io = require('socket.io')(server);
 // const io = require('socket.io')(server, { path: '/io' });
+const PORT = process.env.PORT || 80;
 
 require('dotenv').config();
 require('dotenv').load();
@@ -44,14 +45,14 @@ io.on('connection', (socket) => {
     console.log('this is sockets live lecture event emitting ,');
     console.log(data.topics);
     console.log(teacherRoom);
-    io.sockets.in(teacherRoom).emit('live-lecture', topics);
+    io.sockets.to(teacherRoom).emit('live-lecture', topics);
   });
   socket.on('pop-quiz', (data) => {
     console.log('pop quiz event emmittedddd!!!,', data);
-    const quiz = data.quiz;
+    const questions = data.questions;
     const time = data.time;
     const teacherRoom = data.id;
-    io.sockets.in(teacherRoom).emit('pop-quiz', { quiz, time });
+    io.sockets.in(teacherRoom).emit('pop-quiz', { questions, time });
   });
   socket.on('attendance', (data) => {
     console.log('attendance!!!,', data);
@@ -71,25 +72,27 @@ io.on('connection', (socket) => {
       topicId: topic,
     });
   });
+  socket.on('student-answers', (data) => {
+    console.log('We in student-answers yall ', data);
+    const correct = data.correct;
+    // const question = data.questionId;
+    const student = data.name;
+    const teacherRoom = data.teacher;
+    io.sockets.to(teacherRoom).emit('student-answers', {
+      name: student,
+      correct,
+      // questionId: question,
+    });
+  });
 });
 
-if (process.env.PORT) {
-  server.listen(process.env.PORT, (err) => {
-    if (err) {
-      console.log('There was an error connecting to the Server ', err);
-    } else {
-      console.log('You have connected to the server on PORT: ', process.env.PORT);
-    }
-  });
-} else {
-  server.listen(3000, (err) => {
-    if (err) {
-      console.log('There was an error connecting to the Server ', err);
-    } else {
-      console.log('You have connected to the server on PORT: ', 3000);
-    }
-  });
-}
+server.listen(PORT, (err) => {
+  if (err) {
+    console.log('There was an error connecting to the Server ', err);
+  } else {
+    console.log('You have connected to the server on PORT: ', process.env.PORT);
+  }
+});
 
 // Catches all 404 routes.
 app.use((error, req, res, next) => {
