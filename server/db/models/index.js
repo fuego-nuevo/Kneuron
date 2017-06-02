@@ -75,6 +75,14 @@ const Lecture = db.define('lecture', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  lat: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  lng: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
 });
 
 const Topic = db.define('topic', {
