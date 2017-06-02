@@ -19,6 +19,7 @@ class LiveLecture extends Component {
       selectedQuiz: {},
       studentQuestions: [],
       filteredQuestions: [],
+      studentAnswer: [],
     };
     this.filterQuestions = this.filterQuestions.bind(this);
     this.handleClick = this.handleClick.bind(this);
