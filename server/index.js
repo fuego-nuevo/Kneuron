@@ -7,7 +7,7 @@ const server = require('http').Server(app);
 // const server = app.listen(5000);
 const io = require('socket.io')(server);
 // const io = require('socket.io')(server, { path: '/io' });
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 1337;
 
 require('dotenv').config();
 require('dotenv').load();
