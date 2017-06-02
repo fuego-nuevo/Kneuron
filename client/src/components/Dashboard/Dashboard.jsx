@@ -66,7 +66,7 @@ class Dashboard extends Component {
       console.log('GOOGLE RESPONSE IS: ', altitude);
       this.setState({ alt: altitude.data });
     } catch (error) {
-      console.log("FUCK, IT DIDN'T GET BACK THE DATA!!!");
+      console.log("FUCK, IT DIDN'T GET BACK THE DATA!!!!");
     }
   }
 
