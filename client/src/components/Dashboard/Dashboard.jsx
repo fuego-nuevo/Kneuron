@@ -48,15 +48,21 @@ class Dashboard extends Component {
       });
   }
 
+  componentDidUpdate(){
+    this.getSeaLevelAmount();
+  }
+
   getUserCoordinates() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
+        console.log("INSIDE NAV LOC FUNCTION: ", position.coords.latitude);
         this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
       });
     }
   }
 
   async getSeaLevelAmount() {
+    console.log("State in dashboard is: ", this.state)
     try {
       const body = {
         lat: this.state.lat.toString(),
@@ -64,7 +70,6 @@ class Dashboard extends Component {
       };
       const altitude = await axios.post('/api/teachers/elevation', body);
       console.log('GOOGLE RESPONSE IS: ', altitude);
-      this.setState({ alt: altitude.data });
     } catch (error) {
       console.log("FUCK, IT DIDN'T GET BACK THE DATA!!!!");
     }
@@ -91,9 +96,11 @@ class Dashboard extends Component {
     const { dispatch, history, cohort, lectures, lectureId, liveLectureTopics, quizzes, currentCohortId, name, quizId, topics, searchedResults } = this.props;
     const currentLectureRoute = `/dashboard/lectures${this.props.lectureId}`;
     console.log(this.props);
+    console.log("LAT AND LNG ARE: ", this.state.lat);
+    console.log("LAT AND LNG ARE: ", this.state.lng);
     return (
       <div className="dashboard-content">
-        <DashNav onClick={this.getSeaLevelAmount} dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch} />
+        <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch} />
         <Route path="/dashboard/home" component={Home} />
         <Route
           path="/dashboard/class" component={() => (<CohortsList
