@@ -64,7 +64,7 @@ const searchReduxForDashNavSearch = (arr, query) => {
 
 
   searchResults.forEach((el, i) => {
-    if(el !== [] || undefined){
+    if(el !== [] || el !== undefined){
       finalResult.push([].concat([], ...el));
     }
   });
