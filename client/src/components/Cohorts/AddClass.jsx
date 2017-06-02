@@ -29,7 +29,7 @@ class AddClass extends Component {
       auth_token: localStorage.getItem('id_token'),
       subject: this.state.subject,
       time: this.state.time,
-      semester: year[0].slice(0, 4) + ' ' + this.state.semester,
+      semester: this.state.semester + ' ' + year[0].slice(0, 4),
     };
     try {
       const posted = await axios.post('/api/cohorts/', body);
