@@ -83,7 +83,7 @@ const postStudent = async (req, res) => {
     const hash = await bcrypt.hash(req.body.password, salt);
     console.log("hiihihihih")
     const person = await db.User.findOne({ where: { email: req.body.email } });
-    console.log(person)
+    console.log("student line 86",person)
     if (person) {
       console.log('That email is taken. Please try another email.');
       res.status(404).send('That email is taken. Please try another email.');
@@ -96,6 +96,7 @@ const postStudent = async (req, res) => {
         lName: req.body.lName,
         username: req.body.username,
         school_id: req.body.school_id,
+        image: req.body.image,
       });
       console.log('Signed Up New User: ', { user: newUser, id_token: util.hasher(req.body.email) });
       res.status(201).send({ user: newUser, id_token: util.hasher(req.body.email) });
