@@ -22,7 +22,6 @@ class LiveLecture extends Component {
     };
     this.filterQuestions = this.filterQuestions.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.handleClose = this.handleClose.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.selectQuiz = this.selectQuiz.bind(this);
@@ -38,7 +37,8 @@ class LiveLecture extends Component {
     socket.on('student-question', (studentQuestions) => {
       this.setState({ studentQuestions: [studentQuestions, ...this.state.studentQuestions] });
     });
-    socket.on('student-answer', (studentAnswer) => {
+    socket.on('student-answers', (studentAnswer) => {
+      console.log('i heard you stu ansas')
       this.setState({ studentAnswer: [studentAnswer, ...this.state.studentAnswer] });
     });
     topics.forEach((topic) => {
@@ -104,7 +104,7 @@ class LiveLecture extends Component {
                 <LiveQuizList
                   startQuiz={this.sendPopQuiz}
                   time={this.state.time}
-                  closeModal={this.handleClose}
+                  closeModal={this.handleModalClose}
                   selectQuiz={this.selectQuiz}
                   quizzes={this.state.quizzes || []}
                 />

@@ -72,16 +72,16 @@ io.on('connection', (socket) => {
       topicId: topic,
     });
   });
-  socket.on('student-answer', (data) => {
-    console.log('We in student-answer yall ', data);
-    const selected = data.selected;
-    const question = data.questionId;
+  socket.on('student-answers', (data) => {
+    console.log('We in student-answers yall ', data);
+    const correct = data.correct;
+    // const question = data.questionId;
     const student = data.name;
     const teacherRoom = data.teacher;
-    io.sockets.to(teacherRoom).emit('student=answer', {
+    io.sockets.to(teacherRoom).emit('student-answers', {
       name: student,
-      selected,
-      questionId: question,
+      correct,
+      // questionId: question,
     });
   });
 });
