@@ -23,7 +23,7 @@ const getSeason = () => {
             season = 'fall';
         break;
     }
-    season = (season[0].toUpperCase() + season.slice(1, season.length) + ' ' + (new Date().getFullYear())).toString();
+    season = (season[0].toUpperCase() + season.slice(1, season.length)).toString();
     return season;
 };
 
@@ -31,9 +31,24 @@ const getTime = () => {
     return new Date().getHours() + ':' + new Date().getMinutes() + ' ' + (new Date().toLocaleTimeString().slice(9, 11));
 }
 
+
+const convertTime = (time) => {
+  time = time.replace(/:/g, '');
+  var hours = time[0] + time[1];
+  var min = time[2] + time[3];
+  if (hours < 12) {
+      return hours + ':' + min + ' AM';
+  } else {
+      hours=hours - 12;
+      hours=(hours.length < 10) ? '0'+hours:hours;
+      return hours+ ':' + min + ' PM';
+  }
+}
+
 module.exports = {
     getSeason,
     getTime,
+    convertTime,
 }
 
 
