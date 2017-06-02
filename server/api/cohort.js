@@ -43,7 +43,7 @@ const postCohort = async (req, res) => {
         req.body['teacher_id'] = teacher.id;
         req.body['time'] = req.body.time.toUpperCase();
         req.body['subject'] = req.body.subject.toUpperCase();
-        req.body['code'] = `${faker.name.title()}${util.hasher(req.body.subject)}`;
+        req.body['code'] = `${faker.hacker.adjective()}${faker.hacker.noun()}`;
         console.log(req.body['code']);
         const newCohort = await db.Cohort.create(req.body);
         if (newCohort) {

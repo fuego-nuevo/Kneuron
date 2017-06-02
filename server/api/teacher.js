@@ -196,17 +196,17 @@ const deleteTeacher = async (req, res) => {
   }
 };/**/
 
-// const getElevation = async (req, res) => {
-//   try {
-//     const elevation = await axios.post("https://maps.googleapis.com/maps/api/elevation/json?locations=" + req.body.lat + "," + req.body.lng + "&key=" + process.env.GOOGLE_ELEVATION_API_KEY);
-//     console.log("DATA RESTURNED FROM GOOGLE IS: ", elevation.data.results[0].elevation);
-//     res.json(elevation.data.results[0].elevation);
-//     //save this alt and lat and lng to db and compare on the students side for real proximity
-//     //need to find cartesian coordinates with sin and cosin
-//   } catch(error) {
-//     console.log("ERROR FOR ELEVATION DATA IS: ", error);
-//   }
-// }
+const getElevation = async (req, res) => {
+  try {
+    const elevation = await axios.post("https://maps.googleapis.com/maps/api/elevation/json?locations=" + req.body.lat + "," + req.body.lng + "&key=" + process.env.GOOGLE_ELEVATION_API_KEY);
+    console.log("DATA RESTURNED FROM GOOGLE IS: ", elevation.data.results[0].elevation);
+    res.json(elevation.data.results[0].elevation);
+    //save this alt and lat and lng to db and compare on the students side for real proximity
+    //need to find cartesian coordinates with sin and cosin
+  } catch(error) {
+    console.log("ERROR FOR ELEVATION DATA IS: ", error);
+  }
+}
 
 // Controllers
 router.get('/', fetchStudents);
@@ -215,6 +215,6 @@ router.get('/:email/:creds', fetchTeacher);
 router.post('/', postTeacher);
 router.put('/:auth_token', updateTeacher);
 router.delete('/:auth_token', deleteTeacher);
-// router.post('/elevation', getElevation);
+router.post('/elevation', getElevation);
 
 module.exports = router;
