@@ -46,8 +46,8 @@ class BarChart extends Component {
       <svg
         ref={node =>
           this.node = node}
-        width={500}
-        height={500}
+        width={300}
+        height={300}
       />
     );
   }
