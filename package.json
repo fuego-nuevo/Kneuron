@@ -83,6 +83,7 @@
     "rc-time-picker": "^2.4.1",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
+    "react-bubble-chart": "^0.4.0",
     "react-countdown-clock": "^1.1.0",
     "react-dom": "^15.5.4",
     "react-dropzone": "^3.13.1",
