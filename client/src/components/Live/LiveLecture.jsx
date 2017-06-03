@@ -175,8 +175,11 @@ class LiveLecture extends Component {
               size={200}
               onComplete={this.endPopQuiz}
             />
-            <div className="livedata">
-              <BarChart data={this.state.studentAnswer.map(score => score.correct)} size={[300, 300]} />
+          </div>
+          <div className="livedata">
+            <BarChart data={this.state.studentAnswer.map(score => score.correct)} size={[300, 300]} />
+            <div className="quiz-line">
+              Pop Quiz Results
             </div>
           </div>
         </div>

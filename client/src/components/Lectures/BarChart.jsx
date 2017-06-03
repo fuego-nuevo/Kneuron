@@ -44,10 +44,11 @@ class BarChart extends Component {
   render() {
     return (
       <svg
+        className="bars animated zoomInUp"
         ref={node =>
           this.node = node}
         width={300}
-        height={300}
+        height={150}
       />
     );
   }
