@@ -10,7 +10,7 @@ const LecturesList = props => (
     </div>
     <div className="cohort-holder">
       {props.lectures.map(lecture => (
-        <Lecture selectedLecture={props.selectedLecture} history={props.history} fetchTeacherInfo={props.fetchTeacherInfo} lecture={lecture} handleLectureClick={props.handleLectureClick} />
+        <Lecture selectedLecture={props.selectedLecture} lat={props.lat} lng={props.lng} history={props.history} fetchTeacherInfo={props.fetchTeacherInfo} lecture={lecture} handleLectureClick={props.handleLectureClick} />
         ))}
     </div>
   </div>

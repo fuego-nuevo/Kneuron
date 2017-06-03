@@ -117,6 +117,8 @@ class Dashboard extends Component {
           component={() => (<LecturesList
             lectures={lectures || []}
             history={history}
+            lat={this.state.lat}
+            lng={this.state.lng}
             fetchTeacherInfo={this.fetchTeacherInfo}
             selectedLecture={lectureId}
             handleLectureClick={this.handleLectureClick}
