@@ -48,6 +48,7 @@ class BarChart extends Component {
       .data(this.props.data)
       .style('fill', color)
       .style('stroke', 'black')
+      .attr('class', 'animated zoomInUp')
       .attr('x', (d, i) => i * 25)
       .attr('y', d => this.props.size[1] - yScale(d))
       .attr('height', d => yScale(d))
