@@ -19,6 +19,7 @@ class LiveLecture extends Component {
       isShowingQuizModal: false,
       quizzes: [],
       time: 1,
+      currentTopic: 0,
       selectedQuiz: {},
       studentQuestions: [],
       filteredQuestions: [],
@@ -32,6 +33,7 @@ class LiveLecture extends Component {
     this.sendPopQuiz = this.sendPopQuiz.bind(this);
     this.startAttendance = this.startAttendance.bind(this);
     this.endPopQuiz = this.endPopQuiz.bind(this);
+    this.setTopic = this.setTopic.bind(this);
   }
 
   componentDidMount() {
@@ -54,10 +56,6 @@ class LiveLecture extends Component {
     this.setState({ quizzes });
   }
 
-  filterQuestions(id) {
-    const filteredQuestions = this.state.studentQuestions.filter(question => question.topicId === id);
-    this.setState({ filteredQuestions });
-  }
 
   handleClick() {
     this.setState({ isShowingQuizModal: true });
@@ -87,9 +85,17 @@ class LiveLecture extends Component {
     this.setState({ isQuizLive: true });
   }
   endPopQuiz() {
-    this.setState({ isQuizLive: false });
+    this.setState({ isQuizLive: false }, () => {
+      this.setState({ studentAnswer: [] });
+    });
   }
-
+  setTopic(currentTopic) {
+    this.setState({ currentTopic });
+  }
+  filterQuestions(id) {
+    const filteredQuestions = this.state.studentQuestions.filter(question => question.topicId === id);
+    this.setState({ filteredQuestions });
+  }
   startAttendance() {
     console.log('it happened starting attendance ,');
     socket.emit('attendance', { id: this.props.profile });
@@ -139,13 +145,19 @@ class LiveLecture extends Component {
             <div className="topic-filter">
               <div className="topic-header">TOPICS</div>
               <div className="scroll-topics">
-                {topics.map(topic => <LiveLectureTopics filter={this.filterQuestions} topic={topic} />)}
+                {topics.map(topic => (<LiveLectureTopics
+                  setTopic={this.setTopic}
+                  filter={this.filterQuestions}
+                  topic={topic}
+                />))}
               </div>
             </div>
             <div className="student-question-filter">
               <div id="student-header" className="topic-header">Student Questions</div>
               <div id="student-questions" className="scroll-topics">
-                {this.state.filteredQuestions.map(question => <StudentQuestions question={question} />)}
+                {this.state.studentQuestions.filter(question => question.topicId === this.state.currentTopic)
+                  .map(filteredQuestion => <StudentQuestions question={filteredQuestion} />)
+                }
               </div>
             </div>
           </div>

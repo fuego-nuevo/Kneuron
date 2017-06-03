@@ -10,7 +10,13 @@ class LiveLectureTopicsEntry extends Component {
   render() {
     const { name } = this.props.topic;
     return (
-      <div onClick={() => { this.props.filter(this.props.topic.id); }} className="livetop">
+      <div
+        onClick={() => {
+          this.props.filter(this.props.topic.id);
+          this.props.setTopic(this.props.topic.id);
+        }}
+        className="livetop"
+      >
         { name }
       </div>
     );
