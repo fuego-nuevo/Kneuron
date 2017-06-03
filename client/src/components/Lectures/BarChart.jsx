@@ -15,6 +15,17 @@ class BarChart extends Component {
     this.createBarChart();
   }
   createBarChart() {
+    let color;
+    const score = this.props.data * 100;
+    if (score < 60) {
+      color = 'red';
+    }
+    if (score >= 60 || score <= 80) {
+      color = 'yellow';
+    }
+    if (score > 80) {
+      color = 'green';
+    }
     const node = this.node;
     const dataMax = max(this.props.data);
     const yScale = scaleLinear()
@@ -35,7 +46,8 @@ class BarChart extends Component {
     select(node)
       .selectAll('rect')
       .data(this.props.data)
-      .style('fill', '#fe9922')
+      .style('fill', color)
+      .style('stroke', 'black')
       .attr('x', (d, i) => i * 25)
       .attr('y', d => this.props.size[1] - yScale(d))
       .attr('height', d => yScale(d))
