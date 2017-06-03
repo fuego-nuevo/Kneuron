@@ -13,7 +13,7 @@ import CurrentLecture from '../../components/Lectures/CurrentLecture';
 import LecturesList from '../../components/Lectures/LecturesList';
 import QuizList from '../../components/Quizzes/QuizList';
 import AddQuiz from '../../components/Quizzes/AddQuiz';
-import LiveLecture from '../../components/Lectures/LiveLecture';
+import LiveLecture from '../Live/LiveLecture';
 import { allLectures } from '../../actions/Lectures';
 import { currentLecture } from '../../actions/CurrentLecture';
 import { reduxDataSearch } from '../../actions/Search';

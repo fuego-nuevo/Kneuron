@@ -3,10 +3,10 @@ import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import ReactCountdownClock from 'react-countdown-clock';
-import StudentQuestions from './StudentQuestions';
+import StudentQuestions from '../Lectures/StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 import LiveQuizList from './LiveQuizList';
-import BarChart from './BarChart';
+import BarChart from '../Lectures/BarChart';
 
 const socket = io();
 
