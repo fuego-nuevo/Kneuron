@@ -29,7 +29,7 @@ const fetchAllTeacherData = async (req, res) => {
     const email = antiHasher(req.params.auth_token);
     const allData = await db.User.findOne({
       where: {
-        email: email,
+        email,
         userType: 0,
       },
       include: [{
@@ -76,7 +76,7 @@ const fetchStudents = async (req, res) => {
     const email = antiHasher(req.params.auth_token);
     const allStudent = await db.User.findOne({
       where: {
-        email: email,
+        email,
         userType: 0,
       },
       include: [{
