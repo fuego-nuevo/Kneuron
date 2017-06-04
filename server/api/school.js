@@ -12,9 +12,7 @@ const postSchool = (req, res) => {
     .then((salt) => {
       bcrypt.hash(req.body.password, salt)
         .then((hash) => {
-          console.log(hash, 'line fifteeeeeen');
           password = hash;
-          console.log('passs line seeenteeen, ', password);
         })
         .then(() => {
           console.log('do we get past hashing password line 14 ,', password);
@@ -29,18 +27,17 @@ const postSchool = (req, res) => {
             },
           })
             .spread((newUser, created) => {
-              console.log('do we get past user creation  , ', newUser);
+              console.log('user was created');
               if (created) {
-                console.log('Signed Up New User: ', { user: newUser, id_token: util.hasher(req.body.email) });
                 db.School.findOrCreate({
-                  where: {
-                    name: req.body.school.toUpperCase(),
-                    code: `${faker.hacker.adjective()}${faker.hacker.noun()}`,
-                  },
+                  where: { name: req.body.school.toUpperCase(),
+                    defaults: {
+                      code: `${faker.hacker.adjective()}${faker.hacker.noun()}`,
+                    } },
                 })
                   .spread((school, made) => {
                     if (made) {
-                      console.log('posted school ', school);
+                      console.log('school was created');
                       res.status(201).send({ user: newUser, id_token: util.hasher(req.body.email) });
                     } else {
                       console.log('fucked up making school');
@@ -61,22 +58,6 @@ const postSchool = (req, res) => {
         });
     });
 };
-
-
-// const postSchool = async (req, res) => {
-//   db.School.findOne({where: {name: req.body.school.toUpperCase()}})
-//     .then((res) => {
-//       req.body['name'] = req.body.name;
-//       const newSchool = await db.School.create(req.body);
-//       console.log('School created');
-//       res.status(200).send(newSchool);
-//     })
-//     .catch((err) => {
-//       console.log('School already exists');
-//       res.status(404).send('School already exists');
-//     });
-//
-// };
 
 const updateSchool = async (req, res) => {
   try {
