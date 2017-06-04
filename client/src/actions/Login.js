@@ -89,6 +89,36 @@ exports.signupUser = (creds, history) => {
   };
 };
 
+exports.adminSignUp = (creds, history) => {
+  const body = {
+    email: creds.email,
+    password: creds.password,
+    userType: 2,
+    fName: creds.fName,
+    lName: creds.lName,
+    school: creds.school,
+    username: creds.username,
+    image: creds.image,
+  };
+  return (dispatch) => {
+    dispatch(requestLogin(creds));
+    return axios.post('/api/schools', body)
+      .then((response) => {
+      console.log('we hit in chea 107')
+        if (response.statusText !== 'Created') {
+          dispatch(loginError('Bad Request...'));
+          return Promise.reject(response);
+        }
+        localStorage.setItem('id_token', response.data.id_token);
+        localStorage.setItem('access_token', response.data.id_token);
+        dispatch(receiveLogin(response.data));
+        history.push('/dashAdmin');
+      })
+      .catch((err) => {
+      });
+  };
+};
+
 
 exports.logoutUser = () => (dispatch) => {
   dispatch(requestLogout());

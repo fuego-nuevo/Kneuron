@@ -7,13 +7,13 @@ const School = db.define('school', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-});
-
-const User = db.define('user', {
-  username: {
+  code: {
     type: Sequelize.STRING,
     allowNull: false,
   },
+});
+
+const User = db.define('user', {
   password: {
     type: Sequelize.STRING,
     allowNull: false,

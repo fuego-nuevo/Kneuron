@@ -5,6 +5,7 @@ import FrontPage from '../components/FrontPage/FrontPage';
 import Dashboard from '../components/Dashboard/Dashboard';
 import SignUp from '../containers/SignUp';
 import Admin from './Admin';
+import AdminDash from '../components/Admin/AdminDash';
 
 class Router extends Component {
   constructor(props) {
@@ -42,6 +43,9 @@ class Router extends Component {
           render={this.renderDashboard}
         />
         <Route path="/admin" component={Admin} />
+        <Route path="/dashAdmin">
+          <AdminDash isAuthenticated={isAuthenticated} />
+        </Route>
       </Switch>
     );
   }

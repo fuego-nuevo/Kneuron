@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { signupUser } from '../actions/Login';
+import { adminSignUp } from '../actions/Login';
 
-class SignUp extends Component {
+class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,12 +26,10 @@ class SignUp extends Component {
     e.preventDefault();
     const reader = new FileReader();
     const file = e.target.files[0];
-    let image;
     reader.onloadend = () => {
       console.log(file.name);
       this.setState({ image: reader.result });
     }
-    console.log("THIS IS THE FILE: ", file)
     reader.readAsDataURL(file);
   }
 
@@ -40,7 +38,7 @@ class SignUp extends Component {
     console.log(this.state);
     return (
       <div className="admin">
-        <form className="signup-form" onSubmit={(e) => { e.preventDefault(); this.props.signupUser(this.state, this.props.history); }} autoComplete="on">
+        <form className="signup-form" onSubmit={(e) => { e.preventDefault(); this.props.adminSignUp(this.state, this.props.history); }} autoComplete="on">
           <div className="signup-header">ADMIN SIGN UP</div>
           <div className="signup-info-container">
             <div className="signup-info">
@@ -76,4 +74,4 @@ class SignUp extends Component {
 }
 
 
-export default connect(null, { signupUser })(SignUp);
+export default connect(null, { adminSignUp })(Admin);
