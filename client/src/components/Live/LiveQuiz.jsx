@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Swal from 'sweetalert';
+import swal from 'sweetalert';
 
 
 class LiveQuiz extends Component {
@@ -16,7 +16,11 @@ class LiveQuiz extends Component {
           await selectQuiz(quiz.id);
           await startQuiz();
           closeModal();
-          Swal(`students have ${time / 60} minute(s) to take the quiz`);
+          swal({
+            title: 'Quiz Sent!',
+            text: `${time / 60} minute(s) to take the quiz`,
+            type: 'success',
+          });
         }} className="pop-quiz"
       >
         {quiz.name}

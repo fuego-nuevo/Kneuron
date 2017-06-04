@@ -13,7 +13,7 @@ import CurrentLecture from '../../components/Lectures/CurrentLecture';
 import LecturesList from '../../components/Lectures/LecturesList';
 import QuizList from '../../components/Quizzes/QuizList';
 import AddQuiz from '../../components/Quizzes/AddQuiz';
-import LiveLecture from '../../components/Lectures/LiveLecture';
+import LiveLecture from '../Live/LiveLecture';
 import { allLectures } from '../../actions/Lectures';
 import { currentLecture } from '../../actions/CurrentLecture';
 import { reduxDataSearch } from '../../actions/Search';
@@ -58,7 +58,7 @@ class Dashboard extends Component {
       navigator.geolocation.getCurrentPosition((position) => {
         console.log("INSIDE NAV LOC FUNCTION: ", position.coords.latitude);
         this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
-      });
+      }, () => { enableHighAccuracy: true });
     }
   }
 
@@ -117,6 +117,8 @@ class Dashboard extends Component {
           component={() => (<LecturesList
             lectures={lectures || []}
             history={history}
+            lat={this.state.lat}
+            lng={this.state.lng}
             fetchTeacherInfo={this.fetchTeacherInfo}
             selectedLecture={lectureId}
             handleLectureClick={this.handleLectureClick}

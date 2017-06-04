@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { getSeason, getTime } from '../../utils/timeFormatter';
+import { getSeason } from '../../utils/timeFormatter';
+
 
 class AddClass extends Component {
   constructor() {
     super();
     this.state = {
       subject: '',
-      time: getTime() || '',
-      season: getSeason() || '',
+      time: '',
+      semester: getSeason().toString() || '',
+      year: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleTimeChange = this.handleTimeChange.bind(this);
-    this.handleSeasonChange = this.handleSeasonChange.bind(this);
   }
 
 
@@ -22,21 +22,14 @@ class AddClass extends Component {
     this.setState({ [name]: e.target.value });
   }
 
-  handleTimeChange(e){
-    this.setState({ time: e.target.value });
-  }
-
-  handleSeasonChange(e){
-    this.setState({ season: e.target.value });
-  }
-
   async handleSubmit(e) {
     e.preventDefault();
+    const year = [this.state.year];
     const body = {
       auth_token: localStorage.getItem('id_token'),
       subject: this.state.subject,
       time: this.state.time,
-      semester: this.state.season,
+      semester: this.state.semester + ' ' + year[0].slice(0, 4),
     };
     try {
       const posted = await axios.post('/api/cohorts/', body);
@@ -58,11 +51,15 @@ class AddClass extends Component {
             </div>
             <div className="add-class-inps">
               <label htmlFor="time">Time</label>
-              <input onChange={this.handleTimeChange} value={getTime()} type="text" name="time" />
+              <input onChange={this.handleChange} type="time" placeholder="1:00PM" name="time" />
+            </div>
+            <div className="add-class-inps">
+              <label htmlFor="time">Year</label>
+              <input onChange={this.handleChange} type="date" name="year" />
             </div>
             <div className="add-class-inps">
               <label htmlFor="time">Semester</label>
-              <input onChange={this.handleSeasonChange} value={getSeason()} type="text" name="semester" />
+              <input onChange={this.handleChange} type="text" placeholder={getSeason()} name="semester" />
             </div>
           </div>
           <input id="add-class-submit" type="submit" value="Add Class" />

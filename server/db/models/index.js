@@ -54,11 +54,15 @@ const Cohort = db.define('cohort', {
   },
   semester: {
     type: Sequelize.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   time: {
     type: Sequelize.STRING,
     allowNull: false,
+  },
+  code: {
+    type: Sequelize.STRING,
+    allowNull: true,
   },
 });
 
@@ -163,7 +167,12 @@ User.hasMany(StudentQuestion, { foreignKey: { name: 'student_id', allowNull: fal
 StudentQuestion.belongsTo(User, { foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
 
 Lecture.hasMany(Attendance, { foreignKey: { name: 'lecture_id', allowNull: false }, onDelete: 'CASCADE' });
-Attendance.belongsTo(Lecture, { foreignKey: { name: 'lecture_id', allowNull: false }, onDelete: 'CASCADE' });
+
+Attendance.belongsTo(Lecture, { foreignKey: { name: 'lecture_id', allowNull: false}, onDelete: 'CASCADE' });
+
+
+// Lecture.hasMany(Attendance, { as: 'lecture_attendance' });
+// Attendance.belongsTo(Lecture);
 
 Lecture.hasMany(Topic, { foreignKey: { name: 'lecture_id', allowNull: false }, onDelete: 'CASCADE' });
 Topic.belongsTo(Lecture, { foreignKey: { name: 'lecture_id', allowNull: false }, onDelete: 'CASCADE' });

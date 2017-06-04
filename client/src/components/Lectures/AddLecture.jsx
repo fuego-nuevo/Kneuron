@@ -27,6 +27,8 @@ class AddLecture extends Component {
       name: this.state.name,
       cohort_id: this.props.cohortId,
       date: document.getElementsByClassName("input-calendar-field")[0].defaultValue,
+      lat: this.props.lat,
+      lng: this.props.lng,
     };
     try {
       const posted = await axios.post('/api/lectures/', body);
