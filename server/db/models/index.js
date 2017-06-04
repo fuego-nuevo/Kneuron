@@ -160,13 +160,14 @@ Cohort.belongsTo(User, { as: 'teacher', foreignKey: { name: 'teacher_id', allowN
 Cohort.hasMany(Lecture, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
 Lecture.belongsTo(Cohort, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
 
-User.hasMany(Attendance, { as: 'students_attendance', foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
-Attendance.belongsTo(User);
+User.hasMany(Attendance, { foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
+Attendance.belongsTo(User, { foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
 
 User.hasMany(StudentQuestion, { foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
 StudentQuestion.belongsTo(User, { foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
 
 Lecture.hasMany(Attendance, { foreignKey: { name: 'lecture_id', allowNull: false }, onDelete: 'CASCADE' });
+
 Attendance.belongsTo(Lecture, { foreignKey: { name: 'lecture_id', allowNull: false}, onDelete: 'CASCADE' });
 
 

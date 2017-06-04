@@ -5,6 +5,7 @@ const Promise = require('bluebird');
 const redis = require('../db/redis');
 const util = require('./util');
 
+
 const saltRounds = 10;
 
 const fetchAllStudentData = async (req, res) => {
@@ -29,6 +30,23 @@ const fetchAllStudentData = async (req, res) => {
                 include: [{
                   model: db.Question,
                 }],
+    // const email = antiHasher(req.params.auth_token);
+    // const allData = await db.User.findOne({
+    //   where: {
+    //     email: email,
+    //     userType: 1,
+    //   },
+    //   include: [{
+    //     model: db.Cohort,
+    //     as: 'cohort',
+    //     include: [{
+    //       model: db.Lecture,
+    //       include: [{
+    //         model: db.Topic,
+    //         include: [{
+    //           model: db.Quiz,
+    //           include: [{
+    //             model: db.Question,
               }],
             }],
           }],
@@ -63,7 +81,9 @@ const postStudent = async (req, res) => {
   try {
     const salt = await bcrypt.genSalt(saltRounds);
     const hash = await bcrypt.hash(req.body.password, salt);
+    console.log("hiihihihih")
     const person = await db.User.findOne({ where: { email: req.body.email } });
+    console.log("student line 86",person)
     if (person) {
       console.log('That email is taken. Please try another email.');
       res.status(404).send('That email is taken. Please try another email.');
@@ -76,6 +96,7 @@ const postStudent = async (req, res) => {
         lName: req.body.lName,
         username: req.body.username,
         school_id: req.body.school_id,
+        image: req.body.image,
       });
       console.log('Signed Up New User: ', { user: newUser, id_token: util.hasher(req.body.email) });
       res.status(201).send({ user: newUser, id_token: util.hasher(req.body.email) });
