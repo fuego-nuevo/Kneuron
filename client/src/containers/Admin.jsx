@@ -39,9 +39,9 @@ class SignUp extends Component {
     console.log(this.props);
     console.log(this.state);
     return (
-      <div className="signup">
+      <div className="admin">
         <form className="signup-form" onSubmit={(e) => { e.preventDefault(); this.props.signupUser(this.state, this.props.history); }} autoComplete="on">
-          <div className="signup-header">TEACHER SIGN UP </div>
+          <div className="signup-header">ADMIN SIGN UP</div>
           <div className="signup-info-container">
             <div className="signup-info">
               <div><label htmlFor="email">Email</label></div>
@@ -50,7 +50,7 @@ class SignUp extends Component {
               <input onChange={this.handleChange} name="fName" value={this.state.fName} type="text" pattern="[a-z]{1,15}" />
               <div><label htmlFor="lName">last name</label></div>
               <input onChange={this.handleChange} name="lName" value={this.state.lName} type="text" />
-              <div><label htmlFor="school">school(code required from admin)</label></div>
+              <div><label htmlFor="school">Name of School</label></div>
               <input
                 onChange={this.handleChange}
                 name="school"

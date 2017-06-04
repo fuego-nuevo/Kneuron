@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import FrontPage from '../components/FrontPage/FrontPage';
 import Dashboard from '../components/Dashboard/Dashboard';
-import UserProfile from '../components/Profile/UserProfile';
-import EditProfile from '../components/Profile/EditProfile';
 import SignUp from '../containers/SignUp';
-
+import Admin from './Admin';
 
 class Router extends Component {
   constructor(props) {
@@ -43,8 +41,7 @@ class Router extends Component {
           path="/dashboard"
           render={this.renderDashboard}
         />
-        <Route path="/userprofile" component={UserProfile} />
-        <Route path="/editprofile" component={EditProfile} />
+        <Route path="/admin" component={Admin} />
       </Switch>
     );
   }
