@@ -6,7 +6,7 @@ import ReactCountdownClock from 'react-countdown-clock';
 import StudentQuestions from '../Lectures/StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 import LiveQuizList from './LiveQuizList';
-import BarChart from '../Lectures/BarChart';
+import BarChart from './BarChart';
 
 const socket = io();
 
@@ -175,8 +175,17 @@ class LiveLecture extends Component {
               size={200}
               onComplete={this.endPopQuiz}
             />
-            <div className="livedata">
-              <BarChart data={this.state.studentAnswer.map(score => score.correct)} size={[300, 300]} />
+          </div>
+          <div className="livedata">
+            <div id="legend" className="quiz-line">
+              Legend
+              <div> scored less than 60 % <div id="fail" className="legend-keys" /> </div>
+              <div> scored between 60 and 80 percent <div id="pass" className="legend-keys" /> </div>
+              <div> scored greater than 80 percent <div id="exceed" className="legend-keys" /> </div>
+            </div>
+            <BarChart data={this.state.studentAnswer.map(score => score.correct)} size={[300, 300]} />
+            <div className="quiz-line">
+              Pop Quiz Results
             </div>
           </div>
         </div>

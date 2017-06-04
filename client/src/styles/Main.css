@@ -1086,9 +1086,58 @@ hr{
 
 .livedata{
     position:absolute;
-    width: 100%;
-    top: 40vh;
-    height: auto;
+    width: 90%;
+    left: 5%;
+    top: 32vh;
+    height: 55vh;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+}
+
+.bars{
+    position: absolute;
+    bottom: 9.5%;
+    margin: 0 2vw;
+    padding: 0 4vw;
+}
+
+.quiz-line{
+    position: absolute;
+    bottom: 0;
+    height: 5vh;
+    border-top: 1px solid lightgray;
+    text-align: center;
+    width: 90%;
+    left: 5%;
+}
+
+#legend{
+    top: 0;
+    border-bottom: 1px solid lightgray;
+    border-top: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.legend-keys{
+    height: 2vh;
+    width: 2vh;
+    display: inline-block;
+    margin-left: 1vw
+}
+
+#fail{
+    background-color: red;
+}
+
+#pass{
+    background-color: yellow;
+}
+
+#exceed{
+    background-color: green;
 }
 
 /*#edit-sub:hover{*/
