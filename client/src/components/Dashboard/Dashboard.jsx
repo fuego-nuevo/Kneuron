@@ -8,8 +8,6 @@ import DashNav from './DashboardNavBar';
 import Home from './Home';
 import AddClass from '../../components/Cohorts/AddClass';
 import AddLecture from '../../components/Lectures/AddLecture';
-import EditClass from '../../components/Cohorts/EditClass';
-import EditLecture from '../../components/Lectures/EditLecture';
 import CohortsList from '../../components/Cohorts/CohortsList';
 import CurrentLecture from '../../components/Lectures/CurrentLecture';
 import LecturesList from '../../components/Lectures/LecturesList';
@@ -19,7 +17,6 @@ import LiveLecture from '../../components/Lectures/LiveLecture';
 import { allLectures } from '../../actions/Lectures';
 import { currentLecture } from '../../actions/CurrentLecture';
 import { reduxDataSearch } from '../../actions/Search';
-import EditTopic from '../../components/Topics/EditTopic';
 import AddTopic from '../../components/Topics/AddTopic';
 import AddQuestion from '../Questions/AddQuestion';
 import SearchedDataItemsList from '../../components/SearchedContent/SearchedDataItemsList';
@@ -30,13 +27,19 @@ class Dashboard extends Component {
     this.state = {
       profile: {},
       selectedLecture: this.props.currentLecture.lectureId || '',
+      lat: 0,
+      lng: 0,
+      alt: 0,
     };
 
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
     this.handleLectureClick = this.handleLectureClick.bind(this);
+    this.getUserCoordinates = this.getUserCoordinates.bind(this);
+    this.getSeaLevelAmount = this.getSeaLevelAmount.bind(this);
   }
 
   componentDidMount() {
+    this.getUserCoordinates();
     this.fetchTeacherInfo()
     .then(() => {
       this.setState({ selectedLecture: this.props.currentLecture.lectureId });
@@ -44,6 +47,33 @@ class Dashboard extends Component {
       .catch((err) => {
         console.log('error in initial fetch , ', err);
       });
+  }
+
+  componentDidUpdate(){
+    this.getSeaLevelAmount();
+  }
+
+  getUserCoordinates() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log("INSIDE NAV LOC FUNCTION: ", position.coords.latitude);
+        this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
+      });
+    }
+  }
+
+  async getSeaLevelAmount() {
+    console.log("State in dashboard is: ", this.state)
+    try {
+      const body = {
+        lat: this.state.lat.toString(),
+        lng: this.state.lng.toString(),
+      };
+      const altitude = await axios.post('/api/teachers/elevation', body);
+      console.log('GOOGLE RESPONSE IS: ', altitude);
+    } catch (error) {
+      console.log("FUCK, IT DIDN'T GET BACK THE DATA!!!!");
+    }
   }
 
   async fetchTeacherInfo() {
@@ -62,10 +92,13 @@ class Dashboard extends Component {
     const { lectures } = this.props;
     this.setState({ selectedLecture: lectureId }, () => this.props.currentLecture(lectures.filter(lecture => lecture.id === this.state.selectedLecture)));
   }
+
   render() {
     const { dispatch, history, cohort, lectures, lectureId, liveLectureTopics, quizzes, currentCohortId, name, quizId, topics, searchedResults } = this.props;
     const currentLectureRoute = `/dashboard/lectures${this.props.lectureId}`;
     console.log(this.props);
+    console.log("LAT AND LNG ARE: ", this.state.lat);
+    console.log("LAT AND LNG ARE: ", this.state.lng);
     return (
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch} />
@@ -89,11 +122,11 @@ class Dashboard extends Component {
             handleLectureClick={this.handleLectureClick}
           />)}
         />
-        <Route path="/dashboard/livelecture" component={() => (<LiveLecture history={history} topics={liveLectureTopics || []} />)} />
+        <Route path="/dashboard/livelecture" component={() => (<LiveLecture history={history} lat={this.state.lat} lng={this.state.lng} topics={liveLectureTopics || []} />)} />
         <Route path="/dashboard/addClass" component={() => (<AddClass history={history} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
         <Route path="/dashboard/addQuiz" component={() => (<AddQuiz history={history} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
         <Route path="/dashboard/quiz" component={() => (<QuizList history={history} fetchTeacherInfo={this.fetchTeacherInfo} quizzes={quizzes || []} />)} />
-        <Route path="/dashboard/addLecture" component={() => (<AddLecture history={history} cohortId={currentCohortId} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
+        <Route path="/dashboard/addLecture" component={() => (<AddLecture history={history} lat={this.state.lat} lng={this.state.lng} cohortId={currentCohortId} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
         <Route path="/dashboard/addTopic" component={() => (<AddTopic history={history} lectureId={lectureId} name={name} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
         <Route path="/dashboard/addQuestion" component={() => (<AddQuestion history={history} fetchTeacherInfo={this.fetchTeacherInfo} quizId={quizId} />)} />
         <Route
