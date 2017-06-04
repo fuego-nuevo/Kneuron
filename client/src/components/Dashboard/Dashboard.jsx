@@ -37,6 +37,7 @@ class Dashboard extends Component {
     this.getUserCoordinates = this.getUserCoordinates.bind(this);
     this.getSeaLevelAmount = this.getSeaLevelAmount.bind(this);
   }
+
   componentDidMount() {
     this.getUserCoordinates();
     this.fetchTeacherInfo()
@@ -57,7 +58,7 @@ class Dashboard extends Component {
       navigator.geolocation.getCurrentPosition((position) => {
         console.log("INSIDE NAV LOC FUNCTION: ", position.coords.latitude);
         this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
-      });
+      }, () => { enableHighAccuracy: true });
     }
   }
 
@@ -116,6 +117,8 @@ class Dashboard extends Component {
           component={() => (<LecturesList
             lectures={lectures || []}
             history={history}
+            lat={this.state.lat}
+            lng={this.state.lng}
             fetchTeacherInfo={this.fetchTeacherInfo}
             selectedLecture={lectureId}
             handleLectureClick={this.handleLectureClick}
@@ -125,7 +128,7 @@ class Dashboard extends Component {
         <Route path="/dashboard/addClass" component={() => (<AddClass history={history} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
         <Route path="/dashboard/addQuiz" component={() => (<AddQuiz history={history} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
         <Route path="/dashboard/quiz" component={() => (<QuizList history={history} fetchTeacherInfo={this.fetchTeacherInfo} quizzes={quizzes || []} />)} />
-        <Route path="/dashboard/addLecture" component={() => (<AddLecture history={history} cohortId={currentCohortId} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
+        <Route path="/dashboard/addLecture" component={() => (<AddLecture history={history} lat={this.state.lat} lng={this.state.lng} cohortId={currentCohortId} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
         <Route path="/dashboard/addTopic" component={() => (<AddTopic history={history} lectureId={lectureId} name={name} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
         <Route path="/dashboard/addQuestion" component={() => (<AddQuestion history={history} fetchTeacherInfo={this.fetchTeacherInfo} quizId={quizId} />)} />
         <Route

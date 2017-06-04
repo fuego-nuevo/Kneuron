@@ -94,6 +94,47 @@ const updateLecture = async (req, res) => {
   }
 };
 
+
+const updateLectureCoords = async (req, res) => {
+  try {
+    const teacher = await db.User.findOne({ where: { email: antiHasher(req.body.auth_token) } });
+    if (teacher) {
+      console.log('we found the teacher');
+      console.log(req.body.cohortId);
+      const teachersCohort = await db.Cohort.findOne({ where: { id: req.body.cohortId } });
+      if (teachersCohort) {
+        console.log('we at least found teachers cohort');
+        const lecture = await db.Lecture.findOne({ where: { name: req.body.lecture_name, cohort_id: teachersCohort.id } });
+        if (lecture) {
+          lecture.subject = req.body.subject;
+          const updatedLecture = await db.Lecture.update({ lat: req.body.latitude, lng: req.body.longitude }, { where: { id: lecture.id } });
+          if (updatedLecture) {
+            res.status(200).send(updatedLecture);
+          } else {
+            console.log(`Error Updating ${lecture.name} Lecture For ${teachersCohort.subject} Cohort`);
+            res.status(404).send();
+          }
+        } else {
+          console.log(`${teacher.fName} ${teacher.lName}'s ${teachersCohort.subject} doesn't have a ${req.body.lecture_name} lecture in the DB or Network Error:`);
+          res.status(404).send(`${teacher.fName} ${teacher.lName}'s ${teachersCohort.subject} doesn't have a ${req.body.lecture_name} lecture in the DB or Network Error`);
+        }
+      } else {
+        console.log(`${teacher.fName} ${teacher.lName} doesn't have a ${req.body.subject} cohort in the DB or Network Error`);
+        res.status(404).send(`${teacher.fName} ${teacher.lName} doesn't have a ${req.body.subject} cohort in the DB or Network Error`);
+      }
+    } else {
+      console.log(`Teacher By The Name Of ${req.body.fName} ${req.body.lName} Does Not Exist In The Db`);
+      res.status(404).send(`Teacher By The Name Of ${req.body.fName} ${req.body.lName} Does Not Exist In The Db`);
+    }
+  } catch (error) {
+    console.log('ASYNC issue ', error);
+    res.status(500).send(error);
+  }
+};
+
+
+
+
 const deleteLecture = async (req, res) => {
   try {
     const lecture = await db.Lecture.findOne({ where: { id: req.params.lecture_id } });
@@ -108,6 +149,7 @@ const deleteLecture = async (req, res) => {
 router.get('/:cohort_id/:auth_token/:subject', fetchLectures);
 router.post('/', postLecture);
 router.put('/', updateLecture);
+router.put('/coords', updateLectureCoords);
 router.delete('/:lecture_id', deleteLecture);
 
 module.exports = router;

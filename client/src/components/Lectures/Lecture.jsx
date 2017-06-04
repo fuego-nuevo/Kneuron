@@ -39,6 +39,25 @@ class Lecture extends Component {
       console.log(error);
     }
   }
+
+async provideLocData(){
+  const { cohort_id, name } = this.props.lecture;
+  const { lat, lng } = this.props;
+  const body = {
+    auth_token: localStorage.getItem('id_token'),
+    cohortId: cohort_id,
+    lecture_name: name,
+    latitude: lat,
+    longitude: lng,
+  }
+  try{
+    const updateLectureLoc = await axios.put('/api/lectures/coords', body);
+    console.log("Updated Lectures Coordinates.");
+  } catch(error) {
+    console.log("Did Not Update Because: ", error);
+  }
+}
+
   async runLiveLecture() {
     try {
       const updateLecture = await this.props.currentLiveLecture(this.props.lecture);
@@ -47,6 +66,8 @@ class Lecture extends Component {
       console.log('Error grabbing currentLiveLecture: ', error);
     }
   }
+
+
   editClass(e) {
     const { cohort_id, name } = this.props.lecture;
     e.preventDefault();
@@ -119,7 +140,10 @@ class Lecture extends Component {
           See Topics
         </Link>
         </button>
-        <button onClick={this.runLiveLecture} className="go-live"><img alt="delete" src="https://image.flaticon.com/icons/png/128/42/42912.png" width="25px" height="25px" /></button>
+        <button onClick={() => {
+          this.provideLocData();
+          this.runLiveLecture();
+        }} className="go-live"><img alt="delete" src="https://image.flaticon.com/icons/png/128/42/42912.png" width="25px" height="25px" /></button>
         <button onClick={this.deleteLecture} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
         <button onClick={this.handleClick} className="edit-button"><img alt="delete" src="http://simpleicon.com/wp-content/uploads/pencil.png" width="25px" height="25px" /></button>
       </div>
