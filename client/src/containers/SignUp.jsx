@@ -10,7 +10,6 @@ class SignUp extends Component {
       fName: '',
       lName: '',
       password: '',
-      school: '',
       image: '',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -50,13 +49,6 @@ class SignUp extends Component {
               <input onChange={this.handleChange} name="fName" value={this.state.fName} type="text" pattern="[a-z]{1,15}" />
               <div><label htmlFor="lName">last name</label></div>
               <input onChange={this.handleChange} name="lName" value={this.state.lName} type="text" />
-              <div><label htmlFor="school">school(code required from admin)</label></div>
-              <input
-                onChange={this.handleChange}
-                name="school"
-                value={this.state.school}
-                type="text"
-              />
               <div><label htmlFor="password">password</label></div>
               <input
                 onChange={this.handleChange}
