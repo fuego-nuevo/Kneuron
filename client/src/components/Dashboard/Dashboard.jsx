@@ -58,7 +58,7 @@ class Dashboard extends Component {
       navigator.geolocation.getCurrentPosition((position) => {
         console.log("INSIDE NAV LOC FUNCTION: ", position.coords.latitude);
         this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
-      });
+      }, () => { enableHighAccuracy: true });
     }
   }
 
