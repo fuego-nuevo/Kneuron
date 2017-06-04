@@ -6,7 +6,7 @@ import ReactCountdownClock from 'react-countdown-clock';
 import StudentQuestions from '../Lectures/StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 import LiveQuizList from './LiveQuizList';
-import BarChart from '../Lectures/BarChart';
+import BarChart from './BarChart';
 
 const socket = io();
 
