@@ -723,7 +723,6 @@ textarea:focus, input:focus{
     border-style: none;
     background-color: white;
     opacity: 0.1%;
-    width: 40%;
     border-radius: 1px;
     height: 104%;
   }
@@ -1154,8 +1153,7 @@ hr{
     border-style: none;
     background-color: white;
     width: 90%;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-radius: 5px;
     height: 100%;
 }
 

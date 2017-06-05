@@ -42,9 +42,9 @@ class DashNav extends Component {
           <button><Link to="/dashboard/home">Performance</Link></button>
         </div>
         <div className="search-container">
-          <form>
+          <form onSubmit={this.handleSearchSubmit}>
             <input onChange={this.handleSearchInput} className="nav-search" placeholder="   search . . ." type="text" />
-            <button onClick={this.handleSearchSubmit} className="nav-search-submit"><input className="search-btn" type="submit" value="Search" /></button>
+            <input className="search-btn hidden" type="submit" value="Search" />
           </form>
         </div>
         <button id="dash-logout"><Link onClick={() => { this.props.lectureOff(); this.props.dispatch(logoutUser()); }} to="/">Logout</Link></button>
