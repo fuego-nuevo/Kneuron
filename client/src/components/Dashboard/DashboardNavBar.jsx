@@ -6,7 +6,6 @@ import { lectureOff } from '../../actions/IsLectureLive';
 import { searchReduxForDashNavSearch } from '../../utils/dashNavSearchHelperFunctions';
 import '../../styles/Main.css';
 
-
 class DashNav extends Component {
   constructor(props) {
     super(props);
