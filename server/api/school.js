@@ -40,7 +40,13 @@ const postSchool = (req, res) => {
                     console.log('did we get in the spread at least line 39!!!!!!!! , ', school);
                     if (made) {
                       console.log('school was created');
-                      res.status(201).send({ user: newUser, id_token: util.hasher(req.body.email) });
+                      newUser.update({ school_id: school.id })
+                        .then(() => {
+                          res.status(201).send({ user: newUser, id_token: util.hasher(req.body.email) });
+                        })
+                        .catch((err) => {
+                          console.log('error updating school dude  , ', err);
+                        });
                     } else {
                       console.log('fucked up making school');
                       db.User.destroy({ where: { email: req.body.email } })

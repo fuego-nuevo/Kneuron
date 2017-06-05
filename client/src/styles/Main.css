@@ -465,6 +465,11 @@ textarea:focus, input:focus{
     height: 70vh;
 }
 
+#class-add{
+    top: 2vh;
+    height: 80vh;
+}
+
 #question-form{
     position: absolute;
     top: 8vh;

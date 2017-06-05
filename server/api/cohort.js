@@ -44,9 +44,11 @@ const postCohort = async (req, res) => {
         // If That cohort found then say cohort already exists
         res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${teacherCohort.subject} cohort`);
       } else {
+        console.log('this is the req body line 47    , ', req.body);
         // check to see if code matches any schools
         const school = await db.School.findOne({ where: { code: req.body.schoolCode } });
         if (school) {
+          console.log('this is the req body line 51    , ', school);
           // Else Create the Cohort
           req.body['teacher_id'] = teacher.id;
           req.body['time'] = req.body.time.toUpperCase();
