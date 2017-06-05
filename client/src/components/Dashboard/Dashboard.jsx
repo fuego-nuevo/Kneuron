@@ -35,7 +35,7 @@ class Dashboard extends Component {
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
     this.handleLectureClick = this.handleLectureClick.bind(this);
     this.getUserCoordinates = this.getUserCoordinates.bind(this);
-    this.getSeaLevelAmount = this.getSeaLevelAmount.bind(this);
+    // this.getSeaLevelAmount = this.getSeaLevelAmount.bind(this);
   }
 
   componentDidMount() {
@@ -49,9 +49,9 @@ class Dashboard extends Component {
       });
   }
 
-  componentDidUpdate(){
-    this.getSeaLevelAmount();
-  }
+  // componentDidUpdate(){
+  //   this.getSeaLevelAmount();
+  // }
 
   getUserCoordinates() {
     if ('geolocation' in navigator) {
@@ -62,19 +62,19 @@ class Dashboard extends Component {
     }
   }
 
-  async getSeaLevelAmount() {
-    console.log("State in dashboard is: ", this.state)
-    try {
-      const body = {
-        lat: this.state.lat.toString(),
-        lng: this.state.lng.toString(),
-      };
-      const altitude = await axios.post('/api/teachers/elevation', body);
-      console.log('GOOGLE RESPONSE IS: ', altitude);
-    } catch (error) {
-      console.log("FUCK, IT DIDN'T GET BACK THE DATA!!!!");
-    }
-  }
+  // async getSeaLevelAmount() {
+  //   console.log("State in dashboard is: ", this.state)
+  //   try {
+  //     const body = {
+  //       lat: this.state.lat.toString(),
+  //       lng: this.state.lng.toString(),
+  //     };
+  //     const altitude = await axios.post('/api/teachers/elevation', body);
+  //     console.log('GOOGLE RESPONSE IS: ', altitude);
+  //   } catch (error) {
+  //     console.log("FUCK, IT DIDN'T GET BACK THE DATA!!!!");
+  //   }
+  // }
 
   async fetchTeacherInfo() {
     try {
