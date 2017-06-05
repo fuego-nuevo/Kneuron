@@ -1,5 +1,12 @@
 [
   {
+    "model": "School",
+    "data": {
+      "name": "GSU",
+      "code": "eclectic"
+    }
+  },
+  {
     "model": "User",
     "data": {
       "id": 1,
@@ -53,13 +60,6 @@
       "lName": "Becker",
       "userType": 2,
       "school_id": 1
-    }
-  },
-  {
-    "model": "School",
-    "data": {
-      "name": "GSU",
-      "code": "eclectic"
     }
   },
   {

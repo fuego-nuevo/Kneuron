@@ -224,15 +224,10 @@ textarea:focus, input:focus{
     position: absolute;
     border-style: none;
     border-bottom: none;
-    bottom: 0;
+    bottom: 65px;
     width: 50%;
-    left: 45%;
+    left: 44%;
     text-center: align;
-    /*width: 20vw;*/
-    /*left: 20vw;*/
-    /*bottom: 10vh;*/
-    /*text-align: center;*/
-    /*margin-bottom: 2vh;*/
 }
 
 #signup-button:hover{
