@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const db = require('../db/models');
 
-const postAttendance =  (req, res) => {
+const postAttendance = (req, res) => {
   db.Attendance.findOne({ where: { student_id: req.body.student_id, lecture_id: req.body.lecture_id } })
   .then((data) => {
     if (data) {
@@ -16,7 +16,7 @@ const postAttendance =  (req, res) => {
       })
       .then((newAttendance) => {
         res.status(201).send(newAttendance);
-      })
+      });
     }
   })
   .catch((err) => {
