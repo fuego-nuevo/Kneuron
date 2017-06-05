@@ -6,6 +6,31 @@ const db = require('../db/models');
 
 const saltRounds = 10;
 let password;
+
+const fetchSchoolInfo = (req, res) => {
+  db.User.findOne({ where: { email: util.antiHasher(req.params.auth_token) } })
+    .then((user) => {
+      db.Cohort.findAll({
+        where: {
+          school_id: user.school_id,
+        },
+        include: [{ model: db.Result }],
+      })
+        .then((classes) => {
+          console.log('found classes ,', classes);
+          res.status(200).send(classes);
+        })
+        .catch((err) => {
+          console.log('could not find classes ,', err);
+          res.status(500).send('could not find any classes');
+        });
+    })
+    .catch((err) => {
+      console.log('could not find user, auth token maybe wrong? ,', err);
+      res.status(500).send('could not find user');
+    });
+};
+
 const postSchool = (req, res) => {
   console.log(req.body, 'line 8 for sure');
   bcrypt.genSalt(saltRounds)
@@ -85,6 +110,7 @@ const updateSchool = async (req, res) => {
   }
 };
 
+router.get('/:auth_token', fetchSchoolInfo);
 router.post('/', postSchool);
 router.put('/:school_id', updateSchool);
 
