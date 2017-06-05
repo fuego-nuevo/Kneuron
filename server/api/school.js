@@ -17,8 +17,8 @@ const fetchSchoolInfo = (req, res) => {
         include: [{ model: db.Result }],
       })
         .then((classes) => {
-          console.log('found classes ,', classes);
-          res.status(200).send(classes);
+          console.log('found classes ,', classes, user);
+          res.status(200).send({ user, classes });
         })
         .catch((err) => {
           console.log('could not find classes ,', err);

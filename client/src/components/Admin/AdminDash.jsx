@@ -6,13 +6,14 @@ class AdminDash extends Component {
   constructor() {
     super();
     this.state = {
+      user: {},
       cohorts: [],
     };
   }
   componentDidMount() {
     axios.get(`/api/schools/${localStorage.getItem('id_token')}`)
-      .then((cohorts) => {
-        this.setState({ cohorts });
+      .then((data) => {
+        this.setState({ user: data.data.user, cohorts: data.data.classes });
       })
       .catch((err) => {
         console.log('error finding the schools , ', err);
@@ -25,6 +26,7 @@ class AdminDash extends Component {
       return (
         <div>
           ADMIN DASHBOARD THOT
+          <div className="admin-info"></div>
         </div>
       );
     }
