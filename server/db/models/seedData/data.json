@@ -48,6 +48,13 @@
     }
   },
   {
+    "model": "School",
+    "data": {
+      "name": "GSU",
+      "code": "eclectic"
+    }
+  },
+  {
     "model": "Cohort",
     "data": {
       "id": 1,
@@ -55,7 +62,8 @@
       "semester": "FALL 2017",
       "time": "1 PM",
       "teacher_id": 1,
-      "code": "martyr"
+      "code": "martyr",
+      "school_id": 1
     }
   },
   {
@@ -66,7 +74,8 @@
       "semester": "FALL 2017",
       "time": "1 PM",
       "teacher_id": 1,
-      "code": "bomber"
+      "code": "bomber",
+      "school_id": 1
     }
   },
   {
@@ -77,7 +86,8 @@
       "semester": "FALL 2017",
       "time": "1 PM",
       "teacher_id": 1,
-      "code": "england"
+      "code": "england",
+      "school_id": 1
     }
   },
   {

@@ -8,7 +8,6 @@ const saltRounds = 10;
 const axios = require('axios');
 const LatLon = require('geodesy').LatLonEllipsoidal;
 
-
 let myEmail = 'alex@gmail.com';
 bcrypt.hash(myEmail, saltRounds, (err, hash) => {
   console.log("THE HASH OF MY EMAIL IS: ", hash);
@@ -25,7 +24,7 @@ const fetchAllTeacherData = async (req, res) => {
     const email = antiHasher(req.params.auth_token);
     const allData = await db.User.findOne({
       where: {
-        email: email,
+        email,
         userType: 0,
       },
       include: [{
@@ -72,7 +71,7 @@ const fetchStudents = async (req, res) => {
     const email = antiHasher(req.params.auth_token);
     const allStudent = await db.User.findOne({
       where: {
-        email: email,
+        email,
         userType: 0,
       },
       include: [{
@@ -116,7 +115,9 @@ const postTeacher = async (req, res) => {
   try {
     console.log('this is the req.body in postTeacher ', req.body);
     const salt = await bcrypt.genSalt(saltRounds);
+    console.log(salt, 'ok this that new salt fool');
     const hash = await bcrypt.hash(req.body.password, salt);
+    console.log('ok this that new password  ', hash);
     const person = await db.User.findOne({ where: { email: req.body.email } });
     if (person) {
       console.log('That email is taken. Please try another email.');
@@ -129,14 +130,13 @@ const postTeacher = async (req, res) => {
         fName: req.body.fName,
         lName: req.body.lName,
         username: req.body.username,
-        school_id: req.body.school_id,
         image: req.body.image,
       });
-      if(newUser){
+      if (newUser) {
         console.log('Signed Up New User: ', { user: newUser, id_token: hasher(req.body.email) });
         res.status(201).send({ user: newUser, id_token: hasher(req.body.email) });
       } else {
-        console.log("Invalid Data In Req.Body: ", newUser);
+        console.log('Invalid Data In Req.Body: ', newUser);
       }
     }
   } catch (error) {
@@ -195,15 +195,15 @@ const deleteTeacher = async (req, res) => {
 
 const getElevation = async (req, res) => {
   try {
-    const elevation = await axios.post("https://maps.googleapis.com/maps/api/elevation/json?locations=" + req.body.lat + "," + req.body.lng + "&key=" + process.env.GOOGLE_ELEVATION_API_KEY);
-    console.log("DATA RESTURNED FROM GOOGLE IS: ", elevation.data.results[0].elevation);
+    const elevation = await axios.post(`https://maps.googleapis.com/maps/api/elevation/json?locations=${req.body.lat},${req.body.lng}&key=${process.env.GOOGLE_ELEVATION_API_KEY}`);
+    console.log('DATA RESTURNED FROM GOOGLE IS: ', elevation.data.results[0].elevation);
     res.json(elevation.data.results[0].elevation);
-    //save this alt and lat and lng to db and compare on the students side for real proximity
-    //need to find cartesian coordinates with sin and cosin
-  } catch(error) {
-    console.log("ERROR FOR ELEVATION DATA IS: ", error);
+    // save this alt and lat and lng to db and compare on the students side for real proximity
+    // need to find cartesian coordinates with sin and cosin
+  } catch (error) {
+    console.log('ERROR FOR ELEVATION DATA IS: ', error);
   }
-}
+};
 
 // Controllers
 router.get('/', fetchStudents);

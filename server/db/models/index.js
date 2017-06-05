@@ -7,13 +7,13 @@ const School = db.define('school', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-});
-
-const User = db.define('user', {
-  username: {
+  code: {
     type: Sequelize.STRING,
     allowNull: false,
   },
+});
+
+const User = db.define('user', {
   password: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -150,6 +150,9 @@ const Result = db.define('result', {
 // THESE FUCKING WORK!!!!
 School.hasMany(User, { foreignKey: { name: 'school_id', allowNull: true }, onDelete: 'CASCADE' });
 User.belongsTo(School, { foreignKey: { name: 'school_id', allowNull: true }, onDelete: 'CASCADE' });
+
+School.hasMany(Cohort, { foreignKey: { name: 'school_id', allowNull: true }, onDelete: 'CASCADE' });
+Cohort.belongsTo(School, { foreignKey: { name: 'school_id', allowNull: true }, onDelete: 'CASCADE' });
 
 User.hasMany(Cohort, { as: 'cohort', foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE' });
 Cohort.belongsTo(User, { as: 'teacher', foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE' });
