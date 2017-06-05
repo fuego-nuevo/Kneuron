@@ -99,6 +99,39 @@
     }
   },
   {
+    "model": "Cohort",
+    "data": {
+      "id": 4,
+      "subject": "SCIENCE",
+      "semester": "FALL 2017",
+      "time": "1 PM",
+      "teacher_id": 2,
+      "code": "england"
+    }
+  },
+  {
+    "model": "Cohort",
+    "data": {
+      "id": 5,
+      "subject": "SCIENCE",
+      "semester": "FALL 2017",
+      "time": "1 PM",
+      "teacher_id": 2,
+      "code": "england"
+    }
+  },
+  {
+    "model": "Cohort",
+    "data": {
+      "id": 6,
+      "subject": "SCIENCE",
+      "semester": "FALL 2017",
+      "time": "1 PM",
+      "teacher_id": 2,
+      "code": "england"
+    }
+  },
+  {
     "model": "Lecture",
     "data": {
       "id": 1,

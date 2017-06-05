@@ -171,7 +171,7 @@ StudentQuestion.belongsTo(User, { foreignKey: { name: 'student_id', allowNull: f
 
 Lecture.hasMany(Attendance, { foreignKey: { name: 'lecture_id', allowNull: false }, onDelete: 'CASCADE' });
 
-Attendance.belongsTo(Lecture, { foreignKey: { name: 'lecture_id', allowNull: false}, onDelete: 'CASCADE' });
+Attendance.belongsTo(Lecture, { foreignKey: { name: 'lecture_id', allowNull: false }, onDelete: 'CASCADE' });
 
 
 // Lecture.hasMany(Attendance, { as: 'lecture_attendance' });
