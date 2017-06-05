@@ -17,13 +17,11 @@ import LecturesList from '../../components/Lectures/LecturesList';
 import QuizList from '../../components/Quizzes/QuizList';
 import AddQuiz from '../../components/Quizzes/AddQuiz';
 import LiveLecture from '../Live/LiveLecture';
-import { allLectures } from '../../actions/Lectures';
-import { currentLecture } from '../../actions/CurrentLecture';
-import { reduxDataSearch } from '../../actions/Search';
 import AddTopic from '../../components/Topics/AddTopic';
 import AddQuestion from '../Questions/AddQuestion';
 import SearchedDataItemsList from '../../components/SearchedContent/SearchedDataItemsList';
-import Performance from '../../components/Performance/Performance';
+import OverallPerformance from '../../components/Performance/OverallPerformance';
+import CohortPerformance from '../../components/Performance/CohortPerformance';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -64,7 +62,7 @@ class Dashboard extends Component {
   async fetchTeacherInfo() {
     try {
       const profile = await axios.get(`/api/teachers/${localStorage.getItem('id_token')}`);
-      console.log('fetch teacher info ran');
+      // console.log('fetch teacher info ran');
       this.setState({ profile: profile.data }, () => {
         this.props.updateProfile(profile);
       });
@@ -123,7 +121,8 @@ class Dashboard extends Component {
         />
         <Route path="/dashboard/addTopic" component={() => (<AddTopic history={history} lectureId={lectureId} name={name} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
         <Route path="/dashboard/addQuestion" component={() => (<AddQuestion history={history} fetchTeacherInfo={this.fetchTeacherInfo} quizId={quizId} />)} />
-        <Route path="/dashboard/performance" component={() => (<Performance />)} />
+        <Route path="/dashboard/overallPerformance" component={() => (<OverallPerformance />)} />
+        <Route path="/dashboard/overallPerformance/cohorts" component={() => (<CohortPerformance />)} />
         <Route
           path={currentLectureRoute}
           component={props => (<CurrentLecture
