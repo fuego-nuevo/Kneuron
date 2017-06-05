@@ -1,9 +1,15 @@
 [
   {
+    "model": "School",
+    "data": {
+      "name": "GSU",
+      "code": "eclectic"
+    }
+  },
+  {
     "model": "User",
     "data": {
       "id": 1,
-      "username": "test1",
       "password":"$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
       "email": "test1@test.com",
       "fName": "Jimmy",
@@ -15,7 +21,6 @@
     "model": "User",
     "data": {
       "id": 2,
-      "username": "test2",
       "password":"$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
       "email": "test2@test.com",
       "fName": "Buck",
@@ -27,7 +32,6 @@
     "model": "User",
     "data": {
       "id": 3,
-      "username": "test3",
       "password":"$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
       "email": "test3@test.com",
       "fName": "Steve",
@@ -39,7 +43,6 @@
     "model": "User",
     "data": {
       "id": 4,
-      "username": "test4",
       "password":"$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
       "email": "test4@test.com",
       "fName": "Peter",
@@ -48,10 +51,15 @@
     }
   },
   {
-    "model": "School",
+    "model": "User",
     "data": {
-      "name": "GSU",
-      "code": "eclectic"
+      "id": 5,
+      "password": "$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
+      "email": "test5@test.com",
+      "fName": "Marc",
+      "lName": "Becker",
+      "userType": 2,
+      "school_id": 1
     }
   },
   {
