@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { signupUser } from '../actions/Login';
+import { adminSignUp } from '../actions/Login';
 
-class SignUp extends Component {
+class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,6 +10,7 @@ class SignUp extends Component {
       fName: '',
       lName: '',
       password: '',
+      school: '',
       image: '',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -25,12 +26,10 @@ class SignUp extends Component {
     e.preventDefault();
     const reader = new FileReader();
     const file = e.target.files[0];
-    let image;
     reader.onloadend = () => {
       console.log(file.name);
       this.setState({ image: reader.result });
     }
-    console.log("THIS IS THE FILE: ", file)
     reader.readAsDataURL(file);
   }
 
@@ -38,9 +37,9 @@ class SignUp extends Component {
     console.log(this.props);
     console.log(this.state);
     return (
-      <div className="signup">
-        <form className="signup-form" onSubmit={(e) => { e.preventDefault(); this.props.signupUser(this.state, this.props.history); }} autoComplete="on">
-          <div className="signup-header">TEACHER SIGN UP </div>
+      <div className="admin">
+        <form className="signup-form" onSubmit={(e) => { e.preventDefault(); this.props.adminSignUp(this.state, this.props.history); }} autoComplete="on">
+          <div className="signup-header">ADMIN SIGN UP</div>
           <div className="signup-info-container">
             <div className="signup-info">
               <div><label htmlFor="email">Email</label></div>
@@ -49,6 +48,13 @@ class SignUp extends Component {
               <input onChange={this.handleChange} name="fName" value={this.state.fName} type="text" pattern="[a-z]{1,15}" />
               <div><label htmlFor="lName">last name</label></div>
               <input onChange={this.handleChange} name="lName" value={this.state.lName} type="text" />
+              <div><label htmlFor="school">Name of School</label></div>
+              <input
+                onChange={this.handleChange}
+                name="school"
+                value={this.state.school}
+                type="text"
+              />
               <div><label htmlFor="password">password</label></div>
               <input
                 onChange={this.handleChange}
@@ -68,4 +74,4 @@ class SignUp extends Component {
 }
 
 
-export default connect(null, { signupUser })(SignUp);
+export default connect(null, { adminSignUp })(Admin);

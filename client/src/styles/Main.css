@@ -141,9 +141,18 @@ textarea:focus, input:focus{
 /* SIGN UP PAGE CSS */
 
 .signup {
-    background: #093028;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #237A57, #093028);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #237A57, #093028); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #757F9A;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #D7DDE8, #757F9A);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #D7DDE8, #757F9A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    height: 100vh;
+    width: 100vw;
+    font-family: "Brandon Grotesque";
+}
+
+.admin{
+    background: #8e9eab;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #eef2f3, #8e9eab);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #eef2f3, #8e9eab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     height: 100vh;
     width: 100vw;
     font-family: "Brandon Grotesque";
@@ -456,6 +465,11 @@ textarea:focus, input:focus{
     height: 70vh;
 }
 
+#class-add{
+    top: 2vh;
+    height: 80vh;
+}
+
 #question-form{
     position: absolute;
     top: 8vh;
@@ -723,7 +737,6 @@ textarea:focus, input:focus{
     border-style: none;
     background-color: white;
     opacity: 0.1%;
-    width: 40%;
     border-radius: 1px;
     height: 104%;
   }
@@ -1154,8 +1167,7 @@ hr{
     border-style: none;
     background-color: white;
     width: 90%;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-radius: 5px;
     height: 100%;
 }
 
@@ -1190,8 +1202,25 @@ hr{
     height: 110%;
 }
 
+#admin-login{
+    position: absolute;
+    bottom: 1vh;
+    left: 1vh;
+    width: 8vh;
+    height: 2vh;
+    border-style: none;
+    background-color: transparent;
+    color: navy;
+}
 
+#admin-login:hover{
+    text-decoration: underline;
+    font-weight: bold;
+}
 
+.hitit{
+    width: auto;
+}
 /*#edit-sub:hover{*/
     /*box-shadow: 0 0 3px 3px lightgray;*/
 /*}*/

@@ -11,6 +11,7 @@ class AddClass extends Component {
       time: '',
       semester: getSeason().toString() || '',
       year: '',
+      schoolCode: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,7 +30,8 @@ class AddClass extends Component {
       auth_token: localStorage.getItem('id_token'),
       subject: this.state.subject,
       time: this.state.time,
-      semester: this.state.semester + ' ' + year[0].slice(0, 4),
+      semester: `${this.state.semester} ${year[0].slice(0, 4)}`,
+      schoolCode: this.state.schoolCode,
     };
     try {
       const posted = await axios.post('/api/cohorts/', body);
@@ -43,7 +45,7 @@ class AddClass extends Component {
   render() {
     return (
       <div className="add-class-container">
-        <form onSubmit={this.handleSubmit} className="add-class-form animated bounceInUp">
+        <form onSubmit={this.handleSubmit} id="class-add" className="add-class-form animated bounceInUp">
           <div className="add-class-input-container">
             <div className="add-class-inps">
               <label htmlFor="subject">Subject</label>
@@ -60,6 +62,10 @@ class AddClass extends Component {
             <div className="add-class-inps">
               <label htmlFor="time">Semester</label>
               <input onChange={this.handleChange} type="text" placeholder={getSeason()} name="semester" />
+            </div>
+            <div className="add-class-inps">
+              <label htmlFor="code">School Code</label>
+              <input onChange={this.handleChange} type="text" name="schoolCode" />
             </div>
           </div>
           <input id="add-class-submit" type="submit" value="Add Class" />
