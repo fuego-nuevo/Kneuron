@@ -39,6 +39,7 @@ class Topic extends Component {
       console.log(error);
     }
   }
+
   editClass(e) {
     e.preventDefault();
     const body = {
@@ -58,9 +59,11 @@ class Topic extends Component {
         Swal('there was an error on our server :(');
       });
   }
+
   handleClick() {
     this.setState({ isShowingModal: true });
   }
+
   handleClose() {
     this.setState({ isShowingModal: false });
   }

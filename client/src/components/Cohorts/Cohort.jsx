@@ -99,7 +99,7 @@ class Cohort extends Component {
                   </div>
                   <div>
                     <label htmlFor="time-change" >change time</label>
-                    <input onChange={this.handleChange} placeholder="time .." value={this.state.time} type="text" name="time" />
+                    <input onChange={this.handleChange} placeholder="time .." value={this.state.time} type="time" name="time" />
                   </div>
                   <button id="edit-sub" type="submit">
                     <img alt="delete" src="http://www.freeiconspng.com/uploads/paper-plane-icon--icon-search-engine-13.png" width="25px" height="25px" />
