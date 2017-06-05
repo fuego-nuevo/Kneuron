@@ -34,23 +34,34 @@ const postCohort = async (req, res) => {
     if (teacher.userType === 0) {
       // If Teacher Found the  Find Their Cohort where subject === req.body.subject and their teacherId: as their id
       // Switch with findOrCreate
-      const teacherCohort = await db.Cohort.findOne({ where: { teacher_id: teacher.id, subject: req.body.subject.toUpperCase() } });
+      const teacherCohort = await db.Cohort.findOne({
+        where: {
+          teacher_id: teacher.id,
+          subject: req.body.subject.toUpperCase(),
+        },
+      });
       if (teacherCohort) {
         // If That cohort found then say cohort already exists
         res.status(204).send(`${teacher.fName} ${teacher.lName} already has a ${teacherCohort.subject} cohort`);
       } else {
-        // Else Create the Cohort
-        req.body['teacher_id'] = teacher.id;
-        req.body['time'] = req.body.time.toUpperCase();
-        req.body['subject'] = req.body.subject.toUpperCase();
-        req.body['code'] = `${faker.hacker.adjective()}${faker.hacker.noun()}`;
-        console.log(req.body['code']);
-        const newCohort = await db.Cohort.create(req.body);
-        if (newCohort) {
-          console.log(`${teacher.fName} ${teacher.lName} just added a new ${newCohort.subject} cohort to their schedule.`, newCohort);
-          res.status(201).send(newCohort);
+        // check to see if code matches any schools
+        const school = await db.School.findOne({ where: { code: req.body.schoolCode } });
+        if (school) {
+          // Else Create the Cohort
+          req.body['teacher_id'] = teacher.id;
+          req.body['time'] = req.body.time.toUpperCase();
+          req.body['subject'] = req.body.subject.toUpperCase();
+          req.body['code'] = `${faker.hacker.adjective()}${faker.hacker.noun()}`;
+          req.body['school_id'] = school.id;
+          const newCohort = await db.Cohort.create(req.body);
+          if (newCohort) {
+            console.log(`${teacher.fName} ${teacher.lName} just added a new ${newCohort.subject} cohort to their schedule.`, newCohort);
+            res.status(201).send(newCohort);
+          } else {
+            res.status(404).send('Failed To Create New Cohort');
+          }
         } else {
-          res.status(404).send('Failed To Create New Cohort');
+          res.status(500).send('code does not match any schools code');
         }
       }
     } else {

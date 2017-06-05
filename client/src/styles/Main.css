@@ -1149,6 +1149,26 @@ hr{
     background-color: green;
 }
 
+#admin-login{
+    position: absolute;
+    bottom: 1vh;
+    left: 1vh;
+    width: 8vh;
+    height: 2vh;
+    border-style: none;
+    background-color: transparent;
+    color: navy;
+}
+
+#admin-login:hover{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+
+.hitit{
+    width: auto;
+}
 /*#edit-sub:hover{*/
     /*box-shadow: 0 0 3px 3px lightgray;*/
 /*}*/

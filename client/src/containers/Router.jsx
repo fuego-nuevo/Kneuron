@@ -6,6 +6,7 @@ import Dashboard from '../components/Dashboard/Dashboard';
 import SignUp from '../containers/SignUp';
 import Admin from './Admin';
 import AdminDash from '../components/Admin/AdminDash';
+import AdminLogin from '../components/Admin/AdminLogin';
 
 class Router extends Component {
   constructor(props) {
@@ -45,6 +46,9 @@ class Router extends Component {
         <Route path="/admin" component={Admin} />
         <Route path="/dashAdmin">
           <AdminDash isAuthenticated={isAuthenticated} />
+        </Route>
+        <Route path="/adminLogin">
+          <AdminLogin history={history} />
         </Route>
       </Switch>
     );

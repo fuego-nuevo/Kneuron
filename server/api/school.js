@@ -29,13 +29,15 @@ const postSchool = (req, res) => {
             .spread((newUser, created) => {
               console.log('user was created');
               if (created) {
+                console.log('was the user actually created?');
                 db.School.findOrCreate({
-                  where: { name: req.body.school.toUpperCase(),
-                    defaults: {
-                      code: `${faker.hacker.adjective()}${faker.hacker.noun()}`,
-                    } },
+                  where: { name: req.body.school.toUpperCase() },
+                  defaults: {
+                    code: `${faker.hacker.adjective()}${faker.hacker.noun()}`,
+                  },
                 })
                   .spread((school, made) => {
+                    console.log('did we get in the spread at least line 39!!!!!!!! , ', school);
                     if (made) {
                       console.log('school was created');
                       res.status(201).send({ user: newUser, id_token: util.hasher(req.body.email) });

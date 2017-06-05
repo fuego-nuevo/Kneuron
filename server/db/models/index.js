@@ -64,10 +64,6 @@ const Cohort = db.define('cohort', {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  schoolCode: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
 });
 
 const Lecture = db.define('lecture', {

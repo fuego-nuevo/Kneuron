@@ -61,6 +61,28 @@ exports.loginUser = (creds, history) => {
   };
 };
 
+exports.loginAdmin = (creds, history) => {
+  console.log('This is Creds: ', creds);
+  return (dispatch) => {
+    dispatch(requestLogin(creds));
+    return axios.get(`/api/admins/${creds.email}/${creds.password}`)
+      .then((response) => {
+        if (!response.data) {
+          dispatch(loginError('Bad Request...'));
+          return Promise.reject(response);
+        }
+        localStorage.setItem('id_token', response.data.id_token);
+        localStorage.setItem('access_token', response.data.id_token);
+        dispatch(receiveLogin(response.data));
+        history.push('/dashAdmin');
+      })
+      .catch((err) => {
+        console.log('Error: ', err);
+      });
+  };
+};
+
+
 exports.signupUser = (creds, history) => {
   const body = {
     email: creds.email,
@@ -104,7 +126,7 @@ exports.adminSignUp = (creds, history) => {
     dispatch(requestLogin(creds));
     return axios.post('/api/schools', body)
       .then((response) => {
-      console.log('we hit in chea 107')
+        console.log('we hit in chea 107');
         if (response.statusText !== 'Created') {
           dispatch(loginError('Bad Request...'));
           return Promise.reject(response);
