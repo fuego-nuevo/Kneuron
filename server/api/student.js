@@ -83,7 +83,6 @@ const postStudent = async (req, res) => {
     const hash = await bcrypt.hash(req.body.password, salt);
     console.log("hiihihihih")
     const person = await db.User.findOne({ where: { email: req.body.email } });
-    console.log("student line 86",person)
     if (person) {
       console.log('That email is taken. Please try another email.');
       res.status(404).send('That email is taken. Please try another email.');
