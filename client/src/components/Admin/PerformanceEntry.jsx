@@ -19,7 +19,7 @@ class PerformanceEntry extends Component {
         <div className="stats">
           <h4>{semester}</h4>
           <h4>{subject}</h4>
-          <h4>school results</h4>
+          <h4>class results</h4>
         </div>
       </div>
     );
