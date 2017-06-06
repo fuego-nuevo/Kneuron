@@ -224,9 +224,9 @@ textarea:focus, input:focus{
     position: absolute;
     border-style: none;
     border-bottom: none;
-    bottom: 65px;
+    bottom: 15px;
     width: 50%;
-    left: 44%;
+    left: 40%;
     text-center: align;
 }
 

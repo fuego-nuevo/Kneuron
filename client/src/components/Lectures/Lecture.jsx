@@ -83,7 +83,7 @@ async provideLocData(){
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
-            Swal('class succesfully updated :)');
+            Swal('lecture succesfully updated :)');
           });
       })
       .catch((err) => {
