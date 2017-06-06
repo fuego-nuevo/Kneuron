@@ -4,34 +4,29 @@ const Promise = require('bluebird');
 const _ = require('lodash');
 const util = require('../utils');
 
-router.get('/:student_id', (req, res, next) => {
-  db.StudentCohort.findAll({
-    where: { student_id: req.params.student_id },
+router.get('/lectureResults/:cohort_id/:student_id', (req, res, next) => {
+  db.Lecture.findAll({
+    where: { cohort_id: req.params.cohort_id },
     include: [{
-      model: db.Cohort,
-      include: [{
-        model: db.Result,
-        where: { student_id: req.params.student_id },
-        // include: [{
-        //   model: db.Result,
-          // include: [{
-          //   model: db.Lecture,
-          //   include: [{
-          //     model: db.Cohort,
-          //   }],
-          // }],
-        // }],
-      }],
+      model: db.Result,
+      where: { student_id: req.params.student_id },
     }],
   })
-  .then((cohorts) => {
+    // where: { cohort_id: req.params.cohort_id },
+    // include: [{
+    //   model: db.Result,
+    //   where: { student_id: req.params.student_id },
+    // }],
+  // })
+  .then((lectures) => {
     // res.status(200).send(cohorts);
-    const obj = {};
+    // const obj = {};
     // const cohortArray = student.studentcohorts;
-    _.each(cohorts, (cohort) => {
-      obj[cohort.cohort.subject] = util.overallCohortPerformance(cohort.cohort.results);
-    });
-    res.status(200).send(obj);
+    // _.each(cohorts, (cohort) => {
+    //   obj[cohort.cohort.subject] = util.overallCohortPerformance(cohort.cohort.results);
+    // });
+    console.log('this is the lectures in result route ', lectures)
+    res.status(200).send(lectures);
   })
   .catch(next);
 });

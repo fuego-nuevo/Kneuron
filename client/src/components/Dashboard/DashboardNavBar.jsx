@@ -12,11 +12,9 @@ class DashNav extends Component {
     this.state = {
       text: '',
     };
-
     this.handleSearchInput = this.handleSearchInput.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
-
 
   handleSearchInput(query) {
     this.setState({ text: query.target.value });
@@ -39,7 +37,7 @@ class DashNav extends Component {
         <div className="dash-nav-items">
           <button><Link to="/dashboard/home">Home</Link></button>
           <button><Link to="/dashboard/class">Classes</Link></button>
-          <button><Link to="/dashboard/home">Performance</Link></button>
+          <button><Link to="/dashboard/overallPerformance">Performance</Link></button>
         </div>
         <div className="search-container">
           <form onSubmit={this.handleSearchSubmit}>
