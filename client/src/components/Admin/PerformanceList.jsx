@@ -3,7 +3,7 @@ import PerformanceEntry from './PerformanceEntry';
 
 const PerformanceList = props => (
   <div className="perf-body">
-      {props.cohorts.map(cohort => <PerformanceEntry cohort={cohort} />)}
+      {props.cohorts.map(cohort => <PerformanceEntry key={cohort.id} cohort={cohort} />)}
   </div>
   );
 

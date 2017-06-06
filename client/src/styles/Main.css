@@ -1341,8 +1341,8 @@ hr{
 }
 
 .perf-body {
-    display: flex;
-    flex-direction: column;
+    /*display: flex;*/
+    /*flex-direction: column;*/
     overflow: auto;
     flex: 8;
     border: 2px solid red;
@@ -1352,7 +1352,8 @@ hr{
 
 .perf-entry {
     display: flex;
-    flex: 1;
+    justify-content: space-around;
+    height: 18vh;
     align-items: center;
     border: 2px solid mediumspringgreen;
 }

@@ -7,9 +7,12 @@ class PerformanceEntry extends Component {
   }
 
   render() {
+    console.log(this.props);
+    const { subject, semester, results } = this.props.cohort;
     return (
       <div className="perf-entry">
-        performance entry thot sucking beeotch
+        <h1>{semester}</h1>
+        <h2>{subject}</h2>
       </div>
     );
   }
