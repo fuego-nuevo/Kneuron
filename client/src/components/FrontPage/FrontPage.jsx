@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Login from '../../components/Logging/Login';
 import NavBar from './FrontPageNav';
 import { loginUser } from '../../actions/Login';
+// import pictures from '../.././assets/snyp.jpeg'
 
 class FrontPage extends Component {
   constructor(props) {
@@ -36,9 +37,17 @@ class FrontPage extends Component {
         <div className="service-container">
           <div id="how-we-work">hihi</div>
           <div id="how-we-work-desc">
-            <p>how we work</p>
-            <p>why</p>
-            <p>Easy</p>
+            <div>
+              <h2>how we work</h2>
+              <div className="apple" />
+              <img alt="apple" src="/client/src/assets/apple.png" height="50px" width="50px" />
+            </div>
+            <div>
+              <p>why</p>
+            </div>
+            <div>
+              <p>Easy</p>
+            </div>
           </div>
         </div>
       </div>

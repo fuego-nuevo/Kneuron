@@ -98,6 +98,12 @@ h1{
     font-size: 2.5em;
 }
 
+.apple{
+    height: 50px;
+    width: 50px;
+    background: url('/client/src/assets/apple.png');
+}
+
 .front-nav{
     position: fixed;
     top: 0;
@@ -105,6 +111,7 @@ h1{
     line-height: 10vh;
     width: 100%;
     background-color: white;
+    z-index: 10;
 }
 .front-nav-but{
     position: absolute;
