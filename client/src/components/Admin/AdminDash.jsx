@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { logoutUser } from '../../actions/Login';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PerformanceList from './PerformanceList';
@@ -23,7 +24,7 @@ class AdminDash extends Component {
       });
   }
   render() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, logoutUser } = this.props;
     const { fName, lName } = this.state.user;
     const { name } = this.state.school;
     console.log(this.state.user);
@@ -42,7 +43,7 @@ class AdminDash extends Component {
                 <h4>school admin for </h4>
                 <h3 className="text-center school">{ name }</h3>
               </div>
-              <button className="ad-logout" type="button">
+              <button onClick={logoutUser} className="ad-logout" type="button">
                 Logout
               </button>
             </div>
@@ -62,4 +63,4 @@ class AdminDash extends Component {
   }
 }
 
-export default AdminDash;
+export default connect(null, { logoutUser })(AdminDash);
