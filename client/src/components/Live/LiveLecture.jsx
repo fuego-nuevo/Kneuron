@@ -184,7 +184,7 @@ class LiveLecture extends Component {
               <div> scored between 60 and 80 percent <div id="pass" className="legend-keys" /> </div>
               <div> scored greater than 80 percent <div id="exceed" className="legend-keys" /> </div>
             </div>
-            <BarChart data={this.state.studentAnswer.map(score => score.correct)} size={[300, 300]} />
+            <BarChart data={this.state.studentAnswer.map(student => [student.name, student.correct])} size={[300, 300]} />
             <div className="quiz-line">
               Pop Quiz Results
             </div>
