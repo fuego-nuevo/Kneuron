@@ -64,7 +64,6 @@ const fetchAllTeacherData = async (req, res) => {
   }
 };
 
-// Fetch all students for the teacher associated with a cohort
 
 const fetchStudents = async (req, res) => {
   try {

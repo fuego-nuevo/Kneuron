@@ -80,6 +80,7 @@ class LiveLecture extends Component {
       time: this.state.time,
       questions: JSON.stringify(this.state.selectedQuiz[0].questions),
       cohort_id,
+      topic: this.state.selectedQuiz[0].topic_id,
       id: profile,
     });
     this.setState({ isQuizLive: true });

@@ -1162,3 +1162,141 @@ hr{
 /*#edit-sub:hover{*/
     /*box-shadow: 0 0 3px 3px lightgray;*/
 /*}*/
+
+
+.admin-contain{
+    display: flex;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    width: 100%;
+    height: 100vh;
+    flex-direction: row;
+}
+
+.admin-info{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.badge-info{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    height: 60%;
+    width: 70%;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: white;
+    border-radius: 8px;
+    margin-top: 5vh;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+}
+
+
+.badge-info img{
+    border-radius: 50%;
+    position: absolute;
+    top: 10%;
+    height: 20vh;
+    width: 20vh;
+    /*background-color: white;*/
+}
+
+.badge-info h2{
+    margin-top: 10vh;
+}
+
+.badge-info hr{
+    width: 80%;
+    position: static;
+    /*right: 10%;*/
+}
+
+.badge-header{
+    height: 30%;
+    width: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background: #E0EAFC;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #CFDEF3, #E0EAFC);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #CFDEF3, #E0EAFC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.ad-logout{
+    width: 50%;
+    position: absolute;
+    bottom: 2vh;
+    left:25%;
+    height: 4vh;
+    border-style: none;
+    border-radius: 5px;
+    background: #232526;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;
+    font-size: 18px;
+    font-family: "Brandon Grotesque";
+    box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+    transition: box-shadow 0.3s;
+}
+
+.ad-logout:hover{
+    box-shadow: 0 0 3px 4px slategray;
+}
+
+.school{
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.ad-right{
+    /*position: absolute;*/
+    /*right: 2vh;*/
+}
+
+
+.performance-info{
+    flex: 2;
+}
+
+.performance-holder{
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    width: 85%;
+    margin-left: 7.5%;
+    margin-top: 5vh;
+    border-radius: 8px;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+    background-color: white;
+}
+
+.perf-header{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    border: 2px solid black;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.perf-body {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    overflow: auto;
+    flex: 8;
+    border: 2px solid red;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.perf-entry {
+    display: flex;
+    justify-content: space-around;
+    height: 18vh;
+    align-items: center;
+    border: 2px solid mediumspringgreen;
+}
