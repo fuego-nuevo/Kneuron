@@ -8,18 +8,13 @@ const saltRounds = 10;
 const axios = require('axios');
 const LatLon = require('geodesy').LatLonEllipsoidal;
 
-
-// Hack Reactor
-const p1 = new LatLon(33.97618, -118.39110);
-// Starbucks near Hack Reactor
-const p2 = new LatLon(33.95678, -118.39648);
-const d = p1.distanceTo(p2);
-console.log('distance from hr to starbucks is ', Math.ceil(d), ' feet');
-// after converting to miles this is .4 miles away which is correct according to Google Maps
-
-// figures out the geodesic distance using Vincenty’s algorithm
-// between two pairs of lat and long in feet
-
+let myEmail = 'alex@gmail.com';
+bcrypt.hash(myEmail, saltRounds, (err, hash) => {
+  console.log("THE HASH OF MY EMAIL IS: ", hash);
+  bcrypt.compare(myEmail, hash, (err, res) => {
+    console.log("RESPONSE IS: ", res);
+  })
+})
 
 // Controllers
 // Fetch ALL INFORMATION on Teacher
@@ -116,7 +111,6 @@ const fetchTeacher = async (req, res) => {
 
 // Sign Up Teacher with Async
 const postTeacher = async (req, res) => {
-  console.log(req.body.image, 'this is apppealndsldfsjlkjl;');
   try {
     console.log('this is the req.body in postTeacher ', req.body);
     const salt = await bcrypt.genSalt(saltRounds);

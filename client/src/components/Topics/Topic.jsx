@@ -51,7 +51,7 @@ class Topic extends Component {
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
-            Swal('class succesfully updated :)');
+            Swal('topic succesfully updated :)');
           });
       })
       .catch((err) => {

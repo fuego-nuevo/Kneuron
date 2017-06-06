@@ -16,5 +16,6 @@ router.use('/answers', require('./answer'));
 router.use('/results', require('./result'));
 router.use('/camera', require('./camera'));
 router.use('/facialVerify', require('./facialVerify'));
+router.use('/performances', require('./performance'));
 
 module.exports = router;

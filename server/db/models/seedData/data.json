@@ -99,6 +99,39 @@
     }
   },
   {
+    "model": "Cohort",
+    "data": {
+      "id": 4,
+      "subject": "SCIENCE",
+      "semester": "FALL 2017",
+      "time": "1 PM",
+      "teacher_id": 2,
+      "code": "england"
+    }
+  },
+  {
+    "model": "Cohort",
+    "data": {
+      "id": 5,
+      "subject": "SCIENCE",
+      "semester": "FALL 2017",
+      "time": "1 PM",
+      "teacher_id": 2,
+      "code": "england"
+    }
+  },
+  {
+    "model": "Cohort",
+    "data": {
+      "id": 6,
+      "subject": "SCIENCE",
+      "semester": "FALL 2017",
+      "time": "1 PM",
+      "teacher_id": 2,
+      "code": "england"
+    }
+  },
+  {
     "model": "Lecture",
     "data": {
       "id": 1,
@@ -200,6 +233,22 @@
     }
   },
   {
+    "model": "Quiz",
+    "data": {
+      "id": 5,
+      "name": "Football Soccer Quiz",
+      "topic_id": 1
+    }
+  },
+  {
+    "model": "Quiz",
+    "data": {
+      "id": 6,
+      "name": "Long Addition Quiz",
+      "topic_id": 1
+    }
+  },
+  {
     "model": "Question",
     "data": {
       "id": 1,
@@ -289,6 +338,94 @@
       "id": 4,
       "student_id": 4,
       "cohort_id": 2
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 1,
+      "percentage": 80,
+      "student_id": 3,
+      "cohort_id": 1,
+      "quiz_id": 1,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 2,
+      "percentage": 57,
+      "student_id": 3,
+      "cohort_id": 1,
+      "quiz_id": 2,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 3,
+      "percentage": 90,
+      "student_id": 3,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 4,
+      "percentage": 76,
+      "student_id": 3,
+      "cohort_id": 1,
+      "quiz_id": 6,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 5,
+      "percentage": 64,
+      "student_id": 4,
+      "cohort_id": 1,
+      "quiz_id": 2,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 6,
+      "percentage": 87,
+      "student_id": 4,
+      "cohort_id": 2,
+      "quiz_id": 3,
+      "lecture_id": 2
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 7,
+      "percentage": 92,
+      "student_id": 4,
+      "cohort_id": 2,
+      "quiz_id": 4,
+      "lecture_id": 2
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 8,
+      "percentage": 92,
+      "student_id": 3,
+      "cohort_id": 1,
+      "quiz_id": 3,
+      "lecture_id": 3
     }
   }
 ]

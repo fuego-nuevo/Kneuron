@@ -19,10 +19,6 @@ class EditProfile extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-
-  // componentDidMount() {
-  // }
-
   userNameChange(e) {
     this.setState({
       username: e.target.value,
@@ -41,13 +37,6 @@ class EditProfile extends Component {
       lName: e.target.value,
     });
   }
-
-
-        // email: req.body.email,
-        // password: hasher(req.body.password),
-        // fName: req.body.fName,
-        // lName: req.body.lName,
-        // username: req.body.username,
 
   handleSubmit(event) {
     event.preventDefault();
@@ -94,15 +83,4 @@ class EditProfile extends Component {
 }
 
 
-// const mapStateToProps = state => {
-//   console.log('state in editProfile', state)
-//   return {
-//     profile: state.profile
-//   }
-// }
-
-// const mapStateToProps = state => ({
-//   profile: state.profile,
-// });
-// export default withRouter(connect(mapStateToProps)(EditProfile));
 export default EditProfile;

@@ -7,7 +7,7 @@ const server = require('http').Server(app);
 // const server = app.listen(5000);
 const io = require('socket.io')(server);
 // const io = require('socket.io')(server, { path: '/io' });
-const PORT = process.env.PORT || 1337;
+const PORT = process.env.PORT || 5000;
 
 require('dotenv').config();
 require('dotenv').load();
@@ -91,7 +91,7 @@ server.listen(PORT, (err) => {
   if (err) {
     console.log('There was an error connecting to the Server ', err);
   } else {
-    console.log('You have connected to the server on PORT: ', process.env.PORT);
+    console.log('You have connected to the server on PORT: ', PORT);
   }
 });
 
