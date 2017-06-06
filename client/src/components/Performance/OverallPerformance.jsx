@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import TeacherNetwork from './TeacherNetwork';
 import CohortPerformance from './CohortPerformance';
@@ -45,11 +46,18 @@ class OverallPerformance extends Component {
 
   handleCohortDropDown(event) {
     event.preventDefault();
-    this.setState({ chosenCohortId: event.target.value });
+    this.setState({ chosenCohortId: event.target.value }, () => {
+      _.each(this.state.allPerformanceData, (data) => {
+        if (parseInt(this.state.chosenCohortId, 10) === data.id) {
+          this.setState({ chosenCohort: data });
+        }
+      });
+    });
   }
 
   render() {
     const { profile } = this.props;
+    const subject = this.state.chosenCohort || { subject: 'Class Performance' };
     console.log('this is the state of overallperformance ', this.state)
     return (
       <div>
@@ -58,7 +66,8 @@ class OverallPerformance extends Component {
             (<option value={data.id.toString()}>{data.subject}</option>),
           )}
         </select>
-        <TeacherNetwork allData={this.state.allPerformanceData} profile={profile} />
+        {/*<TeacherNetwork allData={this.state.allPerformanceData} profile={profile} />*/}
+        <text>{subject.subject}</text>
         <CohortPerformance cohortData={this.state.allPerformanceData.filter(data => data.id === parseInt(this.state.chosenCohortId, 10))} />
       </div>
     );

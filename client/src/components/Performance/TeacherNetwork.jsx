@@ -82,7 +82,6 @@ class TeacherNetwork extends Component {
         <svg>
 
         </svg>
-        Hello
       </div>
     );
   }
