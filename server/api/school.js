@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const util = require('./util');
 const faker = require('faker');
 const db = require('../db/models');
