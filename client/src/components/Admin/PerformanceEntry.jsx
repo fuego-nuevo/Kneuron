@@ -11,8 +11,16 @@ class PerformanceEntry extends Component {
     const { subject, semester, results } = this.props.cohort;
     return (
       <div className="perf-entry">
-        <h1>{semester}</h1>
-        <h2>{subject}</h2>
+        <div className="ent-header">
+          <h3>Semester</h3>
+          <h3>Subject</h3>
+          <h3>Performance</h3>
+        </div>
+        <div className="stats">
+          <h4>{semester}</h4>
+          <h4>{subject}</h4>
+          <h4>class results</h4>
+        </div>
       </div>
     );
   }

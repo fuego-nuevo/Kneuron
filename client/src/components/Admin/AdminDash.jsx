@@ -26,12 +26,13 @@ class AdminDash extends Component {
   render() {
     const { isAuthenticated, logoutUser } = this.props;
     const { fName, lName } = this.state.user;
-    const { name } = this.state.school;
+    const { name, code } = this.state.school;
     console.log(this.state.user);
     console.log(this.state.school);
     if (isAuthenticated) {
       return (
         <div className="admin-contain">
+          <div className="admin-banner">Kneuron</div>
           <div className="admin-info">
             <div className="badge-info">
               <div className="badge-header" />
@@ -50,7 +51,9 @@ class AdminDash extends Component {
           </div>
           <div className="performance-info" >
             <div className="performance-holder">
-              <div className="perf-header">Classroom Performances</div>
+              <div className="perf-header">Classroom Performances
+              <div className="perf-code">Code: {code} </div>
+              </div>
               <PerformanceList cohorts={this.state.cohorts || []} />
             </div>
           </div>

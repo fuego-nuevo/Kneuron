@@ -15,8 +15,9 @@ class BarChart extends Component {
     this.createBarChart();
   }
   createBarChart() {
+    const scores = this.props.data.map(students => students[1]);
     let color;
-    const score = this.props.data * 100;
+    const score = scores * 100;
     if (score < 60) {
       color = 'red';
     }
@@ -27,25 +28,25 @@ class BarChart extends Component {
       color = 'green';
     }
     const node = this.node;
-    const dataMax = max(this.props.data);
+    const dataMax = max(scores);
     const yScale = scaleLinear()
       .domain([0, dataMax])
       .range([0, this.props.size[1]]);
     select(node)
       .selectAll('rect')
-      .data(this.props.data)
+      .data(scores)
       .enter()
       .append('rect');
 
     select(node)
       .selectAll('rect')
-      .data(this.props.data)
+      .data(scores)
       .exit()
       .remove();
 
     select(node)
       .selectAll('rect')
-      .data(this.props.data)
+      .data(scores)
       .style('fill', color)
       .style('stroke', 'black')
       .attr('class', 'animated zoomInUp')
@@ -55,14 +56,19 @@ class BarChart extends Component {
       .attr('width', 25);
   }
   render() {
+    console.log(this.props.data[0]);
+    const name = this.props.data[0] ? this.props.data[0][0] : '';
     return (
-      <svg
-        className="bars animated zoomInUp"
-        ref={node =>
+      <div>
+        <svg
+          className="bars animated zoomInUp"
+          ref={node =>
           this.node = node}
-        width={300}
-        height={150}
-      />
+          width={300}
+          height={150}
+        />
+        <div id="bars-name" className="bars">{name}</div>
+      </div>
     );
   }
 }
