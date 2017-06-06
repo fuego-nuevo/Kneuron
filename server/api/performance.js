@@ -10,9 +10,7 @@ router.get('/performanceForEveryStudentForAllCohorts/:user_id', (req, res, next)
         res.status(202).send(allPerformanceData);
       } else {
         db.Cohort.findAll({
-          where: {
-            teacher_id: req.params.user_id,
-          },
+          where: { teacher_id: req.params.user_id },
           include: [{
             model: db.StudentCohort,
             include: [{
@@ -35,9 +33,7 @@ router.get('/performanceForEveryStudentForAllCohorts/:user_id', (req, res, next)
 
 router.get('/performanceForTopics/:cohort_id', (req, res, next) => {
   db.Lecture.findAll({
-    where: {
-      cohort_id: req.params.cohort_id,
-    },
+    where: { cohort_id: req.params.cohort_id },
     include: [{
       model: db.Topic,
       include: [{
@@ -60,9 +56,7 @@ router.get('/performanceForCohorts/:user_id', (req, res, next) => {
         res.status(202).send(allPerformanceData);
       } else {
         db.Cohort.findAll({
-          where: { 
-            teacher_id: req.params.user_id,
-          },
+          where: { teacher_id: req.params.user_id },
           include: [{
             model: db.Result,
           }],

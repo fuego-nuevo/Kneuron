@@ -204,9 +204,10 @@ User.hasMany(Result, { foreignKey: { name: 'student_id', allowNull: false }, onD
 Result.belongsTo(User, { foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
 Quiz.hasMany(Result, { foreignKey: { name: 'quiz_id', allowNull: false }, onDelete: 'CASCADE' });
 Result.belongsTo(Quiz, { foreignKey: { name: 'quiz_id', allowNull: false }, onDelete: 'CASCADE' });
-
 Cohort.hasMany(Result, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
 Result.belongsTo(Cohort, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
+Lecture.hasMany(Result, { foreignKey: { name: 'lecture_id', allowNull: false }, onDelete: 'CASCADE' });
+Result.belongsTo(Lecture, { foreignKey: { name: 'lecture_id', allowNull: false }, onDelete: 'CASCADE' });
 
 module.exports = {
   School,
