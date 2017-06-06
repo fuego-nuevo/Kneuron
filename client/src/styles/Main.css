@@ -66,6 +66,26 @@ h1{
     color: white;
 }
 
+.service-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#how-we-work{
+    flex: 1;
+    border: 2px solid black;
+}
+
+#how-we-work-desc{
+    flex: 2;
+    display: flex;
+    justify-content: space-around;
+    border: 2px solid red;
+    width: 100%;
+}
+
 .web-desc p {
     padding-left: 2vw;
     font-size: 18px;
