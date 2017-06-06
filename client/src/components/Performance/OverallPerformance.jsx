@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import _ from 'lodash';
 
 import TeacherNetwork from './TeacherNetwork';
 import CohortPerformance from './CohortPerformance';
@@ -35,7 +33,7 @@ class OverallPerformance extends Component {
       })
       .catch(error => console.log('Error in CDM of Performance.jsx: for allData', error));
   }
-  
+
   fetchCohortPerformanceData() {
     const { profile } = this.props;
     axios.get(`/api/performances/performanceForCohorts/${profile.id}`)
@@ -48,26 +46,6 @@ class OverallPerformance extends Component {
   handleCohortDropDown(event) {
     event.preventDefault();
     this.setState({ chosenCohortId: event.target.value });
-    // this.setState({ chosenCohortId: event.target.value }, () => {
-    //   console.log('this is the typeof cohortidchosen ', typeof this.state.chosenCohortId);
-      // for(let i = 0 ; i < this.state.allPerformanceData.length; i++) {
-      // console.log('this is the typeof cohortidchosen ', typeof this.state.chosenCohortId);
-      //   if (this.state.allPerformanceData[i].id === parseInt(this.state.chosenCohortId, 10)) {
-      //     this.setState({ chosenCohort: this.state.allPerformanceData[i] }, () => {
-      //       console.log('this is the chosenCohort ', this.state.chosenCohort);
-      //     });
-      //   }
-      
-      // }
-      // _.each(this.state.allPerfromanceData, (data) => {
-      //   console.log('this is the typeof data.id ', typeof data.id);
-      //   if (data.id === parseInt(this.state.chosenCohortId, 10)) {
-      //     this.setState({ chosenCohort: data }, () => {
-      //       console.log('this is the chosenCohort ', this.state.chosenCohort);
-      //     });
-      //   }
-      // });
-    // });
   }
 
   render() {
@@ -80,9 +58,8 @@ class OverallPerformance extends Component {
             (<option value={data.id.toString()}>{data.subject}</option>),
           )}
         </select>
-        <CohortPerformance cohortData={this.state.allPerformanceData.filter(data => data.id === parseInt(this.state.chosenCohortId, 10))} />
-        {/*<CohortPerformance cohortData={this.state.chosenCohort} />*/}
         <TeacherNetwork allData={this.state.allPerformanceData} profile={profile} />
+        <CohortPerformance cohortData={this.state.allPerformanceData.filter(data => data.id === parseInt(this.state.chosenCohortId, 10))} />
       </div>
     );
   }
