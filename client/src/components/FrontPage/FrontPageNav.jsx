@@ -5,6 +5,7 @@ import '../../styles/Main.css';
 
 const NavBar = () => (
   <nav className="front-nav">
+    <h1 id="home-logo">Kneuron</h1>
     <div className="front-nav-but">
       <button><Link to="/admin">Admin Sign Up</Link></button>
       <button><Link to="/adminLogin">Admin Login</Link></button>
