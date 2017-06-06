@@ -1320,6 +1320,8 @@ hr{
 }
 
 .performance-holder{
+    display: flex;
+    flex-direction: column;
     height: 70vh;
     width: 85%;
     margin-left: 7.5%;
@@ -1327,4 +1329,30 @@ hr{
     border-radius: 8px;
     box-shadow: 0 2px 0 rgba(0,0,0,0.06);
     background-color: white;
+}
+
+.perf-header{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    border: 2px solid black;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.perf-body {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    flex: 8;
+    border: 2px solid red;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.perf-entry {
+    display: flex;
+    flex: 2;
+    align-items: center;
+    border: 2px solid mediumspringgreen;
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import PerformanceList from './PerformanceList';
 
 class AdminDash extends Component {
   constructor() {
@@ -46,7 +47,10 @@ class AdminDash extends Component {
             </div>
           </div>
           <div className="performance-info" >
-            <div className="performance-holder" />
+            <div className="performance-holder">
+              <div className="perf-header">Classroom Performances</div>
+              <PerformanceList cohorts={this.state.cohorts || []} />
+            </div>
           </div>
         </div>
       );
