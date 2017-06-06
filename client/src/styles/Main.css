@@ -1352,7 +1352,7 @@ hr{
 
 .perf-entry {
     display: flex;
-    flex: 2;
+    flex: 1;
     align-items: center;
     border: 2px solid mediumspringgreen;
 }
