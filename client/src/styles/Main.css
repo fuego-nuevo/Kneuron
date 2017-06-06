@@ -818,7 +818,7 @@ hr{
   display: inline-block;
   position: relative;
   width: 99%;
-  height: 650px;
+  height: auto;
   left: 0;
   right: 0;
   top: 10px;
