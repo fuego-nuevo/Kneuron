@@ -10,19 +10,23 @@ let password;
 const fetchSchoolInfo = (req, res) => {
   db.User.findOne({ where: { email: util.antiHasher(req.params.auth_token) } })
     .then((user) => {
-      db.Cohort.findAll({
-        where: {
-          school_id: user.school_id,
-        },
-        include: [{ model: db.Result }],
-      })
+      db.School.findAll({ where: { id: user.school_id } })
+        .then((school) => {
+          const uni = school;
+          db.Cohort.findAll({
+            where: {
+              school_id: user.school_id,
+            },
+            include: [{ model: db.Result }],
+          })
         .then((classes) => {
           console.log('found classes ,', classes, user);
-          res.status(200).send({ user, classes });
+          res.status(200).send({ user, classes, school: uni });
         })
         .catch((err) => {
           console.log('could not find classes ,', err);
           res.status(500).send('could not find any classes');
+        });
         });
     })
     .catch((err) => {

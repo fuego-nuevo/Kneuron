@@ -70,27 +70,6 @@ const fetchAllTeacherData = async (req, res) => {
 };
 
 
-// const fetchSchoolInfo = (req, res) => {
-//   db.User.findOne({ where: { email: util.antiHasher(req.params.auth_token) },
-//     include: [{
-//       model: db.Cohort,
-//       include: [{
-//         model: db.Result,
-//       }],
-//     }],
-//   })
-//     .then((user) => {
-//       console.log('found user ,', user);
-//       res.status(200).send(user);
-//     })
-//     .catch((err) => {
-//       console.log('could not find user and their shit ,', err);
-//       res.status(500).send('could not find the user and their shit');
-//     });
-// };
-
-// Fetch all students for the teacher associated with a cohort
-
 const fetchStudents = async (req, res) => {
   try {
     const email = antiHasher(req.params.auth_token);
