@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const db = require('../db/models');
 const hasher = require('./util').hasher;
 const antiHasher = require('./util').antiHasher;
