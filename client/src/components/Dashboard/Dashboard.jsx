@@ -48,11 +48,6 @@ class Dashboard extends Component {
         console.log('error in initial fetch , ', err);
       });
   }
-
-  // componentDidUpdate(){
-  //   this.getSeaLevelAmount();
-  // }
-
   getUserCoordinates() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -61,21 +56,6 @@ class Dashboard extends Component {
       }, () => { true; });
     }
   }
-
-  // async getSeaLevelAmount() {
-  //   console.log("State in dashboard is: ", this.state)
-  //   try {
-  //     const body = {
-  //       lat: this.state.lat.toString(),
-  //       lng: this.state.lng.toString(),
-  //     };
-  //     const altitude = await axios.post('/api/teachers/elevation', body);
-  //     console.log('GOOGLE RESPONSE IS: ', altitude);
-  //   } catch (error) {
-  //     console.log("FUCK, IT DIDN'T GET BACK THE DATA!!!!");
-  //   }
-  // }
-
   async fetchTeacherInfo() {
     try {
       const profile = await axios.get(`/api/teachers/${localStorage.getItem('id_token')}`);
