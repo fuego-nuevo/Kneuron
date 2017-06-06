@@ -12,11 +12,9 @@ class DashNav extends Component {
     this.state = {
       text: '',
     };
-
     this.handleSearchInput = this.handleSearchInput.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
-
 
   handleSearchInput(query) {
     this.setState({ text: query.target.value });

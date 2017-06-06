@@ -53,7 +53,7 @@ router.get('/performanceForTopics/:cohort_id', (req, res, next) => {
 });
 
 router.get('/performanceForCohorts/:user_id', (req, res, next) => {
-   redis.get(`cohortsPerformance${req.params.user_id}`)
+  redis.get(`cohortsPerformance${req.params.user_id}`)
     .then((data) => {
       const allPerformanceData = JSON.parse(data);
       if (allPerformanceData !== null) {
@@ -61,7 +61,7 @@ router.get('/performanceForCohorts/:user_id', (req, res, next) => {
       } else {
         db.Cohort.findAll({
           where: { 
-            teacher_id: req.params.user_id 
+            teacher_id: req.params.user_id,
           },
           include: [{
             model: db.Result,
