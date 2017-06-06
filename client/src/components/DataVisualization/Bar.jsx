@@ -7,13 +7,16 @@ class Bar extends Component {
     this.state = {};
   }
 
+  
+
   render() {
-    return(
-      <g>
+    const { student_id, cohort_id, name, average, quizCount } = this.props;
+    return (
+      <svg>
         <rect />
         <rect />
-        <text></text>
-      </g>
+        <text>{name}</text>
+      </svg>
     );
   }
 }
