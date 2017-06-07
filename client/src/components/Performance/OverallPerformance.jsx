@@ -3,8 +3,9 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import TeacherNetwork from './TeacherNetwork';
+// import TeacherNetwork from './TeacherNetwork';
 import CohortPerformance from './CohortPerformance';
+import StudentPerformance from './StudentPerformance';
 
 class OverallPerformance extends Component {
   constructor() {
@@ -14,10 +15,13 @@ class OverallPerformance extends Component {
       allCohortData: [],
       chosenCohortId: null,
       chosenCohort: null,
+      chosenStudent: {},
+      showStudent: false,
     };
     this.handleCohortDropDown = this.handleCohortDropDown.bind(this);
     this.fetchAllPerformanceData = this.fetchAllPerformanceData.bind(this);
     this.fetchCohortPerformanceData = this.fetchCohortPerformanceData.bind(this);
+    this.fetchStudent = this.fetchStudent.bind(this);
   }
 
   componentDidMount() {
@@ -32,7 +36,7 @@ class OverallPerformance extends Component {
         console.log('this is the data in CDM of performances', data);
         this.setState({ allPerformanceData: data });
       })
-      .catch(error => console.log('Error in CDM of Performance.jsx: for allData', error));
+      .catch(error => console.log('Error in CDM of OverallPerformance.jsx: for allData', error));
   }
 
   fetchCohortPerformanceData() {
@@ -41,7 +45,7 @@ class OverallPerformance extends Component {
       .then(({ data }) => {
         this.setState({ allCohortData: data });
       })
-      .catch(error => console.log('Error in CDM of Performance.jsx for CohortData ', error));
+      .catch(error => console.log('Error in CDM of OverallPerformance.jsx for CohortData ', error));
   }
 
   handleCohortDropDown(event) {
@@ -52,6 +56,13 @@ class OverallPerformance extends Component {
           this.setState({ chosenCohort: data });
         }
       });
+    });
+  }
+
+  fetchStudent(data) {
+    this.setState({ chosenStudent: Object.assign(this.state.chosenStudent, data) }, () => {
+      console.log('this is the state of chosenStudent ', this.state.chosenStudent);
+      this.setState({ showStudent: !this.state.showStudent });
     });
   }
 
@@ -68,7 +79,8 @@ class OverallPerformance extends Component {
         </select>
         {/*<TeacherNetwork allData={this.state.allPerformanceData} profile={profile} />*/}
         <text>{subject.subject}</text>
-        <CohortPerformance cohortData={this.state.allPerformanceData.filter(data => data.id === parseInt(this.state.chosenCohortId, 10))} />
+        <CohortPerformance cohortData={this.state.allPerformanceData.filter(data => data.id === parseInt(this.state.chosenCohortId, 10))} fetchStudent={this.fetchStudent} />
+        <StudentPerformance studentData={this.state.chosenStudent} />
       </div>
     );
   }
