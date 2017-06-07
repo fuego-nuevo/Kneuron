@@ -31,6 +31,7 @@ class Topic extends Component {
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
+            Swal('Topic succesfully deleted');
           })
           .catch((err) => {
             console.log('error with deleting topic , ERR: ', err);
@@ -51,7 +52,7 @@ class Topic extends Component {
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
-            Swal('topic succesfully updated :)');
+            Swal('Topic succesfully updated');
           });
       })
       .catch((err) => {

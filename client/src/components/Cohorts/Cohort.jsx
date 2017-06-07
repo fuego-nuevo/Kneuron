@@ -34,6 +34,7 @@ class Cohort extends Component {
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
+            Swal('class succesfully deleted');
           })
           .catch((err) => {
             console.log('error with deleting class , ERR: ', err);

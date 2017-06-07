@@ -27,6 +27,7 @@ class AddQuiz extends Component {
       const posted = await axios.post('/api/quizzes/', body);
       const added = await this.props.fetchTeacherInfo();
       this.props.history.push('/dashboard/class');
+      Swal('Quiz succesfully added');
     } catch (error) {
       console.log('error with axios call line 28 AddQuiz ', error);
     }

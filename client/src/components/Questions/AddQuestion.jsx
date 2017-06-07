@@ -38,6 +38,7 @@ class AddQuestion extends Component {
       const posted = await axios.post('/api/questions/', body);
       const added = await this.props.fetchTeacherInfo();
       this.props.history.push('/dashboard/class');
+      Swal('Question succesfully added');
     } catch (error) {
       console.log('error with axios call line 28 AddClass ', error);
     }

@@ -31,6 +31,7 @@ class AddTopic extends Component {
       const posted = await axios.post('/api/topics/', body);
       const added = await this.props.fetchTeacherInfo()
       this.props.history.push('/dashboard/class');
+      Swal('Topic succesfully added');
     } catch (error) {
       console.log('error with axios call line 28 AddClass ', error);
     }
