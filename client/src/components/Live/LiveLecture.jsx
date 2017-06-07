@@ -7,6 +7,8 @@ import StudentQuestions from '../Lectures/StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 import LiveQuizList from './LiveQuizList';
 import BarChart from './BarChart';
+import AttendanceList from './AttendanceList';
+import AttendanceEntry from './AttendanceEntry';
 
 const socket = io();
 
@@ -17,6 +19,7 @@ class LiveLecture extends Component {
     this.state = {
       isQuizLive: false,
       isShowingQuizModal: false,
+      isShowingTimeModal: false,
       quizzes: [],
       time: 1,
       currentTopic: 0,
@@ -24,6 +27,9 @@ class LiveLecture extends Component {
       studentQuestions: [],
       filteredQuestions: [],
       studentAnswer: [],
+      trackingAttendance: false,
+      attendanceTime: 30,
+      studentsPresent: [],
     };
     this.filterQuestions = this.filterQuestions.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -34,6 +40,11 @@ class LiveLecture extends Component {
     this.startAttendance = this.startAttendance.bind(this);
     this.endPopQuiz = this.endPopQuiz.bind(this);
     this.setTopic = this.setTopic.bind(this);
+    this.endAttendance = this.endAttendance.bind(this);
+    this.handleAttendanceModalClick = this.handleAttendanceModalClick.bind(this);
+    this.handleAttendanceModalClose = this.handleAttendanceModalClose.bind(this);
+    this.handleTimeDropdown = this.handleTimeDropdown.bind(this);
+    this.trackAttendance = this.trackAttendance.bind(this);
   }
 
   componentDidMount() {
@@ -55,12 +66,15 @@ class LiveLecture extends Component {
     });
     this.setState({ quizzes });
   }
-
-
   handleClick() {
     this.setState({ isShowingQuizModal: true });
   }
-
+  handleAttendanceModalClick() {
+    this.setState({ isShowingTimeModal: true });
+  }
+  handleAttendanceModalClose() {
+    this.setState({ isShowingTimeModal: false });
+  }
   handleModalClose() {
     this.setState({ isShowingQuizModal: false });
   }
@@ -69,9 +83,16 @@ class LiveLecture extends Component {
     this.setState({ time: e.target.value * 60 });
   }
 
+  handleTimeDropdown(e) {
+    this.setState({ attendanceTime: e.target.value * 60 });
+  }
+
   selectQuiz(id) {
     const selectedQuiz = this.state.quizzes.filter(quiz => quiz.id === id);
     this.setState({ selectedQuiz });
+  }
+  endAttendance() {
+    this.setState({ trackingAttendance: false });
   }
 
   sendPopQuiz() {
@@ -99,15 +120,59 @@ class LiveLecture extends Component {
   }
   startAttendance() {
     console.log('it happened starting attendance ,');
-    socket.emit('attendance', { id: this.props.profile });
+    this.handleAttendanceModalClick();
+  }
+  trackAttendance() {
+    this.handleAttendanceModalClose();
+    this.setState({ trackingAttendance: true }, () => {
+      socket.emit('attendance', { id: this.props.profile });
+    });
   }
 
   render() {
     const { topics } = this.props;
     console.log(this.state);
+    if (this.state.trackingAttendance) {
+      return (
+        <div>
+          <div className="popquiz-container">
+            <div className="pop-quiz-clock">
+              <ReactCountdownClock
+                seconds={this.state.attendanceTime}
+                color="#F0C463"
+                alpha={0.8}
+                size={200}
+                onComplete={this.endAttendance}
+              />
+            </div>
+          </div>
+          <div className="students-present">
+            <AttendanceEntry students={this.state.studentsPresent || []} />
+          </div>
+        </div>
+      );
+    }
     if (!this.state.isQuizLive) {
       return (
         <div>
+          <div>
+            {
+              this.state.isShowingTimeModal &&
+              <ModalContainer onClose={this.handleAttendanceModalClose}>
+                <ModalDialog onClose={this.handleAttendanceModalClose}>
+                  <h2 className="text-center">How long before students are late?</h2>
+                  <select className="pop-quiz" onChange={this.handleTimeDropdown}>
+                    <option value="1">1 minutes</option>
+                    <option value="2">2 minutes</option>
+                    <option value="3">3 minutes</option>
+                    <option value="4">4 minutes</option>
+                    <option value="5">5 minutes</option>
+                  </select>
+                  <button onClick={this.trackAttendance} className="track-attendance" type="button">Start Tracking</button>
+                </ModalDialog>
+              </ModalContainer>
+            }
+          </div>
           <div>
             {
               this.state.isShowingQuizModal &&

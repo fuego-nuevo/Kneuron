@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import d3 from 'd3';
 import _ from 'lodash';
-
-import PerformanceBarChart from '../DataVisualization/PerformanceBarChart';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 class CohortPerformance extends Component {
   constructor(props) {
@@ -12,11 +10,21 @@ class CohortPerformance extends Component {
       results: [],
     };
     this.getResultAverage = this.getResultAverage.bind(this);
+    this.setStateAndCalculateAverages = this.setStateAndCalculateAverages.bind(this);
+  }
+
+  componentDidMount() {
+    const { cohortData } = this.props;
+    this.setStateAndCalculateAverages(cohortData);
   }
 
   componentWillReceiveProps(newProps) {
     const { cohortData } = newProps;
-    this.setState({ cohortData: cohortData[0] }, () => {
+    this.setStateAndCalculateAverages(cohortData);
+  }
+
+  setStateAndCalculateAverages(cohortData) {
+    this.setState({ cohortData }, () => {
       this.setState({ results: [] }, () => {
         this.getResultAverage(this.state.cohortData);
       });
@@ -27,15 +35,15 @@ class CohortPerformance extends Component {
     const resultArray = [];
     _.each(cohortData.studentcohorts, (student) => {
       const filteredResults = student.user.results.filter(result => student.cohort_id === result.cohort_id);
-      let average = filteredResults.reduce((sum, result) => {
+      let Average = filteredResults.reduce((sum, result) => {
         return sum + result.percentage;
       }, 0);
-      average /= filteredResults.length;
+      Average /= filteredResults.length;
       resultArray.push({
         student_id: student.user.id,
         name: `${student.user.fName} ${student.user.lName}`,
         cohort_id: student.cohort_id,
-        average,
+        Average,
         quizCount: filteredResults.length,
       });
     });
@@ -43,10 +51,22 @@ class CohortPerformance extends Component {
   }
 
   render() {
-    console.log('these are the props in cohortperfromance ', this.props);
+    const { fetchStudent } = this.props;
     return (
       <div className="livedata">
-        <PerformanceBarChart data={this.state.results.map(result => result.average)} name={this.state.results.map(result => result.name)} />
+        <BarChart
+          width={1700}
+          height={475}
+          data={this.state.results}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <XAxis dataKey="name" />
+          <YAxis type="number" domain={[0, 100]} />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="Average" fill="#8884d8" onClick={fetchStudent} />
+        </BarChart>
+        {/*<PerformanceBarChart data={this.state.results} fetchStudent={fetchStudent}/>*/}
       </div>
     );
   }

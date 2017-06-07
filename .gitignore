@@ -16,3 +16,4 @@ firebase.js
 .DS_Store
 ansible.yml
 xTeacherNetwork.jsx
+xPerformanceBarChart.jsx

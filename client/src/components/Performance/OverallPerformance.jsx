@@ -3,8 +3,9 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import TeacherNetwork from './TeacherNetwork';
+// import TeacherNetwork from './TeacherNetwork';
 import CohortPerformance from './CohortPerformance';
+import StudentPerformance from './StudentPerformance';
 
 class OverallPerformance extends Component {
   constructor() {
@@ -14,10 +15,14 @@ class OverallPerformance extends Component {
       allCohortData: [],
       chosenCohortId: null,
       chosenCohort: null,
+      chosenStudent: {},
+      showStudent: false,
+      showCohort: false,
     };
     this.handleCohortDropDown = this.handleCohortDropDown.bind(this);
     this.fetchAllPerformanceData = this.fetchAllPerformanceData.bind(this);
     this.fetchCohortPerformanceData = this.fetchCohortPerformanceData.bind(this);
+    this.fetchStudent = this.fetchStudent.bind(this);
   }
 
   componentDidMount() {
@@ -29,10 +34,9 @@ class OverallPerformance extends Component {
     const { profile } = this.props;
     axios.get(`/api/performances/performanceForEveryStudentForAllCohorts/${profile.id}`)
       .then(({ data }) => {
-        console.log('this is the data in CDM of performances', data);
         this.setState({ allPerformanceData: data });
       })
-      .catch(error => console.log('Error in CDM of Performance.jsx: for allData', error));
+      .catch(error => console.log('Error in CDM of OverallPerformance.jsx: for allData', error));
   }
 
   fetchCohortPerformanceData() {
@@ -41,16 +45,26 @@ class OverallPerformance extends Component {
       .then(({ data }) => {
         this.setState({ allCohortData: data });
       })
-      .catch(error => console.log('Error in CDM of Performance.jsx for CohortData ', error));
+      .catch(error => console.log('Error in CDM of OverallPerformance.jsx for CohortData ', error));
   }
 
   handleCohortDropDown(event) {
     event.preventDefault();
-    this.setState({ chosenCohortId: event.target.value }, () => {
-      _.each(this.state.allPerformanceData, (data) => {
-        if (parseInt(this.state.chosenCohortId, 10) === data.id) {
-          this.setState({ chosenCohort: data });
-        }
+    _.each(this.state.allPerformanceData, (data) => {
+      if (parseInt(event.target.value, 10) === data.id) {
+        this.setState({ chosenCohort: data }, () => {
+          this.setState({ showCohort: true }, () => {
+            this.setState({ showStudent: false });
+          });
+        });
+      }
+    });
+  }
+
+  fetchStudent(data) {
+    this.setState({ chosenStudent: Object.assign(this.state.chosenStudent, data) }, () => {
+      this.setState({ showStudent: !this.state.showStudent }, () => {
+        this.setState({ showCohort: false });
       });
     });
   }
@@ -58,17 +72,26 @@ class OverallPerformance extends Component {
   render() {
     const { profile } = this.props;
     const subject = this.state.chosenCohort || { subject: 'Class Performance' };
-    console.log('this is the state of overallperformance ', this.state)
     return (
       <div>
         <select onChange={this.handleCohortDropDown}>
+          <option value="null">Classes</option>
           {this.state.allPerformanceData.map(data =>
             (<option value={data.id.toString()}>{data.subject}</option>),
           )}
         </select>
         {/*<TeacherNetwork allData={this.state.allPerformanceData} profile={profile} />*/}
-        <text>{subject.subject}</text>
-        <CohortPerformance cohortData={this.state.allPerformanceData.filter(data => data.id === parseInt(this.state.chosenCohortId, 10))} />
+        { this.state.showCohort && !this.state.showStudent ?
+          <text>
+            {subject.subject}
+            <CohortPerformance cohortData={this.state.chosenCohort} fetchStudent={this.fetchStudent} />
+          </text>
+          : null }
+        { this.state.showStudent && !this.state.showCohort ?
+          <text>{this.state.chosenStudent.name}
+            <StudentPerformance studentData={this.state.chosenStudent} />
+          </text>
+          : null }
       </div>
     );
   }

@@ -37,7 +37,7 @@ class DashNav extends Component {
         <div className="dash-nav-items">
           <button><Link to="/dashboard/home">Home</Link></button>
           <button><Link to="/dashboard/class">Classes</Link></button>
-          <button><Link to="/dashboard/overallPerformance">Performance</Link></button>
+          <button><Link to="/dashboard/performance">Performance</Link></button>
         </div>
         <div className="search-container">
           <form onSubmit={this.handleSearchSubmit}>

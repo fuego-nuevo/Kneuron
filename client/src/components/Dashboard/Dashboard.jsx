@@ -3,6 +3,7 @@ import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import 'react-datepicker/dist/react-datepicker.css';
 import { updateProfile } from '../../actions/CurrentProfile';
 import { allLectures } from '../../actions/Lectures';
 import { currentLecture } from '../../actions/CurrentLecture';
@@ -22,6 +23,7 @@ import AddQuestion from '../Questions/AddQuestion';
 import SearchedDataItemsList from '../../components/SearchedContent/SearchedDataItemsList';
 import OverallPerformance from '../../components/Performance/OverallPerformance';
 import CohortPerformance from '../../components/Performance/CohortPerformance';
+import StudentPerformance from '../../components/Performance/StudentPerformance';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -106,8 +108,9 @@ class Dashboard extends Component {
         />
         <Route path="/dashboard/addTopic" component={() => (<AddTopic history={history} lectureId={lectureId} name={name} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
         <Route path="/dashboard/addQuestion" component={() => (<AddQuestion history={history} fetchTeacherInfo={this.fetchTeacherInfo} quizId={quizId} />)} />
-        <Route path="/dashboard/overallPerformance" component={() => (<OverallPerformance />)} />
-        <Route path="/dashboard/overallPerformance/cohorts" component={() => (<CohortPerformance />)} />
+        <Route path="/dashboard/performance" component={() => (<OverallPerformance />)} />
+        <Route path="/dashboard/performance/cohorts" component={() => (<CohortPerformance />)} />
+        <Route path="/dashboard/performance/student" component={() => (<StudentPerformance />)} />
         <Route
           path={currentLectureRoute}
           component={props => (<CurrentLecture
