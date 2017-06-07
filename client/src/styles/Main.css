@@ -640,6 +640,21 @@ textarea:focus, input:focus{
     background-color: transparent;
 }
 
+.track-attendance{
+    width: 20%;
+    margin-left: 40%;
+    height: 3vh;
+    border-style: none;
+    /*margin-top: 15vh;*/
+    border-radius: 5px;
+    display: block;
+    transition: box-shadow 0.2s ease;
+}
+
+.track-attendance:hover{
+    box-shadow: 0 0 3px 5px lightgray;
+}
+
 #single-nav{
     position: absolute;
     width: 20%;
