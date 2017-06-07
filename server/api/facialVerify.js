@@ -21,6 +21,9 @@ router.post('/', (req, res, next) => {
     console.log("this is the data from camera api line 10", data.data)
     res.status(201).send(data.data)
   })
+  .catch((err) => {
+    console.log('this is err in facial verify', err);
+  });
 
 })
 

@@ -60,6 +60,13 @@ io.on('connection', (socket) => {
     const teacherRoom = data.id;
     io.sockets.in(teacherRoom).emit('attendance', { teacherRoom });
   });
+  socket.on('student-track', (data) => {
+    console.log('student track broski in this biiiitch   ', data);
+    const name = data.name;
+    const present = data.present;
+    const teacherRoom = data.teacher;
+    io.sockets.in(teacherRoom).emit('student-track', { name, present });
+  });
   socket.on('student-question', (data) => {
     console.log(data, 'were in here student question');
     const question = data.question;
