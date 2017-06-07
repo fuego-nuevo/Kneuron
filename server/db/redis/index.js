@@ -1,6 +1,3 @@
-// const util = require('util');
-// const redis = require('../config/redis');
-
 const Redis = require('ioredis');
 const util = require('util');
 

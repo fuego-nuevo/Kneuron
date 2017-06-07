@@ -34,7 +34,6 @@ class OverallPerformance extends Component {
     const { profile } = this.props;
     axios.get(`/api/performances/performanceForEveryStudentForAllCohorts/${profile.id}`)
       .then(({ data }) => {
-        console.log('this is the data in CDM of performances', data);
         this.setState({ allPerformanceData: data });
       })
       .catch(error => console.log('Error in CDM of OverallPerformance.jsx: for allData', error));
@@ -64,7 +63,6 @@ class OverallPerformance extends Component {
 
   fetchStudent(data) {
     this.setState({ chosenStudent: Object.assign(this.state.chosenStudent, data) }, () => {
-      console.log('this is the state of chosenStudent ', this.state.chosenStudent);
       this.setState({ showStudent: !this.state.showStudent }, () => {
         this.setState({ showCohort: false });
       });
@@ -74,7 +72,6 @@ class OverallPerformance extends Component {
   render() {
     const { profile } = this.props;
     const subject = this.state.chosenCohort || { subject: 'Class Performance' };
-    console.log('this is the state of overallperformance ', this.state)
     return (
       <div>
         <select onChange={this.handleCohortDropDown}>
