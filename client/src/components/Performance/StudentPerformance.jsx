@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import _ from 'lodash';
 
 class StudentPerformance extends Component {
@@ -13,8 +13,9 @@ class StudentPerformance extends Component {
     this.calculateLectureAverages = this.calculateLectureAverages.bind(this);
   }
 
-  componentWillReceiveProps({ studentData }) {
-  // componentDidMount() {
+  // componentWillReceiveProps({ studentData }) {
+  componentDidMount() {
+    const { studentData } = this.props;
     // this.setState({ studentPerformance: [] });
     axios.get(`/api/results/lectureResults/${studentData.cohort_id}/${studentData.student_id}`)
       .then(({ data }) => {
@@ -56,16 +57,8 @@ class StudentPerformance extends Component {
   }
 
   render() {
-    console.log('this is the state of stuPer ', this.state);
     return (
-      <div>Hello</div>
-    );
-  }
-}
-
-export default StudentPerformance;
-
-      {/*<div className="livedata">
+      <div className="livedata">
         <LineChart
           width={1700}
           height={475}
@@ -78,4 +71,9 @@ export default StudentPerformance;
           <Legend />
           <Line type="monotone" dataKey="Average" stroke="#8884d8" activeDot={{ r: 8 }} />
         </LineChart>
-      </div>*/}
+      </div>
+    );
+  }
+}
+
+export default StudentPerformance;
