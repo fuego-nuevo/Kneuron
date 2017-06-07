@@ -53,6 +53,16 @@ class FrontPage extends Component {
               <img alt="apple" src="http://gdurl.com/hSxT" height="150px" width="150px" />
               <p>Sign up as an admin or teacher to get started, a code for your school or class will be provided to you upon succesful creation to allow you to add students or teachers</p>
             </div>
+            <div>
+              <h1>Track Attendance</h1>
+              <img alt="apple" src="http://gdurl.com/wmZT" height="150px" width="150px" />
+              <p>Sign up as an admin or teacher to get started, a code for your school or class will be provided to you upon succesful creation to allow you to add students or teachers</p>
+            </div>
+            <div>
+              <h1>View Performance</h1>
+              <img alt="apple" src="http://gdurl.com/ClDs" height="150px" width="150px" />
+              <p>Sign up as an admin or teacher to get started, a code for your school or class will be provided to you upon succesful creation to allow you to add students or teachers</p>
+            </div>
           </div>
         </div>
       </div>
