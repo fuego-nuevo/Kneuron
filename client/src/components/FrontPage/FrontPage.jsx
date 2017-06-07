@@ -41,14 +41,17 @@ class FrontPage extends Component {
             <div>
               <h1>Sign Up</h1>
               <img alt="apple" src="http://gdurl.com/C18h" height="150px" width="150px" />
+              <p>Sign up as an admin or teacher to get started, a code for your school or class will be provided to you upon succesful creation to allow you to add students or teachers</p>
             </div>
             <div>
               <h1>Add Classes</h1>
               <img alt="apple" src="http://gdurl.com/BRHL" height="150px" width="150px" />
+              <p>Sign up as an admin or teacher to get started, a code for your school or class will be provided to you upon succesful creation to allow you to add students or teachers</p>
             </div>
             <div>
               <h1>Start Teaching</h1>
               <img alt="apple" src="http://gdurl.com/hSxT" height="150px" width="150px" />
+              <p>Sign up as an admin or teacher to get started, a code for your school or class will be provided to you upon succesful creation to allow you to add students or teachers</p>
             </div>
           </div>
         </div>
