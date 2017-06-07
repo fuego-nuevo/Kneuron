@@ -51,8 +51,6 @@ class CohortPerformance extends Component {
   }
 
   render() {
-    console.log('these are the props in cohortperfromance ', this.props);
-    console.log('these are the state in cohortperfromance ', this.state);
     const { fetchStudent } = this.props;
     return (
       <div className="livedata">
