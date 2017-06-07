@@ -92,7 +92,7 @@ class Dashboard extends Component {
             handleLectureClick={this.handleLectureClick}
           />)}
         />
-        <Route path="/dashboard/livelecture" component={() => (<LiveLecture history={history} lat={this.state.lat} lng={this.state.lng} topics={liveLectureTopics || []} />)} />
+        <Route path="/dashboard/livelecture" component={() => (<LiveLecture history={history} topics={liveLectureTopics || []} />)} />
         <Route path="/dashboard/addClass" component={() => (<AddClass history={history} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
         <Route path="/dashboard/addQuiz" component={() => (<AddQuiz history={history} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
         <Route path="/dashboard/quiz" component={() => (<QuizList history={history} fetchTeacherInfo={this.fetchTeacherInfo} quizzes={quizzes || []} />)} />
@@ -100,8 +100,6 @@ class Dashboard extends Component {
           path="/dashboard/addLecture"
           component={() => (<AddLecture
             history={history}
-            lat={this.state.lat}
-            lng={this.state.lng}
             cohortId={currentCohortId}
             fetchTeacherInfo={this.fetchTeacherInfo}
           />)}
