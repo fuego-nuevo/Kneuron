@@ -3,6 +3,7 @@ import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import 'react-datepicker/dist/react-datepicker.css';
 import { updateProfile } from '../../actions/CurrentProfile';
 import { allLectures } from '../../actions/Lectures';
 import { currentLecture } from '../../actions/CurrentLecture';
