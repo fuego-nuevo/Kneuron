@@ -1,46 +1,48 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Calendar from 'react-input-calendar'
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
 class AddLecture extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: '',
+      startDate: moment(),
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
     const name = e.target.name;
-    console.log(this.props);
     this.setState({ [name]: e.target.value });
   }
 
+  handleDateChange(date) {
+    this.setState({ startDate: date });
+  }
 
   async handleSubmit(e) {
     e.preventDefault();
-    console.log("COHORT ID IS: ", this.props.cohortId)
-    console.log("DATE DATA IS: ", document.getElementsByClassName("input-calendar-field")[0].defaultValue);
     const body = {
       name: this.state.name,
       cohort_id: this.props.cohortId,
-      date: document.getElementsByClassName("input-calendar-field")[0].defaultValue,
+      date: this.state.startDate,
       lat: this.props.lat,
       lng: this.props.lng,
     };
     try {
-      const posted = await axios.post('/api/lectures/', body);
-      const added = await this.props.fetchTeacherInfo()
+      await axios.post('/api/lectures/', body);
+      await this.props.fetchTeacherInfo();
       this.props.history.push('/dashboard/class');
     } catch (error) {
-      console.log('error with axios call line 28 AddClass ', error);
+      console.log('Error with axios call line 28 AddClass ', error);
     }
   }
 
   render() {
-    const dateToText = "Date";
     return (
       <div className="add-class-container">
         <form onSubmit={this.handleSubmit} className="add-class-form animated bounceInUp">
@@ -51,7 +53,10 @@ class AddLecture extends Component {
             </div>
             <div>
               <label htmlFor="Lecture Date">Date</label>
-              <Calendar format='MM/DD/YYYY' date={(new Date(Date.now()).toLocaleString())} />
+              <DatePicker
+                selected={this.state.startDate}
+                onChange={this.handleDateChange}
+              />
             </div>
           </div>
           <input id="add-class-submit" type="submit" value="Add Lecture" />
