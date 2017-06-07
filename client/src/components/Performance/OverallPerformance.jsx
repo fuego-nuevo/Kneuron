@@ -17,6 +17,7 @@ class OverallPerformance extends Component {
       chosenCohort: null,
       chosenStudent: {},
       showStudent: false,
+      showCohort: false,
     };
     this.handleCohortDropDown = this.handleCohortDropDown.bind(this);
     this.fetchAllPerformanceData = this.fetchAllPerformanceData.bind(this);
@@ -50,19 +51,23 @@ class OverallPerformance extends Component {
 
   handleCohortDropDown(event) {
     event.preventDefault();
-    this.setState({ chosenCohortId: event.target.value }, () => {
-      _.each(this.state.allPerformanceData, (data) => {
-        if (parseInt(this.state.chosenCohortId, 10) === data.id) {
-          this.setState({ chosenCohort: data });
-        }
-      });
+    _.each(this.state.allPerformanceData, (data) => {
+      if (parseInt(event.target.value, 10) === data.id) {
+        this.setState({ chosenCohort: data }, () => {
+          this.setState({ showCohort: true }, () => {
+            this.setState({ showStudent: false });
+          });
+        });
+      }
     });
   }
 
   fetchStudent(data) {
     this.setState({ chosenStudent: Object.assign(this.state.chosenStudent, data) }, () => {
       console.log('this is the state of chosenStudent ', this.state.chosenStudent);
-      this.setState({ showStudent: !this.state.showStudent });
+      this.setState({ showStudent: !this.state.showStudent }, () => {
+        this.setState({ showCohort: false });
+      });
     });
   }
 
@@ -73,14 +78,23 @@ class OverallPerformance extends Component {
     return (
       <div>
         <select onChange={this.handleCohortDropDown}>
+          <option value="null">Classes</option>
           {this.state.allPerformanceData.map(data =>
             (<option value={data.id.toString()}>{data.subject}</option>),
           )}
         </select>
         {/*<TeacherNetwork allData={this.state.allPerformanceData} profile={profile} />*/}
-        <text>{subject.subject}</text>
-        <CohortPerformance cohortData={this.state.allPerformanceData.filter(data => data.id === parseInt(this.state.chosenCohortId, 10))} fetchStudent={this.fetchStudent} />
-        <StudentPerformance studentData={this.state.chosenStudent} />
+        { this.state.showCohort && !this.state.showStudent ?
+          <text>
+            {subject.subject}
+            <CohortPerformance cohortData={this.state.chosenCohort} fetchStudent={this.fetchStudent} />
+          </text>
+          : null }
+        { this.state.showStudent && !this.state.showCohort ?
+          <text>{this.state.chosenStudent.name}
+            <StudentPerformance studentData={this.state.chosenStudent} />
+          </text>
+          : null }
       </div>
     );
   }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import _ from 'lodash';
+
+import StudentLecturePerformance from './StudentLecturePerformance';
 
 class StudentPerformance extends Component {
   constructor() {
@@ -9,12 +11,16 @@ class StudentPerformance extends Component {
     this.state = {
       studentLectures: null,
       studentPerformance: [],
+      showLecturePerformance: false,
+      chosenLecture: null,
     };
     this.calculateLectureAverages = this.calculateLectureAverages.bind(this);
+    this.handleLectureDropDown = this.handleLectureDropDown.bind(this);
   }
 
-  componentWillReceiveProps({ studentData }) {
-  // componentDidMount() {
+  // componentWillReceiveProps({ studentData }) {
+  componentDidMount() {
+    const { studentData } = this.props;
     // this.setState({ studentPerformance: [] });
     axios.get(`/api/results/lectureResults/${studentData.cohort_id}/${studentData.student_id}`)
       .then(({ data }) => {
@@ -55,27 +61,44 @@ class StudentPerformance extends Component {
     this.setState({ studentPerformance: [...performanceArray, ...this.state.studentPerformance] });
   }
 
+  handleLectureDropDown(event) {
+    const { studentLectures } = this.state;
+    console.log('this is the data from the dot click ', event.target.value)
+    this.setState({ chosenLecture: { id: parseInt(event.target.value, 10), student_id: studentLectures[0].results[0].student_id } }, () => {
+      this.setState({ showLecturePerformance: true });
+    });
+  }
+
   render() {
-    console.log('this is the state of stuPer ', this.state);
+    console.log('this is the state of studentLectures ', this.state.studentLectures);
     return (
-      <div>Hello</div>
+      <div className="livedata">
+        { !this.state.showLecturePerformance && this.state.studentLectures ?
+          <div>
+            <select onChange={this.handleLectureDropDown}>
+              <option value="null">Lectures</option>
+              {this.state.studentLectures.map(lecture =>
+                (<option value={lecture.id.toString()}>{lecture.name}</option>),
+              )}
+            </select>
+            <LineChart
+              width={1700}
+              height={475}
+              data={this.state.studentPerformance}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            >
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="Average" stroke="#8884d8" activeDot={{ r: 8 }} />
+            </LineChart>
+          </div> :
+          <StudentLecturePerformance lectureData={this.state.chosenLecture} />
+        }
+      </div>
     );
   }
 }
 
 export default StudentPerformance;
-
-      {/*<div className="livedata">
-        <LineChart
-          width={1700}
-          height={475}
-          data={this.state.studentPerformance}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="Average" stroke="#8884d8" activeDot={{ r: 8 }} />
-        </LineChart>
-      </div>*/}

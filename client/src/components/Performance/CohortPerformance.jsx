@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-
-import PerformanceBarChart from '../DataVisualization/PerformanceBarChart';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 class CohortPerformance extends Component {
   constructor(props) {
@@ -11,11 +10,21 @@ class CohortPerformance extends Component {
       results: [],
     };
     this.getResultAverage = this.getResultAverage.bind(this);
+    this.setStateAndCalculateAverages = this.setStateAndCalculateAverages.bind(this);
+  }
+
+  componentDidMount() {
+    const { cohortData } = this.props;
+    this.setStateAndCalculateAverages(cohortData);
   }
 
   componentWillReceiveProps(newProps) {
     const { cohortData } = newProps;
-    this.setState({ cohortData: cohortData[0] }, () => {
+    this.setStateAndCalculateAverages(cohortData);
+  }
+
+  setStateAndCalculateAverages(cohortData) {
+    this.setState({ cohortData }, () => {
       this.setState({ results: [] }, () => {
         this.getResultAverage(this.state.cohortData);
       });
@@ -43,10 +52,23 @@ class CohortPerformance extends Component {
 
   render() {
     console.log('these are the props in cohortperfromance ', this.props);
+    console.log('these are the state in cohortperfromance ', this.state);
     const { fetchStudent } = this.props;
     return (
       <div className="livedata">
-        <PerformanceBarChart data={this.state.results} fetchStudent={fetchStudent}/>
+        <BarChart
+          width={1700}
+          height={475}
+          data={this.state.results}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <XAxis dataKey="name" />
+          <YAxis type="number" domain={[0, 100]} />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="Average" fill="#8884d8" onClick={fetchStudent} />
+        </BarChart>
+        {/*<PerformanceBarChart data={this.state.results} fetchStudent={fetchStudent}/>*/}
       </div>
     );
   }

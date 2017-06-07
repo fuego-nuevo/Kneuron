@@ -35,6 +35,7 @@ router.post('/', (req, res, next) => {
   req.body['cohort_id'] = req.body.cohort_id;
   req.body['quiz_id'] = req.body.quiz_id;
   req.body['student_id'] = req.body.student_id;
+  req.body['lecture_id'] = req.body.lecture_id;
   req.body['percentage'] = req.body.percentage;
   db.Result.create(req.body)
     .then(data => res.status(200).send(data))

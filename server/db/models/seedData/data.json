@@ -188,6 +188,22 @@
     "model": "Topic",
     "data": {
       "id": 2,
+      "name": "Nothing Topic",
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Topic",
+    "data": {
+      "id": 3,
+      "name": "Science Topic",
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Topic",
+    "data": {
+      "id": 4,
       "name": "Short Subtraction Topic",
       "lecture_id": 3
     }
@@ -195,7 +211,7 @@
   {
     "model": "Topic",
     "data": {
-      "id": 3,
+      "id": 5,
       "name": "Short Multiplication Topic",
       "lecture_id": 2
     }
@@ -213,7 +229,7 @@
     "data": {
       "id": 2,
       "name": "Short Addition Quiz",
-      "topic_id": 1
+      "topic_id": 2
     }
   },
   {
