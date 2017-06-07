@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Login from '../../components/Logging/Login';
 import NavBar from './FrontPageNav';
 import { loginUser } from '../../actions/Login';
-// import pictures from '../.././assets/snyp.jpeg'
 
 class FrontPage extends Component {
   constructor(props) {
@@ -35,18 +34,21 @@ class FrontPage extends Component {
           </form>
         </div>
         <div className="service-container">
-          <div id="how-we-work">hihi</div>
+          <div id="how-we-work">
+            <h1>How It Works</h1>
+          </div>
           <div id="how-we-work-desc">
             <div>
-              <h2>how we work</h2>
-              <div className="apple" />
-              <img alt="apple" src="/client/src/assets/apple.png" height="50px" width="50px" />
+              <h1>Sign Up</h1>
+              <img alt="apple" src="http://gdurl.com/C18h" height="150px" width="150px" />
             </div>
             <div>
-              <p>why</p>
+              <h1>Add Classes</h1>
+              <img alt="apple" src="http://gdurl.com/BRHL" height="150px" width="150px" />
             </div>
             <div>
-              <p>Easy</p>
+              <h1>Start Teaching</h1>
+              <img alt="apple" src="http://gdurl.com/hSxT" height="150px" width="150px" />
             </div>
           </div>
         </div>

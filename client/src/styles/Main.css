@@ -75,15 +75,20 @@ h1{
 
 #how-we-work{
     flex: 1;
-    border: 2px solid black;
 }
 
 #how-we-work-desc{
     flex: 2;
     display: flex;
     justify-content: space-around;
-    border: 2px solid red;
     width: 100%;
+}
+
+#how-we-work-desc div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .web-desc p {
@@ -101,7 +106,7 @@ h1{
 .apple{
     height: 50px;
     width: 50px;
-    background: url('/client/src/assets/apple.png');
+    background: url('/assets/apple.png');
 }
 
 .front-nav{
