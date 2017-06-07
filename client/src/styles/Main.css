@@ -58,7 +58,7 @@ h1{
 
 .web-desc{
     position: absolute;
-    top: 30vh;
+    top: 20vh;
     left: 10%;
     width: 30%;
     height: 30%;
@@ -638,6 +638,21 @@ textarea:focus, input:focus{
     left: 0%;
     border-style: none;
     background-color: transparent;
+}
+
+.track-attendance{
+    width: 20%;
+    margin-left: 40%;
+    height: 3vh;
+    border-style: none;
+    /*margin-top: 15vh;*/
+    border-radius: 5px;
+    display: block;
+    transition: box-shadow 0.2s ease;
+}
+
+.track-attendance:hover{
+    box-shadow: 0 0 3px 5px lightgray;
 }
 
 #single-nav{
@@ -1450,4 +1465,15 @@ hr{
 
 .stats h4{
     font-weight: lighter;
+}
+
+.students-present{
+    position: absolute;
+    bottom: 2%;
+    height: 55%;
+    width: 40%;
+    left: 30%;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.06);
 }
