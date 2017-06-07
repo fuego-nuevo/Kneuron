@@ -40,33 +40,32 @@ class Lecture extends Component {
     }
   }
 
-async provideLocData(){
-  const { cohort_id, name } = this.props.lecture;
-  const { lat, lng } = this.props;
-  const body = {
-    auth_token: localStorage.getItem('id_token'),
-    cohortId: cohort_id,
-    lecture_name: name,
-    latitude: lat,
-    longitude: lng,
+  async provideLocData(){
+    const { cohort_id, name } = this.props.lecture;
+    const { lat, lng } = this.props;
+    const body = {
+      auth_token: localStorage.getItem('id_token'),
+      cohortId: cohort_id,
+      lecture_name: name,
+      latitude: lat,
+      longitude: lng,
+    };
+    try {
+      await axios.put('/api/lectures/coords', body);
+      console.log("Updated Lectures Coordinates.");
+    } catch (error) {
+      console.log("Did Not Update Because: ", error);
+    }
   }
-  try{
-    const updateLectureLoc = await axios.put('/api/lectures/coords', body);
-    console.log("Updated Lectures Coordinates.");
-  } catch(error) {
-    console.log("Did Not Update Because: ", error);
-  }
-}
 
   async runLiveLecture() {
     try {
-      const updateLecture = await this.props.currentLiveLecture(this.props.lecture);
+      await this.props.currentLiveLecture(this.props.lecture);
       this.props.history.push('/dashboard/livelecture');
     } catch (error) {
       console.log('Error grabbing currentLiveLecture: ', error);
     }
   }
-
 
   editClass(e) {
     const { cohort_id, name } = this.props.lecture;
@@ -79,7 +78,6 @@ async provideLocData(){
     };
     axios.put('/api/lectures/', body)
       .then((res) => {
-      console.log(res);
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
@@ -91,16 +89,20 @@ async provideLocData(){
         Swal('there was an error on our server :(');
       });
   }
+
   handleClick() {
     this.setState({ isShowingModal: true });
   }
+
   handleClose() {
     this.setState({ isShowingModal: false });
   }
+
   handleChange(e) {
     const name = e.target.name;
     this.setState({ [name]: e.target.value });
   }
+
   render() {
     const currentLectureRoute = `/dashboard/lectures${this.props.lecture.id}`;
     console.log(this.props);
@@ -132,6 +134,7 @@ async provideLocData(){
           id="lecture-entry"
           className="ch-entry-header"
         >{this.props.lecture.name}</div>
+        <div>{this.props.lecture.date.slice(0,10)}</div>
         <button className="lecture-button" onClick={() => { this.props.lectureLive(); this.props.handleLectureClick(this.props.lecture.id); }}>
           <Link
             to={currentLectureRoute}

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { getSeason } from '../../utils/timeFormatter';
-
 
 class AddClass extends Component {
   constructor() {
     super();
     this.state = {
       subject: '',
-      time: '',
-      semester: getSeason().toString() || '',
-      year: '',
+      hour: '1',
+      minute: '00',
+      time: 'AM',
+      semester: 'SPRING',
+      year: '2017',
       schoolCode: '',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -25,12 +25,11 @@ class AddClass extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    const year = [this.state.year];
     const body = {
       auth_token: localStorage.getItem('id_token'),
       subject: this.state.subject,
-      time: this.state.time,
-      semester: `${this.state.semester} ${year[0].slice(0, 4)}`,
+      time: `${this.state.hour}: ${this.state.minute} ${this.state.time}`,
+      semester: `${this.state.semester} ${this.state.year}`,
       schoolCode: this.state.schoolCode,
     };
     try {
@@ -43,6 +42,9 @@ class AddClass extends Component {
   }
 
   render() {
+    const hours = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+    const minutes = ['00', '15', '30', '45'];
+    const year = new Date().getFullYear();
     return (
       <div className="add-class-container">
         <form onSubmit={this.handleSubmit} id="class-add" className="add-class-form animated bounceInUp">
@@ -53,15 +55,35 @@ class AddClass extends Component {
             </div>
             <div className="add-class-inps">
               <label htmlFor="time">Time</label>
-              <input onChange={this.handleChange} type="time" placeholder="1:00PM" name="time" />
+              <br />
+              <select onChange={this.handleChange} name="hour">
+                {hours.map(hour =>
+                  (<option value={hour}>{hour}</option>),
+                )}
+              </select>
+              <select onChange={this.handleChange} name="minute">
+                {minutes.map(minute =>
+                  (<option value={minute}>{minute}</option>),
+                )}
+              </select>
+              <select onChange={this.handleChange} name="time">
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+              </select>
             </div>
             <div className="add-class-inps">
-              <label htmlFor="time">Year</label>
-              <input onChange={this.handleChange} type="date" name="year" />
-            </div>
-            <div className="add-class-inps">
-              <label htmlFor="time">Semester</label>
-              <input onChange={this.handleChange} type="text" placeholder={getSeason()} name="semester" />
+              <label htmlFor="semester">Semester</label>
+              <br />
+              <select onChange={this.handleChange} name="season">
+                <option value="SPRING">Spring</option>
+                <option value="SUMMER">Summer</option>
+                <option value="FALL">Fall</option>
+                <option value="WINTER">Winter</option>
+              </select>
+              <select onChange={this.handleChange} name="year">
+                <option value={year.toString()}>{year}</option>
+                <option value={(year + 1).toString()}>{year + 1}</option>
+              </select>
             </div>
             <div className="add-class-inps">
               <label htmlFor="code">School Code</label>
