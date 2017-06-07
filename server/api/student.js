@@ -155,7 +155,7 @@ const deleteStudent = async (req, res) => {
 router.get('/:auth_token', fetchAllStudentData);
 router.get('/:email/:creds', fetchStudent);
 router.post('/', postStudent);
-router.post('/:code', addClass);
+// router.post('/:code', addClass);
 router.put('/:auth_token', updateStudent);
 router.delete('/:auth_token', deleteStudent);
 
