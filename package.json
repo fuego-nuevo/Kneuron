@@ -34,6 +34,7 @@
     "gulp-env": "^0.4.0",
     "gulp-nodemon": "^2.2.1",
     "gulp-util": "^3.0.8",
+    "image-webpack-loader": "^3.3.1",
     "morgan": "^1.8.1",
     "react-hot-loader": "next",
     "webpack": "^2.4.1"
@@ -75,6 +76,7 @@
     "gulp-env": "^0.4.0",
     "gulp-nodemon": "^2.2.1",
     "gulp-util": "^3.0.8",
+    "image-webpack-loader": "^3.3.1",
     "ioredis": "^2.5.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
