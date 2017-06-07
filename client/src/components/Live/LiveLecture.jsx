@@ -7,6 +7,8 @@ import StudentQuestions from '../Lectures/StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 import LiveQuizList from './LiveQuizList';
 import BarChart from './BarChart';
+import AttendanceList from './AttendanceList';
+import AttendanceEntry from './AttendanceEntry';
 
 const socket = io();
 
@@ -27,6 +29,7 @@ class LiveLecture extends Component {
       studentAnswer: [],
       trackingAttendance: false,
       attendanceTime: 30,
+      studentsPresent: [],
     };
     this.filterQuestions = this.filterQuestions.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -120,6 +123,7 @@ class LiveLecture extends Component {
     this.handleAttendanceModalClick();
   }
   trackAttendance() {
+    this.handleAttendanceModalClose();
     this.setState({ trackingAttendance: true }, () => {
       socket.emit('attendance', { id: this.props.profile });
     });
@@ -130,15 +134,20 @@ class LiveLecture extends Component {
     console.log(this.state);
     if (this.state.trackingAttendance) {
       return (
-        <div className="popquiz-container">
-          <div className="pop-quiz-clock">
-            <ReactCountdownClock
-              seconds={this.state.attendanceTime}
-              color="#F0C463"
-              alpha={0.8}
-              size={200}
-              onComplete={this.endAttendance}
-            />
+        <div>
+          <div className="popquiz-container">
+            <div className="pop-quiz-clock">
+              <ReactCountdownClock
+                seconds={this.state.attendanceTime}
+                color="#F0C463"
+                alpha={0.8}
+                size={200}
+                onComplete={this.endAttendance}
+              />
+            </div>
+          </div>
+          <div className="students-present">
+            <AttendanceEntry students={this.state.studentsPresent || []} />
           </div>
         </div>
       );

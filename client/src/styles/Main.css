@@ -1466,3 +1466,14 @@ hr{
 .stats h4{
     font-weight: lighter;
 }
+
+.students-present{
+    position: absolute;
+    bottom: 2%;
+    height: 55%;
+    width: 50%;
+    left: 25%;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+}
