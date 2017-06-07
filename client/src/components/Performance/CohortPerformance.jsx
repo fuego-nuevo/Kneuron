@@ -66,7 +66,7 @@ class CohortPerformance extends Component {
           <YAxis type="number" domain={[0, 100]} />
           <Tooltip />
           <Legend />
-          <Bar dataKey="Average" fill="blue" onClick={fetchStudent} />
+          <Bar dataKey="Average" fill="#8884d8" onClick={fetchStudent} />
         </BarChart>
         {/*<PerformanceBarChart data={this.state.results} fetchStudent={fetchStudent}/>*/}
       </div>

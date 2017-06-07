@@ -78,6 +78,7 @@ class OverallPerformance extends Component {
     return (
       <div>
         <select onChange={this.handleCohortDropDown}>
+          <option value="null">Classes</option>
           {this.state.allPerformanceData.map(data =>
             (<option value={data.id.toString()}>{data.subject}</option>),
           )}

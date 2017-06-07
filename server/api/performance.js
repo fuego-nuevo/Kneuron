@@ -31,15 +31,16 @@ router.get('/performanceForEveryStudentForAllCohorts/:user_id', (req, res, next)
     .catch(next);
 });
 
-router.get('/performanceForTopics/:cohort_id', (req, res, next) => {
-  db.Lecture.findAll({
-    where: { cohort_id: req.params.cohort_id },
+router.get('/performanceForTopics/:lecture_id/:student_id', (req, res, next) => {
+  db.Lecture.findOne({
+    where: { id: parseInt(req.params.lecture_id, 10) },
     include: [{
       model: db.Topic,
       include: [{
         model: db.Quiz,
         include: [{
           model: db.Result,
+          where: { student_id: req.params.student_id },
         }],
       }],
     }],
