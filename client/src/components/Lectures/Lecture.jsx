@@ -14,6 +14,8 @@ class Lecture extends Component {
 
     this.state = {
       name: '',
+      lat: 0,
+      lng: 0,
     };
 
     this.deleteLecture = this.deleteLecture.bind(this);
@@ -22,15 +24,33 @@ class Lecture extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.editClass = this.editClass.bind(this);
+    this.getUserCoordinates = this.getUserCoordinates.bind(this);
+  }
+
+  componentDidMount(){
+    this.getUserCoordinates();
+  }
+
+  componentDidUpdate(){
+    this.provideLocData();
+  }
+
+  getUserCoordinates() {
+    if('geolocation' in navigator){
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
+      }, () => { enableHighAccuracy: true; });
+    }
   }
 
 
   async deleteLecture() {
     try {
-      const removed = await axios.delete(`/api/lectures/${this.props.lecture.id}`);
+      await axios.delete(`/api/lectures/${this.props.lecture.id}`);
       this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
+            Swal('Lecture succesfully deleted');
           })
           .catch((err) => {
             console.log('error with deleting class , ERR: ', err);
@@ -40,22 +60,20 @@ class Lecture extends Component {
     }
   }
 
-  async provideLocData(){
-    const { cohort_id, name } = this.props.lecture;
-    const { lat, lng } = this.props;
-    const body = {
-      auth_token: localStorage.getItem('id_token'),
-      cohortId: cohort_id,
-      lecture_name: name,
-      latitude: lat,
-      longitude: lng,
-    };
-    try {
+async provideLocData(){
+  const { cohort_id, name } = this.props.lecture;
+  const { lat, lng } = this.state;
+  const body = {
+    auth_token: localStorage.getItem('id_token'),
+    cohortId: cohort_id,
+    lecture_name: name,
+    latitude: lat,
+    longitude: lng,
+  }
+  try{
       await axios.put('/api/lectures/coords', body);
-      console.log("Updated Lectures Coordinates.");
-    } catch (error) {
-      console.log("Did Not Update Because: ", error);
-    }
+  } catch(error) {
+    console.log("Did Not Update Because: ", error);
   }
 
   async runLiveLecture() {
@@ -81,7 +99,7 @@ class Lecture extends Component {
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
-            Swal('lecture succesfully updated :)');
+            Swal('Lecture succesfully updated');
           });
       })
       .catch((err) => {
@@ -105,8 +123,6 @@ class Lecture extends Component {
 
   render() {
     const currentLectureRoute = `/dashboard/lectures${this.props.lecture.id}`;
-    console.log(this.props);
-    console.log(this.state);
     return (
       <div
         className="cohort-entry animated bounceInUp"
@@ -143,10 +159,9 @@ class Lecture extends Component {
           See Topics
         </Link>
         </button>
-        <button onClick={() => {
-          this.provideLocData();
-          this.runLiveLecture();
-        }} className="go-live"><img alt="delete" src="https://image.flaticon.com/icons/png/128/42/42912.png" width="25px" height="25px" /></button>
+        <button
+          onClick={() => this.runLiveLecture()}
+          className="go-live"><img alt="delete" src="https://image.flaticon.com/icons/png/128/42/42912.png" width="25px" height="25px" /></button>
         <button onClick={this.deleteLecture} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
         <button onClick={this.handleClick} className="edit-button"><img alt="delete" src="http://simpleicon.com/wp-content/uploads/pencil.png" width="25px" height="25px" /></button>
       </div>

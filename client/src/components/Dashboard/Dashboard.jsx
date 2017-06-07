@@ -31,14 +31,10 @@ class Dashboard extends Component {
     this.state = {
       profile: {},
       selectedLecture: this.props.currentLecture.lectureId || '',
-      lat: 0,
-      lng: 0,
-      alt: 0,
     };
 
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
     this.handleLectureClick = this.handleLectureClick.bind(this);
-    this.getUserCoordinates = this.getUserCoordinates.bind(this);
   }
 
   componentDidMount() {
@@ -50,15 +46,6 @@ class Dashboard extends Component {
       .catch((err) => {
         console.log('error in initial fetch , ', err);
       });
-  }
-
-  getUserCoordinates() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log('INSIDE NAV LOC FUNCTION: ', position.coords.latitude);
-        this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
-      }, () => { true; });
-    }
   }
 
   async fetchTeacherInfo() {
@@ -100,8 +87,6 @@ class Dashboard extends Component {
           component={() => (<LecturesList
             lectures={lectures || []}
             history={history}
-            lat={this.state.lat}
-            lng={this.state.lng}
             fetchTeacherInfo={this.fetchTeacherInfo}
             selectedLecture={lectureId}
             handleLectureClick={this.handleLectureClick}

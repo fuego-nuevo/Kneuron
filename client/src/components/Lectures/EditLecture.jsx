@@ -28,6 +28,7 @@ class AddLecture extends Component {
       const posted = await axios.post('/api/lectures/', body);
       const added = await this.props.fetchTeacherInfo();
       this.props.history.push('/dashboard/lectures');
+      Swal('Lecture succesfully updated');
     } catch (error) {
       console.log('error with axios call line 28 AddClass ', error);
     }
