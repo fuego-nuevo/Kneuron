@@ -53,7 +53,7 @@ class StudentPerformance extends Component {
       const Average = lecture.results.reduce((sum, result) => {
         return sum + result.percentage;
       }, 0) / lecture.results.length;
-      performanceArray.push({ date: lecture.date, Average });
+      performanceArray.push({ date: lecture.date, Average, name: lecture.name });
     });
     performanceArray.sort((a, b) => {
       return new Date(a.date) - new Date(b.date);
@@ -63,14 +63,12 @@ class StudentPerformance extends Component {
 
   handleLectureDropDown(event) {
     const { studentLectures } = this.state;
-    console.log('this is the data from the dot click ', event.target.value)
     this.setState({ chosenLecture: { id: parseInt(event.target.value, 10), student_id: studentLectures[0].results[0].student_id } }, () => {
       this.setState({ showLecturePerformance: true });
     });
   }
 
   render() {
-    console.log('this is the state of studentLectures ', this.state.studentLectures);
     return (
       <div className="livedata">
         { !this.state.showLecturePerformance && this.state.studentLectures ?
@@ -87,7 +85,7 @@ class StudentPerformance extends Component {
               data={this.state.studentPerformance}
               margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
             >
-              <XAxis dataKey="date" />
+              <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
               <Legend />
