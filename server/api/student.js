@@ -13,7 +13,7 @@ const fetchAllStudentData = async (req, res) => {
     const email = util.antiHasher(req.params.auth_token);
     const allData = await db.User.findOne({
       where: {
-        email: email,
+        email,
         // id: req.params.id,
         userType: 1,
       },

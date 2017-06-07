@@ -12,7 +12,6 @@ router.post('/', (req, res, next) => {
     },
   };
   console.log('this is the req.body in this routeeeeeee ', req.body)
-  console.log('this is the email in this routeeeeeee ', req.body.email)
   axios.post("https://api.kairos.com/enroll", { image: req.body.image, subject_id: req.body.subject_id, gallery_name: req.body.gallery_name }, config)
   .then(data => {
     console.log("this is the data from camera api line 10", data.data)
