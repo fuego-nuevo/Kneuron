@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import d3 from 'd3';
 import _ from 'lodash';
 
 import PerformanceBarChart from '../DataVisualization/PerformanceBarChart';
@@ -27,15 +26,15 @@ class CohortPerformance extends Component {
     const resultArray = [];
     _.each(cohortData.studentcohorts, (student) => {
       const filteredResults = student.user.results.filter(result => student.cohort_id === result.cohort_id);
-      let average = filteredResults.reduce((sum, result) => {
+      let Average = filteredResults.reduce((sum, result) => {
         return sum + result.percentage;
       }, 0);
-      average /= filteredResults.length;
+      Average /= filteredResults.length;
       resultArray.push({
         student_id: student.user.id,
         name: `${student.user.fName} ${student.user.lName}`,
         cohort_id: student.cohort_id,
-        average,
+        Average,
         quizCount: filteredResults.length,
       });
     });
@@ -44,9 +43,10 @@ class CohortPerformance extends Component {
 
   render() {
     console.log('these are the props in cohortperfromance ', this.props);
+    const { fetchStudent } = this.props;
     return (
       <div className="livedata">
-        <PerformanceBarChart data={this.state.results.map(result => result.average)} name={this.state.results.map(result => result.name)} />
+        <PerformanceBarChart data={this.state.results} fetchStudent={fetchStudent}/>
       </div>
     );
   }
