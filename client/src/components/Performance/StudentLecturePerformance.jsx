@@ -43,15 +43,22 @@ class StudentLecturePerformance extends Component {
   render() {
     console.log('this is the state of quizzes ', this.state.quizzes);
     return (
-      <div className="bar-chart">
-        <ResponsiveContainer>
-          <RadarChart data={this.state.lectureData}>
-            <Radar name="Student" dataKey="average" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-            <PolarGrid />
-            <PolarAngleAxis dataKey="name" />
-            <PolarRadiusAxis />
-          </RadarChart>
-        </ResponsiveContainer>
+      <div id="radar" className="bar-chart">
+        <div className="act-radar">
+          <ResponsiveContainer>
+            <RadarChart data={this.state.lectureData}>
+              <Radar name="Student" dataKey="average" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+              <PolarGrid />
+              <PolarAngleAxis dataKey="name" />
+              <PolarRadiusAxis />
+            </RadarChart>
+          </ResponsiveContainer>
+        </div>
+        <div className="radar-quizzes">
+          {this.state.quizzes.map((quiz) => {
+            return (<h2 key={quiz.id}>{quiz.name}: {quiz.results[0].percentage}</h2>);
+          })}
+        </div>
       </div>
     );
   }
