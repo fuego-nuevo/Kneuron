@@ -69,7 +69,7 @@
       "subject": "MATH",
       "semester": "FALL 2017",
       "description": "Some description",
-      "time": "1 PM",
+      "time": "13:00",
       "teacher_id": 1,
       "code": "martyr",
       "school_id": 1
@@ -82,7 +82,7 @@
       "subject": "ENGLISH",
       "semester": "FALL 2017",
       "description": "Some description",
-      "time": "1 PM",
+      "time": "13:00",
       "teacher_id": 1,
       "code": "bomber",
       "school_id": 1
@@ -95,7 +95,7 @@
       "subject": "SCIENCE",
       "semester": "FALL 2017",
       "description": "Some description",
-      "time": "1 PM",
+      "time": "13:00",
       "teacher_id": 1,
       "code": "england",
       "school_id": 1
@@ -108,7 +108,7 @@
       "subject": "SCIENCE",
       "semester": "FALL 2017",
       "description": "Some description",
-      "time": "1 PM",
+      "time": "13:00",
       "teacher_id": 2,
       "code": "england"
     }
@@ -120,7 +120,7 @@
       "subject": "SCIENCE",
       "semester": "FALL 2017",
       "description": "Some description",
-      "time": "1 PM",
+      "time": "13:00",
       "teacher_id": 2,
       "code": "england"
     }
@@ -132,7 +132,7 @@
       "subject": "SCIENCE",
       "semester": "FALL 2017",
       "description": "Some description",
-      "time": "1 PM",
+      "time": "13:00",
       "teacher_id": 2,
       "code": "england"
     }
