@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import _ from 'lodash';
 
 import StudentLecturePerformance from './StudentLecturePerformance';
@@ -52,27 +52,29 @@ class StudentPerformance extends Component {
 
   render() {
     return (
-      <div className="livedata">
+      <div id="std-perf" className="livedata">
         { !this.state.showLecturePerformance && this.state.studentLectures ?
           <div>
-            <select onChange={this.handleLectureDropDown}>
+            <select id="lec-opt" className="perf-option" onChange={this.handleLectureDropDown}>
               <option value="null">Lectures</option>
               {this.state.studentLectures.map(lecture =>
                 (<option value={lecture.id.toString()}>{lecture.name}</option>),
               )}
             </select>
-            <LineChart
-              width={1700}
-              height={475}
-              data={this.state.studentPerformance}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            >
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="Average" stroke="#8884d8" activeDot={{ r: 8 }} />
-            </LineChart>
+            <div className="bar-chart">
+              <ResponsiveContainer>
+                <LineChart
+                  data={this.state.studentPerformance}
+                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                >
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="Average" stroke="#8884d8" activeDot={{ r: 8 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div> :
           <StudentLecturePerformance lectureData={this.state.chosenLecture} />
         }

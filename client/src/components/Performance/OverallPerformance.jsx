@@ -74,7 +74,7 @@ class OverallPerformance extends Component {
     const subject = this.state.chosenCohort || { subject: 'Class Performance' };
     return (
       <div>
-        <select onChange={this.handleCohortDropDown}>
+        <select className="perf-option" onChange={this.handleCohortDropDown}>
           <option value="null">Classes</option>
           {this.state.allPerformanceData.map(data =>
             (<option value={data.id.toString()}>{data.subject}</option>),
@@ -83,12 +83,14 @@ class OverallPerformance extends Component {
         {/*<TeacherNetwork allData={this.state.allPerformanceData} profile={profile} />*/}
         { this.state.showCohort && !this.state.showStudent ?
           <text>
-            {subject.subject}
             <CohortPerformance cohortData={this.state.chosenCohort} fetchStudent={this.fetchStudent} />
           </text>
           : null }
         { this.state.showStudent && !this.state.showCohort ?
-          <text>{this.state.chosenStudent.name}
+          <text>
+            <div className="center-name">
+              {this.state.chosenStudent.name}
+            </div>
             <StudentPerformance studentData={this.state.chosenStudent} />
           </text>
           : null }

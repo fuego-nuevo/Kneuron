@@ -3,12 +3,11 @@ import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import ReactCountdownClock from 'react-countdown-clock';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import StudentQuestions from '../Lectures/StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 import LiveQuizList from './LiveQuizList';
 import AttendanceList from './AttendanceList';
-import AttendanceEntry from './AttendanceEntry';
 
 const socket = io();
 
@@ -26,7 +25,12 @@ class LiveLecture extends Component {
       selectedQuiz: {},
       studentQuestions: [],
       filteredQuestions: [],
-      studentAnswer: [],
+      studentAnswer: [
+        { name: 'Mariano Okpalefe', correct: 100 },
+        { name: 'Justin Kang', correct: 66 },
+        { name: 'Jason Kim', correct: 82 },
+        { name: 'Alex Aleksanyan', correct: 73 },
+      ],
       trackingAttendance: false,
       attendanceTime: 30,
       studentsPresent: [],
@@ -255,27 +259,21 @@ class LiveLecture extends Component {
             />
           </div>
           <div className="livedata">
-            <div id="legend" className="quiz-line">
-              Legend
-              <div> scored less than 60 % <div id="fail" className="legend-keys" /> </div>
-              <div> scored between 60 and 80 percent <div id="pass" className="legend-keys" /> </div>
-              <div> scored greater than 80 percent <div id="exceed" className="legend-keys" /> </div>
-            </div>
-            <BarChart
-              width={300}
-              height={300}
-              data={this.state.studentAnswer}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            >
-              <XAxis dataKey="name" />
-              <YAxis type="number" domain={[0, 100]} />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="correct" fill="#8884d8" />
-            </BarChart>
-            {/* <BarChart data={this.state.studentAnswer.map(student => [student.name, student.correct])} size={[300, 300]} />*/}
             <div className="quiz-line">
               Pop Quiz Results
+            </div>
+            <div className="bar-chart">
+              <ResponsiveContainer >
+                <BarChart
+                  data={this.state.studentAnswer}
+                  margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+                >
+                  <XAxis dataKey="name" />
+                  <YAxis dataKey="correct" type="number" domain={[0, 100]} />
+                  <Tooltip />
+                  <Bar dataKey="correct" fill="#8884d8" />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </div>
