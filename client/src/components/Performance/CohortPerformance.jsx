@@ -66,7 +66,6 @@ class CohortPerformance extends Component {
           <Legend />
           <Bar dataKey="Average" fill="#8884d8" onClick={fetchStudent} />
         </BarChart>
-        {/*<PerformanceBarChart data={this.state.results} fetchStudent={fetchStudent}/>*/}
       </div>
     );
   }

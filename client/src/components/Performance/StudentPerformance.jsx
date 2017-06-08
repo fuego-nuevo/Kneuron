@@ -18,10 +18,8 @@ class StudentPerformance extends Component {
     this.handleLectureDropDown = this.handleLectureDropDown.bind(this);
   }
 
-  // componentWillReceiveProps({ studentData }) {
   componentDidMount() {
     const { studentData } = this.props;
-    // this.setState({ studentPerformance: [] });
     axios.get(`/api/results/lectureResults/${studentData.cohort_id}/${studentData.student_id}`)
       .then(({ data }) => {
         this.setState({ studentLectures: data }, () => {
@@ -33,22 +31,6 @@ class StudentPerformance extends Component {
 
   calculateLectureAverages(lectures) {
     const performanceArray = [];
-    // const performanceObject = {};
-    // for (let i = 0; i < lectures.length; i++) {
-    //   console.log('this is the lecture that we on', lectures[i])
-    //   console.log('this is the performance Array before ANYTHING happens ', performanceArray);
-    //   const average = lectures[i].results.reduce((sum, result) => {
-    //     return sum + result.percentage;
-    //   }, 0) / lectures[i].results.length;
-    //   // performanceObject['average'] = lectures[i].results.reduce((sum, result) => {
-    //   //   return sum + result.percentage;
-    //   // }, 0) / lectures[i].results.length;
-    //   // performanceObject['average'] = average;
-    //   // performanceObject['date'] = lectures[i].date;
-    //   // console.log('this is the performance Object ', performanceObject);
-    //   performanceArray.push({ date: lectures[i].date, average });
-    //   console.log('this is the performance Array after we push ', performanceArray);
-    // }
     _.each(lectures, (lecture) => {
       const Average = lecture.results.reduce((sum, result) => {
         return sum + result.percentage;
