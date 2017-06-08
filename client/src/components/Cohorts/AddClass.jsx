@@ -6,6 +6,7 @@ class AddClass extends Component {
     super();
     this.state = {
       subject: '',
+      description: '',
       time: '',
       semester: 'SPRING',
       year: '2017',
@@ -26,6 +27,7 @@ class AddClass extends Component {
     const body = {
       auth_token: localStorage.getItem('id_token'),
       subject: this.state.subject,
+      description: this.state.description,
       time: `${this.state.time}`,
       semester: `${this.state.semester} ${this.state.year}`,
       schoolCode: this.state.schoolCode,
@@ -50,13 +52,16 @@ class AddClass extends Component {
               <input onChange={this.handleChange} value={this.state.subject} type="text" name="subject" />
             </div>
             <div className="add-class-inps">
+              <label htmlFor="description">Class Description</label>
+              <input onChange={this.handleChange} value={this.state.description} type="text" name="description" />
+            </div>
+            <div className="add-class-inps">
               <label htmlFor="time">Time</label>
               <input onChange={this.handleChange} type="time" placeholder="1:00PM" name="time" />
             </div>
             <div className="add-class-inps">
               <label htmlFor="semester">Semester</label>
               <br />
-              {/*<div className="styled-select blue semi-square">*/}
               <div className="styled-select slate">
                 <select onChange={this.handleChange} name="season">
                   <option value="SPRING">Spring</option>
@@ -64,8 +69,6 @@ class AddClass extends Component {
                   <option value="FALL">Fall</option>
                   <option value="WINTER">Winter</option>
                 </select>
-              </div>
-              <div className="styled-select slate">
                 <select onChange={this.handleChange} name="year">
                   <option value={year.toString()}>{year}</option>
                   <option value={(year + 1).toString()}>{year + 1}</option>
