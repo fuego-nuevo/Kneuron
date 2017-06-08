@@ -133,7 +133,7 @@ class LiveLecture extends Component {
   startAttendance() {
     this.handleAttendanceModalClick();
   }
-  
+
   trackAttendance() {
     this.handleAttendanceModalClose();
     this.setState({ trackingAttendance: true }, () => {
@@ -159,7 +159,7 @@ class LiveLecture extends Component {
             </div>
           </div>
           <div className="students-present">
-            <AttendanceEntry students={this.state.studentsPresent || []} />
+            <AttendanceList students={this.state.studentsPresent || []} />
           </div>
         </div>
       );
@@ -273,7 +273,7 @@ class LiveLecture extends Component {
               <Legend />
               <Bar dataKey="correct" fill="#8884d8" />
             </BarChart>
-            {/*<BarChart data={this.state.studentAnswer.map(student => [student.name, student.correct])} size={[300, 300]} />*/}
+            {/* <BarChart data={this.state.studentAnswer.map(student => [student.name, student.correct])} size={[300, 300]} />*/}
             <div className="quiz-line">
               Pop Quiz Results
             </div>
