@@ -1494,3 +1494,9 @@ hr{
    overflow: hidden;
    width: 240px;
 }
+
+.att-entry{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

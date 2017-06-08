@@ -7,8 +7,7 @@ class AttendanceEntry extends Component {
   }
   render() {
     return (
-      <div>
-        AttendanceEntry bro
+      <div className="att-entry">
         {this.props.name}
         {this.props.present}
       </div>
