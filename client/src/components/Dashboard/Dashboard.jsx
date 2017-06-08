@@ -38,7 +38,6 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.getUserCoordinates();
     this.fetchTeacherInfo()
     .then(() => {
       this.setState({ selectedLecture: this.props.currentLecture.lectureId });
@@ -52,6 +51,7 @@ class Dashboard extends Component {
   async fetchTeacherInfo() {
     try {
       const profile = await axios.get(`/api/teachers/${localStorage.getItem('id_token')}`);
+      console.log("this is the profile in dashboard boiiiii!!!!!!!!!", profile)
       // console.log('fetch teacher info ran');
       this.setState({ profile: profile.data }, () => {
         this.props.updateProfile(profile);
