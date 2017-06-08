@@ -38,7 +38,6 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.getUserCoordinates();
     this.fetchTeacherInfo()
     .then(() => {
       this.setState({ selectedLecture: this.props.currentLecture.lectureId });
@@ -48,9 +47,11 @@ class Dashboard extends Component {
       });
   }
 
+
   async fetchTeacherInfo() {
     try {
       const profile = await axios.get(`/api/teachers/${localStorage.getItem('id_token')}`);
+      console.log("this is the profile in dashboard boiiiii!!!!!!!!!", profile)
       // console.log('fetch teacher info ran');
       this.setState({ profile: profile.data }, () => {
         this.props.updateProfile(profile);
@@ -92,7 +93,7 @@ class Dashboard extends Component {
             handleLectureClick={this.handleLectureClick}
           />)}
         />
-        <Route path="/dashboard/livelecture" component={() => (<LiveLecture history={history} lat={this.state.lat} lng={this.state.lng} topics={liveLectureTopics || []} />)} />
+        <Route path="/dashboard/livelecture" component={() => (<LiveLecture history={history} topics={liveLectureTopics || []} />)} />
         <Route path="/dashboard/addClass" component={() => (<AddClass history={history} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
         <Route path="/dashboard/addQuiz" component={() => (<AddQuiz history={history} fetchTeacherInfo={this.fetchTeacherInfo} />)} />
         <Route path="/dashboard/quiz" component={() => (<QuizList history={history} fetchTeacherInfo={this.fetchTeacherInfo} quizzes={quizzes || []} />)} />
@@ -100,8 +101,6 @@ class Dashboard extends Component {
           path="/dashboard/addLecture"
           component={() => (<AddLecture
             history={history}
-            lat={this.state.lat}
-            lng={this.state.lng}
             cohortId={currentCohortId}
             fetchTeacherInfo={this.fetchTeacherInfo}
           />)}

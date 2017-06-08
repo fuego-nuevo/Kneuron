@@ -38,6 +38,10 @@ const User = db.define('user', {
     type: Sequelize.TEXT,
     allowNull: true,
   },
+  username: {
+    type: Sequelize.TEXT,
+    allowNull: true,
+  },
 });
 
 const StudentQuestion = db.define('studentquestion', {

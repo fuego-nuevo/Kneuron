@@ -75,7 +75,7 @@ async provideLocData(){
   } catch(error) {
     console.log("Did Not Update Because: ", error);
   }
-
+}
   async runLiveLecture() {
     try {
       await this.props.currentLiveLecture(this.props.lecture);

@@ -6,7 +6,7 @@ const postAttendance = (req, res) => {
   .then((data) => {
     if (data) {
       console.log('You have already been marked for attendance boi!');
-      res.status(404).send('You have already been marked for attendance boi!');
+      res.status(200).send('You have already been marked for attendance boi!');
     } else {
       db.Attendance.create({
         present: req.body.present,

@@ -13,7 +13,7 @@ const fetchAllStudentData = async (req, res) => {
     const email = util.antiHasher(req.params.auth_token);
     const allData = await db.User.findOne({
       where: {
-        email: email,
+        email,
         // id: req.params.id,
         userType: 1,
       },
@@ -83,7 +83,6 @@ const postStudent = async (req, res) => {
     const hash = await bcrypt.hash(req.body.password, salt);
     console.log("hiihihihih")
     const person = await db.User.findOne({ where: { email: req.body.email } });
-    console.log("student line 86",person)
     if (person) {
       console.log('That email is taken. Please try another email.');
       res.status(404).send('That email is taken. Please try another email.');
@@ -151,10 +150,12 @@ const deleteStudent = async (req, res) => {
   }
 };
 
+
 // router.get('/:id', fetchAllStudentData);
 router.get('/:auth_token', fetchAllStudentData);
 router.get('/:email/:creds', fetchStudent);
 router.post('/', postStudent);
+// router.post('/:code', addClass);
 router.put('/:auth_token', updateStudent);
 router.delete('/:auth_token', deleteStudent);
 
