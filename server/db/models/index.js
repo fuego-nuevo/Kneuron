@@ -64,6 +64,10 @@ const Cohort = db.define('cohort', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  description: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
   code: {
     type: Sequelize.STRING,
     allowNull: true,
@@ -209,7 +213,6 @@ Result.belongsTo(Cohort, { foreignKey: { name: 'cohort_id', allowNull: false }, 
 Lecture.hasMany(Result, { foreignKey: { name: 'lecture_id', allowNull: false }, onDelete: 'CASCADE' });
 Result.belongsTo(Lecture, { foreignKey: { name: 'lecture_id', allowNull: false }, onDelete: 'CASCADE' });
 
-
 //add this to the db
 // School.sync({ force: true })
 //   .then(() => User.sync({ force: true }))
@@ -224,10 +227,6 @@ Result.belongsTo(Lecture, { foreignKey: { name: 'lecture_id', allowNull: false }
 //   .then(() => Answer.sync({ force: true }))
 //   .then(() => Result.sync({ force: true }))
 //   .catch((err) => { console.log(err); });
-
-
-
-
 
 module.exports = {
   School,

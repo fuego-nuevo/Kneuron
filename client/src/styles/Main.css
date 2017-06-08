@@ -1535,20 +1535,12 @@ hr{
     box-shadow: 0 2px 0 rgba(0,0,0,0.06);
 }
 
-.semi-square {
-   -webkit-border-radius: 5px;
-   -moz-border-radius: 5px;
-   border-radius: 5px;
-}
-
-.blue {
-    background-color: #3b8ec2; 
-}
-
-.styled-select {
-   background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
-   height: 29px;
-   overflow: hidden;
+.styled-select.slate select {
+   border: 1px solid #ccc;
+   border-bottom: 1px solid #ccc;
+   border-radius: 8px;
+   font-size: 16px;
+   height: 34px;
    width: 240px;
 }
 

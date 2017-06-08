@@ -8,6 +8,7 @@ class StudentLecturePerformance extends Component {
     super();
     this.state = {
       lectureData: [],
+      quizzes: [],
     };
   }
 
@@ -23,6 +24,7 @@ class StudentLecturePerformance extends Component {
           };
           topicObject.name = topic.name;
           _.each(topic.quizzes, (quiz) => {
+            this.setState({ quizzes: [quiz, ...this.state.quizzes] });
             topicObject.results.push(quiz.results[0].percentage);
           });
           return topicObject;
@@ -39,6 +41,7 @@ class StudentLecturePerformance extends Component {
   }
 
   render() {
+    console.log('this is the state of quizzes ', this.state.quizzes);
     return (
       <div className="bar-chart">
         <ResponsiveContainer>
