@@ -97,6 +97,7 @@ const updateLecture = async (req, res) => {
 
 const updateLectureCoords = async (req, res) => {
   try {
+    console.log("this is the user loc data: ", req.body);
     const teacher = await db.User.findOne({ where: { email: antiHasher(req.body.auth_token) } });
     if (teacher) {
       console.log('we found the teacher');

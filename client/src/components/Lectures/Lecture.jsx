@@ -27,22 +27,6 @@ class Lecture extends Component {
     this.getUserCoordinates = this.getUserCoordinates.bind(this);
   }
 
-  componentDidMount(){
-    this.getUserCoordinates();
-  }
-
-  componentDidUpdate(){
-    this.provideLocData();
-  }
-
-  getUserCoordinates() {
-    if('geolocation' in navigator){
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
-      }, () => { enableHighAccuracy: true; });
-    }
-  }
-
 
   async deleteLecture() {
     try {
@@ -60,22 +44,31 @@ class Lecture extends Component {
     }
   }
 
-async provideLocData(){
-  const { cohort_id, name } = this.props.lecture;
-  const { lat, lng } = this.state;
-  const body = {
-    auth_token: localStorage.getItem('id_token'),
-    cohortId: cohort_id,
-    lecture_name: name,
-    latitude: lat,
-    longitude: lng,
+  getUserCoordinates() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log('INSIDE NAV LOC FUNCTION: ', position.coords.latitude);
+        return [position.coords.latitude, position.coords.longitude];
+      }, () => { true; });
+    }
   }
-  try{
+
+  async provideLocData() {
+    console.log('This is the userLoc Data: ', this.getUserCoordinates());
+    const { cohort_id, name } = this.props.lecture;
+    const { lat, lng } = this.state;
+    const body = {
+      auth_token: localStorage.getItem('id_token'),
+      cohortId: cohort_id,
+      lecture_name: name,
+      userLocation: this.getUserCoordinates(),
+    };
+    try {
       await axios.put('/api/lectures/coords', body);
-  } catch(error) {
-    console.log("Did Not Update Because: ", error);
+    } catch (error) {
+      console.log('Did Not Update Because: ', error);
+    }
   }
-}
   async runLiveLecture() {
     try {
       await this.props.currentLiveLecture(this.props.lecture);
@@ -129,7 +122,7 @@ async provideLocData(){
 
   render() {
     const currentLectureRoute = `/dashboard/lectures${this.props.lecture.id}`;
-    console.log("this is the state of lecture !!!!!!!!!!!!!", this.state)
+    console.log('this is the state of lecture !!!!!!!!!!!!!', this.state);
     return (
       <div
         className="cohort-entry animated bounceInUp"
@@ -157,7 +150,7 @@ async provideLocData(){
           id="lecture-entry"
           className="ch-entry-header"
         >{this.props.lecture.name}</div>
-        <div>{this.props.lecture.date.slice(0,10)}</div>
+        <div>{this.props.lecture.date.slice(0, 10)}</div>
         <button className="lecture-button" onClick={() => { this.props.lectureLive(); this.props.handleLectureClick(this.props.lecture.id); }}>
           <Link
             to={currentLectureRoute}
@@ -168,7 +161,8 @@ async provideLocData(){
         </button>
         <button
           onClick={() => this.runLiveLecture()}
-          className="go-live"><img alt="delete" src="https://image.flaticon.com/icons/png/128/42/42912.png" width="25px" height="25px" /></button>
+          className="go-live"
+        ><img alt="delete" src="https://image.flaticon.com/icons/png/128/42/42912.png" width="25px" height="25px" /></button>
         <button onClick={this.deleteLecture} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
         <button onClick={this.handleClick} className="edit-button"><img alt="delete" src="http://simpleicon.com/wp-content/uploads/pencil.png" width="25px" height="25px" /></button>
       </div>

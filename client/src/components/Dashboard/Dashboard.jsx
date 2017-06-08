@@ -47,7 +47,6 @@ class Dashboard extends Component {
       });
   }
 
-
   async fetchTeacherInfo() {
     try {
       const profile = await axios.get(`/api/teachers/${localStorage.getItem('id_token')}`);
