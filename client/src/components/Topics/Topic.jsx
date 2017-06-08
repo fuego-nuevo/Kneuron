@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Swal from 'sweetalert';
+import swal from 'sweetalert';
 import axios from 'axios';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import { currentTopic } from '../../actions/CurrentTopic';
@@ -52,12 +52,18 @@ class Topic extends Component {
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
-            Swal('Topic succesfully updated');
+            swal({
+              title: 'Topic succesfully updated :)',
+              type: 'success',
+            });
           });
       })
       .catch((err) => {
         console.log(err);
-        Swal('there was an error on our server :(');
+        swal({
+          title: 'There was an error on our server :(',
+          type: 'error',
+        });
       });
   }
 

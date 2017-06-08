@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { currentTopic } from '../../../actions/CurrentTopic';
 import axios from 'axios';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
-import Swal from 'sweetalert';
+import swal from 'sweetalert';
 
 class SearchedDataTopic extends Component {
   constructor(props) {
@@ -50,12 +50,18 @@ class SearchedDataTopic extends Component {
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
-            Swal('class succesfully updated :)');
+            swal({
+              title: 'Class succesfully updated :)',
+              type: 'success',
+            });
           });
       })
       .catch((err) => {
         console.log(err);
-        Swal('there was an error on our server :(');
+        swal({
+          title: 'There was an error on our server :(',
+          type: 'error',
+        });
       });
   }
 
