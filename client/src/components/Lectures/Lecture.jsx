@@ -123,6 +123,7 @@ async provideLocData(){
 
   render() {
     const currentLectureRoute = `/dashboard/lectures${this.props.lecture.id}`;
+    console.log("this is the state of lecture !!!!!!!!!!!!!", this.state)
     return (
       <div
         className="cohort-entry animated bounceInUp"
