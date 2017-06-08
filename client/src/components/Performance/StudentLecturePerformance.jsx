@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 import axios from 'axios';
 import _ from 'lodash';
 
@@ -40,12 +40,16 @@ class StudentLecturePerformance extends Component {
 
   render() {
     return (
-      <RadarChart cx={300} cy={250} outerRadius={150} width={700} height={600} data={this.state.lectureData}>
-        <Radar name="Student" dataKey="average" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-        <PolarGrid />
-        <PolarAngleAxis dataKey="name" />
-        <PolarRadiusAxis />
-      </RadarChart>
+      <div className="bar-chart">
+        <ResponsiveContainer>
+          <RadarChart data={this.state.lectureData}>
+            <Radar name="Student" dataKey="average" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+            <PolarGrid />
+            <PolarAngleAxis dataKey="name" />
+            <PolarRadiusAxis />
+          </RadarChart>
+        </ResponsiveContainer>
+      </div>
     );
   }
 }
