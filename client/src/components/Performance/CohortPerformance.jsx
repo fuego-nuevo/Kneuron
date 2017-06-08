@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 class CohortPerformance extends Component {
   constructor(props) {
@@ -51,19 +51,21 @@ class CohortPerformance extends Component {
   render() {
     const { fetchStudent } = this.props;
     return (
-      <div className="livedata">
-        <BarChart
-          width={1700}
-          height={475}
-          data={this.state.results}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
-          <XAxis dataKey="name" />
-          <YAxis type="number" domain={[0, 100]} />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="Average" fill="#8884d8" onClick={fetchStudent} />
-        </BarChart>
+      <div id="std-perf" className="livedata">
+        <div className="bar-chart">
+          <ResponsiveContainer>
+            <BarChart
+              data={this.state.results}
+              margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+            >
+              <XAxis dataKey="name" />
+              <YAxis type="number" domain={[0, 100]} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="Average" fill="#8884d8" onClick={fetchStudent} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     );
   }

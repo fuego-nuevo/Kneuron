@@ -83,12 +83,14 @@ class OverallPerformance extends Component {
         {/*<TeacherNetwork allData={this.state.allPerformanceData} profile={profile} />*/}
         { this.state.showCohort && !this.state.showStudent ?
           <text>
-            {subject.subject}
             <CohortPerformance cohortData={this.state.chosenCohort} fetchStudent={this.fetchStudent} />
           </text>
           : null }
         { this.state.showStudent && !this.state.showCohort ?
-          <text>{this.state.chosenStudent.name}
+          <text>
+            <div className="center-name">
+              {this.state.chosenStudent.name}
+            </div>
             <StudentPerformance studentData={this.state.chosenStudent} />
           </text>
           : null }

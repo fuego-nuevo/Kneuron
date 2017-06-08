@@ -1155,6 +1155,10 @@ hr{
     box-shadow: 0 2px 0 rgba(0,0,0,0.06);
 }
 
+#std-perf{
+    top: 42vh;
+}
+
 .bars{
     position: absolute;
     bottom: 13.5%;
@@ -1196,6 +1200,27 @@ hr{
     text-align: center;
     font-family: "Brandon Grotesque";
     font-size: 20px;
+}
+
+.center-name{
+    position: absolute;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    top: 25vh;
+    width: 15%;
+    left: 42.5%;
+    text-center: align;
+    font-size: 28px;
+    color: floralwhite;
+    background-color: #9298a0;
+    border-radius: 5px;
+    height: 5%;
+}
+
+#lec-opt{
+    top: 1vh;
+    height: 4vh;
 }
 
 
