@@ -53,6 +53,7 @@ const postSchool = (req, res) => {
               userType: 2,
               fName: req.body.fName,
               lName: req.body.lName,
+              image: req.body.image,
             },
           })
             .spread((newUser, created) => {
