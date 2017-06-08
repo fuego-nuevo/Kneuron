@@ -1190,6 +1190,24 @@ hr{
     height: 80%;
 }
 
+#radar{
+    display: flex;
+    flex-direction: row;
+}
+
+.act-radar{
+    flex: 1;
+}
+
+.radar-quizzes{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1;
+    overflow: auto;
+    text-align: center;
+}
+
 .perf-option{
     position: absolute;
     top: 8vh;

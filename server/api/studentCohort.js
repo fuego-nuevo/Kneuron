@@ -2,7 +2,7 @@ const router = require('express').Router();
 const db = require('../db/models');
 
 router.get('/:teacher_id', (req, res, next) => {
-  db.Cohort.findOne({
+  db.Cohort.findAll({
     where: { teacher_id: req.params.teacher_id },
     include: [{
       model: db.StudentCohort,

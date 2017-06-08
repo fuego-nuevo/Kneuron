@@ -31,7 +31,10 @@ class Topic extends Component {
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
-            Swal('Topic succesfully deleted');
+            swal({
+              title: 'Topic succesfully deleted',
+              type: 'success',
+            });
           })
           .catch((err) => {
             console.log('error with deleting topic , ERR: ', err);
