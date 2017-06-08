@@ -61,6 +61,7 @@ class LiveLecture extends Component {
     });
     socket.on('student-track', (data) => {
       console.log(`the student ${data.name} is present? ${data.present}`);
+      this.setState({ studentsPresent: data });
     });
     topics.forEach((topic) => {
       topic.quizzes.forEach((quiz) => {
