@@ -35,9 +35,7 @@ class CohortPerformance extends Component {
     const resultArray = [];
     _.each(cohortData.studentcohorts, (student) => {
       const filteredResults = student.user.results.filter(result => student.cohort_id === result.cohort_id);
-      let Average = filteredResults.reduce((sum, result) => {
-        return sum + result.percentage;
-      }, 0);
+      let Average = filteredResults.reduce((sum, result) => sum + result.percentage, 0);
       Average /= filteredResults.length;
       resultArray.push({
         student_id: student.user.id,
