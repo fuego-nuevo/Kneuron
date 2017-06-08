@@ -29,12 +29,7 @@ class LiveLecture extends Component {
       studentAnswer: [],
       trackingAttendance: false,
       attendanceTime: 30,
-      studentsPresent: [
-        { name: 'Mariano Okpalefe', present: true },
-        { name: 'Justin Kang', present: false },
-        { name: 'Jason Kim', present: true },
-        { name: 'Alex Aleksanyan', present: false },
-      ],
+      studentsPresent: [],
     };
     this.filterQuestions = this.filterQuestions.bind(this);
     this.handleClick = this.handleClick.bind(this);
