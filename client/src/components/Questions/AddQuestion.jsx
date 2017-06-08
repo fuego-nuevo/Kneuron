@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 class AddQuestion extends Component {
   constructor() {
@@ -38,7 +39,10 @@ class AddQuestion extends Component {
       const posted = await axios.post('/api/questions/', body);
       const added = await this.props.fetchTeacherInfo();
       this.props.history.push('/dashboard/class');
-      Swal('Question succesfully added');
+      swal({
+        title: 'Question succesfully added',
+        type: 'success',
+      });
     } catch (error) {
       console.log('error with axios call line 28 AddClass ', error);
     }

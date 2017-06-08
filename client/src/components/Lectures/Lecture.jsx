@@ -34,7 +34,10 @@ class Lecture extends Component {
       this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
-            Swal('Lecture succesfully deleted');
+            swal({
+              title: 'Lecture succesfully deleted',
+              type: 'success',
+            });
           })
           .catch((err) => {
             console.log('error with deleting class , ERR: ', err);

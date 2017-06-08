@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 class AddQuiz extends Component {
   constructor(props) {
@@ -27,7 +28,10 @@ class AddQuiz extends Component {
       const posted = await axios.post('/api/quizzes/', body);
       const added = await this.props.fetchTeacherInfo();
       this.props.history.push('/dashboard/class');
-      Swal('Quiz succesfully added');
+      swal({
+        title: 'Quiz succesfully added',
+        type: 'success',
+      });
     } catch (error) {
       console.log('error with axios call line 28 AddQuiz ', error);
     }
