@@ -3,10 +3,10 @@ import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import ReactCountdownClock from 'react-countdown-clock';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import StudentQuestions from '../Lectures/StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 import LiveQuizList from './LiveQuizList';
-import BarChart from './BarChart';
 import AttendanceList from './AttendanceList';
 import AttendanceEntry from './AttendanceEntry';
 
@@ -56,7 +56,6 @@ class LiveLecture extends Component {
       this.setState({ studentQuestions: [studentQuestions, ...this.state.studentQuestions] });
     });
     socket.on('student-answers', (studentAnswer) => {
-      console.log('i heard you stu ansas, ', studentAnswer);
       this.setState({ studentAnswer: [studentAnswer, ...this.state.studentAnswer] });
     });
     socket.on('student-track', (data) => {
@@ -69,15 +68,19 @@ class LiveLecture extends Component {
     });
     this.setState({ quizzes });
   }
+
   handleClick() {
     this.setState({ isShowingQuizModal: true });
   }
+
   handleAttendanceModalClick() {
     this.setState({ isShowingTimeModal: true });
   }
+
   handleAttendanceModalClose() {
     this.setState({ isShowingTimeModal: false });
   }
+
   handleModalClose() {
     this.setState({ isShowingQuizModal: false });
   }
@@ -94,6 +97,7 @@ class LiveLecture extends Component {
     const selectedQuiz = this.state.quizzes.filter(quiz => quiz.id === id);
     this.setState({ selectedQuiz });
   }
+
   endAttendance() {
     this.setState({ trackingAttendance: false });
   }
@@ -109,22 +113,26 @@ class LiveLecture extends Component {
     });
     this.setState({ isQuizLive: true });
   }
+
   endPopQuiz() {
     this.setState({ isQuizLive: false }, () => {
       this.setState({ studentAnswer: [] });
     });
   }
+
   setTopic(currentTopic) {
     this.setState({ currentTopic });
   }
+
   filterQuestions(id) {
     const filteredQuestions = this.state.studentQuestions.filter(question => question.topicId === id);
     this.setState({ filteredQuestions });
   }
+
   startAttendance() {
-    console.log('it happened starting attendance ,');
     this.handleAttendanceModalClick();
   }
+  
   trackAttendance() {
     this.handleAttendanceModalClose();
     this.setState({ trackingAttendance: true }, () => {
@@ -252,7 +260,19 @@ class LiveLecture extends Component {
               <div> scored between 60 and 80 percent <div id="pass" className="legend-keys" /> </div>
               <div> scored greater than 80 percent <div id="exceed" className="legend-keys" /> </div>
             </div>
-            <BarChart data={this.state.studentAnswer.map(student => [student.name, student.correct])} size={[300, 300]} />
+            <BarChart
+              width={300}
+              height={300}
+              data={this.state.studentAnswer}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            >
+              <XAxis dataKey="name" />
+              <YAxis type="number" domain={[0, 100]} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="correct" fill="#8884d8" />
+            </BarChart>
+            {/*<BarChart data={this.state.studentAnswer.map(student => [student.name, student.correct])} size={[300, 300]} />*/}
             <div className="quiz-line">
               Pop Quiz Results
             </div>

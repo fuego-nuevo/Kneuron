@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { currentLiveLecture } from '../../../actions/CurrentLiveLecture';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
-import Swal from 'sweetalert';
+import swal from 'sweetalert';
 
 class SearchDataLecture extends Component {
   constructor(props){
@@ -53,12 +53,18 @@ class SearchDataLecture extends Component {
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
-            Swal('lecture succesfully updated :)');
+            swal({
+              title: 'Lecture succesfully updated :)',
+              type: 'success',
+            });
           });
       })
       .catch((err) => {
         console.log(err);
-        Swal('there was an error on our server :(');
+        swal({
+          title: 'There was an error on our server :(',
+          type: 'error',
+        });
       });
   }
 

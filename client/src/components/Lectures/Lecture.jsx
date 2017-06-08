@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
-import Swal from 'sweetalert';
+import swal from 'sweetalert';
 import { currentLiveLecture } from '../../actions/CurrentLiveLecture';
 import { lectureLive } from '../../actions/IsLectureLive';
 
@@ -99,12 +99,22 @@ async provideLocData(){
         this.props.fetchTeacherInfo()
           .then(() => {
             this.props.history.push('/dashboard/class');
+<<<<<<< HEAD
             Swal('Lecture succesfully updated');
+=======
+            swal({
+              title: 'Lecture succesfully updated :)',
+              type: 'success',
+            });
+>>>>>>> [Fix]
           });
       })
       .catch((err) => {
         console.log(err);
-        Swal('there was an error on our server :(');
+        swal({
+          title: 'there was an error on our server :(',
+          type: 'error',
+        });
       });
   }
 
