@@ -56,7 +56,8 @@ class AddClass extends Component {
             <div className="add-class-inps">
               <label htmlFor="semester">Semester</label>
               <br />
-              <div className="styled-select blue semi-square">
+              {/*<div className="styled-select blue semi-square">*/}
+              <div className="styled-select slate">
                 <select onChange={this.handleChange} name="season">
                   <option value="SPRING">Spring</option>
                   <option value="SUMMER">Summer</option>
@@ -64,10 +65,12 @@ class AddClass extends Component {
                   <option value="WINTER">Winter</option>
                 </select>
               </div>
-              <select onChange={this.handleChange} name="year">
-                <option value={year.toString()}>{year}</option>
-                <option value={(year + 1).toString()}>{year + 1}</option>
-              </select>
+              <div className="styled-select slate">
+                <select onChange={this.handleChange} name="year">
+                  <option value={year.toString()}>{year}</option>
+                  <option value={(year + 1).toString()}>{year + 1}</option>
+                </select>
+              </div>
             </div>
             <div className="add-class-inps">
               <label htmlFor="code">School Code</label>

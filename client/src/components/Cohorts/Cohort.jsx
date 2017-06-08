@@ -119,6 +119,7 @@ class Cohort extends Component {
         <div className="ch-entry-header">{this.props.cohort.subject}</div>
         <h3>{this.props.cohort.semester}</h3>
         <h3>{convertTime(this.props.cohort.time)}</h3>
+        <h3>Description: Class Description</h3>
         <h4>Code: {this.props.cohort.code}</h4>
         <button className="lecture-button" onClick={this.fetchLectures}><Link to="/dashboard/lectures">Lectures</Link></button>
         <button onClick={this.deleteClass} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
