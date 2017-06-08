@@ -1,25 +1,15 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
+const axios = require('axios');
 const db = require('../db/models');
 const hasher = require('./util').hasher;
 const antiHasher = require('./util').antiHasher;
-const redis = require('../db/redis');
-const saltRounds = 10;
-const axios = require('axios');
-const LatLon = require('geodesy').LatLonEllipsoidal;
 
-let myEmail = 'alex@gmail.com';
-bcrypt.hash(myEmail, saltRounds, (err, hash) => {
-  console.log("THE HASH OF MY EMAIL IS: ", hash);
-  bcrypt.compare(myEmail, hash, (err, res) => {
-    console.log("RESPONSE IS: ", res);
-  })
-})
+const saltRounds = 10;
 
 // Controllers
 // Fetch ALL INFORMATION on Teacher
 const fetchAllTeacherData = async (req, res) => {
-
   try {
     const email = antiHasher(req.params.auth_token);
     const allData = await db.User.findOne({
@@ -30,15 +20,6 @@ const fetchAllTeacherData = async (req, res) => {
       include: [{
         model: db.Cohort,
         as: 'cohort',
-        // Begin - This is the query to find all students associated to a cohort
-        // include: [{
-        //   model: db.StudentCohort,
-        //   include: [{
-        //     model: db.User
-        //   }]
-        // }]
-        // End - This is the query to find all students associated to a cohort
-
         include: [{
           model: db.Lecture,
           include: [{
@@ -47,9 +28,6 @@ const fetchAllTeacherData = async (req, res) => {
               model: db.Quiz,
               include: [{
                 model: db.Question,
-                // include: [{
-                //   model: db.Answer,
-                // }],
               }],
             }],
           }],
@@ -60,34 +38,6 @@ const fetchAllTeacherData = async (req, res) => {
     res.status(200).send(allData);
   } catch (error) {
     console.log('Some shit went wrong ', error);
-    res.status(500).send(error);
-  }
-};
-
-
-const fetchStudents = async (req, res) => {
-  try {
-    const email = antiHasher(req.params.auth_token);
-    const allStudent = await db.User.findOne({
-      where: {
-        email,
-        userType: 0,
-      },
-      include: [{
-        model: db.Cohort,
-        as: 'cohort',
-        include: [{
-          model: db.StudentCohort,
-          include: [{
-            model: db.User,
-          }],
-        }],
-      }],
-    });
-    console.log('Retrieved all students', allStudent);
-    res.status(200).send(allStudent);
-  } catch (error) {
-    console.log('Error in fetchStudents');
     res.status(500).send(error);
   }
 };
@@ -190,7 +140,7 @@ const deleteTeacher = async (req, res) => {
     console.log('ASYNC Error: ', error);
     res.status(500).send(error);
   }
-};/**/
+};
 
 const getElevation = async (req, res) => {
   try {
@@ -205,7 +155,6 @@ const getElevation = async (req, res) => {
 };
 
 // Controllers
-router.get('/', fetchStudents);
 router.get('/:auth_token', fetchAllTeacherData);
 router.get('/:email/:creds', fetchTeacher);
 router.post('/', postTeacher);
