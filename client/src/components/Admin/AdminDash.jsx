@@ -30,6 +30,7 @@ class AdminDash extends Component {
     const { isAuthenticated, logoutUser } = this.props;
     const { fName, lName } = this.state.user;
     const { name, code } = this.state.school;
+    console.log(this.state);
     if (isAuthenticated) {
       return (
         <div className="admin-contain">
