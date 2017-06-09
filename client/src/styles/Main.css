@@ -1061,8 +1061,8 @@ hr{
 .teacher-profile{
     position: absolute;
     width: 60vw;
-    height: 80vh;
-    top: 15vh;
+    height: 60vh;
+    top: 22.5vh;
     left: 20vw;
     border-radius: 8px;
     box-shadow: 0 2px 0 rgba(0,0,0,0.06);
