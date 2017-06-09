@@ -409,6 +409,10 @@ textarea:focus, input:focus{
     font-family: "Brandon Grotesque";
 }
 
+#taller{
+    height: 42vh;
+}
+
 .quest-entry{
     position: relative;
     width: 70%;

@@ -106,7 +106,7 @@ class Cohort extends Component {
   render() {
     const { cohort } = this.props;
     return (
-      <div className="cohort-entry animated bounceInUp" >
+      <div id="taller" className="cohort-entry animated bounceInUp" >
         <div>
           {
             this.state.isShowingModal &&
