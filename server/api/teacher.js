@@ -37,7 +37,7 @@ const fetchAllTeacherData = async (req, res) => {
     console.log('All information front loaded ', allData);
     res.status(200).send(allData);
   } catch (error) {
-    console.log('Some shit went wrong ', error);
+    console.log('Something went wrong ', error);
     res.status(500).send(error);
   }
 };

@@ -5,7 +5,6 @@ const Promise = require('bluebird');
 const redis = require('../db/redis');
 const util = require('./util');
 
-
 const saltRounds = 10;
 
 const fetchAllStudentData = async (req, res) => {
@@ -14,7 +13,6 @@ const fetchAllStudentData = async (req, res) => {
     const allData = await db.User.findOne({
       where: {
         email,
-        // id: req.params.id,
         userType: 1,
       },
       include: [{
@@ -30,23 +28,6 @@ const fetchAllStudentData = async (req, res) => {
                 include: [{
                   model: db.Question,
                 }],
-    // const email = antiHasher(req.params.auth_token);
-    // const allData = await db.User.findOne({
-    //   where: {
-    //     email: email,
-    //     userType: 1,
-    //   },
-    //   include: [{
-    //     model: db.Cohort,
-    //     as: 'cohort',
-    //     include: [{
-    //       model: db.Lecture,
-    //       include: [{
-    //         model: db.Topic,
-    //         include: [{
-    //           model: db.Quiz,
-    //           include: [{
-    //             model: db.Question,
               }],
             }],
           }],
@@ -56,7 +37,7 @@ const fetchAllStudentData = async (req, res) => {
     console.log('All information front loaded ', allData);
     res.status(200).send(allData);
   } catch (error) {
-    console.log('Some shit went wrong ', error);
+    console.log('Something went wrong ', error);
     res.status(500).send(error);
   }
 };
@@ -81,7 +62,6 @@ const postStudent = async (req, res) => {
   try {
     const salt = await bcrypt.genSalt(saltRounds);
     const hash = await bcrypt.hash(req.body.password, salt);
-    console.log("hiihihihih")
     const person = await db.User.findOne({ where: { email: req.body.email } });
     if (person) {
       console.log('That email is taken. Please try another email.');
@@ -151,11 +131,9 @@ const deleteStudent = async (req, res) => {
 };
 
 
-// router.get('/:id', fetchAllStudentData);
 router.get('/:auth_token', fetchAllStudentData);
 router.get('/:email/:creds', fetchStudent);
 router.post('/', postStudent);
-// router.post('/:code', addClass);
 router.put('/:auth_token', updateStudent);
 router.delete('/:auth_token', deleteStudent);
 

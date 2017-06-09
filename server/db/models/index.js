@@ -155,7 +155,6 @@ const Result = db.define('result', {
 });
 
 // Relation Definitions
-// THESE FUCKING WORK!!!!
 School.hasMany(User, { foreignKey: { name: 'school_id', allowNull: true }, onDelete: 'CASCADE' });
 User.belongsTo(School, { foreignKey: { name: 'school_id', allowNull: true }, onDelete: 'CASCADE' });
 
