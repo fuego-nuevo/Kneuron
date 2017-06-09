@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 class LiveLectureTopicsEntry extends Component {
   constructor(props) {
     super(props);
@@ -24,4 +23,3 @@ class LiveLectureTopicsEntry extends Component {
 }
 
 export default LiveLectureTopicsEntry;
-

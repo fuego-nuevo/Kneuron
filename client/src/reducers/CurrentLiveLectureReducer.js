@@ -6,7 +6,6 @@ const CurrentLiveLecture = (state = {}, action) => {
         liveLectureName: action.name,
         liveLectureTopics: action.topics,
       };
-
     default:
       return state;
   }

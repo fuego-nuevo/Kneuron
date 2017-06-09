@@ -7,7 +7,7 @@ const isLectureLive = (state = false, action) => {
     case 'LECTURE_OFF' :
       return {
         isLive: action.liveLecture,
-      }
+      };
     default:
       return state;
   }

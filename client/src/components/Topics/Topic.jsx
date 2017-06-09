@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import axios from 'axios';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
-import { currentTopic } from '../../actions/CurrentTopic';
 
+import { currentTopic } from '../../actions/CurrentTopic';
 
 class Topic extends Component {
   constructor(props) {
@@ -14,7 +14,6 @@ class Topic extends Component {
       isShowingModal: false,
       name: '',
     };
-
     this.deleteTopic = this.deleteTopic.bind(this);
     this.editClass = this.editClass.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -25,16 +24,15 @@ class Topic extends Component {
   async deleteTopic(e) {
     e.preventDefault();
     const topic_id = this.props.topic.id;
-
     try {
       const removed = await axios.delete(`/api/topics/${topic_id}`);
         this.props.fetchTeacherInfo()
           .then(() => {
-            this.props.history.push('/dashboard/class');
             swal({
-              title: 'Topic succesfully deleted',
+              title: 'Topic succesfully deleted!',
               type: 'success',
             });
+            this.props.history.push('/dashboard/class');
           })
           .catch((err) => {
             console.log('error with deleting topic , ERR: ', err);
@@ -54,17 +52,17 @@ class Topic extends Component {
       .then(() => {
         this.props.fetchTeacherInfo()
           .then(() => {
-            this.props.history.push('/dashboard/class');
             swal({
-              title: 'Topic succesfully updated :)',
+              title: 'Topic succesfully updated!',
               type: 'success',
             });
+            this.props.history.push('/dashboard/class');
           });
       })
       .catch((err) => {
         console.log(err);
         swal({
-          title: 'There was an error on our server :(',
+          title: 'There was an error on our server!',
           type: 'error',
         });
       });
@@ -114,6 +112,5 @@ class Topic extends Component {
     );
   }
 }
-
 
 export default connect(null, { currentTopic })(Topic);

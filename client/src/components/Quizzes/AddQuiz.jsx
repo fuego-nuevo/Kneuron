@@ -27,18 +27,17 @@ class AddQuiz extends Component {
     try {
       const posted = await axios.post('/api/quizzes/', body);
       const added = await this.props.fetchTeacherInfo();
-      this.props.history.push('/dashboard/class');
       swal({
-        title: 'Quiz succesfully added',
+        title: 'Quiz succesfully added!',
         type: 'success',
       });
+      this.props.history.push('/dashboard/class');
     } catch (error) {
       console.log('error with axios call line 28 AddQuiz ', error);
     }
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="add-class-container">
         <form onSubmit={this.handleSubmit} className="add-class-form animated bounceInUp">

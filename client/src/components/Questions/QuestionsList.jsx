@@ -1,4 +1,5 @@
 import React from 'react';
+
 import QuestionEntry from './QuestionEntry';
 
 const QuestionsList = props => (
@@ -8,6 +9,5 @@ const QuestionsList = props => (
   ))}
   </div>
 );
-
 
 export default QuestionsList;

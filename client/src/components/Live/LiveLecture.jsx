@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import ReactCountdownClock from 'react-countdown-clock';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+
 import StudentQuestions from '../Lectures/StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 import LiveQuizList from './LiveQuizList';
 import AttendanceList from './AttendanceList';
 
 const socket = io();
-
 
 class LiveLecture extends Component {
   constructor(props) {
@@ -63,8 +63,7 @@ class LiveLecture extends Component {
       this.setState({ studentAnswer: [studentAnswer, ...this.state.studentAnswer] });
     });
     socket.on('student-track', (data) => {
-      console.log(`the student ${data.name} is present? ${data.present}`);
-      this.setState({ studentsPresent: [...this.state.studentsPresent, data] });
+      this.setState({ studentsPresent: data });
     });
     topics.forEach((topic) => {
       topic.quizzes.forEach((quiz) => {
@@ -108,12 +107,12 @@ class LiveLecture extends Component {
   }
 
   sendPopQuiz() {
-    const { profile, cohort_id } = this.props;
+    const { profile, cohort_id, topics } = this.props;
     socket.emit('pop-quiz', {
       time: this.state.time,
       questions: JSON.stringify(this.state.selectedQuiz[0].questions),
       cohort_id,
-      topic: this.state.selectedQuiz[0].topic_id,
+      lecture_id: topics.lecture_id,
       id: profile,
     });
     this.setState({ isQuizLive: true });
@@ -147,7 +146,6 @@ class LiveLecture extends Component {
 
   render() {
     const { topics } = this.props;
-    console.log(this.state);
     if (this.state.trackingAttendance) {
       return (
         <div>
@@ -287,6 +285,5 @@ const mapStateToProps = state => ({
   profile: state.profile.id,
   cohort_id: state.lectures.currentCohortId,
 });
-
 
 export default connect(mapStateToProps)(LiveLecture);

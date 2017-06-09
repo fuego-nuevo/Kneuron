@@ -8,11 +8,9 @@ class AddTopic extends Component {
     this.state = {
       name: '',
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
 
  handleChange(e) {
     const name = e.target.name;
@@ -27,23 +25,21 @@ class AddTopic extends Component {
       name: this.state.name,
       lecture_id: this.props.lectureId,
     };
-
     try {
       const posted = await axios.post('/api/topics/', body);
       const added = await this.props.fetchTeacherInfo()
-      this.props.history.push('/dashboard/class');
       swal({
-        title: 'Topic succesfully added',
+        title: 'Topic succesfully added!',
         type: 'success',
       });
+      this.props.history.push('/dashboard/class');
     } catch (error) {
       console.log('error with axios call line 28 AddClass ', error);
     }
   }
 
-
-  render(){
-    return(
+  render() {
+    return (
       <div className="add-class-container">
         <form onSubmit={this.handleSubmit} className="add-class-form animated bounceInUp">
           <div className="add-class-input-container">

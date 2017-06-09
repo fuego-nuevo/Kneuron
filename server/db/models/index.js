@@ -155,7 +155,6 @@ const Result = db.define('result', {
 });
 
 // Relation Definitions
-// THESE FUCKING WORK!!!!
 School.hasMany(User, { foreignKey: { name: 'school_id', allowNull: true }, onDelete: 'CASCADE' });
 User.belongsTo(School, { foreignKey: { name: 'school_id', allowNull: true }, onDelete: 'CASCADE' });
 
@@ -164,9 +163,6 @@ Cohort.belongsTo(School, { foreignKey: { name: 'school_id', allowNull: true }, o
 
 User.hasMany(Cohort, { as: 'cohort', foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE' });
 Cohort.belongsTo(User, { as: 'teacher', foreignKey: { name: 'teacher_id', allowNull: false }, onDelete: 'CASCADE' });
-
-// User.belongsToMany(Cohort, { as: 'student_cohort', through: 'StudentCohort', foreignKey: { name: 'student_id', allowNull: false }, onDelete: 'CASCADE' });
-// Cohort.belongsToMany(User, { as: 'cohort_student', through: 'StudentCohort', foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
 
 Cohort.hasMany(Lecture, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });
 Lecture.belongsTo(Cohort, { foreignKey: { name: 'cohort_id', allowNull: false }, onDelete: 'CASCADE' });

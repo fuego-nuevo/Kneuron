@@ -10,8 +10,7 @@ const currentProfile = (state = {}, action) => {
         cohort: action.cohort,
         image: action.image,
         id: action.id,
-      }
-
+      };
     default:
       return state;
   }

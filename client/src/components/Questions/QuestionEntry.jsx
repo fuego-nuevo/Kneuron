@@ -14,5 +14,4 @@ const QuestionEntry = props => (
   </div>
 );
 
-
 export default QuestionEntry;

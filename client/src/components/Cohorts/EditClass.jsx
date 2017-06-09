@@ -29,7 +29,7 @@ class AddClass extends Component {
       console.log(updated);
       this.props.history.push('/dashboard/class');
     } catch (error) {
-      console.log('error with axios call line 31 editClass');
+      console.log('Error with axios call line 31 editClass');
     }
   }
 

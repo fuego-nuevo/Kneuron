@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import { signupUser } from '../actions/Login';
 
 class SignUp extends Component {
@@ -30,13 +31,10 @@ class SignUp extends Component {
       console.log(file.name);
       this.setState({ image: reader.result });
     }
-    console.log("THIS IS THE FILE: ", file)
     reader.readAsDataURL(file);
   }
 
   render() {
-    console.log(this.props);
-    console.log(this.state);
     return (
       <div className="signup">
         <form className="signup-form" onSubmit={(e) => { e.preventDefault(); this.props.signupUser(this.state, this.props.history); }} autoComplete="on">
@@ -66,6 +64,5 @@ class SignUp extends Component {
     );
   }
 }
-
 
 export default connect(null, { signupUser })(SignUp);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import swal from 'sweetalert';
 
 class AddLecture extends Component {
   constructor(props) {
@@ -36,6 +37,10 @@ class AddLecture extends Component {
     try {
       await axios.post('/api/lectures/', body);
       await this.props.fetchTeacherInfo();
+      swal({
+        title: 'Lecture successfully created!',
+        type: 'success',
+      });
       this.props.history.push('/dashboard/class');
     } catch (error) {
       console.log('Error with axios call line 28 AddClass ', error);

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import CurrentLectureTopicsListEntry from './CurrentLectureTopicsListEntry';
 
 const CurrentLectureTopicsList = props => (
@@ -8,6 +9,5 @@ const CurrentLectureTopicsList = props => (
     ))}
   </div>
 );
-
 
 export default CurrentLectureTopicsList;

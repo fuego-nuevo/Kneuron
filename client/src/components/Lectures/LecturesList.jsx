@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Lecture from './Lecture';
 import { Link } from 'react-router-dom';
 
+import Lecture from './Lecture';
 
 const LecturesList = props => (
   <div>
@@ -15,6 +15,5 @@ const LecturesList = props => (
     </div>
   </div>
   );
-
 
 export default LecturesList;

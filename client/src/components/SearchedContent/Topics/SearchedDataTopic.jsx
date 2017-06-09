@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { currentTopic } from '../../../actions/CurrentTopic';
 import axios from 'axios';
-import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import swal from 'sweetalert';
+
+import { currentTopic } from '../../../actions/CurrentTopic';
+import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 
 class SearchedDataTopic extends Component {
   constructor(props) {
@@ -12,7 +13,6 @@ class SearchedDataTopic extends Component {
     this.state = {
       name: '',
     };
-
     this.deleteTopic = this.deleteTopic.bind(this);
     this.editTopic = this.editTopic.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -23,17 +23,15 @@ class SearchedDataTopic extends Component {
   async deleteTopic(e) {
     e.preventDefault();
     const topic_id = this.props.topic.id;
-
     try {
       const removed = await axios.delete(`/api/topics/${topic_id}`);
-      console.log("ERRRRMYGOD: ", removed);
-        this.props.fetchTeacherInfo()
-          .then(() => {
-            this.props.history.push('/dashboard/class');
-          })
-          .catch((err) => {
-            console.log('error with deleting topic , ERR: ', err);
-          });
+      this.props.fetchTeacherInfo()
+        .then(() => {
+          this.props.history.push('/dashboard/class');
+        })
+        .catch((err) => {
+          console.log('error with deleting topic , ERR: ', err);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -49,17 +47,17 @@ class SearchedDataTopic extends Component {
       .then(() => {
         this.props.fetchTeacherInfo()
           .then(() => {
-            this.props.history.push('/dashboard/class');
             swal({
-              title: 'Class succesfully updated :)',
+              title: 'Class succesfully updated!',
               type: 'success',
             });
+            this.props.history.push('/dashboard/class');
           });
       })
       .catch((err) => {
         console.log(err);
         swal({
-          title: 'There was an error on our server :(',
+          title: 'There was an error on our server!',
           type: 'error',
         });
       });
@@ -79,7 +77,6 @@ class SearchedDataTopic extends Component {
   }
 
   render() {
-    console.log(this.props, ' this is from topics');
     return (
       <div className="cohort-entry animated bounceInUp">
         <div>
@@ -109,6 +106,6 @@ class SearchedDataTopic extends Component {
       </div>
     );
   }
-};
+}
 
 export default connect(null, { currentTopic })(SearchedDataTopic);

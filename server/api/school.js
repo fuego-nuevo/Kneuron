@@ -44,7 +44,6 @@ const postSchool = (req, res) => {
           password = hash;
         })
         .then(() => {
-          console.log('do we get past hashing password line 14 ,', password);
           db.User.findOrCreate({
             where: { email: req.body.email },
             defaults: {
@@ -59,7 +58,6 @@ const postSchool = (req, res) => {
             .spread((newUser, created) => {
               console.log('user was created');
               if (created) {
-                console.log('was the user actually created?');
                 db.School.findOrCreate({
                   where: { name: req.body.school.toUpperCase() },
                   defaults: {
@@ -67,7 +65,6 @@ const postSchool = (req, res) => {
                   },
                 })
                   .spread((school, made) => {
-                    console.log('did we get in the spread at least line 39!!!!!!!! , ', school);
                     if (made) {
                       console.log('school was created');
                       newUser.update({ school_id: school.id })
@@ -78,10 +75,9 @@ const postSchool = (req, res) => {
                           console.log('error updating school dude  , ', err);
                         });
                     } else {
-                      console.log('fucked up making school');
                       db.User.destroy({ where: { email: req.body.email } })
                         .then(() => {
-                          res.status(400).send('the school is already there bruh damn!!!!');
+                          res.status(400).send('School already exists');
                         });
                     }
                   });

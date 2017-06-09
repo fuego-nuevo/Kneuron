@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Router from './Router';
-import '../../../node_modules/sweetalert/dist/sweetalert.css';
 
+import '../../../node_modules/sweetalert/dist/sweetalert.css';
 
 class App extends Component {
   constructor(props) {
@@ -19,4 +19,3 @@ class App extends Component {
 }
 
 export default App;
-

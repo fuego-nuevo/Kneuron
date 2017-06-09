@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { logoutUser } from '../../actions/Login';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+
+import { logoutUser } from '../../actions/Login';
 import PerformanceList from './PerformanceList';
 
 class AdminDash extends Component {
@@ -14,21 +15,21 @@ class AdminDash extends Component {
       school: {},
     };
   }
+
   componentDidMount() {
     axios.get(`/api/schools/${localStorage.getItem('id_token')}`)
       .then((data) => {
         this.setState({ user: data.data.user, cohorts: data.data.classes, school: data.data.school[0] });
       })
       .catch((err) => {
-        console.log('error finding the schools , ', err);
+        console.log('Error finding the schools , ', err);
       });
   }
+
   render() {
     const { isAuthenticated, logoutUser } = this.props;
     const { fName, lName } = this.state.user;
     const { name, code } = this.state.school;
-    console.log(this.state.user);
-    console.log(this.state.school);
     if (isAuthenticated) {
       return (
         <div className="admin-contain">

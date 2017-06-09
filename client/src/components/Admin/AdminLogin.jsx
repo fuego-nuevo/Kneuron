@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import { loginAdmin } from '../../actions/Login';
 
 class AdminLogin extends Component {
@@ -19,7 +20,6 @@ class AdminLogin extends Component {
 
   render() {
     const { loginAdmin, history } = this.props;
-    console.log(this.props);
     return (
       <div className="admin">
         <form
@@ -50,6 +50,5 @@ class AdminLogin extends Component {
     );
   }
 }
-
 
 export default connect(null, { loginAdmin })(AdminLogin);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
+
 import FrontPage from '../components/FrontPage/FrontPage';
 import Dashboard from '../components/Dashboard/Dashboard';
 import SignUp from '../containers/SignUp';
@@ -22,7 +23,6 @@ class Router extends Component {
     }
     this.props.history.push('/');
   }
-
 
   render() {
     const { dispatch, errorMessage, isAuthenticated, history } = this.props;
@@ -53,12 +53,11 @@ class Router extends Component {
       </Switch>
     );
   }
-    }
+}
 
 const mapStateToProps = (state) => {
   const { auth } = state;
   const { isAuthenticated, errorMessage } = auth;
-
   return {
     isAuthenticated,
     errorMessage,

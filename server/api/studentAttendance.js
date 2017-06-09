@@ -5,8 +5,7 @@ const postAttendance = (req, res) => {
   db.Attendance.findOne({ where: { student_id: req.body.student_id, lecture_id: req.body.lecture_id } })
   .then((data) => {
     if (data) {
-      console.log('You have already been marked for attendance boi!');
-      res.status(200).send('You have already been marked for attendance boi!');
+      res.status(200).send('You have already been marked for attendance!');
     } else {
       db.Attendance.create({
         present: req.body.present,
@@ -55,6 +54,5 @@ const postAttendance = (req, res) => {
 // };
 
 router.post('/', postAttendance);
-
 
 module.exports = router;

@@ -1,6 +1,6 @@
 import React from 'react';
-import SearchedDataCohort from './SearchedDataCohort';
 
+import SearchedDataCohort from './SearchedDataCohort';
 
 const SearchedDataCohorts = props => (
   <div className="searched-cohorts-list">
@@ -9,6 +9,5 @@ const SearchedDataCohorts = props => (
     ))}
   </div>
 );
-
 
 export default SearchedDataCohorts;

@@ -10,8 +10,6 @@ class Home extends Component {
 
   render() {
     const { fName, lName, image, cohort } = this.props.profile;
-    console.log(image);
-    console.log(this.props.profile);
     if (this.props.profile.fName) {
       return (
         <div className="teacher-profile">

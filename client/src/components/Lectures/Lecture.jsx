@@ -4,20 +4,18 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import swal from 'sweetalert';
+
 import { currentLiveLecture } from '../../actions/CurrentLiveLecture';
 import { lectureLive } from '../../actions/IsLectureLive';
-
 
 class Lecture extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       name: '',
       lat: 0,
       lng: 0,
     };
-
     this.deleteLecture = this.deleteLecture.bind(this);
     this.runLiveLecture = this.runLiveLecture.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -27,20 +25,19 @@ class Lecture extends Component {
     this.getUserCoordinates = this.getUserCoordinates.bind(this);
   }
 
-
   async deleteLecture() {
     try {
       await axios.delete(`/api/lectures/${this.props.lecture.id}`);
       this.props.fetchTeacherInfo()
           .then(() => {
-            this.props.history.push('/dashboard/class');
             swal({
-              title: 'Lecture succesfully deleted',
+              title: 'Lecture succesfully deleted!',
               type: 'success',
             });
+            this.props.history.push('/dashboard/class');
           })
           .catch((err) => {
-            console.log('error with deleting class , ERR: ', err);
+            console.log('Error with deleting class , ERR: ', err);
           });
     } catch (error) {
       console.log(error);
@@ -50,14 +47,12 @@ class Lecture extends Component {
   getUserCoordinates() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log('INSIDE NAV LOC FUNCTION: ', position.coords.latitude);
         return [position.coords.latitude, position.coords.longitude];
       }, () => { true; });
     }
   }
 
   async provideLocData() {
-    console.log('This is the userLoc Data: ', this.getUserCoordinates());
     const { cohort_id, name } = this.props.lecture;
     const { lat, lng } = this.state;
     const body = {
@@ -72,6 +67,7 @@ class Lecture extends Component {
       console.log('Did Not Update Because: ', error);
     }
   }
+
   async runLiveLecture() {
     try {
       await this.props.currentLiveLecture(this.props.lecture);
@@ -94,17 +90,17 @@ class Lecture extends Component {
       .then((res) => {
         this.props.fetchTeacherInfo()
           .then(() => {
-            this.props.history.push('/dashboard/class');
             swal({
-              title: 'Lecture succesfully updated :)',
+              title: 'Lecture succesfully updated!',
               type: 'success',
             });
+            this.props.history.push('/dashboard/class');
           });
       })
       .catch((err) => {
         console.log(err);
         swal({
-          title: 'there was an error on our server :(',
+          title: 'There was an error on our server!',
           type: 'error',
         });
       });
@@ -125,7 +121,6 @@ class Lecture extends Component {
 
   render() {
     const currentLectureRoute = `/dashboard/lectures${this.props.lecture.id}`;
-    console.log('this is the state of lecture !!!!!!!!!!!!!', this.state);
     return (
       <div
         className="cohort-entry animated bounceInUp"
@@ -172,6 +167,5 @@ class Lecture extends Component {
     );
   }
 }
-
 
 export default connect(null, { currentLiveLecture, lectureLive })(Lecture);

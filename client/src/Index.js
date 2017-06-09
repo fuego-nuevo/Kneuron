@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
+
 import App from './containers/App';
 import Reducers from './reducers';
 

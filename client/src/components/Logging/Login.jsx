@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import '../../styles/Main.css';
 
 class Login extends Component {
@@ -41,6 +42,4 @@ class Login extends Component {
   }
 }
 
-
 export default Login;
-

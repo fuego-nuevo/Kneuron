@@ -4,8 +4,7 @@ const Lectures = (state = {}, action) => {
       return {
         lectures: action.lectures,
         currentCohortId: action.currentCohortId,
-      }
-
+      };
     default:
       return state;
   }

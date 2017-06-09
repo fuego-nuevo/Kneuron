@@ -1,6 +1,6 @@
 import React from 'react';
-import SearchedDataLecture from './SearchedDataLecture';
 
+import SearchedDataLecture from './SearchedDataLecture';
 
 const SearchedDataLectures = props => (
   <div>
@@ -9,6 +9,5 @@ const SearchedDataLectures = props => (
     ))}
   </div>
 );
-
 
 export default SearchedDataLectures;
