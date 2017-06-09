@@ -7,6 +7,12 @@ button:focus {outline:0;}
     100% {opacity: 1;}
 }
 
+
+@font-face {
+    font-family: "Brandon Grotesque";
+    src: url('../styles/Brandon_bld.otf');
+}
+
 .fadeIn {
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
