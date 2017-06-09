@@ -72,7 +72,7 @@ const fetchStudent = async (req, res) => {
       res.status(404).send('Credentials incorrect');
     }
   } catch (error) {
-    console.log('Error in fetchStudent');
+    console.log('Error in fetchStudent',error);
     res.status(500).send(error);
   }
 };
