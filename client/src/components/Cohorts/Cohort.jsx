@@ -133,7 +133,6 @@ class Cohort extends Component {
         <div className="ch-entry-header">{cohort.subject}</div>
         <h3>{cohort.semester}</h3>
         <h3>{convertTime(cohort.time)}</h3>
-        <h3>Description: {cohort.description}</h3>
         <h4>Code: {cohort.code}</h4>
         <h4>{this.state.numberOfStudents} Students</h4>
         <button className="lecture-button" onClick={this.fetchLectures}><Link to="/dashboard/lectures">Lectures</Link></button>

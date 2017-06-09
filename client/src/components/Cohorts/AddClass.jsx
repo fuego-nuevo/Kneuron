@@ -7,7 +7,6 @@ class AddClass extends Component {
     super();
     this.state = {
       subject: '',
-      description: '',
       time: '',
       semester: 'SPRING',
       year: '2017',
@@ -27,7 +26,6 @@ class AddClass extends Component {
     const body = {
       auth_token: localStorage.getItem('id_token'),
       subject: this.state.subject,
-      description: this.state.description,
       time: `${this.state.time}`,
       semester: `${this.state.semester} ${this.state.year}`,
       schoolCode: this.state.schoolCode,
@@ -54,10 +52,6 @@ class AddClass extends Component {
             <div className="add-class-inps">
               <label htmlFor="subject">Subject</label>
               <input onChange={this.handleChange} value={this.state.subject} type="text" name="subject" />
-            </div>
-            <div className="add-class-inps">
-              <label htmlFor="description">Class Description</label>
-              <input onChange={this.handleChange} value={this.state.description} type="text" name="description" />
             </div>
             <div className="add-class-inps">
               <label htmlFor="time">Time</label>
