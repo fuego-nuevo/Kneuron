@@ -25,15 +25,15 @@ class LiveLecture extends Component {
       selectedQuiz: {},
       studentQuestions: [],
       filteredQuestions: [],
-      studentAnswer: [
-        { name: 'Mariano Okpalefe', correct: 100 },
-        { name: 'Justin Kang', correct: 66 },
-        { name: 'Jason Kim', correct: 82 },
-        { name: 'Alex Aleksanyan', correct: 73 },
-      ],
+      studentAnswer: [],
       trackingAttendance: false,
       attendanceTime: 30,
-      studentsPresent: [],
+      studentsPresent: [
+        { name: 'Mariano Okpalefe', present: true },
+        { name: 'Justin Kang', present: false },
+        { name: 'Jason Kim', present: false },
+        { name: 'Alex Aleksanyan', present: false },
+      ],
     };
     this.filterQuestions = this.filterQuestions.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -64,7 +64,7 @@ class LiveLecture extends Component {
     });
     socket.on('student-track', (data) => {
       console.log(`the student ${data.name} is present? ${data.present}`);
-      this.setState({ studentsPresent: data });
+      this.setState({ studentsPresent: [...this.state.studentsPresent, data] });
     });
     topics.forEach((topic) => {
       topic.quizzes.forEach((quiz) => {

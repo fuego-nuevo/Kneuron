@@ -71,6 +71,7 @@
     "file-api": "^0.10.4",
     "file-loader": "^0.11.2",
     "flexboxgrid": "^6.3.1",
+    "font-loader": "^0.1.2",
     "geodesy": "^1.1.1",
     "getusermedia": "^2.0.1",
     "gulp": "^3.9.1",
