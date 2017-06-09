@@ -66,6 +66,6 @@ Access our app on [KneuronEd](www.KneuronEd.io)
 ## Authors
 
 * **Justin Kang** - *Product Owner* - [J6K](https://github.com/J6K)
-* **Alex Aleksanyan** - *Scrum Master* - [Shakahs](https://github.com/Alex1100)
+* **Alex Aleksanyan** - *Scrum Master* - [Alex1100](https://github.com/Alex1100)
 * **Jason Kim** - *Lead Developer* - [jtk3068](https://github.com/jtk3068)
-* **Mariano Okpalefe** - *Lead Developer* - [joeekimm](https://github.com/MarianotheMaker)
+* **Mariano Okpalefe** - *Lead Developer* - [MarianotheMaker](https://github.com/MarianotheMaker)
