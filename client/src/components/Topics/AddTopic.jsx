@@ -31,11 +31,11 @@ class AddTopic extends Component {
     try {
       const posted = await axios.post('/api/topics/', body);
       const added = await this.props.fetchTeacherInfo()
-      this.props.history.push('/dashboard/class');
       swal({
-        title: 'Topic succesfully added',
+        title: 'Topic succesfully added!',
         type: 'success',
       });
+      this.props.history.push('/dashboard/class');
     } catch (error) {
       console.log('error with axios call line 28 AddClass ', error);
     }

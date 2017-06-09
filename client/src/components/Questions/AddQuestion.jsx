@@ -34,15 +34,14 @@ class AddQuestion extends Component {
       choices: [this.state[0], this.state[1], this.state[2], this.state[3]],
       correct: this.state.correct,
     };
-    console.log('this is the type that choices is : , ', typeof body.choices);
     try {
       const posted = await axios.post('/api/questions/', body);
       const added = await this.props.fetchTeacherInfo();
-      this.props.history.push('/dashboard/class');
       swal({
-        title: 'Question succesfully added',
+        title: 'Question succesfully added!',
         type: 'success',
       });
+      this.props.history.push('/dashboard/class');
     } catch (error) {
       console.log('error with axios call line 28 AddClass ', error);
     }

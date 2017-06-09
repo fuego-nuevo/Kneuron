@@ -47,7 +47,7 @@ class Cohort extends Component {
           .then(() => {
             this.props.history.push('/dashboard/class');
             swal({
-              title: 'Class succesfully deleted',
+              title: 'Class succesfully deleted!',
               type: 'success',
             });
           })
@@ -72,17 +72,17 @@ class Cohort extends Component {
         .then(() => {
           this.props.fetchTeacherInfo()
             .then(() => {
-              this.props.history.push('/dashboard/class');
               swal({
-                title: 'Class succesfully updated :)',
+                title: 'Class succesfully updated!',
                 type: 'success',
               });
+              this.props.history.push('/dashboard/class');
             });
         })
       .catch((err) => {
         console.log(err);
         swal({
-          title: 'there was an error on our server :(',
+          title: 'There was an error on our server!',
           type: 'error',
         });
       });

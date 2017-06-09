@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 class AddClass extends Component {
   constructor() {
@@ -15,7 +16,6 @@ class AddClass extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
 
   handleChange(e) {
     const name = e.target.name;
@@ -35,6 +35,10 @@ class AddClass extends Component {
     try {
       await axios.post('/api/cohorts/', body);
       await this.props.fetchTeacherInfo();
+      swal({
+        title: 'Class successfully created!',
+        type: 'success',
+      });
       this.props.history.push('/dashboard/class');
     } catch (error) {
       console.log('Error with axios call line 28 AddClass ', error);

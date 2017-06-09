@@ -30,11 +30,11 @@ class Topic extends Component {
       const removed = await axios.delete(`/api/topics/${topic_id}`);
         this.props.fetchTeacherInfo()
           .then(() => {
-            this.props.history.push('/dashboard/class');
             swal({
-              title: 'Topic succesfully deleted',
+              title: 'Topic succesfully deleted!',
               type: 'success',
             });
+            this.props.history.push('/dashboard/class');
           })
           .catch((err) => {
             console.log('error with deleting topic , ERR: ', err);
@@ -54,17 +54,17 @@ class Topic extends Component {
       .then(() => {
         this.props.fetchTeacherInfo()
           .then(() => {
-            this.props.history.push('/dashboard/class');
             swal({
-              title: 'Topic succesfully updated :)',
+              title: 'Topic succesfully updated!',
               type: 'success',
             });
+            this.props.history.push('/dashboard/class');
           });
       })
       .catch((err) => {
         console.log(err);
         swal({
-          title: 'There was an error on our server :(',
+          title: 'There was an error on our server!',
           type: 'error',
         });
       });
