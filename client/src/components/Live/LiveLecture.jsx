@@ -49,6 +49,7 @@ class LiveLecture extends Component {
     this.handleAttendanceModalClose = this.handleAttendanceModalClose.bind(this);
     this.handleTimeDropdown = this.handleTimeDropdown.bind(this);
     this.trackAttendance = this.trackAttendance.bind(this);
+    this.endLiveLecture = this.endLiveLecture.bind(this);
   }
 
   componentDidMount() {
@@ -60,10 +61,14 @@ class LiveLecture extends Component {
       this.setState({ studentQuestions: [studentQuestions, ...this.state.studentQuestions] });
     });
     socket.on('student-answers', (studentAnswer) => {
-      this.setState({ studentAnswer: [studentAnswer, ...this.state.studentAnswer] });
+      const student = {
+        correct: studentAnswer.correct * 100,
+        name: studentAnswer.name,
+      };
+      this.setState({ studentAnswer: [student, ...this.state.studentAnswer] });
     });
     socket.on('student-track', (data) => {
-      this.setState({ studentsPresent: data });
+      this.setState({ studentsPresent: [...this.state.studentsPresent, data] });
     });
     topics.forEach((topic) => {
       topic.quizzes.forEach((quiz) => {
@@ -144,6 +149,12 @@ class LiveLecture extends Component {
     });
   }
 
+  endLiveLecture() {
+    const { profile, history } = this.props;
+    socket.emit('leave', { id: profile });
+    history.push('/dashboard/home');
+  }
+
   render() {
     const { topics } = this.props;
     if (this.state.trackingAttendance) {
@@ -218,7 +229,7 @@ class LiveLecture extends Component {
           </div>
           <div className="class-nav animated fadeInDownBig">
             <button id="lecleft" onClick={this.handleClick} className="addC-left">Pop Quiz</button>
-            <button id="lecmid" className="addC-right">End Lecture</button>
+            <button id="lecmid" onClick={this.endLiveLecture} className="addC-right">End Lecture</button>
             <button id="lecright" onClick={this.startAttendance} className="addC-right">Track Attendance</button>
           </div>
           <div className="lecture-filter animated fadeInUpBig">
