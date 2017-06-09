@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+
 import lectures from './Lectures';
 import currentLecture from './CurrentLecture';
 import CurrentProfile from './CurrentProfileReducer';

@@ -41,7 +41,6 @@ class StudentLecturePerformance extends Component {
   }
 
   render() {
-    console.log('this is the state of quizzes ', this.state.quizzes);
     return (
       <div id="radar" className="bar-chart">
         <div className="act-radar">

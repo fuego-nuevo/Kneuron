@@ -1,6 +1,6 @@
 import React from 'react';
-import SearchedDataTopic from './SearchedDataTopic';
 
+import SearchedDataTopic from './SearchedDataTopic';
 
 const SearchedDataTopics = props => (
   <div>
@@ -9,6 +9,5 @@ const SearchedDataTopics = props => (
     ))}
   </div>
 );
-
 
 export default SearchedDataTopics;

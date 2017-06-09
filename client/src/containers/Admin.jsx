@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import { adminSignUp } from '../actions/Login';
 
 class Admin extends Component {
@@ -29,13 +30,11 @@ class Admin extends Component {
     reader.onloadend = () => {
       console.log(file.name);
       this.setState({ image: reader.result });
-    }
+    };
     reader.readAsDataURL(file);
   }
 
   render() {
-    console.log(this.props);
-    console.log(this.state);
     return (
       <div className="admin">
         <form className="signup-form" onSubmit={(e) => { e.preventDefault(); this.props.adminSignUp(this.state, this.props.history); }} autoComplete="on">
@@ -72,6 +71,5 @@ class Admin extends Component {
     );
   }
 }
-
 
 export default connect(null, { adminSignUp })(Admin);

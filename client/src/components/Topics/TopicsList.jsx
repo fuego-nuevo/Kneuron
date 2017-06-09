@@ -1,6 +1,7 @@
 import React from 'react';
-import Topic from './Topic';
 import { Link } from 'react-router-dom';
+
+import Topic from './Topic';
 
 const TopicsList = props => (
   <div>
@@ -13,11 +14,11 @@ const TopicsList = props => (
           topic={topic}
           lectureId={props.lectureId}
           fetchTeacherInfo={props.fetchTeacherInfo}
-          history={props.history}/>
+          history={props.history}
+        />
       ))}
     </div>
   </div>
 );
-
 
 export default TopicsList;

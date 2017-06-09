@@ -6,13 +6,11 @@ import { withRouter } from 'react-router-dom';
 class EditProfile extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
         fName: 'jason',
         lName: 'kim',
         username: 'jasonk',
     };
-    console.log('what is this?', this);
     this.userNameChange = this.userNameChange.bind(this);
     this.fNameChange = this.fNameChange.bind(this);
     this.lNameChange = this.lNameChange.bind(this);
@@ -24,7 +22,6 @@ class EditProfile extends Component {
       username: e.target.value,
     });
   }
-
 
   fNameChange(e) {
     this.setState({
@@ -40,9 +37,6 @@ class EditProfile extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.fName)
-    console.log(this.state.lName)
-    console.log(this.state.username)
     const body = {
       fName: this.state.fName,
       lName: this.state.lName,
@@ -54,11 +48,10 @@ class EditProfile extends Component {
       })
       .catch((err) => {
         console.log('Err: ', err);
-      })
+      });
   }
 
   render() {
-    console.log('this is props from redux profile!', this.props);
     return (
       <div>
         <h1> Edit Your Profile Here: </h1>
@@ -81,6 +74,5 @@ class EditProfile extends Component {
     );
   }
 }
-
 
 export default EditProfile;

@@ -5,10 +5,10 @@ import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import swal from 'sweetalert';
 import axios from 'axios';
 import _ from 'lodash';
+
 import '../../styles/Main.css';
 import { allLectures } from '../../actions/Lectures';
 import { convertTime } from '../../utils/timeFormatter';
-
 
 class Cohort extends Component {
   constructor(props) {
@@ -135,7 +135,7 @@ class Cohort extends Component {
         <h3>{convertTime(cohort.time)}</h3>
         <h3>Description: {cohort.description}</h3>
         <h4>Code: {cohort.code}</h4>
-        <h4>{this.state.numberOfStudents}: Students</h4>
+        <h4>{this.state.numberOfStudents} Students</h4>
         <button className="lecture-button" onClick={this.fetchLectures}><Link to="/dashboard/lectures">Lectures</Link></button>
         <button onClick={this.deleteClass} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
         <button

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PerformanceEntry from './PerformanceEntry';
 
 const PerformanceList = props => (

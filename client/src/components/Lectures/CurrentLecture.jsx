@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import TopicsList from '../../components/Topics/TopicsList';
 
 class CurrentLecture extends Component {
@@ -9,8 +10,7 @@ class CurrentLecture extends Component {
     };
   }
 
-
- render() {
+  render() {
     return (
       <div>
         <TopicsList
@@ -22,6 +22,5 @@ class CurrentLecture extends Component {
     );
   }
 }
-
 
 export default CurrentLecture;

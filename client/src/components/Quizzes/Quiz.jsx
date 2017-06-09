@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
+
 import { CurrentQuiz } from '../../actions/CurrentQuiz';
 import QuestionsList from '../../components/Questions/QuestionsList';
-
-
 
 class Quiz extends Component {
   constructor(props) {
@@ -18,12 +17,15 @@ class Quiz extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
+
   handleClick() {
     this.setState({ isShowingModal: true });
   }
+
   handleClose() {
     this.setState({ isShowingModal: false });
   }
+
   async deleteClass() {
     try {
       const removed = await axios.delete(`/api/quizzes/${this.props.quiz.id}`);
@@ -33,6 +35,7 @@ class Quiz extends Component {
       console.log(error);
     }
   }
+  
   render() {
     return (
       <div className="cohort-entry animated bounceInUp">

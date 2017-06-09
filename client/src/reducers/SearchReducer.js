@@ -1,14 +1,12 @@
 const SearchResults = (state = {}, action) => {
-  switch(action.type){
+  switch (action.type) {
     case 'SEARCH_REDUX_DATA':
       return {
         searchedResults: action.searchedResults,
-      }
-
+      };
     default:
-      return state
+      return state;
   }
-}
-
+};
 
 export default SearchResults;

@@ -32,7 +32,7 @@ class AddLecture extends Component {
       });
       this.props.history.push('/dashboard/lectures');
     } catch (error) {
-      console.log('error with axios call line 28 AddClass ', error);
+      console.log('Error with axios call line 28 AddClass ', error);
     }
   }
 

@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import ReactCountdownClock from 'react-countdown-clock';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+
 import StudentQuestions from '../Lectures/StudentQuestions';
 import LiveLectureTopics from './LiveLectureTopicsEntry';
 import LiveQuizList from './LiveQuizList';
 import AttendanceList from './AttendanceList';
 
 const socket = io();
-
 
 class LiveLecture extends Component {
   constructor(props) {
@@ -285,6 +285,5 @@ const mapStateToProps = state => ({
   profile: state.profile.id,
   cohort_id: state.lectures.currentCohortId,
 });
-
 
 export default connect(mapStateToProps)(LiveLecture);

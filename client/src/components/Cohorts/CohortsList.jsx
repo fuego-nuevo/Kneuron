@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Cohort from './Cohort';
 
+import Cohort from './Cohort';
 
 const CohortsList = props => (
   <div>
@@ -22,6 +22,4 @@ const CohortsList = props => (
   </div>
   );
 
-
 export default CohortsList;
-

@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import axios from 'axios';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
-import { currentTopic } from '../../actions/CurrentTopic';
 
+import { currentTopic } from '../../actions/CurrentTopic';
 
 class Topic extends Component {
   constructor(props) {
@@ -14,7 +14,6 @@ class Topic extends Component {
       isShowingModal: false,
       name: '',
     };
-
     this.deleteTopic = this.deleteTopic.bind(this);
     this.editClass = this.editClass.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -25,7 +24,6 @@ class Topic extends Component {
   async deleteTopic(e) {
     e.preventDefault();
     const topic_id = this.props.topic.id;
-
     try {
       const removed = await axios.delete(`/api/topics/${topic_id}`);
         this.props.fetchTeacherInfo()
@@ -114,6 +112,5 @@ class Topic extends Component {
     );
   }
 }
-
 
 export default connect(null, { currentTopic })(Topic);

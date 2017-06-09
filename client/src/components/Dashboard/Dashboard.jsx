@@ -3,6 +3,7 @@ import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import 'react-datepicker/dist/react-datepicker.css';
 import { updateProfile } from '../../actions/CurrentProfile';
 import { allLectures } from '../../actions/Lectures';
@@ -32,7 +33,6 @@ class Dashboard extends Component {
       profile: {},
       selectedLecture: this.props.currentLecture.lectureId || '',
     };
-
     this.fetchTeacherInfo = this.fetchTeacherInfo.bind(this);
     this.handleLectureClick = this.handleLectureClick.bind(this);
   }
@@ -43,20 +43,18 @@ class Dashboard extends Component {
       this.setState({ selectedLecture: this.props.currentLecture.lectureId });
     })
       .catch((err) => {
-        console.log('error in initial fetch , ', err);
+        console.log('Error in initial fetch , ', err);
       });
   }
 
   async fetchTeacherInfo() {
     try {
       const profile = await axios.get(`/api/teachers/${localStorage.getItem('id_token')}`);
-      console.log("this is the profile in dashboard boiiiii!!!!!!!!!", profile)
-      // console.log('fetch teacher info ran');
       this.setState({ profile: profile.data }, () => {
         this.props.updateProfile(profile);
       });
     } catch (error) {
-      console.log('error with your fetch teacher shit ,', error);
+      console.log('Error with fetchTeacherInfo', error);
     }
   }
 
@@ -68,7 +66,6 @@ class Dashboard extends Component {
   render() {
     const { dispatch, history, cohort, lectures, lectureId, liveLectureTopics, quizzes, currentCohortId, name, quizId, topics, searchedResults } = this.props;
     const currentLectureRoute = `/dashboard/lectures${this.props.lectureId}`;
-    console.log(this.props);
     return (
       <div className="dashboard-content">
         <DashNav dispatch={dispatch} history={history} cohort={cohort || []} fetchTeacherInfo={this.fetchTeacherInfo} reduxDataSearch={this.props.reduxDataSearch} />
@@ -136,7 +133,6 @@ class Dashboard extends Component {
   }
 }
 
-
 const mapDispatchToProps = dispatch => bindActionCreators({
   updateProfile,
   allLectures,
@@ -175,6 +171,5 @@ const mapStateToProps = (state) => {
     image,
   };
 };
-
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));

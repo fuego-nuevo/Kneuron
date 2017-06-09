@@ -7,7 +7,6 @@ class PerformanceEntry extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { subject, semester, results } = this.props.cohort;
     return (
       <div className="perf-entry">
@@ -27,4 +26,3 @@ class PerformanceEntry extends Component {
 }
 
 export default PerformanceEntry;
-

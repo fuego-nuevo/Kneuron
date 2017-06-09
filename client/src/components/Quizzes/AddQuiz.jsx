@@ -38,7 +38,6 @@ class AddQuiz extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="add-class-container">
         <form onSubmit={this.handleSubmit} className="add-class-form animated bounceInUp">

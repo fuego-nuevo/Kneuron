@@ -11,7 +11,6 @@ class FrontPage extends Component {
 
   render() {
     const { dispatch, errorMessage, history, isAuthenticated } = this.props;
-    console.log(this.props);
     return (
       <div>
         <NavBar />
@@ -69,6 +68,5 @@ class FrontPage extends Component {
     );
   }
 }
-
 
 export default FrontPage;

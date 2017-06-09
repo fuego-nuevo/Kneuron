@@ -22,6 +22,7 @@ class AddQuestion extends Component {
     const name = e.target.name;
     this.setState({ [name]: e.target.value });
   }
+
   handleSelect(e) {
     this.setState({ correct: parseInt(e.target.value, 10) });
   }
@@ -48,7 +49,6 @@ class AddQuestion extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="add-class-container">
         <form onSubmit={this.handleSubmit} id="question-form" className="add-class-form animated bounceInUp">

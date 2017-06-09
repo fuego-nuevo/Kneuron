@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Modal from 'react-modal';
+
 import { CurrentQuiz } from '../../../actions/CurrentQuiz';
 import QuestionsList from '../../../components/Questions/QuestionsList';
 
@@ -61,7 +62,6 @@ class SearchedDataQuiz extends Component {
   }
 
   render() {
-    console.log(this.props, 'quiiiiiiiz');
     return (
       <div className="cohort-entry animated bounceInUp">
         <Modal
@@ -88,8 +88,7 @@ class SearchedDataQuiz extends Component {
       </div>
     );
   }
-};
-
+}
 
 const mapStateToProps = state => ({
   quizId: state.quizId,

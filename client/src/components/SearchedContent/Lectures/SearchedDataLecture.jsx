@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { currentLiveLecture } from '../../../actions/CurrentLiveLecture';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import swal from 'sweetalert';
+
+import { currentLiveLecture } from '../../../actions/CurrentLiveLecture';
 
 class SearchDataLecture extends Component {
   constructor(props){
@@ -12,7 +13,6 @@ class SearchDataLecture extends Component {
     this.state = {
       name: '',
     };
-
     this.deleteLecture = this.deleteLecture.bind(this);
     this.runLiveLecture = this.runLiveLecture.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -24,14 +24,13 @@ class SearchDataLecture extends Component {
   async deleteLecture() {
     try {
       const removed = await axios.delete(`/api/lectures/${this.props.lecture.id}`);
-      console.log("ERRRRMYGOD: ", removed);
-        this.props.fetchTeacherInfo()
-          .then(() => {
-            this.props.history.push('/dashboard/class');
-          })
-          .catch((err) => {
-            console.log('error with deleting class , ERR: ', err);
-          });
+      this.props.fetchTeacherInfo()
+        .then(() => {
+          this.props.history.push('/dashboard/class');
+        })
+        .catch((err) => {
+          console.log('error with deleting class , ERR: ', err);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -49,7 +48,6 @@ class SearchDataLecture extends Component {
     };
     axios.put('/api/lectures/', body)
       .then((res) => {
-      console.log(res);
         this.props.fetchTeacherInfo()
           .then(() => {
             swal({
@@ -69,9 +67,7 @@ class SearchDataLecture extends Component {
   }
 
   async runLiveLecture() {
-    console.log("Pre>>>>>>: ", this.props.currentLiveLecture(this.props.lecture));
     const updateLecture = await this.props.currentLiveLecture(this.props.lecture);
-    console.log("DAMN>>>>>: ", updateLecture);
     this.props.history.push('/dashboard/livelecture');
   }
 
@@ -89,9 +85,8 @@ class SearchDataLecture extends Component {
   }
 
 
-  render(){
+  render() {
     const currentLectureRoute = `/dashboard/lectures${this.props.lecture.id}`;
-    console.log("THE PROPS FOR LECTURE: ", this.props)
     return (
       <div
         className="cohort-entry animated bounceInUp"
@@ -130,11 +125,9 @@ class SearchDataLecture extends Component {
         <button onClick={this.runLiveLecture} className="go-live"><img alt="delete" src="https://image.flaticon.com/icons/png/128/42/42912.png" width="25px" height="25px" /></button>
         <button onClick={this.deleteLecture} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
         <button onClick={this.handleClick} className="edit-button"><img alt="delete" src="http://simpleicon.com/wp-content/uploads/pencil.png" width="25px" height="25px" /></button>
-    </div>
+      </div>
     );
   }
-};
-
-
+}
 
 export default connect(null, { currentLiveLecture })(SearchDataLecture);

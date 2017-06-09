@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { convertTime } from '../../../utils/timeFormatter';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import swal from 'sweetalert';
 
+import { convertTime } from '../../../utils/timeFormatter';
+
 class SearchedDataCohort extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       subject: '',
@@ -14,7 +15,6 @@ class SearchedDataCohort extends Component {
       isShowingModal: false,
       time: '',
     };
-
     this.deleteClass = this.deleteClass.bind(this);
     this.fetchLectures = this.fetchLectures.bind(this);
     this.editClass = this.editClass.bind(this);
@@ -22,7 +22,6 @@ class SearchedDataCohort extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-
 
   async deleteClass() {
     try {
@@ -83,18 +82,13 @@ class SearchedDataCohort extends Component {
   }
 
   fetchLectures(){
-      console.log("HERE ARE THE LECTURES OF A COHORT: ", this.props.cohort.lectures)
-      console.log('this is all lectures inside lecture action', this.props.allLectures(this.props.cohort))
-      this.setState({ lectures: []}, () => {
-        this.props.allLectures(this.props.cohort);
-      });
-      console.log("IT WENT THROUGH AND STATE FOR LECTURES INSIDE COHORT COMP IS: ", this.state.lectures);
+    this.setState({ lectures: []}, () => {
+      this.props.allLectures(this.props.cohort);
+    });
   }
 
-
-
-  render(){
-    return(
+  render() {
+    return (
       <div>
         <div>
           {
@@ -136,9 +130,8 @@ class SearchedDataCohort extends Component {
           <button onClick={this.deleteClass} className="delete-class"><img alt="delete" src="https://cdn3.iconfinder.com/data/icons/line/36/cancel-256.png" width="25px" height="25px" /></button>
         </div>
       </div>
-    )
+    );
   }
 }
-
 
 export default SearchedDataCohort;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { logoutUser } from '../../actions/Login';
 import { lectureOff } from '../../actions/IsLectureLive';
 import { searchReduxForDashNavSearch } from '../../utils/dashNavSearchHelperFunctions';
@@ -20,7 +21,6 @@ class DashNav extends Component {
     this.setState({ text: query.target.value });
   }
 
-
   handleSearchSubmit(e) {
     e.preventDefault();
     const data = this.props.cohort;
@@ -29,7 +29,6 @@ class DashNav extends Component {
     this.props.reduxDataSearch(searchResult);
     this.props.history.push('/dashboard/search');
   }
-
 
   render() {
     return (

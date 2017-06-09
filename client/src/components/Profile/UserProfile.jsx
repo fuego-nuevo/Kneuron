@@ -6,7 +6,6 @@ import { PageHeader } from 'react-bootstrap';
 class UserProfile extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       username: 'test',
       email: 'test',
@@ -19,7 +18,6 @@ class UserProfile extends Component {
     this.fetchUser();
   }
 
-
   fetchUser() {
     axios.get(`/api/teachers/${localStorage.getItem('id_token')}`)
     .then((data) => {
@@ -27,11 +25,10 @@ class UserProfile extends Component {
     })
     .catch((err) => {
       if (err){
-        console.log('there was an error fetching user', err);
+        console.log('There was an error fetching user', err);
       }
     });
   }
-
 
   render() {
     return (

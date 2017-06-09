@@ -12,4 +12,3 @@ const CurrentTopic = (state = {}, action) => {
 };
 
 export default CurrentTopic;
-
