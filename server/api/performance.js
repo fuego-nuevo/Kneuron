@@ -39,7 +39,7 @@ router.get('/performanceForTopics/:lecture_id/:student_id', (req, res, next) => 
         res.status(202).send(lectureerformanceData);
       } else {
         db.Lecture.findOne({
-          where: { id: parseInt(req.params.lecture_id, 10) },
+          where: { id: req.params.lecture_id },
           include: [{
             model: db.Topic,
             include: [{

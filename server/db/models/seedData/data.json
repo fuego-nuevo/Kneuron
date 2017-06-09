@@ -2,7 +2,7 @@
   {
     "model": "School",
     "data": {
-      "name": "GSU",
+      "name": "Hack Reactor",
       "code": "eclectic"
     }
   },
@@ -11,9 +11,9 @@
     "data": {
       "id": 1,
       "password":"$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
-      "email": "test1@test.com",
-      "fName": "Jimmy",
-      "lName": "Johnson",
+      "email": "ricky@gmail.com",
+      "fName": "Ricky",
+      "lName": "Walker",
       "userType": 0
     }
   },
@@ -22,9 +22,9 @@
     "data": {
       "id": 2,
       "password":"$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
-      "email": "test2@test.com",
-      "fName": "Buck",
-      "lName": "William",
+      "email": "kan@gmail.com",
+      "fName": "Kan",
+      "lName": "Adachi",
       "userType": 0
     }
   },
@@ -33,9 +33,9 @@
     "data": {
       "id": 3,
       "password":"$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
-      "email": "test3@test.com",
-      "fName": "Steve",
-      "lName": "Rogers",
+      "email": "mariano@gmail.com",
+      "fName": "Mariano",
+      "lName": "Okpalefe",
       "userType": 1
     }
   },
@@ -44,9 +44,9 @@
     "data": {
       "id": 4,
       "password":"$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
-      "email": "test4@test.com",
-      "fName": "Peter",
-      "lName": "Parker",
+      "email": "jason@gmail.com",
+      "fName": "Jason",
+      "lName": "Kim",
       "userType": 1
     }
   },
@@ -55,7 +55,7 @@
     "data": {
       "id": 5,
       "password": "$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
-      "email": "test5@test.com",
+      "email": "marc@gmail.com",
       "fName": "Marc",
       "lName": "Becker",
       "userType": 2,
@@ -63,12 +63,143 @@
     }
   },
   {
+    "model": "User",
+    "data": {
+      "id": 6,
+      "password": "$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
+      "email": "alex@gmail.com",
+      "fName": "Alex",
+      "lName": "Alek",
+      "userType": 1,
+      "school_id": 1
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 7,
+      "password": "$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
+      "email": "joe@gmail.com",
+      "fName": "Joe",
+      "lName": "Kim",
+      "userType": 1,
+      "school_id": 1
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 8,
+      "password": "$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
+      "email": "david@gmail.com",
+      "fName": "David",
+      "lName": "DeSousa",
+      "userType": 1,
+      "school_id": 1
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 9,
+      "password": "$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
+      "email": "ebrima@gmail.com",
+      "fName": "Ebrima",
+      "lName": "Jobe",
+      "userType": 1,
+      "school_id": 1
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 10,
+      "password": "$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
+      "email": "kevin@gmail.com",
+      "fName": "Kevin",
+      "lName": "Liu",
+      "userType": 1,
+      "school_id": 1
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 11,
+      "password": "$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
+      "email": "shak@gmail.com",
+      "fName": "Shak",
+      "lName": "Kaleemi",
+      "userType": 1,
+      "school_id": 1
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 12,
+      "password": "$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
+      "email": "hugo@gmail.com",
+      "fName": "Hugo",
+      "lName": "Dolemiux",
+      "userType": 1,
+      "school_id": 1
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 13,
+      "password": "$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
+      "email": "jaime@gmail.com",
+      "fName": "Jaime",
+      "lName": "Mendoza",
+      "userType": 1,
+      "school_id": 1
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 14,
+      "password": "$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
+      "email": "john@gmail.com",
+      "fName": "John",
+      "lName": "Kim",
+      "userType": 1,
+      "school_id": 1
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 15,
+      "password": "$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
+      "email": "james@gmail.com",
+      "fName": "James",
+      "lName": "Lee",
+      "userType": 1,
+      "school_id": 1
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 16,
+      "password": "$2a$10$6zrqQMx.aDtjJ5vjakuWFOKtMrm16JME3UBdbZJhqXdUkeVHFsp6e",
+      "email": "manny@gmail.com",
+      "fName": "Manny",
+      "lName": "Pacquiao",
+      "userType": 1,
+      "school_id": 1
+    }
+  },
+  {
     "model": "Cohort",
     "data": {
       "id": 1,
-      "subject": "MATH",
+      "subject": "CS 101",
       "semester": "FALL 2017",
-      "description": "Some description",
       "time": "13:00",
       "teacher_id": 1,
       "code": "martyr",
@@ -79,10 +210,9 @@
     "model": "Cohort",
     "data": {
       "id": 2,
-      "subject": "ENGLISH",
+      "subject": "CS 102",
       "semester": "FALL 2017",
-      "description": "Some description",
-      "time": "13:00",
+      "time": "15:00",
       "teacher_id": 1,
       "code": "bomber",
       "school_id": 1
@@ -92,10 +222,9 @@
     "model": "Cohort",
     "data": {
       "id": 3,
-      "subject": "SCIENCE",
+      "subject": "CS 404",
       "semester": "FALL 2017",
-      "description": "Some description",
-      "time": "13:00",
+      "time": "17:00",
       "teacher_id": 1,
       "code": "england",
       "school_id": 1
@@ -105,44 +234,44 @@
     "model": "Cohort",
     "data": {
       "id": 4,
-      "subject": "SCIENCE",
+      "subject": "PSYC 101",
       "semester": "FALL 2017",
-      "description": "Some description",
-      "time": "13:00",
+      "time": "10:00",
       "teacher_id": 2,
-      "code": "england"
+      "code": "angular",
+      "school_id": 1
     }
   },
   {
     "model": "Cohort",
     "data": {
       "id": 5,
-      "subject": "SCIENCE",
+      "subject": "PSYC 200",
       "semester": "FALL 2017",
-      "description": "Some description",
-      "time": "13:00",
+      "time": "15:00",
       "teacher_id": 2,
-      "code": "england"
+      "code": "reactor",
+      "school_id": 1
     }
   },
   {
     "model": "Cohort",
     "data": {
       "id": 6,
-      "subject": "SCIENCE",
+      "subject": "PSYC 204",
       "semester": "FALL 2017",
-      "description": "Some description",
-      "time": "13:00",
+      "time": "19:00",
       "teacher_id": 2,
-      "code": "england"
+      "code": "hack",
+      "school_id": 1
     }
   },
   {
     "model": "Lecture",
     "data": {
       "id": 1,
-      "name": "Addition Lecture",
-      "date": "2017-08-09",
+      "name": "Intro to CS",
+      "date": "2017-08-03",
       "cohort_id": 1
     }
   },
@@ -150,17 +279,17 @@
     "model": "Lecture",
     "data": {
       "id": 2,
-      "name": "Subtraction Lecture",
+      "name": "System Design",
       "date": "2017-08-02",
-      "cohort_id": 2
+      "cohort_id": 1
     }
   },
   {
     "model": "Lecture",
     "data": {
       "id": 3,
-      "name": "Multiplacation Lecture",
-      "date": "2017-08-03",
+      "name": "Data Structures",
+      "date": "2017-08-09",
       "cohort_id": 1
     }
   },
@@ -168,25 +297,43 @@
     "model": "Lecture",
     "data": {
       "id": 4,
-      "name": "Division Lecture",
+      "name": "API",
       "date": "2017-08-04",
-      "cohort_id": 3
+      "cohort_id": 1
     }
   },
   {
     "model": "Lecture",
     "data": {
       "id": 5,
-      "name": "Long Division Lecture",
-      "date": "2017-08-05",
-      "cohort_id": 3
+      "name": "Server",
+      "date": "2017-08-06",
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "Lecture",
+    "data": {
+      "id": 6,
+      "name": "ChatterBox",
+      "date": "2017-08-07",
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "Lecture",
+    "data": {
+      "id": 7,
+      "name": "Angular",
+      "date": "2017-08-07",
+      "cohort_id": 1
     }
   },
   {
     "model": "Topic",
     "data": {
       "id": 1,
-      "name": "Short Addition Topic",
+      "name": "Data Structures",
       "lecture_id": 1
     }
   },
@@ -194,7 +341,7 @@
     "model": "Topic",
     "data": {
       "id": 2,
-      "name": "Nothing Topic",
+      "name": "Algorithms",
       "lecture_id": 1
     }
   },
@@ -202,7 +349,7 @@
     "model": "Topic",
     "data": {
       "id": 3,
-      "name": "Science Topic",
+      "name": "APIs",
       "lecture_id": 1
     }
   },
@@ -210,23 +357,31 @@
     "model": "Topic",
     "data": {
       "id": 4,
-      "name": "Short Subtraction Topic",
-      "lecture_id": 3
+      "name": "Backbone",
+      "lecture_id": 1
     }
   },
   {
     "model": "Topic",
     "data": {
       "id": 5,
-      "name": "Short Multiplication Topic",
-      "lecture_id": 2
+      "name": "React",
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Topic",
+    "data": {
+      "id": 6,
+      "name": "mySQL",
+      "lecture_id": 1
     }
   },
   {
     "model": "Quiz",
     "data": {
       "id": 1,
-      "name": "Short Division Quiz",
+      "name": "Data Structures",
       "topic_id": 1
     }
   },
@@ -234,7 +389,7 @@
     "model": "Quiz",
     "data": {
       "id": 2,
-      "name": "Short Addition Quiz",
+      "name": "Toy Problems",
       "topic_id": 2
     }
   },
@@ -242,7 +397,7 @@
     "model": "Quiz",
     "data": {
       "id": 3,
-      "name": "Short Addition Quiz",
+      "name": "Recursion",
       "topic_id": 3
     }
   },
@@ -250,15 +405,15 @@
     "model": "Quiz",
     "data": {
       "id": 4,
-      "name": "Short Addition Quiz",
-      "topic_id": 3
+      "name": "Sorting Algorithms",
+      "topic_id": 4
     }
   },
   {
     "model": "Quiz",
     "data": {
       "id": 5,
-      "name": "Football Soccer Quiz",
+      "name": "Underbar",
       "topic_id": 1
     }
   },
@@ -266,17 +421,25 @@
     "model": "Quiz",
     "data": {
       "id": 6,
-      "name": "Long Addition Quiz",
-      "topic_id": 1
+      "name": "API Routes",
+      "topic_id": 5
+    }
+  },
+  {
+    "model": "Quiz",
+    "data": {
+      "id": 7,
+      "name": "Directives",
+      "topic_id": 6
     }
   },
   {
     "model": "Question",
     "data": {
       "id": 1,
-      "name": "1+1",
-      "choices": [0,1,2,3],
-      "correct": 2,
+      "name": "What is a hash table?",
+      "choices": ["A tree-like data structure", "A data structure utilizing key-value pairs", "Both", "None of the above"],
+      "correct": 1,
       "quiz_id": 1
     }
   },
@@ -284,9 +447,9 @@
     "model": "Question",
     "data": {
       "id": 2,
-      "name": "1+1",
-      "choices": [0,1,2,3],
-      "correct": 2,
+      "name": "What is a BST?",
+      "choices": ["A tree-like data structure", "A data structure utilizing key-value pairs", "Both", "None of the above"],
+      "correct": 0,
       "quiz_id": 1
     }
   },
@@ -294,8 +457,8 @@
     "model": "Question",
     "data": {
       "id": 3,
-      "name": "1+1",
-      "choices": [0,1,2,3],
+      "name": "What is a linked list?",
+      "choices": ["A set of data", "A linked set of data", "Both", "None of the above"],
       "correct": 2,
       "quiz_id": 1
     }
@@ -360,6 +523,94 @@
       "id": 4,
       "student_id": 4,
       "cohort_id": 2
+    }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 5,
+      "student_id": 6,
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 6,
+      "student_id": 7,
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 7,
+      "student_id": 8,
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 8,
+      "student_id": 9,
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 9,
+      "student_id": 10,
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 10,
+      "student_id": 11,
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 11,
+      "student_id": 12,
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 12,
+      "student_id": 13,
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 13,
+      "student_id": 14,
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 14,
+      "student_id": 15,
+      "cohort_id": 1
+    }
+  },
+  {
+    "model": "StudentCohort",
+    "data": {
+      "id": 15,
+      "student_id": 16,
+      "cohort_id": 1
     }
   },
   {
@@ -448,6 +699,193 @@
       "cohort_id": 1,
       "quiz_id": 3,
       "lecture_id": 3
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 9,
+      "percentage": 54,
+      "student_id": 3,
+      "cohort_id": 1,
+      "quiz_id": 4,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 10,
+      "percentage": 73,
+      "student_id": 6,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 11,
+      "percentage": 80,
+      "student_id": 7,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 12,
+      "percentage": 73,
+      "student_id": 8,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 13,
+      "percentage": 64,
+      "student_id": 9,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 14,
+      "percentage": 94,
+      "student_id": 10,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 15,
+      "percentage": 88,
+      "student_id": 11,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 16,
+      "percentage": 70,
+      "student_id": 12,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 17,
+      "percentage": 55,
+      "student_id": 13,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 18,
+      "percentage": 100,
+      "student_id": 14,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 19,
+      "percentage": 67,
+      "student_id": 15,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 20,
+      "percentage": 80,
+      "student_id": 16,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 1
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 21,
+      "percentage": 77,
+      "student_id": 3,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 6
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 22,
+      "percentage": 60,
+      "student_id": 3,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 5
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 23,
+      "percentage": 89,
+      "student_id": 3,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 4
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 24,
+      "percentage": 89,
+      "student_id": 3,
+      "cohort_id": 1,
+      "quiz_id": 5,
+      "lecture_id": 7
+    }
+  },
+  {
+    "model": "Result",
+    "data": {
+      "id": 25,
+      "percentage": 89,
+      "student_id": 3,
+      "cohort_id": 1,
+      "quiz_id": 7,
+      "lecture_id": 1
     }
   }
 ]
