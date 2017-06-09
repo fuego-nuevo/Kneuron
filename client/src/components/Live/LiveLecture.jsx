@@ -60,10 +60,14 @@ class LiveLecture extends Component {
       this.setState({ studentQuestions: [studentQuestions, ...this.state.studentQuestions] });
     });
     socket.on('student-answers', (studentAnswer) => {
-      this.setState({ studentAnswer: [studentAnswer, ...this.state.studentAnswer] });
+      const student = {
+        correct: studentAnswer.correct * 100,
+        name: studentAnswer.name,
+      };
+      this.setState({ studentAnswer: [student, ...this.state.studentAnswer] });
     });
     socket.on('student-track', (data) => {
-      this.setState({ studentsPresent: data });
+      this.setState({ studentsPresent: [...this.state.studentsPresent, data] });
     });
     topics.forEach((topic) => {
       topic.quizzes.forEach((quiz) => {

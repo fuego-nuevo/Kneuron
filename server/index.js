@@ -48,12 +48,24 @@ io.on('connection', (socket) => {
     io.sockets.to(teacherRoom).emit('live-lecture', topics);
   });
   socket.on('pop-quiz', (data) => {
-    console.log('pop quiz event emmittedddd!!!,', data.topic);
+    console.log('pop quiz event emmittedddd!!!,');
     const questions = data.questions;
     const time = data.time;
     const teacherRoom = data.id;
     const topic = data.topic;
     io.sockets.in(teacherRoom).emit('pop-quiz', { questions, time, topic });
+  });
+  socket.on('student-answers', (data) => {
+    console.log('We in student-answers yall ', data);
+    const correct = data.correct;
+    // const question = data.questionId;
+    const student = data.name;
+    const teacherRoom = data.teacher;
+    io.sockets.to(teacherRoom).emit('student-answers', {
+      name: student,
+      correct,
+      // questionId: question,
+    });
   });
   socket.on('attendance', (data) => {
     console.log('attendance!!!,', data);
@@ -78,18 +90,6 @@ io.on('connection', (socket) => {
       name: student,
       question,
       topicId: topic,
-    });
-  });
-  socket.on('student-answers', (data) => {
-    console.log('We in student-answers yall ', data);
-    const correct = data.correct;
-    // const question = data.questionId;
-    const student = data.name;
-    const teacherRoom = data.teacher;
-    io.sockets.to(teacherRoom).emit('student-answers', {
-      name: student,
-      correct,
-      // questionId: question,
     });
   });
 });
