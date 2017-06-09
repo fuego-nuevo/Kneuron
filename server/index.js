@@ -92,6 +92,10 @@ io.on('connection', (socket) => {
       topicId: topic,
     });
   });
+  socket.on('leave', (data) => {
+    io.sockets.to(data.id).emit('leave');
+    socket.leave(data.id);
+  });
 });
 
 server.listen(PORT, (err) => {
